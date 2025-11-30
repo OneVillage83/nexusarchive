@@ -135,22 +135,41 @@ export default function AboutPage() {
                 “How can I give feedback or report bugs?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                See something cursed? Either a layout bug or a card combo that
-                should not exist? For now, the best way is to scream into the
-                void politely via the contact methods listed below (coming
-                soon™).
-              </p>
-            </div>
-          </div>
-        </section>
+              See something cursed? Either a layout bug or a card combo that should not exist? The best way is to{" "}
+              <Link
+              href="/contact"
+              className="text-amber-300 underline-offset-2 hover:underline"
+             >
+             send a message through the contact lab
+             </Link>{" "}
+             or email{" "}
+             <span className="font-semibold text-slate-50">
+               oops@nexusarchive.lol
+             </span>{" "}
+             for bugs and{" "}
+             <span className="font-semibold text-slate-50">
+              suggestions@nexusarchive.lol
+             </span>{" "}
+              for ideas.
+            </p>
+           </div>
 
         {/* CONTACT / LEGAL LINKS */}
         <section className="space-y-3 border-t border-white/10 pt-6 text-sm">
           <p className="text-slate-300">
-            Want to help, send feedback, or just share a spicy list? A proper
-            contact form and social links are planned. Until then, imagine a
-            very serious “Contact coming soon” button here.
-          </p>
+          Want to help, send feedback, or just share a spicy list? You can now{" "}
+          <Link
+         href="/contact"
+         className="text-amber-300 underline-offset-2 hover:underline"
+        >
+         talk directly to the lab on the Contact page
+        </Link>
+        . Or email{" "}
+      <span className="font-semibold text-slate-50">
+       info@nexusarchive.lol
+      </span>{" "}
+       if you prefer good old-fashioned scrolls… uh, emails.
+     </p>
 
           <p className="text-xs text-slate-400">
             For the full wall of text, see our{" "}

@@ -44,11 +44,18 @@ export default function RootLayout({
         />
       </div>
 
-      {/* Optional tiny wordmark beside icon */}
-      <span className="hidden text-sm font-semibold tracking-wide text-amber-200/90 sm:inline">
-        NexusArchive
-      </span>
-    </Link>
+      {/* Wordmark beside icon */}
+  <div className="relative hidden h-6 w-32 sm:block md:h-7 md:w-40">
+    <Image
+      src="/Logos/wordmarktransparent.png"
+      alt="NexusArchive wordmark"
+      fill
+      sizes="160px"
+      className="object-contain drop-shadow-[0_0_16px_rgba(250,204,21,0.7)]"
+      priority
+    />
+  </div>
+</Link>
 
     {/* Nav links */}
     <nav className="flex items-center gap-4 text-xs sm:text-sm">
@@ -107,7 +114,7 @@ export default function RootLayout({
                   <div className="flex items-center">
                     <div className="relative h-14 w-56 md:h-16 md:w-64">
                       <Image
-                        src="/logos/wordmarktransparent.png"
+                        src="/Logos/wordmarktransparent.png"
                         alt="NexusArchive wordmark"
                         fill
                         sizes="(min-width: 768px) 256px, 224px"
