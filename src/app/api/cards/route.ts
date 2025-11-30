@@ -6,8 +6,6 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") ?? "").trim();
 
-  // 👇 Strongly type `where` as Prisma.CardWhereInput
-  // and drop the `mode: "insensitive"` for now
   const where: Prisma.CardWhereInput | undefined = q
     ? {
         OR: [
