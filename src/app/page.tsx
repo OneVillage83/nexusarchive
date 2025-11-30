@@ -1,65 +1,161 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="space-y-10">
+      {/* Hero section */}
+      <section className="space-y-6">
+        <div className="space-y-4">
+          <h1 className="text-4xl font-semibold sm:text-5xl">
+            The Nexus for Riftbound cards, decks, and combos.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
+            Search every card, build and share decks, discover powerful combos,
+            and track TCGplayer market prices — a nexus for Riftbound players.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Search form → /cards?q=... */}
+        <form action="/cards" method="GET" className="flex max-w-xl gap-2">
+          <input
+            type="search"
+            name="q"
+            placeholder="Try searching for a card name, champion, or keyword…"
+            className="h-11 flex-1 rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          />
+          <button
+            type="submit"
+            className="h-11 rounded-md bg-emerald-500 px-5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Search
+          </button>
+        </form>
+
+        <div className="flex flex-wrap gap-3 text-xs text-slate-400">
+          <span>Open tools:</span>
+          <Link
+            href="/deckbuilder"
+            className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-300 hover:bg-emerald-500/20"
           >
-            Documentation
-          </a>
+            Open Deck Builder
+          </Link>
+          <Link
+            href="/cards"
+            className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+          >
+            Browse Card Gallery
+          </Link>
+          <Link
+            href="/combos"
+            className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+          >
+            Explore Combo Finder
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Latest section */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Latest from the Archive</h2>
+          <span className="text-xs text-slate-500">
+            New cards, decks, and articles added over time.
+          </span>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {/* Newest Cards */}
+          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+            <h3 className="text-sm font-semibold">Newest Cards</h3>
+            <p className="mt-1 text-xs text-slate-400">
+              Recent additions to the Riftbound card pool.
+            </p>
+
+            <div className="mt-4 flex gap-2">
+              <div className="h-20 w-14 rounded-md bg-slate-800" />
+              <div className="h-20 w-14 rounded-md bg-slate-800" />
+              <div className="h-20 w-14 rounded-md bg-slate-800" />
+            </div>
+
+            <Link
+              href="/cards"
+              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+            >
+              View Card Gallery →
+            </Link>
+          </div>
+
+          {/* New Deck Lists */}
+          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+            <h3 className="text-sm font-semibold">New Deck Lists</h3>
+            <p className="mt-1 text-xs text-slate-400">
+              Recently added or updated builds.
+            </p>
+
+            <div className="mt-4 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-slate-100">
+                    Sample Aggro List
+                  </div>
+                  <div className="text-slate-500">
+                    Riftbound early meta shell
+                  </div>
+                </div>
+                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+                  Score 82
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-slate-100">
+                    Control Shell (WIP)
+                  </div>
+                  <div className="text-slate-500">
+                    Experimental late-game control build
+                  </div>
+                </div>
+                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+                  Score 76
+                </span>
+              </div>
+            </div>
+
+            <Link
+              href="/decklists"
+              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+            >
+              Browse Deck Lists →
+            </Link>
+          </div>
+
+          {/* Latest Article */}
+          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+            <h3 className="text-sm font-semibold">Latest Article</h3>
+            <p className="mt-1 text-xs text-slate-400">
+              Meta reports, patch breakdowns, and card highlights.
+            </p>
+
+            <div className="mt-4 space-y-1 text-xs">
+              <div className="font-medium text-slate-100">
+                Riftbound Launch: Early Deck Archetypes
+              </div>
+              <p className="text-slate-500">
+                A first look at the most promising champions and core shells
+                emerging from the early Riftbound meta…
+              </p>
+            </div>
+
+            <Link
+              href="/articles"
+              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+            >
+              View Articles →
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id             Int            @id @default(autoincrement())
+  name           String
+  type           String
+  domains        String[]
+  rarity         String
+  energyCost     Int?
+  power          Int?
+  might          Int?
+  hp             Int?
+  text           String?
+  flavor         String?
+  setCode        String?
+  setName        String?
+  collectorNo    String?
+  imageUrl       String?
+  championId     Int?
+  champion       Champion?      @relation(fields: [championId], references: [id])
+
+  prices         CardPrice[]
+  deckEntries    DeckCard[]
+  comboEntries   ComboCard[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Champion {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String?
+  imageUrl  String?
+
+  cards     Card[]
+}
+
+model CardPrice {
+  id               Int      @id @default(autoincrement())
+  cardId           Int
+  tcgProductId     Int?
+  marketPrice      Float?
+  lowPrice         Float?
+  midPrice         Float?
+  highPrice        Float?
+  buylistMarket    Float?
+  currency         String   @default("USD")
+  lastUpdatedAt    DateTime @default(now())
+
+  card             Card     @relation(fields: [cardId], references: [id])
+}
+
+model Deck {
+  id            Int        @id @default(autoincrement())
+  name          String
+  description   String?
+  championId    Int?
+  author        String?
+
+  scoreOverall  Int?
+  scorePower    Int?
+  scoreBudget   Int?
+  scorePopular  Int?
+
+  tags          String[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  cards         DeckCard[]
+}
+
+model DeckCard {
+  id          Int    @id @default(autoincrement())
+  deckId      Int
+  cardId      Int
+  quantity    Int    @default(1)
+
+  deck        Deck   @relation(fields: [deckId], references: [id])
+  card        Card   @relation(fields: [cardId], references: [id])
+}
+
+model Combo {
+  id           Int       @id @default(autoincrement())
+  name         String
+  description  String?
+  requirements String?
+  output       String?
+  tags         String[]
+
+  cards        ComboCard[]
+}
+
+model ComboCard {
+  id        Int    @id @default(autoincrement())
+  comboId   Int
+  cardId    Int
+  quantity  Int    @default(1)
+
+  combo     Combo  @relation(fields: [comboId], references: [id])
+  card      Card   @relation(fields: [cardId], references: [id])
+}
