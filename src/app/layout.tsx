@@ -82,6 +82,12 @@ export default function RootLayout({
       >
         About / FAQ
       </Link>
+      <Link
+        href="/contact"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        Contact
+      </Link>
     </nav>
   </div>
 </header>
@@ -165,7 +171,13 @@ export default function RootLayout({
                         About / FAQ
                       </Link>
                     </li>
-                    <li className="text-slate-600">Contact (coming soon)</li>
+                    <<li>
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-emerald-300">
+                        Contact
+                      </Link>
+                    </li>
                   </ul>
                 </div>
 

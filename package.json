@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint",
-  "postinstall": "prisma generate",
-  "import:cards": "node scripts/import-riftbound-cards.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "import:cards": "node scripts/import-riftbound-cards.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "@prisma/client": "6.19.0",
     "next": "16.0.5",
+    "nodemailer": "^7.0.11",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

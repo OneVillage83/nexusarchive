@@ -118,11 +118,17 @@ export default function AboutPage() {
                 “Will this always be free?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                Core tools? Yes. If anything ever becomes paid, it’ll be
-                optional “extra-nerd” features, not basic access. Think fancy
-                analytics, not “pay 9.99 to see card text.”
+                That’s the plan. Core NexusArchive tools are meant to stay{" "}
+                <span className="font-semibold text-slate-50">free forever</span>. 
+                No “premium card text,” no “pay to see your own decklist.” If this
+                ever costs money, it’ll be paid in{" "}
+                <span className="italic">gratitude, memes, and maybe donations</span>.
               </p>
-            </div>
+                <p className="mt-1 text-xs text-slate-400">
+                Hosting is kept alive by ads and community support. If that combo
+                stops working, we’ll fix the combo—not sneak in a lootbox.
+              </p>
+             </div>
 
             <div className="rounded-xl border border-white/10 bg-black/55 p-4">
               <div className="text-sm font-semibold text-slate-50">
