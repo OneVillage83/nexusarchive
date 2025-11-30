@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,20 +29,21 @@ export default function RootLayout({
           {/* Top nav */}
           <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-              {/* Logo / Home link */}
-              <Link href="/" className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-400 to-emerald-400 shadow-lg shadow-emerald-500/40" />
-                <div className="flex flex-col leading-tight">
-                  <span className="text-lg font-semibold tracking-wide">
-                    NexusArchive
-                  </span>
-                  <span className="text-xs text-slate-400">
-                    Unofficial Riftbound card archive.
-                  </span>
+              {/* Logo only, no text */}
+              <Link href="/" className="flex items-center">
+                <div className="relative h-10 w-10">
+                  <Image
+                    src="/Logos/transparentsymbollogo.png"
+                    alt="NexusArchive logo"
+                    fill
+                    sizes="40px"
+                    className="object-contain"
+                    priority
+                  />
                 </div>
               </Link>
 
-              {/* Nav links (no legal link here on purpose) */}
+              {/* Nav links */}
               <nav className="flex items-center gap-4 text-sm">
                 <Link
                   href="/cards"
@@ -93,16 +95,18 @@ export default function RootLayout({
             <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-slate-400">
               {/* Columns */}
               <div className="grid gap-6 md:grid-cols-4">
-                {/* Brand / tagline */}
-                <div className="space-y-2">
-                  <div className="text-sm font-semibold text-slate-100">
-                    NexusArchive.lol
-                  </div>
-                  <p className="text-[11px] text-slate-500">
-                    Unofficial Riftbound card search, decks, and combo tools for
-                    players who love tinkering with lists.
-                  </p>
-                </div>
+                {/* Brand wordmark */}
+                  <div className="flex items-center">
+                    <div className="relative h-14 w-56 md:h-16 md:w-64">
+                      <Image
+                        src="/logos/wordmarktransparent.png"
+                        alt="NexusArchive wordmark"
+                        fill
+                        sizes="(min-width: 768px) 256px, 224px"
+                        className="object-contain"
+                      />
+                    </div>
+                   </div>
 
                 {/* Tools */}
                 <div className="space-y-2">
@@ -113,7 +117,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/cards"
-                        className="hover:text-emerald-300 transition-colors"
+                        className="transition-colors hover:text-emerald-300"
                       >
                         Card Gallery
                       </Link>
@@ -121,7 +125,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/deckbuilder"
-                        className="hover:text-emerald-300 transition-colors"
+                        className="transition-colors hover:text-emerald-300"
                       >
                         Deck Builder
                       </Link>
@@ -129,7 +133,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/combos"
-                        className="hover:text-emerald-300 transition-colors"
+                        className="transition-colors hover:text-emerald-300"
                       >
                         Combo Finder
                       </Link>
@@ -137,7 +141,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/decklists"
-                        className="hover:text-emerald-300 transition-colors"
+                        className="transition-colors hover:text-emerald-300"
                       >
                         Deck Lists
                       </Link>
@@ -154,15 +158,12 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/about"
-                        className="hover:text-emerald-300 transition-colors"
+                        className="transition-colors hover:text-emerald-300"
                       >
                         About / FAQ
                       </Link>
                     </li>
-                    {/* Placeholder for future contact page */}
-                    <li className="text-slate-600">
-                      Contact (coming soon)
-                    </li>
+                    <li className="text-slate-600">Contact (coming soon)</li>
                   </ul>
                 </div>
 
@@ -175,7 +176,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/legal"
-                        className="text-slate-500 hover:text-emerald-300 transition-colors"
+                        className="text-slate-500 transition-colors hover:text-emerald-300"
                       >
                         tiny little legal stuff →
                       </Link>
@@ -187,9 +188,9 @@ export default function RootLayout({
               {/* Riot / IP disclaimer */}
               <div className="mt-6 space-y-1 text-[11px] text-slate-500">
                 <p>
-                  NexusArchive is an unofficial fan project and is not
-                  endorsed by, directly affiliated with, maintained,
-                  authorized, or sponsored by Riot Games, Inc.
+                  NexusArchive is an unofficial fan project and is not endorsed
+                  by, directly affiliated with, maintained, authorized, or
+                  sponsored by Riot Games, Inc.
                 </p>
                 <p>
                   NexusArchive was created under Riot Games&apos;{" "}

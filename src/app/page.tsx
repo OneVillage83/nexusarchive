@@ -8,15 +8,10 @@ export default function HomePage() {
         <div className="w-full flex flex-col items-center text-center space-y-6">
           {/* Title */}
           <div className="space-y-4 max-w-3xl">
-            <h1 className="text-4xl font-semibold sm:text-5xl">
-              NexusArchive is a powerful Riftbound card search.
-            </h1>
-            <p className="text-sm text-slate-300 sm:text-base">
-              Look up any Riftbound card, explore combos, and build decks – all
-              in one unofficial fan-made archive.
-            </p>
-          </div>
-
+            <h1 className="text-3xl font-semibold sm:text-4xl">
+              NexusArchive – all the Riftbound tools you need in one spot.
+          </h1>
+         </div>
           {/* Search form → /cards?q=... */}
           <form
             action="/cards"
@@ -27,11 +22,20 @@ export default function HomePage() {
               type="search"
               name="q"
               placeholder="Search for a card, champion, or keyword…"
-              className="h-11 w-full rounded-md border border-slate-700 bg-slate-900/90 px-4 text-sm text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="h-11 w-full rounded-xl border border-na-blue/60 bg-na-surface-soft px-4 text-sm text-slate-100
+                         placeholder:text-slate-500
+                         focus:border-na-cyan focus:outline-none
+                         focus:ring-2 focus:ring-na-cyan/70 focus:ring-offset-2 focus:ring-offset-na-bg
+                         transition-all"
             />
             <button
               type="submit"
-              className="h-11 shrink-0 rounded-md bg-emerald-500 px-5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+              className="h-11 shrink-0 rounded-full
+                         bg-amber-400 px-6 text-sm font-semibold text-slate-950
+                         shadow-none
+                         transition-all duration-200
+                         hover:bg-amber-300
+                         hover:shadow-[0_0_30px_rgba(251,191,36,0.65)]"
             >
               Search
             </button>
@@ -39,22 +43,31 @@ export default function HomePage() {
 
           {/* Quick links */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400">
-            <span>Jump to:</span>
+            <span className="text-na-cyan/80">Jump to:</span>
+
             <Link
               href="/deckbuilder"
-              className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-300 hover:bg-emerald-500/20"
+              className="rounded-full border border-na-gold/60 bg-na-gold/15 px-3 py-1 text-na-gold
+                         hover:bg-na-gold/25 hover:border-na-gold
+                         transition-colors"
             >
               Deck Builder
             </Link>
+
             <Link
               href="/cards"
-              className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+              className="rounded-full border border-na-blue/70 bg-na-surface-soft px-3 py-1 text-slate-200
+                         hover:border-na-cyan hover:text-na-cyan
+                         transition-colors"
             >
               Card Gallery
             </Link>
+
             <Link
               href="/combos"
-              className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+              className="rounded-full border border-na-blue/70 bg-na-surface-soft px-3 py-1 text-slate-200
+                         hover:border-na-cyan hover:text-na-cyan
+                         transition-colors"
             >
               Combo Finder
             </Link>
@@ -64,12 +77,19 @@ export default function HomePage() {
 
       {/* Latest section */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Latest from the Archive</h2>
+        <h2 className="text-lg font-semibold text-na-gold">
+          Latest from the Archive
+        </h2>
 
         <div className="grid gap-4 md:grid-cols-3">
           {/* Newest Cards */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">Newest Cards</h3>
+          <div
+            className="rounded-2xl border border-na-blue/60 bg-na-surface/90 p-4
+                       shadow-[0_0_22px_rgba(15,23,42,0.85)]
+                       hover:border-na-cyan hover:shadow-[0_0_30px_rgba(56,189,248,0.45)]
+                       transition-all"
+          >
+            <h3 className="text-sm font-semibold text-slate-50">Newest Cards</h3>
             <p className="mt-1 text-xs text-slate-400">
               Recent additions to the Riftbound card pool.
             </p>
@@ -78,54 +98,68 @@ export default function HomePage() {
               {/* Placeholder clickable slots – later these will be real newest cards */}
               <Link
                 href="/cards"
-                className="h-20 w-14 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors"
+                className="h-20 w-14 rounded-lg bg-na-surface-soft/80
+                           outline outline-1 outline-na-blue/60
+                           hover:outline-na-cyan hover:bg-na-surface-soft
+                           transition-all"
               />
               <Link
                 href="/cards"
-                className="h-20 w-14 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors"
+                className="h-20 w-14 rounded-lg bg-na-surface-soft/80
+                           outline outline-1 outline-na-blue/60
+                           hover:outline-na-cyan hover:bg-na-surface-soft
+                           transition-all"
               />
               <Link
                 href="/cards"
-                className="h-20 w-14 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors"
+                className="h-20 w-14 rounded-lg bg-na-surface-soft/80
+                           outline outline-1 outline-na-blue/60
+                           hover:outline-na-cyan hover:bg-na-surface-soft
+                           transition-all"
               />
             </div>
 
             <Link
               href="/cards"
-              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+              className="mt-4 inline-flex text-xs font-medium text-na-cyan hover:text-na-gold transition-colors"
             >
               View Card Gallery →
             </Link>
           </div>
 
           {/* New Deck Lists */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">New Deck Lists</h3>
+          <div
+            className="rounded-2xl border border-na-blue/60 bg-na-surface/90 p-4
+                       shadow-[0_0_22px_rgba(15,23,42,0.85)]
+                       hover:border-na-cyan hover:shadow-[0_0_30px_rgba(56,189,248,0.45)]
+                       transition-all"
+          >
+            <h3 className="text-sm font-semibold text-slate-50">New Deck Lists</h3>
             <p className="mt-1 text-xs text-slate-400">
               Recently added or updated builds.
             </p>
 
             <div className="mt-4 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <div>
                   <div className="font-medium text-slate-100">
                     Sample Aggro List
                   </div>
                   <div className="text-slate-500">Early meta shell</div>
                 </div>
-                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+                <span className="rounded-full bg-na-emerald/15 px-2 py-1 text-[10px] text-na-emerald">
                   Score 82
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <div>
                   <div className="font-medium text-slate-100">
                     Control Shell (WIP)
                   </div>
                   <div className="text-slate-500">Experimental control build</div>
                 </div>
-                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+                <span className="rounded-full bg-na-emerald/15 px-2 py-1 text-[10px] text-na-emerald">
                   Score 76
                 </span>
               </div>
@@ -133,15 +167,20 @@ export default function HomePage() {
 
             <Link
               href="/decklists"
-              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+              className="mt-4 inline-flex text-xs font-medium text-na-cyan hover:text-na-gold transition-colors"
             >
               Browse Deck Lists →
             </Link>
           </div>
 
           {/* Latest Article */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">Latest Article</h3>
+          <div
+            className="rounded-2xl border border-na-blue/60 bg-na-surface/90 p-4
+                       shadow-[0_0_22px_rgba(15,23,42,0.85)]
+                       hover:border-na-cyan hover:shadow-[0_0_30px_rgba(56,189,248,0.45)]
+                       transition-all"
+          >
+            <h3 className="text-sm font-semibold text-slate-50">Latest Article</h3>
             <p className="mt-1 text-xs text-slate-400">
               Meta reports, patch breakdowns, and highlights.
             </p>
@@ -158,7 +197,7 @@ export default function HomePage() {
 
             <Link
               href="/articles"
-              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+              className="mt-4 inline-flex text-xs font-medium text-na-cyan hover:text-na-gold transition-colors"
             >
               View Articles →
             </Link>
