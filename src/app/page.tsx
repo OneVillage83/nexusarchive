@@ -61,80 +61,89 @@ export default function HomePage() {
       </section>
 
       {/* Latest section */}
-      <section className="space-y-4">
+<section className="space-y-4">
+  <h2 className="text-lg font-semibold">Latest from the Archive</h2>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    
+    {/* Newest Cards */}
+    <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+      <h3 className="text-sm font-semibold">Newest Cards</h3>
+      <p className="mt-1 text-xs text-slate-400">
+        Recent additions to the Riftbound card pool.
+      </p>
+
+      <div className="mt-4 flex justify-center gap-2">
+        <div className="h-20 w-14 rounded-md bg-slate-800" />
+        <div className="h-20 w-14 rounded-md bg-slate-800" />
+        <div className="h-20 w-14 rounded-md bg-slate-800" />
+      </div>
+
+      <Link
+        href="/cards"
+        className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+      >
+        View Card Gallery →
+      </Link>
+    </div>
+
+    {/* New Deck Lists */}
+    <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+      <h3 className="text-sm font-semibold">New Deck Lists</h3>
+      <p className="mt-1 text-xs text-slate-400">
+        Recently added or updated builds.
+      </p>
+
+      <div className="mt-4 space-y-2 text-xs">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Latest from the Archive</h2>
-          {/* Removed the subtext to keep clean */}
+          <div>
+            <div className="font-medium text-slate-100">Sample Aggro List</div>
+            <div className="text-slate-500">Early meta shell</div>
+          </div>
+          <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+            Score 82
+          </span>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          
-          {/* Newest Cards */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">Newest Cards</h3>
-            <p className="mt-1 text-xs text-slate-400">
-              Recent additions to the Riftbound card pool.
-            </p>
-
-            <div className="mt-4 flex justify-center gap-2">
-              <div className="h-20 w-14 rounded-md bg-slate-800" />
-              <div className="h-20 w-14 rounded-md bg-slate-800" />
-              <div className="h-20 w-14 rounded-md bg-slate-800" />
-            </div>
-
-            <Link
-              href="/cards"
-              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
-            >
-              View Card Gallery →
-            </Link>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="font-medium text-slate-100">Control Shell (WIP)</div>
+            <div className="text-slate-500">Experimental control build</div>
           </div>
+          <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
+            Score 76
+          </span>
+        </div>
+      </div>
 
-          {/* New Deck Lists */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">New Deck Lists</h3>
-            <p className="mt-1 text-xs text-slate-400">
-              Recently added or updated builds.
-            </p>
+      <Link
+        href="/decklists"
+        className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+      >
+        Browse Deck Lists →
+      </Link>
+    </div>
 
-            <div className="mt-4 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-medium text-slate-100">Sample Aggro List</div>
-                  <div className="text-slate-500">Early meta shell</div>
-                </div>
-                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
-                  Score 82
-                </span>
-              </div>
+    {/* Latest Article */}
+    <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+      <h3 className="text-sm font-semibold">Latest Article</h3>
+      <p className="mt-1 text-xs text-slate-400">
+        Meta reports, patch breakdowns, and highlights.
+      </p>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-medium text-slate-100">Control Shell (WIP)</div>
-                  <div className="text-slate-500">Experimental control build</div>
-                </div>
-                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
-                  Score 76
-                </span>
-              </div>
-            </div>
+      <div className="mt-4 space-y-1 text-xs">
+        <div className="font-medium text-slate-100">
+          Riftbound Launch: Early Deck Archetypes
+        </div>
+      </div>
 
-            <Link
-              href="/decklists"
-              className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
-            >
-              Browse Deck Lists →
-            </Link>
-          </div>
+      <Link
+        href="/articles"
+        className="mt-4 inline-flex text-xs font-medium text-emerald-400 hover:text-emerald-300"
+      >
+        View Articles →
+      </Link>
+    </div>
 
-          {/* Latest Article */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <h3 className="text-sm font-semibold">Latest Article</h3>
-            <p className="mt-1 text-xs text-slate-400">
-              Meta reports, patch breakdowns, and highlights.
-            </p>
-
-            <div className="mt-4 space-y-1 text-xs">
-              <div className="font-medium text-slate-100">
-                Riftbound Launch: Early Deck Archetypes
-              </div>
+  </div>
+</section>
