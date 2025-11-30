@@ -2,57 +2,62 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       {/* Hero section */}
-      <section className="space-y-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-semibold sm:text-5xl">
-            Unofficial Riftbound card archive, decks, and combos.
-          </h1>
-          <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
-            NexusArchive is a fan-made tool for Riftbound players: search every
-            card, build and share decks, discover powerful combos, and (in the
-            future) track market prices. This site is not affiliated with or
-            endorsed by Riot Games.
-          </p>
-        </div>
+      <section className="pt-8 pb-4">
+        <div className="flex flex-col items-center text-center space-y-6">
+          <div className="space-y-4 max-w-2xl">
+            <h1 className="text-4xl font-semibold sm:text-5xl">
+              NexusArchive is a powerful Riftbound card search.
+            </h1>
+            <p className="text-sm text-slate-300 sm:text-base">
+              Look up any Riftbound card, explore combos, and build decks –
+              all in one unofficial fan-made archive.
+            </p>
+          </div>
 
-        {/* Search form → /cards?q=... */}
-        <form action="/cards" method="GET" className="flex max-w-xl gap-2">
-          <input
-            type="search"
-            name="q"
-            placeholder="Try searching for a card name, champion, or keyword…"
-            className="h-11 flex-1 rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-          />
-          <button
-            type="submit"
-            className="h-11 rounded-md bg-emerald-500 px-5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+          {/* Search form → /cards?q=... */}
+          <form
+            action="/cards"
+            method="GET"
+            className="mt-4 flex w-full max-w-xl items-center justify-center gap-2"
           >
-            Search
-          </button>
-        </form>
+            <input
+              type="search"
+              name="q"
+              placeholder="Search for a card, champion, or keyword…"
+              className="h-11 w-full rounded-md border border-slate-700 bg-slate-900/90 px-4 text-sm text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+            <button
+              type="submit"
+              className="h-11 shrink-0 rounded-md bg-emerald-500 px-5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+            >
+              Search
+            </button>
+          </form>
 
-        <div className="flex flex-wrap gap-3 text-xs text-slate-400">
-          <span>Open tools:</span>
-          <Link
-            href="/deckbuilder"
-            className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-300 hover:bg-emerald-500/20"
-          >
-            Open Deck Builder
-          </Link>
-          <Link
-            href="/cards"
-            className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
-          >
-            Browse Card Gallery
-          </Link>
-          <Link
-            href="/combos"
-            className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
-          >
-            Explore Combo Finder
-          </Link>
+          {/* Quick links under the bar */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400">
+            <span>Jump to:</span>
+            <Link
+              href="/deckbuilder"
+              className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-300 hover:bg-emerald-500/20"
+            >
+              Deck Builder
+            </Link>
+            <Link
+              href="/cards"
+              className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+            >
+              Card Gallery
+            </Link>
+            <Link
+              href="/combos"
+              className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 hover:border-emerald-400 hover:text-emerald-300"
+            >
+              Combo Finder
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -61,7 +66,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Latest from the Archive</h2>
           <span className="text-xs text-slate-500">
-            New cards, decks, and articles will be added over time.
+            New cards, decks, and articles will appear here over time.
           </span>
         </div>
 
@@ -73,7 +78,7 @@ export default function HomePage() {
               Recent additions to the Riftbound card pool.
             </p>
 
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 flex justify-center gap-2">
               <div className="h-20 w-14 rounded-md bg-slate-800" />
               <div className="h-20 w-14 rounded-md bg-slate-800" />
               <div className="h-20 w-14 rounded-md bg-slate-800" />
@@ -101,7 +106,7 @@ export default function HomePage() {
                     Sample Aggro List
                   </div>
                   <div className="text-slate-500">
-                    Riftbound early meta shell
+                    Early meta shell (placeholder example)
                   </div>
                 </div>
                 <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] text-emerald-300">
@@ -144,8 +149,8 @@ export default function HomePage() {
                 Riftbound Launch: Early Deck Archetypes
               </div>
               <p className="text-slate-500">
-                A first look at the most promising champions and core shells
-                emerging from the early Riftbound meta…
+                A first look at champions and core shells that might define the
+                early Riftbound meta…
               </p>
             </div>
 
