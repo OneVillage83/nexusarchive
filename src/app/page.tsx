@@ -7,11 +7,13 @@ export default function HomePage() {
       <section className="space-y-6">
         <div className="space-y-4">
           <h1 className="text-4xl font-semibold sm:text-5xl">
-            The Nexus for Riftbound cards, decks, and combos.
+            Unofficial Riftbound card archive, decks, and combos.
           </h1>
           <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
-            Search every card, build and share decks, discover powerful combos,
-            and track TCGplayer market prices — a nexus for Riftbound players.
+            NexusArchive is a fan-made tool for Riftbound players: search every
+            card, build and share decks, discover powerful combos, and (in the
+            future) track market prices. This site is not affiliated with or
+            endorsed by Riot Games.
           </p>
         </div>
 
@@ -59,7 +61,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Latest from the Archive</h2>
           <span className="text-xs text-slate-500">
-            New cards, decks, and articles added over time.
+            New cards, decks, and articles will be added over time.
           </span>
         </div>
 

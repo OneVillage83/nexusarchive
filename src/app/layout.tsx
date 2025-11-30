@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "NexusArchive – Everything Riftbound, all in one archive.",
   description:
-    "NexusArchive is a free, Riftbound card database with current market prices, a powerful deck builder, and a combo finder — built to be the Nexus for every Riftbound player.",
+    "NexusArchive is an unofficial, fan-made Riftbound card database with deck tools and combos — built to be the Nexus for every Riftbound player. Not affiliated with Riot Games.",
 };
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
                     NexusArchive
                   </span>
                   <span className="text-xs text-slate-400">
-                    Everything Riftbound, all in one archive.
+                    Unofficial Riftbound card archive.
                   </span>
                 </div>
               </Link>
@@ -80,6 +80,7 @@ export default function RootLayout({
                 >
                   About / FAQ
                 </Link>
+                {/* no Legal link here on purpose */}
               </nav>
             </div>
           </header>
@@ -89,13 +90,37 @@ export default function RootLayout({
             <div className="mx-auto max-w-6xl px-4 py-8">{children}</div>
           </main>
 
-          {/* Footer */}
+          {/* Footer – Riot / Riftbound legal */}
           <footer className="border-t border-slate-800 bg-slate-950/80">
-            <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-slate-500">
-              NexusArchive.lol · Riftbound tools &amp; database ·{" "}
-              <span className="text-slate-400">
-                Unofficial fan project – not affiliated with Riot Games.
-              </span>
+            <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-slate-500 space-y-1">
+              <p>
+                <span className="font-semibold text-slate-300">
+                  NexusArchive.lol
+                </span>{" "}
+                · Riftbound tools &amp; database.
+              </p>
+
+              <p>Unofficial fan project – not affiliated with Riot Games.</p>
+
+              <p>
+                NexusArchive was created under Riot Games&apos; &quot;Legal
+                Jibber Jabber&quot; policy using assets owned by Riot Games.
+                Riot Games does not endorse or sponsor this project.
+              </p>
+
+              <p>
+                Riftbound™ and all related assets are the property of Riot
+                Games, Inc. All rights reserved.
+              </p>
+
+              <p className="pt-2">
+                <a
+                  href="/legal"
+                  className="text-slate-600 hover:text-emerald-300 underline hover:no-underline"
+                >
+                  tiny little legal stuff →
+                </a>
+              </p>
             </div>
           </footer>
         </div>
