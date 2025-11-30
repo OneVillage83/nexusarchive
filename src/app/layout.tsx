@@ -171,7 +171,7 @@ export default function RootLayout({
                         About / FAQ
                       </Link>
                     </li>
-                    <<li>
+                    <li>
                       <Link
                         href="/contact"
                         className="transition-colors hover:text-emerald-300">
