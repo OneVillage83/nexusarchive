@@ -22,68 +22,70 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          " min-h-screen bg-slate-950 text-slate-100 antialiased"
+           " min-h-screen text-slate-50 antialiased " +
+          // Arcane-style gradient base
+          "bg-gradient-to-b from-[#050816] via-[#0a1021] to-[#020617]"
         }
       >
         <div className="flex min-h-screen flex-col">
           {/* Top nav */}
-          <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-              {/* Logo only, no text */}
-              <Link href="/" className="flex items-center">
-                <div className="relative h-10 w-10">
-                  <Image
-                    src="/Logos/transparentsymbollogo.png"
-                    alt="NexusArchive logo"
-                    fill
-                    sizes="40px"
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </Link>
+          <header className="border-b border-white/5 bg-gradient-to-b from-black/50 via-black/20 to-transparent backdrop-blur-md">
+  <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    {/* Logo */}
+    <Link href="/" className="flex items-center gap-2">
+      <div className="relative h-10 w-10 rounded-xl bg-black/40 shadow-[0_0_25px_rgba(250,204,21,0.55)]">
+        <Image
+          src="/Logos/nexusarchivelogo.png" // put your glowing d20 logo here
+          alt="NexusArchive logo"
+          fill
+          sizes="40px"
+          className="object-contain"
+          priority
+        />
+      </div>
 
-              {/* Nav links */}
-              <nav className="flex items-center gap-4 text-sm">
-                <Link
-                  href="/cards"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  Card Gallery
-                </Link>
-                <Link
-                  href="/combos"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  Combo Finder
-                </Link>
-                <Link
-                  href="/deckbuilder"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  Deck Builder
-                </Link>
-                <Link
-                  href="/decklists"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  Deck Lists
-                </Link>
-                <Link
-                  href="/articles"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  Articles
-                </Link>
-                <Link
-                  href="/about"
-                  className="text-slate-300 hover:text-emerald-300"
-                >
-                  About / FAQ
-                </Link>
-              </nav>
-            </div>
-          </header>
+      {/* Optional tiny wordmark beside icon */}
+      <span className="hidden text-sm font-semibold tracking-wide text-amber-200/90 sm:inline">
+        NexusArchive
+      </span>
+    </Link>
+
+    {/* Nav links */}
+    <nav className="flex items-center gap-4 text-xs sm:text-sm">
+      <Link
+        href="/cards"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        Card Gallery
+      </Link>
+      <Link
+        href="/deckbuilder"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        Deck Builder
+      </Link>
+      <Link
+        href="/decklists"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        Deck Lists
+      </Link>
+      <Link
+        href="/articles"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        Articles
+      </Link>
+      <Link
+        href="/about"
+        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
+      >
+        About / FAQ
+      </Link>
+    </nav>
+  </div>
+</header>
+
 
           {/* Page content */}
           <main className="flex-1">
@@ -91,7 +93,7 @@ export default function RootLayout({
           </main>
 
           {/* Big footer (Scryfall-style) */}
-          <footer className="border-t border-slate-800 bg-slate-950/90">
+          <footer className="border-t border-white/5 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
             <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-slate-400">
               {/* Columns */}
               <div className="grid gap-6 md:grid-cols-4">

@@ -49,9 +49,9 @@ export default function CardGalleryPage() {
   }, [q]);
 
   return (
-    <div className="space-y-4">
+    <div className="rounded-3xl border border-slate-800 bg-slate-950/90 p-6 shadow-[0_0_45px_rgba(15,23,42,0.95)] space-y-4">
       <header className="space-y-1">
-        <h1 className="text-2xl font-semibold">Card Gallery</h1>
+        <h1 className="text-2xl font-semibold text-slate-50">Card Gallery</h1>
         <p className="text-sm text-slate-400">
           Browse Riftbound cards and filter by name or rules text.
         </p>
