@@ -18,121 +18,94 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={
-          inter.className +
-           " min-h-screen text-slate-50 antialiased " +
-          // Arcane-style gradient base
-          "bg-gradient-to-b from-[#050816] via-[#0a1021] to-[#020617]"
-        }
-      >
-        <div className="flex min-h-screen flex-col">
-          {/* Top nav */}
-          <header className="border-b border-white/5 bg-gradient-to-b from-black/50 via-black/20 to-transparent backdrop-blur-md">
-  <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-    {/* Logo */}
-    <Link href="/" className="flex items-center gap-2">
-      <div className="relative h-10 w-10 rounded-xl bg-black/40 shadow-[0_0_25px_rgba(250,204,21,0.55)]">
-        <Image
-          src="/Logos/nexusarchivelogo.png" // put your glowing d20 logo here
-          alt="NexusArchive logo"
-          fill
-          sizes="40px"
-          className="object-contain"
-          priority
-        />
-      </div>
+  <html lang="en">
+    <body
+      className={
+        inter.className +
+        " min-h-screen text-slate-50 antialiased bg-cover bg-no-repeat bg-fixed"
+      }
+      style={{
+        // Use your painterly hero image as the full-page background
+        backgroundImage: "url('/backgrounds/home-hero.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center top",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="flex min-h-screen flex-col">
+        {/* Top nav – minimal, like the mockup */}
+        <header className="pt-4">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
+            {/* Top Left transparent symbol logo */}
+            <Link href="/" className="flex items-center">
+              <div className="relative h-10 w-10 drop-shadow-[0_0_18px_rgba(0,0,0,0.8)]">
+                <Image
+                  src="/Logos/transparentarchivelogo.png"
+                  alt="NexusArchive logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
 
-      {/* Wordmark beside icon */}
-  <div className="relative hidden h-6 w-32 sm:block md:h-7 md:w-40">
-    <Image
-      src="/Logos/wordmarktransparent.png"
-      alt="NexusArchive wordmark"
-      fill
-      sizes="160px"
-      className="object-contain drop-shadow-[0_0_16px_rgba(250,204,21,0.7)]"
-      priority
-    />
-  </div>
-</Link>
-
-    {/* Nav links */}
-    <nav className="flex items-center gap-4 text-xs sm:text-sm">
-      <Link
-        href="/cards"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        Card Gallery
-      </Link>
-      <Link
-        href="/deckbuilder"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        Deck Builder
-      </Link>
-      <Link
-        href="/decklists"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        Deck Lists
-      </Link>
-      <Link
-        href="/articles"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        Articles
-      </Link>
-      <Link
-        href="/about"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        About / FAQ
-      </Link>
-      <Link
-        href="/contact"
-        className="rounded-full px-3 py-1 text-slate-200/80 hover:text-amber-200 hover:bg-white/5 transition-colors"
-      >
-        Contact
-      </Link>
-    </nav>
-  </div>
-</header>
-
+              {/* Minimal nav: Articles / About / Contact */}
+              <nav className="flex items-center gap-5 text-xs font-medium text-amber-50 sm:text-sm">
+                <Link
+                  href="/articles"
+                  className="transition-colors hover:text-white hover:underline underline-offset-4"
+                >
+                  Articles
+                </Link>
+                <Link
+                  href="/about"
+                  className="transition-colors hover:text-white hover:underline underline-offset-4"
+                >
+                  About / FAQ
+                </Link>
+                <Link
+                  href="/contact"
+                  className="transition-colors hover:text-white hover:underline underline-offset-4"
+                >
+                  Contact
+                </Link>
+              </nav>
+            </div>
+          </header>
 
           {/* Page content */}
           <main className="flex-1">
-            <div className="mx-auto max-w-6xl px-4 py-8">{children}</div>
+            <div className="mx-auto max-w-6xl px-4 py-0">{children}</div>
           </main>
 
-          {/* Big footer (Scryfall-style) */}
-          <footer className="border-t border-white/5 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
-            <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-slate-400">
-              {/* Columns */}
+          {/* Footer */}
+          <footer className="mt-10 border-t border-white/10 bg-black/40 backdrop-blur-sm">
+            <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/80">
               <div className="grid gap-6 md:grid-cols-4">
-                {/* Brand wordmark */}
-                  <div className="flex items-center">
-                    <div className="relative h-14 w-56 md:h-16 md:w-64">
-                      <Image
-                        src="/Logos/wordmarktransparent.png"
-                        alt="NexusArchive wordmark"
-                        fill
-                        sizes="(min-width: 768px) 256px, 224px"
-                        className="object-contain"
-                      />
-                    </div>
-                   </div>
+                {/* Brand wordmark – larger to fill space */}
+                <div className="flex items-center">
+                  <div className="relative h-16 w-72 md:h-20 md:w-80">
+                    <Image
+                      src="/Logos/wordmarktransparent.png"
+                      alt="NexusArchive wordmark"
+                      fill
+                      sizes="320px"
+                      className="object-contain drop-shadow-[0_0_18px_rgba(0,0,0,0.9)]"
+                    />
+                  </div>
+                </div>
 
                 {/* Tools */}
                 <div className="space-y-2">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
                     Tools
                   </div>
-                  <ul className="space-y-1">
+                  <ul className="space-y-1 text-white/90">
                     <li>
                       <Link
                         href="/cards"
-                        className="transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         Card Gallery
                       </Link>
@@ -140,7 +113,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/deckbuilder"
-                        className="transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         Deck Builder
                       </Link>
@@ -148,7 +121,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/combos"
-                        className="transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         Combo Finder
                       </Link>
@@ -156,7 +129,7 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/decklists"
-                        className="transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         Deck Lists
                       </Link>
@@ -166,14 +139,14 @@ export default function RootLayout({
 
                 {/* Info */}
                 <div className="space-y-2">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
                     Info
                   </div>
-                  <ul className="space-y-1">
+                  <ul className="space-y-1 text-white/90">
                     <li>
                       <Link
                         href="/about"
-                        className="transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         About / FAQ
                       </Link>
@@ -181,23 +154,24 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/contact"
-                        className="transition-colors hover:text-emerald-300">
+                        className="transition-colors hover:text-amber-200"
+                      >
                         Contact
                       </Link>
                     </li>
                   </ul>
                 </div>
 
-                {/* Legal – tiny, but present */}
+                {/* Legal */}
                 <div className="space-y-2">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
                     Legal
                   </div>
-                  <ul className="space-y-1">
+                  <ul className="space-y-1 text-white/90">
                     <li>
                       <Link
                         href="/legal"
-                        className="text-slate-500 transition-colors hover:text-emerald-300"
+                        className="transition-colors hover:text-amber-200"
                       >
                         tiny little legal stuff →
                       </Link>
@@ -206,8 +180,8 @@ export default function RootLayout({
                 </div>
               </div>
 
-              {/* Riot / IP disclaimer */}
-              <div className="mt-6 space-y-1 text-[11px] text-slate-500">
+              {/* Riot disclaimer */}
+              <div className="mt-6 space-y-1 text-[11px] text-white/80">
                 <p>
                   NexusArchive is an unofficial fan project and is not endorsed
                   by, directly affiliated with, maintained, authorized, or
@@ -219,7 +193,7 @@ export default function RootLayout({
                     href="https://www.riotgames.com/en/legal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline hover:text-emerald-300"
+                    className="underline underline-offset-2 hover:text-amber-200"
                   >
                     Legal Jibber Jabber
                   </a>{" "}

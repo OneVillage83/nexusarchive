@@ -27,8 +27,8 @@ export default function AboutPage() {
           <p className="max-w-2xl text-sm text-slate-200/85 sm:text-base">
             Short answer: a fan-made Riftbound toolbox built by one very
             determined human with too many decks and not enough sleep. Think of
-            it as a Piltover lab where all the charts, card text, and wild
-            ideas are taped to the same wall.
+            it as a Piltover lab where all the charts, card text, and wild ideas
+            are taped to the same wall.
           </p>
         </section>
 
@@ -49,8 +49,8 @@ export default function AboutPage() {
             </p>
             <p className="mt-2 text-xs text-slate-400">
               NexusArchive is not endorsed by, directly affiliated with,
-              maintained, authorized, or sponsored by Riot Games, Inc. or any
-              of its mysterious council of balance wizards.
+              maintained, authorized, or sponsored by Riot Games, Inc. or any of
+              its mysterious council of balance wizards.
             </p>
           </div>
 
@@ -64,8 +64,8 @@ export default function AboutPage() {
               <span className="font-semibold text-slate-50">
                 every Riftbound card, deck, and combo in one place
               </span>
-              —with tools that make brewing feel like tinkering in an
-              Arcane lab rather than fighting a spreadsheet boss.
+              —with tools that make brewing feel like tinkering in an Arcane lab
+              rather than fighting a spreadsheet boss.
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-300/90">
               <li>Fast search for cards, champs, and keywords</li>
@@ -83,7 +83,7 @@ export default function AboutPage() {
             <p className="mt-2 text-sm text-slate-300">
               NexusArchive is lovingly cobbled together by a solo developer /
               card goblin. Imagine a slightly less explosive Heimerdinger who
-              replaced lasers with TypeScript and too many Trello boards.
+              replaced lasers with TypeScript and a conspiracy board.
             </p>
             <p className="mt-2 text-sm text-slate-300">
               If something looks broken, assume it’s either:
@@ -119,57 +119,65 @@ export default function AboutPage() {
               </div>
               <p className="mt-1 text-sm text-slate-300">
                 That’s the plan. Core NexusArchive tools are meant to stay{" "}
-                <span className="font-semibold text-slate-50">free forever</span>. 
-                No “premium card text,” no “pay to see your own decklist.” If this
-                ever costs money, it’ll be paid in{" "}
-                <span className="italic">gratitude, memes, and maybe donations</span>.
+                <span className="font-semibold text-slate-50">
+                  free forever
+                </span>
+                . No “premium card text,” no “pay to see your own decklist.” If
+                this ever costs money, it’ll be paid in{" "}
+                <span className="italic">
+                  gratitude, memes, and maybe donations
+                </span>
+                .
               </p>
-                <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-slate-400">
                 Hosting is kept alive by ads and community support. If that combo
                 stops working, we’ll fix the combo—not sneak in a lootbox.
               </p>
-             </div>
+            </div>
 
             <div className="rounded-xl border border-white/10 bg-black/55 p-4">
               <div className="text-sm font-semibold text-slate-50">
                 “How can I give feedback or report bugs?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-              See something cursed? Either a layout bug or a card combo that should not exist? The best way is to{" "}
-              <Link
-              href="/contact"
-              className="text-amber-300 underline-offset-2 hover:underline"
-             >
-             send a message through the contact lab
-             </Link>{" "}
-             or email{" "}
-             <span className="font-semibold text-slate-50">
-               oops@nexusarchive.lol
-             </span>{" "}
-             for bugs and{" "}
-             <span className="font-semibold text-slate-50">
-              suggestions@nexusarchive.lol
-             </span>{" "}
-              for ideas.
-            </p>
-           </div>
+                See something cursed? Either a layout bug or a card combo that
+                should not exist? The best way is to{" "}
+                <Link
+                  href="/contact"
+                  className="text-amber-300 underline-offset-2 hover:underline"
+                >
+                  send a message through the contact lab
+                </Link>{" "}
+                or email{" "}
+                <span className="font-semibold text-slate-50">
+                  oops@nexusarchive.lol
+                </span>{" "}
+                for bugs and{" "}
+                <span className="font-semibold text-slate-50">
+                  suggestions@nexusarchive.lol
+                </span>{" "}
+                for ideas.
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* CONTACT / LEGAL LINKS */}
         <section className="space-y-3 border-t border-white/10 pt-6 text-sm">
           <p className="text-slate-300">
-          Want to help, send feedback, or just share a spicy list? You can now{" "}
-          <Link
-         href="/contact"
-         className="text-amber-300 underline-offset-2 hover:underline"
-        >
-         talk directly to the lab on the Contact page
-        </Link>
-        . Or email{" "}
-      <span className="font-semibold text-slate-50">
-       info@nexusarchive.lol
-      </span>{" "}
-       if you prefer good old-fashioned scrolls… uh, emails.
-     </p>
+            Want to help, send feedback, or just share a spicy list? You can now{" "}
+            <Link
+              href="/contact"
+              className="text-amber-300 underline-offset-2 hover:underline"
+            >
+              talk directly to the lab on the Contact page
+            </Link>
+            . Or email{" "}
+            <span className="font-semibold text-slate-50">
+              info@nexusarchive.lol
+            </span>{" "}
+            if you prefer good old-fashioned scrolls… uh, emails.
+          </p>
 
           <p className="text-xs text-slate-400">
             For the full wall of text, see our{" "}
