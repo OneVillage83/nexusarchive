@@ -12,12 +12,13 @@ export default function HomePage() {
         </h1>
 
         {/* HERO */}
-        <section className="relative mt-4">
+        <section className="relative mt-8">
           {/* CONTENT ROW */}
-          <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
             {/* LEFT: wordmark + tagline + search */}
-            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-              <div className="w-full max-w-3xl">
+            <div className="flex flex-col items-center lg:items-start">
+              {/* Shared container for wordmark + tagline + search */}
+              <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
                 {/* WORDMARK */}
                 <Image
                   src="/Logos/whiteoutlinewordmark.png"
@@ -28,61 +29,50 @@ export default function HomePage() {
                   priority
                 />
 
-                {/* TAGLINE – pulled up and centered under wordmark */}
-                <p
-                  className="
-                    text-lg sm:text-xl md:text-2xl text-amber-50/95 leading-tight
-                    text-center lg:text-left mx-auto
-                  "
-                  style={{ marginTop: "-160px",
-                           transform: "translateX(52px)" }}
-                >
+                {/* TAGLINE – centered and tightly under wordmark */}
+                <p className="mt-3 text-lg sm:text-xl md:text-2xl text-amber-50/95 leading-tight text-center">
                   All the Riftbound tools you need in{" "}
                   <span className="text-[#ffd35a]">one spot.</span>
                 </p>
-              </div>
 
-              {/* SEARCH BAR + BUTTON */}
-              <form
-                action="/cards"
-                className="w-full max-w-3xl"
-                style={{ marginTop: "12px" }}
-              >
-                <div
-                  className="
-                    mx-auto flex w-full items-center rounded-full
-                    border border-white/40 bg-black/55 px-1 py-1
-                    shadow-[0_0_32px_rgba(0,0,0,0.8)]
-                  "
-                >
-                  <input
-                    type="search"
-                    name="q"
-                    autoComplete="off"
-                    placeholder="Search the card database..."
+                {/* SEARCH BAR + BUTTON – same width as wordmark */}
+                <form action="/cards" className="mt-6 w-full">
+                  <div
                     className="
-                      flex-1 rounded-full bg-transparent px-5 py-2.5
-                      text-sm text-amber-50 placeholder:text-amber-200/75
-                      outline-none
-                    "
-                  />
-                  <button
-                    type="submit"
-                    className="
-                      mr-1 rounded-full px-4 py-2 text-sm font-semibold
-                      bg-amber-400/95 text-slate-950
-                      shadow-[0_0_18px_rgba(0,0,0,0.7)]
-                      transition hover:bg-amber-300
+                      mx-auto flex w-full items-center rounded-full
+                      border border-white/40 bg-black/55 px-1 py-1
+                      shadow-[0_0_32px_rgba(0,0,0,0.8)]
                     "
                   >
-                    Search
-                  </button>
-                </div>
-              </form>
+                    <input
+                      type="search"
+                      name="q"
+                      autoComplete="off"
+                      placeholder="Search the card database..."
+                      className="
+                        flex-1 rounded-full bg-transparent px-5 py-2.5
+                        text-sm text-amber-50 placeholder:text-amber-200/75
+                        outline-none
+                      "
+                    />
+                    <button
+                      type="submit"
+                      className="
+                        mr-1 rounded-full px-4 py-2 text-sm font-semibold
+                        bg-amber-400/95 text-slate-950
+                        shadow-[0_0_18px_rgba(0,0,0,0.7)]
+                        transition hover:bg-amber-300
+                      "
+                    >
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
 
-            {/* RIGHT: symbol logo */}
-            <div className="relative flex items-center justify-center lg:mt-15">
+            {/* RIGHT: symbol logo, vertically balanced with hero stack */}
+            <div className="relative flex items-center justify-center mt-10 lg:mt-4">
               {/* Soft glow behind dice */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div className="h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
@@ -101,8 +91,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* BOTTOM TILES */}
-          <div className="mt-35">
+          {/* BOTTOM TILES – nudged down a bit for nicer framing */}
+          <div className="mt-16">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               <HeroTile
                 href="/cards"
@@ -135,14 +125,14 @@ export default function HomePage() {
 
         {/* LATEST SECTION */}
         <section className="mt-44 space-y-4">
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-amber-200">
             Latest from the Archive
           </h2>
 
           <div className="grid gap-4 md:grid-cols-3">
             {/* Newest Cards */}
             <div className="rounded-2xl border border-white/30 bg-black/55 p-4 shadow-[0_0_25px_rgba(15,23,42,0.85)]">
-              <h3 className="text-sm font-semibold text-white">Newest Cards</h3>
+              <h3 className="text-sm font-semibold text-amber-200">Newest Cards</h3>
               <p className="mt-1 text-xs text-amber-50/80">
                 Recent additions to the Riftbound card pool.
               </p>
@@ -163,7 +153,7 @@ export default function HomePage() {
 
             {/* New Deck Lists */}
             <div className="rounded-2xl border border-white/30 bg-black/55 p-4 shadow-[0_0_25px_rgba(15,23,42,0.85)]">
-              <h3 className="text-sm font-semibold text-white">New Deck Lists</h3>
+              <h3 className="text-sm font-semibold text-amber-200">New Deck Lists</h3>
               <p className="mt-1 text-xs text-amber-50/80">
                 Recently added or updated builds.
               </p>
@@ -208,7 +198,7 @@ export default function HomePage() {
 
             {/* Latest Article */}
             <div className="rounded-2xl border border-white/30 bg-black/60 p-4 shadow-[0_0_25px_rgba(15,23,42,0.9)]">
-              <h3 className="text-sm font-semibold text-white">Latest Article</h3>
+              <h3 className="text-sm font-semibold text-amber-200">Latest Article</h3>
               <p className="mt-1 text-xs text-amber-50/80">
                 Meta reports, patch breakdowns, and highlights.
               </p>
@@ -258,8 +248,13 @@ function HeroTile({ href, title, description }: HeroTileProps) {
         hover:shadow-[0_0_30px_rgba(0,0,0,0.85)]
       "
     >
-      <div className="text-base font-semibold">{title}</div>
-      <p className="mt-2 text-xs text-amber-100/85">{description}</p>
+      <div className="text-base font-semibold text-amber-200">
+        {title}
+      </div>
+
+      <p className="mt-2 text-xs text-amber-100/85">
+        {description}
+      </p>
     </Link>
   );
 }
