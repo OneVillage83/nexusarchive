@@ -252,7 +252,7 @@ export default function HomePage() {
 
               <Link
                 href="/decklists"
-                className="mt-4 inline-flex text-xs font-medium text-emerald-200 transition-colors hover:text-white"
+                className="mt-4 inline-flex text-xs font-medium text-amber-200 transition-colors hover:text-white"
               >
                 Browse Deck Lists →
               </Link>
