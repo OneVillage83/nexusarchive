@@ -13,7 +13,7 @@ export default function HomePage() {
 
         {/* HERO */}
         <section className="relative mt-6">
-          <div className="mt-16 grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
+          <div className="mt-16 grid items-center gap-8 lg:gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
             {/* LEFT: wordmark + tagline + search + pills */}
             <div className="flex flex-col items-center text-center lg:items-center lg:text-center">
               {/* Wordmark + centered tagline */}
@@ -50,15 +50,15 @@ export default function HomePage() {
                     autoComplete="off"
                     placeholder='Search by card name, keyword, or wild idea... try “burn everything”, “token swarm”, “greedy control”…'
                     className="
-                      flex-1 rounded-full bg-transparent px-5 py-2.5
-                      text-sm text-amber-50 placeholder:text-amber-200/75
+                      flex-1 rounded-full bg-transparent px-4 sm:px-5 py-2.5
+                      text-xs sm:text-sm text-amber-50 placeholder:text-amber-200/75
                       outline-none
                     "
                   />
                   <button
                     type="submit"
                     className="
-                      mr-1 rounded-full px-4 py-2 text-sm font-semibold
+                      mr-1 rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold
                       bg-amber-400/95 text-slate-950
                       shadow-[0_0_18px_rgba(0,0,0,0.7)]
                       transition hover:bg-amber-300
@@ -140,21 +140,21 @@ export default function HomePage() {
                 <div className="h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
               </div>
 
-              <div className="relative h-56 w-56 drop-shadow-[0_0_40px_rgba(0,0,0,0.9)] sm:h-64 sm:w-64 lg:h-72 lg:w-72">
-                <Image
-                  src="/Logos/transparentsymbollogo.png"
-                  alt="NexusArchive symbol logo"
-                  fill
-                  sizes="320px"
-                  className="object-contain mix-blend-screen animate-dice-float"
-                  priority
-                />
-              </div>
+              <div className="relative h-56 w-56 sm:h-64 sm:w-64 lg:h-72 lg:w-72 drop-shadow-[0_0_40px_rgba(0,0,0,0.9)]">
+               <Image
+                 src="/Logos/transparentsymbollogo.png"
+                 alt="NexusArchive symbol logo"
+                 fill
+                 sizes="(max-width: 640px) 224px, (max-width: 1024px) 256px, 288px"
+                 className="object-contain mix-blend-screen animate-dice-float"
+                 priority
+               />
+             </div>
             </div>
           </div>
 
           {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
-          <div className="mt-28 lg:mt-36">
+          <div className="mt-28 sm:mt-32 lg:mt-36">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               <HeroTile
                 href="/cards"
@@ -186,7 +186,7 @@ export default function HomePage() {
         </section>
 
         {/* LATEST SECTION */}
-        <section className="mt-14 space-y-4">
+        <section className="mt-16 sm:mt-20 lg:mt-24 space-y-4">
           <h2 className="text-lg font-semibold text-amber-200">
             Latest from the Archive
           </h2>
