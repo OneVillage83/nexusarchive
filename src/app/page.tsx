@@ -154,8 +154,8 @@ export default function HomePage() {
           </div>
 
           {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
-          <div className="mt-28 sm:mt-32 lg:mt-36 hidden md:block">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-28 sm:mt-32 lg:mt-36 hidden lg:block">
+            <div className="grid gap-4 lg:grid-cols-5">
               <HeroTile
                 href="/cards"
                 title="Card Gallery"

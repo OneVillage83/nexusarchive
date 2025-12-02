@@ -1,4 +1,4 @@
-import type { Metadata,Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
@@ -36,9 +36,9 @@ export default function RootLayout({
           backgroundRepeat: "no-repeat",
         }}
       >
-                {/* Top-left floating archive glyph + Tools pill */}
+        {/* Top-left floating archive glyph + Tools pill */}
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
-          {/* Glyph button (home link) */}
+          {/* Glyph button (home link) – always visible */}
           <Link
             href="/"
             className="
@@ -68,8 +68,8 @@ export default function RootLayout({
             </div>
           </Link>
 
-          {/* Tools pill – "all in one spot" dropdown */}
-          <details className="relative">
+          {/* Tools pill – phones & tablets only */}
+          <details className="relative lg:hidden">
             <summary
               className="
                 flex items-center gap-2 rounded-full
@@ -96,10 +96,7 @@ export default function RootLayout({
               "
             >
               <nav className="flex flex-col py-2 text-xs text-amber-50">
-                <Link
-                  href="/cards"
-                  className="px-3 py-1.5 hover:bg-white/10"
-                >
+                <Link href="/cards" className="px-3 py-1.5 hover:bg-white/10">
                   Card Gallery
                 </Link>
                 <Link
@@ -108,10 +105,7 @@ export default function RootLayout({
                 >
                   Deck Builder
                 </Link>
-                <Link
-                  href="/combos"
-                  className="px-3 py-1.5 hover:bg-white/10"
-                >
+                <Link href="/combos" className="px-3 py-1.5 hover:bg-white/10">
                   Combo Finder
                 </Link>
                 <Link
@@ -120,10 +114,7 @@ export default function RootLayout({
                 >
                   Deck Lists
                 </Link>
-                <Link
-                  href="/rules"
-                  className="px-3 py-1.5 hover:bg-white/10"
-                >
+                <Link href="/rules" className="px-3 py-1.5 hover:bg-white/10">
                   Game Rules
                 </Link>
               </nav>
@@ -139,8 +130,8 @@ export default function RootLayout({
               {/* Left spacer so nav lines up nicely with hero content */}
               <div className="h-10 w-10" />
 
-              {/* Minimal nav: Articles / About / Contact */}
-              <nav className="flex items-center gap-5 text-xs font-medium text-amber-50 sm:text-sm">
+              {/* Desktop nav – hidden on phones & tablets */}
+              <nav className="hidden lg:flex items-center gap-5 text-xs font-medium text-amber-50 sm:text-sm">
                 <Link
                   href="/articles"
                   className="transition-colors hover:text-white hover:underline underline-offset-4"

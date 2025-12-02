@@ -59,3 +59,12 @@ body {
     animation: diceFloat-na 6s ease-in-out infinite alternate;
   }
 }
+
+/* Hide default marker on <details><summary> for the Tools pill */
+details > summary {
+  list-style: none;
+}
+
+details > summary::marker {
+  content: "";
+}
