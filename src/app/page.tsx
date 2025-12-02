@@ -13,7 +13,7 @@ export default function HomePage() {
 
         {/* HERO */}
         <section className="relative mt-6">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
+          <div className="mt-16 grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
             {/* LEFT: wordmark + tagline + search + pills */}
             <div className="flex flex-col items-center text-center lg:items-center lg:text-center">
               {/* Wordmark + centered tagline */}
@@ -154,7 +154,7 @@ export default function HomePage() {
           </div>
 
           {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
-          <div className="mt-40 lg:mt-48">
+          <div className="mt-28 lg:mt-36">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               <HeroTile
                 href="/cards"
