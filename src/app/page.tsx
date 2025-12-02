@@ -12,12 +12,11 @@ export default function HomePage() {
         </h1>
 
         {/* HERO */}
-        <section className="relative mt-8">
-          {/* CONTENT ROW */}
+        <section className="relative mt-6">
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
-            {/* LEFT: wordmark + tagline + search */}
-            <div className="flex flex-col items-center lg:items-start">
-              {/* Shared container for wordmark + tagline + search */}
+            {/* LEFT: wordmark + tagline + search + pills */}
+            <div className="flex flex-col items-center text-center lg:items-center lg:text-center">
+              {/* Wordmark + centered tagline */}
               <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
                 {/* WORDMARK */}
                 <Image
@@ -29,50 +28,113 @@ export default function HomePage() {
                   priority
                 />
 
-                {/* TAGLINE – centered and tightly under wordmark */}
-                <p className="mt-3 text-lg sm:text-xl md:text-2xl text-amber-50/95 leading-tight text-center">
+                {/* TAGLINE – centered under wordmark & search */}
+                <p className="mt-3 text-lg sm:text-xl md:text-2xl text-amber-50/90 leading-tight text-center">
                   All the Riftbound tools you need in{" "}
                   <span className="text-[#ffd35a]">one spot.</span>
                 </p>
+              </div>
 
-                {/* SEARCH BAR + BUTTON – same width as wordmark */}
-                <form action="/cards" className="mt-6 w-full">
-                  <div
+              {/* SEARCH BAR + BUTTON */}
+              <form action="/cards" className="mt-6 w-full max-w-3xl">
+                <div
+                  className="
+                    mx-auto flex w-full items-center rounded-full
+                    border border-white/40 bg-black/55 px-1 py-1
+                    shadow-[0_0_32px_rgba(0,0,0,0.8)]
+                  "
+                >
+                  <input
+                    type="search"
+                    name="q"
+                    autoComplete="off"
+                    placeholder='Search by card name, keyword, or wild idea... try “burn everything”, “token swarm”, “greedy control”…'
                     className="
-                      mx-auto flex w-full items-center rounded-full
-                      border border-white/40 bg-black/55 px-1 py-1
-                      shadow-[0_0_32px_rgba(0,0,0,0.8)]
+                      flex-1 rounded-full bg-transparent px-5 py-2.5
+                      text-sm text-amber-50 placeholder:text-amber-200/75
+                      outline-none
+                    "
+                  />
+                  <button
+                    type="submit"
+                    className="
+                      mr-1 rounded-full px-4 py-2 text-sm font-semibold
+                      bg-amber-400/95 text-slate-950
+                      shadow-[0_0_18px_rgba(0,0,0,0.7)]
+                      transition hover:bg-amber-300
                     "
                   >
-                    <input
-                      type="search"
-                      name="q"
-                      autoComplete="off"
-                      placeholder="Search the card database..."
-                      className="
-                        flex-1 rounded-full bg-transparent px-5 py-2.5
-                        text-sm text-amber-50 placeholder:text-amber-200/75
-                        outline-none
-                      "
-                    />
-                    <button
-                      type="submit"
-                      className="
-                        mr-1 rounded-full px-4 py-2 text-sm font-semibold
-                        bg-amber-400/95 text-slate-950
-                        shadow-[0_0_18px_rgba(0,0,0,0.7)]
-                        transition hover:bg-amber-300
-                      "
-                    >
-                      Search
-                    </button>
-                  </div>
-                </form>
+                    Search
+                  </button>
+                </div>
+              </form>
+
+              {/* ACTION PILLS ROW – Random / Advanced / New Patch */}
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-xs">
+                {/* Random card (dummy) */}
+                <button
+                  type="button"
+                  className="
+                    inline-flex items-center gap-2 rounded-full
+                    bg-black/55 px-3 py-1.5
+                    text-[11px] font-medium text-amber-50
+                    border border-white/25
+                    shadow-[0_0_10px_rgba(0,0,0,0.6)]
+                    transition hover:bg-amber-400/90 hover:text-slate-950
+                    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
+                  "
+                >
+                  <span className="text-[10px]">🎲</span>
+                  Random card
+                </button>
+
+                {/* Advanced search (soon) */}
+                <button
+                  type="button"
+                  className="
+                    inline-flex items-center gap-2 rounded-full
+                    bg-black/55 px-3 py-1.5
+                    text-[11px] font-medium text-amber-50
+                    border border-white/25
+                    shadow-[0_0_10px_rgba(0,0,0,0.6)]
+                    transition hover:bg-amber-400/90 hover:text-slate-950
+                    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
+                  "
+                >
+                  <span className="text-[11px]">🔍</span>
+                  Advanced search (soon™)
+                </button>
+
+                {/* NEW PATCH HIGHLIGHTS – same gold hover treatment */}
+                <Link
+                  href="/articles"
+                  className="
+                    inline-flex items-center gap-2 rounded-full
+                    bg-black/55 px-3 py-1.5
+                    text-[11px] font-medium text-amber-50
+                    border border-white/25
+                    shadow-[0_0_10px_rgba(0,0,0,0.6)]
+                    transition hover:bg-amber-400/90 hover:text-slate-950
+                    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
+                  "
+                >
+                  <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_8px_rgba(110,231,183,0.9)]" />
+                  <span className="uppercase tracking-wide">
+                    New patch highlights
+                  </span>
+                  <span className="text-[10px] font-semibold">VIEW →</span>
+                </Link>
               </div>
+
+              {/* Tiny helper line under pills */}
+              <p className="mt-2 text-[11px] text-amber-100/80 tracking-wide text-center">
+                Tip: Use card names, keywords, or vibes — “barrier”, “burn”,
+                “token swarm”, “greedy control”.
+              </p>
             </div>
 
-            {/* RIGHT: symbol logo, vertically balanced with hero stack */}
-            <div className="relative flex items-center justify-center mt-10 lg:mt-4">
+            {/* RIGHT: dice / symbol logo */}
+            <div className="relative flex items-center justify-center">
               {/* Soft glow behind dice */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div className="h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
@@ -84,15 +146,15 @@ export default function HomePage() {
                   alt="NexusArchive symbol logo"
                   fill
                   sizes="320px"
-                  className="object-contain mix-blend-screen"
+                  className="object-contain mix-blend-screen animate-dice-float"
                   priority
                 />
               </div>
             </div>
           </div>
 
-          {/* BOTTOM TILES – nudged down a bit for nicer framing */}
-          <div className="mt-16">
+          {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
+          <div className="mt-40 lg:mt-48">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               <HeroTile
                 href="/cards"
@@ -124,7 +186,7 @@ export default function HomePage() {
         </section>
 
         {/* LATEST SECTION */}
-        <section className="mt-44 space-y-4">
+        <section className="mt-14 space-y-4">
           <h2 className="text-lg font-semibold text-amber-200">
             Latest from the Archive
           </h2>
@@ -245,16 +307,11 @@ function HeroTile({ href, title, description }: HeroTileProps) {
         bg-black/55 px-4 py-3 text-left text-amber-50
         shadow-[0_0_22px_rgba(0,0,0,0.55)]
         transition-transform transition-shadow hover:-translate-y-1
-        hover:shadow-[0_0_30px_rgba(0,0,0,0.85)]
+        hover:shadow-[0_0_30px_rgba(246,191,38,0.75)]
       "
     >
-      <div className="text-base font-semibold text-amber-200">
-        {title}
-      </div>
-
-      <p className="mt-2 text-xs text-amber-100/85">
-        {description}
-      </p>
+      <div className="text-base font-semibold text-amber-200">{title}</div>
+      <p className="mt-2 text-xs text-amber-100/85">{description}</p>
     </Link>
   );
 }

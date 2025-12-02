@@ -18,37 +18,57 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-  <html lang="en">
-    <body
-      className={
-        inter.className +
-        " min-h-screen text-slate-50 antialiased bg-cover bg-no-repeat bg-fixed"
-      }
-      style={{
-        // Use your painterly hero image as the full-page background
-        backgroundImage: "url('/backgrounds/home-hero.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center top",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="flex min-h-screen flex-col">
-        {/* Top nav – minimal, like the mockup */}
-        <header className="pt-4">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
-            {/* Top Left transparent symbol logo */}
-            <Link href="/" className="flex items-center">
-              <div className="relative h-10 w-10 drop-shadow-[0_0_18px_rgba(0,0,0,0.8)]">
-                <Image
-                  src="/Logos/transparentarchivelogo.png"
-                  alt="NexusArchive logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </Link>
+    <html lang="en">
+      <body
+        className={
+          inter.className +
+          " min-h-screen text-slate-50 antialiased bg-cover bg-no-repeat bg-fixed"
+        }
+        style={{
+          backgroundImage: "url('/backgrounds/home-hero.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Top-left floating archive glyph */}
+        <Link
+          href="/"
+          className="
+            group fixed left-6 top-6 z-30
+            inline-flex h-10 w-10 items-center justify-center
+            rounded-full bg-black/30 backdrop-blur
+            border border-sky-300/50
+            shadow-[0_0_18px_rgba(0,0,0,0.7)]
+            transition-all duration-200
+            hover:bg-sky-500/10
+          "
+        >
+          <div className="relative h-8 w-8">
+            <Image
+              src="/Logos/transparentarchivelogo.png"
+              alt="NexusArchive glyph"
+              fill
+              sizes="32px"
+              className="
+                object-contain opacity-90
+                transition-all duration-200
+                group-hover:scale-110
+                group-hover:opacity-100
+                group-hover:drop-shadow-[0_0_18px_rgba(56,189,248,0.9)]
+              "
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Main page chrome (header + content + footer) */}
+        <div className="flex min-h-screen flex-col">
+          {/* Top nav */}
+          <header className="pt-4">
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
+              {/* Left spacer so nav lines up nicely with hero content */}
+              <div className="h-10 w-10" />
 
               {/* Minimal nav: Articles / About / Contact */}
               <nav className="flex items-center gap-5 text-xs font-medium text-amber-50 sm:text-sm">
@@ -83,7 +103,7 @@ export default function RootLayout({
           <footer className="mt-10 border-t border-white/10 bg-black/40 backdrop-blur-sm">
             <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/80">
               <div className="grid gap-6 md:grid-cols-4">
-                {/* Brand wordmark – larger to fill space */}
+                {/* Brand wordmark */}
                 <div className="flex items-center">
                   <div className="relative h-16 w-72 md:h-20 md:w-80">
                     <Image
