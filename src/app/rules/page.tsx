@@ -1,5 +1,7 @@
 // src/app/rules/page.tsx
 import { rulesIndex } from "@/data/rules-index";
+import { ruleKeywords } from "@/data/rule-keywords";
+import JudgePanel from "./JudgePanel";
 
 // Each entry is whatever shape was generated in src/data/rules-index.ts
 // (id: string, section: string, text: string)
@@ -168,6 +170,81 @@ function formatRuleText(raw: string): string {
   return fixBrokenWords(collapsed);
 }
 
+type ScoredRule = { rule: RuleEntry; score: number };
+
+/**
+ * Look at the query, find any matching RuleKeyword entries,
+ * and boost the scores (or add new scored rules) accordingly.
+ */
+function applyKeywordBoost(
+  query: string,
+  scored: ScoredRule[]
+): void {
+  const q = query.toLowerCase();
+  const scoredById = new Map<string, ScoredRule>();
+  for (const s of scored) {
+    scoredById.set(s.rule.id, s);
+  }
+
+  for (const kw of ruleKeywords) {
+    // All trigger phrases for this keyword
+    const terms = kw.terms;
+
+    // Does the query contain *any* of these terms?
+    const hit = terms.some((t) => q.includes(t.toLowerCase()));
+    if (!hit) continue;
+
+    // How hard to push these rules up. You can tune this later.
+    const boost = 6;
+
+    for (const ruleId of kw.ruleIds) {
+      const rule = rulesById.get(ruleId);
+      if (!rule) continue;
+
+      let entry = scoredById.get(ruleId);
+      if (!entry) {
+        entry = { rule, score: 0 };
+        scored.push(entry);
+        scoredById.set(ruleId, entry);
+      }
+
+      entry.score += boost;
+    }
+  }
+}
+
+function normalizePhrase(s: string): string {
+  // Lowercase and strip punctuation so we can match
+  // "How do I build a deck?" against "how to build a deck"
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function getKeywordBonuses(query: string): Map<string, number> {
+  const nq = normalizePhrase(query);
+  const bonuses = new Map<string, number>();
+
+  for (const kw of ruleKeywords) {
+    for (const rawTerm of kw.terms) {
+      const nt = normalizePhrase(rawTerm);
+      if (!nt) continue;
+
+      // If the normalized term appears inside the normalized query,
+      // treat it as a hit.
+      if (nq.includes(nt)) {
+        // More specific phrases (more words) get a bigger bump.
+        const strength = Math.max(3, nt.split(" ").length);
+
+        for (const ruleId of kw.ruleIds) {
+          bonuses.set(ruleId, (bonuses.get(ruleId) ?? 0) + strength);
+        }
+      }
+    }
+  }
+
+  return bonuses;
+}
+
+// Search the rules index for matching rules
 function searchRules(query: string): RuleEntry[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
@@ -200,18 +277,24 @@ function searchRules(query: string): RuleEntry[] {
     }
   }
 
-  // --- Special-case: Golden Rule -> also surface rule 002 ---
-  if (q.includes("golden") && q.includes("rule")) {
-    const goldenRule = rulesIndex.find((r) => r.id === "002");
-    if (goldenRule) {
-      const existing = scored.find((s) => s.rule.id === goldenRule.id);
-      if (existing) {
-        existing.score += 5; // bump it up
-      } else {
-        scored.push({
-          rule: goldenRule,
-          score: scoringTerms.length + 5,
-        });
+  // 🔹 Apply keyword boosts (Golden Rule, Deck Construction, etc.)
+  const keywordBonuses = getKeywordBonuses(query);
+
+  // Boost any rules we already scored
+  for (const entry of scored) {
+    const bonus = keywordBonuses.get(entry.rule.id);
+    if (bonus) {
+      entry.score += bonus;
+    }
+  }
+
+  // Add any keyword-target rules that didn't get picked up
+  for (const [ruleId, bonus] of keywordBonuses.entries()) {
+    const already = scored.find((s) => s.rule.id === ruleId);
+    if (!already) {
+      const rule = rulesById.get(ruleId);
+      if (rule) {
+        scored.push({ rule, score: bonus });
       }
     }
   }
@@ -345,79 +428,32 @@ function SearchResults({
   googleSearchUrl,
   siteSearchUrl,
 }: SearchResultsProps) {
-  const sectionGroups = groupRulesBySection(ruleMatches);
-  const hasMatches = sectionGroups.length > 0;
-
+  // We still receive ruleMatches for future use (fallbacks, analytics, etc.),
+  // but we don't render them in the UI right now.
   return (
     <div className="space-y-4 rounded-2xl border border-white/35 bg-black/60 p-4 text-left text-amber-50 shadow-[0_0_26px_rgba(0,0,0,0.75)]">
-      {/* Internal matches */}
-      {hasMatches ? (
-        <div className="mt-2 space-y-3 text-sm">
-          {sectionGroups.map((group) => (
-            <div
-              key={group.sectionId}
-              className="rounded-xl bg-black/55 px-3 py-2 text-xs"
-            >
-              {/* Section heading: e.g. 103. Deck Construction */}
-              <div className="text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
-                {group.sectionLabel}
-              </div>
+      {/* 1️⃣ JUDGE ONLY */}
+      <JudgePanel question={query} />
 
-              {/* Optional intro text from the section header rule */}
-              {group.headerText && (
-                <div className="mt-1 text-[11px] text-amber-100/90 whitespace-pre-line">
-                  {formatRuleText(group.headerText)}
-                </div>
-              )}
-
-              {/* Matching sub-rules inside this section, in rule order */}
-              {group.rules.length > 0 && (
-                <ul className="mt-2 space-y-1">
-                  {group.rules.map((rule) => (
-                    <li
-                      key={rule.id}
-                      className="text-[11px] text-amber-100/90 leading-snug"
-                    >
-                      <span className="font-semibold">{rule.id}. </span>
-                      <span className="whitespace-pre-line">
-                        {formatRuleText(rule.text)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="mt-2 text-xs text-amber-100/90">
-          No quick matches in the rules index for &ldquo;{query}&rdquo; yet. Try
-          fewer words, or check the full documents below.
-        </p>
-      )}
-
-      {/* External guidance */}
+      {/* 2️⃣ EXTERNAL LINKS (always useful) */}
       <div className="pt-3 border-t border-white/15 space-y-2 text-sm">
         <div className="text-xs font-semibold uppercase tracking-wide text-amber-200">
-          How to confirm this ruling right now
+          How to confirm this ruling
         </div>
         <ul className="space-y-1 text-xs">
           <li>
             <span className="font-semibold text-amber-200">1.</span>{" "}
-            Check the official{" "}
             <a
               href="https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/dbc96e31db9d0257b0791aafb6dbb0cd219d3efb.pdf"
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-2 hover:text-amber-100"
             >
-              Core Rules PDF
+              Riftbound Core Rules PDF
             </a>
-            .
           </li>
           <li>
             <span className="font-semibold text-amber-200">2.</span>{" "}
-            If it&apos;s tournament-related, open the{" "}
             <a
               href="https://riftbound.leagueoflegends.com/en-us/news/organizedplay/riftbound-tournament-rules/"
               target="_blank"
@@ -426,11 +462,9 @@ function SearchResults({
             >
               Tournament Rules
             </a>
-            .
           </li>
           <li>
             <span className="font-semibold text-amber-200">3.</span>{" "}
-            For recent clarifications and errata, use the{" "}
             <a
               href="https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-core-rules-patch-notes/"
               target="_blank"
@@ -439,7 +473,6 @@ function SearchResults({
             >
               Core Rules Patch Notes
             </a>
-            .
           </li>
         </ul>
       </div>
@@ -451,13 +484,7 @@ function SearchResults({
               href={siteSearchUrl}
               target="_blank"
               rel="noreferrer"
-              className="
-                inline-flex items-center justify-center rounded-full
-                border border-white/30 bg-black/60 px-3 py-2 text-xs
-                hover:bg-amber-400/90 hover:text-slate-950
-                hover:shadow-[0_0_22px_rgba(246,191,38,0.8)]
-                transition
-              "
+              className="inline-flex items-center justify-center rounded-full border border-white/30 bg-black/60 px-3 py-2 text-xs hover:bg-amber-400/90 hover:text-slate-950 hover:shadow-[0_0_22px_rgba(246,191,38,0.8)] transition"
             >
               Search official Riftbound site for &ldquo;{query}&rdquo;
             </a>
@@ -467,13 +494,7 @@ function SearchResults({
               href={googleSearchUrl}
               target="_blank"
               rel="noreferrer"
-              className="
-                inline-flex items-center justify-center rounded-full
-                border border-white/30 bg-black/60 px-3 py-2 text-xs
-                hover:bg-amber-400/90 hover:text-slate-950
-                hover:shadow-[0_0_22px_rgba(246,191,38,0.8)]
-                transition
-              "
+              className="inline-flex items-center justify-center rounded-full border border-white/30 bg-black/60 px-3 py-2 text-xs hover:bg-amber-400/90 hover:text-slate-950 hover:shadow-[0_0_22px_rgba(246,191,38,0.8)] transition"
             >
               Google &ldquo;{query}&rdquo; + core rules
             </a>
@@ -482,8 +503,8 @@ function SearchResults({
       )}
 
       <p className="mt-2 text-[11px] text-amber-100/80">
-        Coming soon: NexusArchive will read the full rules docs and give
-        judge-style answers with exact rule numbers.
+        NexusArchive uses the official Riftbound rules text plus an experimental
+        AI judge. Always confirm tournament rulings with official documents.
       </p>
     </div>
   );
