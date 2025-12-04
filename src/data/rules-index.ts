@@ -1,4 +1,4 @@
-// AUTO-GENERATED from Riftbound Core Rules PDF.
+// AUTO-GENERATED from Riftbound Core Rules TXT.
 // Do not edit by hand; run tools/build_rules_index.py instead.
 
 export type RuleEntry = {
@@ -10,1723 +10,196 @@ export type RuleEntry = {
 export const rulesIndex: RuleEntry[] = [
   {
     id: `000`,
-    section: `000. Golden`,
-    text: `Golden
-
-and
-
-Silver
-
-Rules`,
+    section: `000. Golden and Silver Rules`,
+    text: `Golden and Silver Rules`,
   },
   {
     id: `001`,
-    section: `001. Golden`,
-    text: `Golden
-
-Rule`,
+    section: `001. Golden Rule`,
+    text: `Golden Rule`,
   },
   {
     id: `002`,
-    section: `002. Card`,
-    text: `Card
-
-text
-
-supersedes
-
-rules
-
-text.
-
-W henever
-
-a
-
-card
-
-fundam entally
-
-contradicts
-
-the
-
-rules,
-
-the
-
-card's
-
-indication
-
-is
-
-w hat
-
-is
-
-true.`,
+    section: `002. Card text supersedes rules text`,
+    text: `Card text supersedes rules text. Whenever a card fundamentally contradicts the rules, the card's indication is what is true`,
   },
   {
     id: `050`,
-    section: `050. Silver`,
-    text: `Silver
-
-Rule`,
+    section: `050. Silver Rule`,
+    text: `Silver Rule`,
   },
   {
     id: `051`,
-    section: `051. Card`,
-    text: `Card
-
-text
-
-uses
-
-different
-
-term inology
-
-than
-
-rules.
-
-Card
-
-text
-
-should
-
-be
-
-interpreted
-
-according
-
-to
-
-these
-
-rules,
-
-not
-
-as
-
-though
-
-it
-
-w ere
-
-text
-
-w ithin
-
-these
-
-rules.`,
+    section: `051. Card text uses different terminology than rules`,
+    text: `Card text uses different terminology than rules. Card text should be interpreted according to these rules, not as though it were text within these rules.`,
   },
   {
     id: `052`,
-    section: `052. Card ,`,
-    text: `Card ,
-
-w hen
-
-w ritten
-
-in
-
-card
-
-effects,
-
-is
-
-shorthand
-
-for
-
-" Main
-
-Deck
-
-card."
-
-Runes,
-
-legends,
-
-and
-
-battleﬁelds
-
-are
-
-not
-
-considered
-
-cards
-
-w hen
-
-executing
-
-the
-
-abilities
-
-and
-
-effects
-
-of
-
-gam e
-
-objects.
-
-They
-
-are
-
-considered
-
-cards
-
-for
-
-the
-
-purposes
-
-of
-
-these
-
-rules.`,
+    section: `052. Card`,
+    text: `Card, when written in card effects, is shorthand for "Main Deck card." Runes, legends, and battlefields are not considered cards when executing the abilities and effects of game objects. They are considered cards for the purposes of these rules.`,
   },
   {
     id: `053`,
-    section: `053. Cards`,
-    text: `Cards
-
-refer
-
-to
-
-them selves
-
-in
-
-the
-
-ﬁrst
-
-person.`,
+    section: `053. Cards refer to themselves in the first person`,
+    text: `Cards refer to themselves in the first person.`,
   },
   {
     id: `053.1`,
-    section: `053.1. *`,
-    text: `*
-
-Units
-
-and
-
-legends
-
-say
-
-"I,"
-
-"m e,"
-
-etc.`,
+    section: `053.1. * Units and legends say "I`,
+    text: `* Units and legends say "I," "me," etc.`,
   },
   {
     id: `053.2`,
-    section: `053.2. *`,
-    text: `*
-
-Gear
-
-and
-
-spells
-
-say
-
-"this."`,
+    section: `053.2. * Gear and spells say "this`,
+    text: `* Gear and spells say "this."`,
   },
   {
     id: `053.3`,
-    section: `053.3. *`,
-    text: `*
-
-Battleﬁelds
-
-say
-
-"here."`,
+    section: `053.3. * Battlefields say "here`,
+    text: `* Battlefields say "here."`,
   },
   {
     id: `054`,
-    section: `054. “Can’t`,
-    text: `“Can’t
-
-beats
-
-Can”`,
+    section: `054. “Can’t beats Can”`,
+    text: `“Can’t beats Can”`,
   },
   {
     id: `054.1`,
-    section: `054.1. Cards`,
-    text: `Cards
-
-that
-
-forbid
-
-actions
-
-or
-
-effects,
-
-as
-
-a
-
-broad
-
-m ethod
-
-of
-
-determ ination,
-
-supersede
-
-cards
-
-that
-
-allow
-
-or
-
-perm it
-
-that
-
-sam e
-
-action
-
-or
-
-effect.`,
+    section: `054.1. Cards that forbid actions or effects`,
+    text: `Cards that forbid actions or effects, as a broad method of determination, supersede cards that allow or permit that same action or effect.`,
   },
   {
     id: `055`,
-    section: `055. W hen`,
-    text: `W hen
-
-executing
-
-card
-
-text,
-
-do
-
-as
-
-m uch
-
-as
-
-you
-
-can,
-
-ignoring
-
-im possible
-
-instructions.`,
+    section: `055. When executing card text`,
+    text: `When executing card text, do as much as you can, ignoring impossible instructions.`,
   },
   {
     id: `055.1`,
-    section: `055.1. If`,
-    text: `If
-
-all
-
-of
-
-a
-
-card’s
-
-instructions
-
-are
-
-im possible,
-
-it
-
-is
-
-still
-
-played
-
-and
-
-resolved,
-
-but
-
-nothing
-
-happens.`,
+    section: `055.1. If all of a card’s instructions are impossible`,
+    text: `If all of a card’s instructions are impossible, it is still played and resolved, but nothing happens.`,
   },
   {
     id: `100`,
-    section: `100. Game`,
-    text: `Game
-
-Concepts`,
-  },
-  {
-    id: `101`,
-    section: `101. Deck`,
-    text: `Deck
-
-Construction
-
-Deck
-
-Construction
-
-for
-
-more
-
-information.`,
+    section: `100. Game Concepts`,
+    text: `Game Concepts`,
   },
   {
     id: `102`,
-    section: `102. Riftbound`,
-    text: `Riftbound
-
-is
-
-a
-
-Trading
-
-Card
-
-Gam e
-
-w here
-
-a
-
-player
-
-m ust
-
-provide
-
-their
-
-ow n
-
-cards
-
-to
-
-play
-
-against
-
-other
-
-players.`,
+    section: `102. Riftbound is a Trading Card Game where a player must provide their own cards to play against other players`,
+    text: `Riftbound is a Trading Card Game where a player must provide their own cards to play against other players.`,
   },
   {
     id: `103`,
-    section: `103. To`,
-    text: `To
-
-play
-
-Riftbound ,
-
-a
-
-player
-
-m ust
-
-have
-
-tw o
-
-Decks,
-
-a
-
-Cham pion
-
-Legend ,
-
-and
-
-a
-
-num ber
-
-of
-
-Battleﬁelds
-
-determ ined
-
-by
-
-the
-
-Mode
-
-of
-
-Play.`,
+    section: `103. To play Riftbound`,
+    text: `To play Riftbound, a player must have two Decks, a Champion Legend, and a number of Battlefields determined by the Mode of Play.`,
   },
   {
     id: `103.1`,
-    section: `103.1. 1`,
-    text: `1
-
-Cham pion
-
-Legend`,
+    section: `103.1. 1 Champion Legend`,
+    text: `1 Champion Legend`,
   },
   {
     id: `103.1.a`,
-    section: `103.1.a. This`,
-    text: `This
-
-is
-
-placed
-
-in
-
-the
-
-Legend
-
-Zone
-
-at
-
-the
-
-start
-
-of
-
-the
-
-gam e.`,
+    section: `103.1.a. This is placed in the Legend Zone at the start of the game`,
+    text: `This is placed in the Legend Zone at the start of the game.`,
   },
   {
     id: `103.1.b`,
-    section: `103.1.b. This`,
-    text: `This
+    section: `103.1.b. This will dictate the Domain Identity of the Main Deck`,
+    text: `This will dictate the Domain Identity of the Main Deck.
 
-w ill
+1. Cards included in your Deck must abide by your Domain Identity.
 
-dictate
+2. Your deck’s Domain Identity is dictated by the domains of your Champion Legend. In the default card frame, these domains appear as symbols in the legend’s upper left corner.
 
-the
+3. If a card has a single Domain, then that card is permitted in the Domain Identity that corresponds to the same Domain.
 
-Dom ain
-
-Identity
-
-of
-
-the
-
-Main
-
-Deck.
-
-103.1.b.1.
-
-Cards
-
-included
-
-in
-
-your
-
-Deck
-
-m ust
-
-abide
-
-by
-
-your
-
-Dom ain
-
-Identity.
-
-103.1.b.2.
-
-Your
-
-deck’s
-
-Dom ain
-
-Identity
-
-is
-
-dictated
-
-by
-
-the
-
-dom ains
-
-of
-
-your
-
-Cham pion
-
-Legend.
-
-In
-
-the
-
-default
-
-card
-
-fram e,
-
-these
-
-dom ains
-
-appear
-
-as
-
-sym bols
-
-in
-
-the
-
-legend’s
-
-upper
-
-left
-
-corner.
-
-103.1.b.3.
-
-If
-
-a
-
-card
-
-has
-
-a
-
-single
-
-Dom ain ,
-
-then
-
-that
-
-card
-
-is
-
-perm itted
-
-in
-
-the
-
-Dom ain
-
-Identity
-
-that
-
-corresponds
-
-to
-
-the
-
-sam e
-
-Dom ain.
-
-103.1.b.4.
-
-If
-
-a
-
-card
-
-has
-
-m ore
-
-than
-
-one
-
-Dom ain ,
-
-then
-
-that
-
-card
-
-is
-
-perm itted
-
-only
-
-in
-
-a
-
-Dom ain
-
-Identity
-
-that
-
-contains
-
-all
-
-of
-
-the
-
-indicated
-
-Dom ains
-
-on
-
-that
-
-card.`,
+4. If a card has more than one Domain, then that card is permitted only in a Domain Identity that contains all of the indicated Domains on that card.`,
   },
   {
     id: `103.2`,
-    section: `103.2. A`,
-    text: `A
-
-Main
-
-Deck
-
-of
-
-at
-
-least
-
-40
-
-cards
-
-1
-
-Chosen
-
-Cham pion
-
-Unit
-
-Units
-
-Gear
-
-Spells`,
+    section: `103.2. A Main Deck of at least 40 cards 1 Chosen Champion Unit Units Gear Spells`,
+    text: `A Main Deck of at least 40 cards 1 Chosen Champion Unit Units Gear Spells`,
   },
   {
     id: `103.2.a`,
-    section: `103.2.a. Chosen`,
-    text: `Chosen
+    section: `103.2.a. Chosen Champion`,
+    text: `Chosen Champion
 
-Cham pion
+1. This will be placed in the Champion Zone at the start of the game.
 
-103.2.a.1.
+2. Must be a champion unit with a champion tag that matches the tag on your Champion Legend. Example: Loose Cannon has the tag Jinx. Therefore, a player could choose Jinx, Rebel or Jinx, Demolitionist as their Chosen Champion, because they also have the tag Jinx. Example: Tibbers has the tag Annie, but it is a signature unit, not a champion unit. It cannot be your Chosen Champion, even if your Champion Legend has the tag Annie.
 
-This
-
-w ill
-
-be
-
-placed
-
-in
-
-the
-
-Cham pion
-
-Zone
-
-at
-
-the
-
-start
-
-of
-
-the
-
-gam e.
-
-103.2.a.2.
-
-M ust
-
-be
-
-a
-
-cham pion
-
-unit
-
-w ith
-
-a
-
-cham pion
-
-tag
-
-that
-
-m atches
-
-the
-
-tag
-
-on
-
-your
-
-Cham pion
-
-Legend.
-
-Example:
-
-Loose
-
-Cannon
-
-has
-
-the
-
-tag
-
-Jinx .
-
-Therefore,
-
-a
-
-player
-
-could
-
-choose
-
-Jinx,
-
-Rebel
-
-or
-
-Jinx,
-
-D em olitionist
-
-as
-
-their
-
-Chosen
-
-Cham pion ,
-
-because
-
-they
-
-also
-
-have
-
-the
-
-tag
-
-Jinx .
-
-Example:
-
-Tibbers
-
-has
-
-the
-
-tag
-
-Annie ,
-
-but
-
-it
-
-is
-
-a
-
-signature
-
-unit,
-
-not
-
-a
-
-cham pion
-
-unit.
-
-It
-
-cannot
-
-be
-
-your
-
-Chosen
-
-Cham pion ,
-
-even
-
-if
-
-your
-
-Cham pion
-
-Legend
-
-has
-
-the
-
-tag
-
-Annie .
-
-103.2.a.3.
-
-A
-
-player’s
-
-Chosen
-
-Cham pion
-
-is
-
-both
-
-the
-
-speciﬁc
-
-card
-
-chosen
-
-for
-
-this
-
-slot
-
-during
-
-D eck
-
-Building
-
-and
-
-also
-
-any
-
-Cham pion
-
-Unit
-
-w ith
-
-the
-
-sam e
-
-nam e
-
-as
-
-the
-
-speciﬁc
-
-card
-
-selected
-
-for
-
-this
-
-speciﬁc
-
-slot
-
-during
-
-the
-
-course
-
-of
-
-play.
-
-Example:
-
-A
-
-player
-
-chose
-
-Jinx,
-
-Rebel
-
-as
-
-their
-
-Chosen
-
-Cham pion.
-
-O ne
-
-copy
-
-of
-
-Jinx,
-
-Rebel
-
-starts
-
-the
-
-gam e
-
-in
-
-their
-
-Chosen
-
-Cham pion
-
-zone.
-
-Any
-
-additional
-
-copies
-
-of
-
-Jinx,
-
-Rebel
-
-in
-
-their
-
-M ain
-
-D eck,
-
-their
-
-hand,
-
-their
-
-trash,
-
-or
-
-on
-
-the
-
-board
-
-also
-
-count
-
-as
-
-their
-
-Chosen
-
-Cham pion
-
-for
-
-any
-
-gam e
-
-rules
-
-and
-
-effects
-
-that
-
-care
-
-about
-
-Chosen
-
-Cham pion
-
-status
-
-during
-
-the
-
-gam e.
-
-Chosen
-
-Champion
-
-for
-
-more
-
-information.`,
+3. A player’s Chosen Champion is both the specific card chosen for this slot during Deck Building and also any Champion Unit with the same name as the specific card selected for this specific slot during the course of play. Example: A player chose Jinx, Rebel as their Chosen Champion. One copy of Jinx, Rebel starts the game in their Chosen Champion zone. Any additional copies of Jinx, Rebel in their Main Deck, their hand, their trash, or on the board also count as their Chosen Champion for any game rules and effects that care about Chosen Champion status during the game.`,
   },
   {
     id: `103.2.b`,
-    section: `103.2.b. Your`,
-    text: `Your
+    section: `103.2.b. Your Main Deck can include up to 3 copies of the same named card`,
+    text: `Your Main Deck can include up to 3 copies of the same named card.
 
-Main
+1. This includes your Chosen Champion. Example: A deck could include Volibear, Furious as its Chosen Champion and still include 2 more copies of Volibear, Furious.
 
-Deck
-
-can
-
-include
-
-up
-
-to
-
-3
-
-copies
-
-of
-
-the
-
-sam e
-
-nam ed
-
-card.
-
-103.2.b.1.
-
-This
-
-includes
-
-your
-
-Chosen
-
-Cham pion.
-
-Example:
-
-A
-
-deck
-
-could
-
-include
-
-Volibear,
-
-Furious
-
-as
-
-its
-
-Chosen
-
-Cham pion
-
-and
-
-still
-
-include
-
-2
-
-m ore
-
-copies
-
-of
-
-Volibear,
-
-Furious.
-
-103.2.b.2.
-
-Cards
-
-have
-
-different
-
-nam es
-
-even
-
-if
-
-they
-
-represent
-
-the
-
-sam e
-
-character.
-
-Example:
-
-A
-
-deck
-
-could
-
-include
-
-3
-
-copies
-
-of
-
-Yasuo,
-
-Rem orseful
-
-and
-
-3
-
-copies
-
-of
-
-Yasuo,
-
-W indrider,
-
-because
-
-they
-
-have
-
-different
-
-nam es.`,
+2. Cards have different names even if they represent the same character. Example: A deck could include 3 copies of Yasuo, Remorseful and 3 copies of Yasuo, Windrider, because they have different names.`,
   },
   {
     id: `103.2.c`,
-    section: `103.2.c. Subject`,
-    text: `Subject
-
-to
-
-Dom ain
-
-Identity.`,
+    section: `103.2.c. Subject to Domain Identity`,
+    text: `Subject to Domain Identity.`,
   },
   {
     id: `103.2.d`,
-    section: `103.2.d. Your`,
-    text: `Your
+    section: `103.2.d. Your deck may only contain 3 total Signature cards that have the same Champion tag as your Champion Legend`,
+    text: `Your deck may only contain 3 total Signature cards that have the same Champion tag as your Champion Legend.
 
-deck
+1. Regardless of name, a deck may only contain a sum total of 3 Signature cards.
 
-m ay
+2. All of the Signature cards must have the Champion tag that corresponds to the Champion Legend of the deck.
 
-only
-
-contain
-
-3
-
-total
-
-Signature
-
-cards
-
-that
-
-have
-
-the
-
-sam e
-
-Cham pion
-
-tag
-
-as
-
-your
-
-Cham pion
-
-Legend.
-
-103.2.d.1.
-
-Regardless
-
-of
-
-nam e,
-
-a
-
-deck
-
-m ay
-
-only
-
-contain
-
-a
-
-sum
-
-total
-
-of
-
-3
-
-Signature
-
-cards.
-
-103.2.d.2.
-
-All
-
-of
-
-the
-
-Signature
-
-cards
-
-m ust
-
-have
-
-the
-
-Cham pion
-
-tag
-
-that
-
-corresponds
-
-to
-
-the
-
-Cham pion
-
-Legend
-
-of
-
-the
-
-deck.
-
-103.2.d.3.
-
-Signature
-
-cards
-
-are
-
-not
-
-Cham pion
-
-units
-
-and
-
-cannot
-
-be
-
-placed
-
-in
-
-the
-
-Cham pion
-
-Zone .
-
-for
-
-more
-
-information
-
-about
-
-Signature
-
-cards.`,
+3. Signature cards are not Champion units and cannot be placed in the Champion Zone.`,
   },
   {
     id: `103.2.e`,
-    section: `103.2.e. D uring`,
-    text: `D uring
+    section: `103.2.e. During Gameplay`,
+    text: `During Gameplay, the Main Deck is Secret Information.
 
-Gam eplay,
-
-the
-
-Main
-
-Deck
-
-is
-
-Secret
-
-Inform ation.
-
-103.2.e.1.
-
-It
-
-cannot
-
-be
-
-looked
-
-through
-
-or
-
-revealed
-
-unless
-
-instructed
-
-by
-
-a
-
-card
-
-effect.`,
+1. It cannot be looked through or revealed unless instructed by a card effect.`,
   },
   {
     id: `103.3`,
-    section: `103.3. Rune`,
-    text: `Rune
-
-Deck
-
-Rune
-
-Deck
-
-for
-
-more
-
-information.`,
+    section: `103.3. Rune Deck`,
+    text: `Rune Deck`,
   },
   {
     id: `103.3.a`,
-    section: `103.3.a. 12`,
-    text: `12
+    section: `103.3.a. 12 Rune Cards`,
+    text: `12 Rune Cards
 
-Rune
-
-Cards
-
-103.3.a.1.
-
-Cards
-
-in
-
-this
-
-deck
-
-m ust
-
-be
-
-of
-
-the
-
-Dom ain
-
-Identity
-
-of
-
-your
-
-Cham pion
-
-Legend.`,
+1. Cards in this deck must be of the Domain Identity of your Champion Legend.`,
   },
   {
     id: `103.3.b`,
-    section: `103.3.b. M ust`,
-    text: `M ust
-
-be
-
-shufﬂed
-
-and
-
-kept
-
-separate
-
-from
-
-the
-
-Main
-
-Deck.`,
+    section: `103.3.b. Must be shuffled and kept separate from the Main Deck`,
+    text: `Must be shuffled and kept separate from the Main Deck.`,
   },
   {
     id: `103.4`,
-    section: `103.4. Battleﬁelds`,
-    text: `Battleﬁelds`,
+    section: `103.4. Battlefields`,
+    text: `Battlefields`,
   },
   {
     id: `103.4.a`,
-    section: `103.4.a. The`,
-    text: `The
-
-num ber
-
-w ill
-
-be
-
-dictated
-
-by
-
-your
-
-Mode
-
-of
-
-Play.`,
+    section: `103.4.a. The number will be dictated by your Mode of Play`,
+    text: `The number will be dictated by your Mode of Play.`,
   },
   {
     id: `103.4.b`,
-    section: `103.4.b. Subject`,
-    text: `Subject
-
-to
-
-Dom ain
-
-Identity
-
-if
-
-applicable.`,
+    section: `103.4.b. Subject to Domain Identity if applicable`,
+    text: `Subject to Domain Identity if applicable.`,
   },
   {
     id: `103.4.c`,
-    section: `103.4.c. Cannot`,
-    text: `Cannot
-
-include
-
-m ore
-
-than
-
-one
-
-of
-
-a
-
-Battleﬁeld
-
-of
-
-the
-
-sam e
-
-nam e
-
-w hen
-
-there
-
-are
-
-m ore
-
-than
-
-one
-
-required
-
-for
-
-the
-
-deck.`,
+    section: `103.4.c. Cannot include more than one of a Battlefield of the same name when there are more than one required for the deck`,
+    text: `Cannot include more than one of a Battlefield of the same name when there are more than one required for the deck.`,
   },
   {
     id: `104`,
@@ -1740,2973 +213,457 @@ deck.`,
   },
   {
     id: `106`,
-    section: `106. The`,
-    text: `The
-
-Play
-
-Area
-
-includes
-
-a
-
-space
-
-for
-
-Gam e
-
-Objects
-
-referred
-
-to
-
-as
-
-The
-
-Board.`,
+    section: `106. The Play Area includes a space for Game Objects referred to as The Board`,
+    text: `The Play Area includes a space for Game Objects referred to as The Board.`,
   },
   {
     id: `106.1`,
-    section: `106.1. The`,
-    text: `The
-
-Board
-
-is
-
-divided
-
-into
-
-several
-
-Zones.`,
+    section: `106.1. The Board is divided into several Zones`,
+    text: `The Board is divided into several Zones.`,
   },
   {
     id: `106.2`,
-    section: `106.2. The`,
-    text: `The
-
-Base`,
+    section: `106.2. The Base`,
+    text: `The Base`,
   },
   {
     id: `106.2.a`,
-    section: `106.2.a. O ne`,
-    text: `O ne
-
-per
-
-player.`,
+    section: `106.2.a. One per player`,
+    text: `One per player.`,
   },
   {
     id: `106.2.b`,
-    section: `106.2.b. The`,
-    text: `The
-
-space
-
-each
-
-player
-
-alw ays
-
-has
-
-access
-
-to
-
-play
-
-their
-
-Units
-
-and
-
-Gear
-
-to.`,
+    section: `106.2.b. The space each player always has access to play their Units and Gear to`,
+    text: `The space each player always has access to play their Units and Gear to.`,
   },
   {
     id: `106.2.c`,
-    section: `106.2.c. Each`,
-    text: `Each
-
-Base
-
-is
-
-a
-
-Location.`,
+    section: `106.2.c. Each Base is a Location`,
+    text: `Each Base is a Location.`,
   },
   {
     id: `106.2.d`,
-    section: `106.2.d. O ther`,
-    text: `O ther
-
-players
-
-cannot
-
-have
-
-Gam e
-
-Objects
-
-they
-
-control
-
-in
-
-another
-
-player's
-
-Base.`,
+    section: `106.2.d. Other players cannot have Game Objects they control in another player's Base`,
+    text: `Other players cannot have Game Objects they control in another player's Base.`,
   },
   {
     id: `106.2.e`,
-    section: `106.2.e. The`,
-    text: `The
-
-Base
-
-also
-
-houses
-
-each
-
-player's
-
-Runes
-
-that
-
-are
-
-on
-
-The
-
-Board.`,
+    section: `106.2.e. The Base also houses each player's Runes that are on The Board`,
+    text: `The Base also houses each player's Runes that are on The Board.`,
   },
   {
     id: `106.3`,
-    section: `106.3. The`,
-    text: `The
-
-Battleﬁeld
-
-Zone`,
+    section: `106.3. The Battlefield Zone`,
+    text: `The Battlefield Zone`,
   },
   {
     id: `106.3.a`,
-    section: `106.3.a. M ultiple`,
-    text: `M ultiple
-
-Battleﬁelds
-
-w ill
-
-be
-
-here,
-
-typically
-
-one
-
-per
-
-player,
-
-but
-
-occasionally
-
-less.`,
+    section: `106.3.a. Multiple Battlefields will be here`,
+    text: `Multiple Battlefields will be here, typically one per player, but occasionally less.`,
   },
   {
     id: `106.3.b`,
-    section: `106.3.b. The`,
-    text: `The
-
-space
-
-w here
-
-Battleﬁelds
-
-are
-
-located
-
-during
-
-gam eplay.`,
+    section: `106.3.b. The space where Battlefields are located during gameplay`,
+    text: `The space where Battlefields are located during gameplay.`,
   },
   {
     id: `106.3.c`,
-    section: `106.3.c. Each`,
-    text: `Each
-
-Battleﬁeld
-
-is
-
-individually
-
-a
-
-Location.`,
+    section: `106.3.c. Each Battlefield is individually a Location`,
+    text: `Each Battlefield is individually a Location.`,
   },
   {
     id: `106.4`,
-    section: `106.4. The`,
-    text: `The
-
-Facedown
-
-Zones`,
+    section: `106.4. The Facedown Zones`,
+    text: `The Facedown Zones`,
   },
   {
     id: `106.4.a`,
-    section: `106.4.a. Each`,
-    text: `Each
-
-Battleﬁeld
-
-is
-
-associated
-
-w ith
-
-a
-
-sub-zone
-
-called
-
-a
-
-Facedown
-
-Zone ,
-
-a
-
-single
-
-logical
-
-space
-
-that
-
-a
-
-card
-
-can
-
-be
-
-put
-
-facedow n
-
-in
-
-through
-
-various
-
-Gam e
-
-Effects.`,
+    section: `106.4.a. Each Battlefield is associated with a sub-zone called a Facedown Zone`,
+    text: `Each Battlefield is associated with a sub-zone called a Facedown Zone, a single logical space that a card can be put facedown in through various Game Effects.`,
   },
   {
     id: `106.4.b`,
-    section: `106.4.b. Each`,
-    text: `Each
-
-Facedown
-
-Zone
-
-has
-
-a
-
-m axim um
-
-occupancy
-
-of
-
-one
-
-card.`,
+    section: `106.4.b. Each Facedown Zone has a maximum occupancy of one card`,
+    text: `Each Facedown Zone has a maximum occupancy of one card.`,
   },
   {
     id: `106.4.c`,
-    section: `106.4.c. Cards`,
-    text: `Cards
-
-can
-
-only
-
-be
-
-placed
-
-in
-
-or
-
-occupy
-
-the
-
-Facedown
-
-Zone
-
-if
-
-the
-
-controller
-
-of
-
-the
-
-card
-
-also
-
-controls
-
-the
-
-associated
-
-Battleﬁeld.`,
+    section: `106.4.c. Cards can only be placed in or occupy the Facedown Zone if the controller of the card also controls the associated Battlefield`,
+    text: `Cards can only be placed in or occupy the Facedown Zone if the controller of the card also controls the associated Battlefield.`,
   },
   {
     id: `106.4.d`,
-    section: `106.4.d. If`,
-    text: `If
-
-the
-
-Hidden
-
-card's
-
-controller
-
-loses
-
-Control
-
-of
-
-the
-
-Battleﬁeld ,
-
-the
-
-card
-
-in
-
-the
-
-Facedown
-
-Zone
-
-is
-
-rem oved
-
-during
-
-the
-
-next
-
-Cleanup.
-
-See
-
-rule`,
-  },
-  {
-    id: `318`,
-    section: `318. Cleanups`,
-    text: `Cleanups
-
-for
-
-more
-
-information.
-
-See
-
-rule`,
-  },
-  {
-    id: `408`,
-    section: `408. Hide`,
-    text: `Hide
-
-for
-
-more
-
-information.`,
+    section: `106.4.d. If the Hidden card's controller loses Control of the Battlefield`,
+    text: `If the Hidden card's controller loses Control of the Battlefield, the card in the Facedown Zone is removed during the next Cleanup. See rule 318. Cleanups for more information. See rule 408. Hide for more information.`,
   },
   {
     id: `106.4.e`,
-    section: `106.4.e. Facedow n`,
-    text: `Facedow n
-
-Zones
-
-are
-
-not
-
-locations.`,
+    section: `106.4.e. Facedown Zones are not locations`,
+    text: `Facedown Zones are not locations.`,
   },
   {
     id: `106.5`,
-    section: `106.5. The`,
-    text: `The
-
-Legend
-
-Zone`,
+    section: `106.5. The Legend Zone`,
+    text: `The Legend Zone`,
   },
   {
     id: `106.5.a`,
-    section: `106.5.a. The`,
-    text: `The
-
-space
-
-for
-
-each
-
-player's
-
-Cham pion
-
-Legend.`,
+    section: `106.5.a. The space for each player's Champion Legend`,
+    text: `The space for each player's Champion Legend.`,
   },
   {
     id: `106.5.b`,
-    section: `106.5.b. This`,
-    text: `This
-
-is
-
-not
-
-a
-
-location.`,
+    section: `106.5.b. This is not a location`,
+    text: `This is not a location.`,
   },
   {
     id: `106.5.c`,
-    section: `106.5.c. The`,
-    text: `The
-
-Cham pion
-
-Legend
-
-here
-
-is
-
-a
-
-Gam e
-
-Object.
-
-See
-
-rule`,
-  },
-  {
-    id: `119`,
-    section: `119. Game`,
-    text: `Game
-
-Objects
-
-for
-
-more
-
-information.
-
-Gam e
-
-Objects`,
+    section: `106.5.c. The Champion Legend here is a Game Object`,
+    text: `The Champion Legend here is a Game Object. See rule 119. Game Objects for more information.`,
   },
   {
     id: `106.5.d`,
-    section: `106.5.d. The`,
-    text: `The
-
-Cham pion
-
-Legend
-
-cannot
-
-be
-
-rem oved,
-
-m oved,
-
-or
-
-displaced
-
-from
-
-this
-
-zone.`,
+    section: `106.5.d. The Champion Legend cannot be removed`,
+    text: `The Champion Legend cannot be removed, moved, or displaced from this zone.`,
   },
   {
     id: `107`,
-    section: `107. The`,
-    text: `The
-
-Play
-
-Area
-
-also
-
-includes
-
-Non-Board
-
-Zones.`,
+    section: `107. The Play Area also includes Non-Board Zones`,
+    text: `The Play Area also includes Non-Board Zones.`,
   },
   {
     id: `107.1`,
-    section: `107.1. The`,
-    text: `The
-
-Trash`,
+    section: `107.1. The Trash`,
+    text: `The Trash`,
   },
   {
     id: `107.1.a`,
-    section: `107.1.a. This`,
-    text: `This
-
-space
-
-is
-
-w here
-
-cards
-
-are
-
-placed
-
-w hen
-
-they
-
-are
-
-killed
-
-or
-
-discarded,
-
-w hen
-
-they
-
-ﬁnish
-
-being
-
-executed
-
-as
-
-spells,
-
-w hen
-
-they
-
-are
-
-m oved
-
-to
-
-the
-
-trash
-
-as
-
-an
-
-effect,
-
-etc.`,
+    section: `107.1.a. This space is where cards are placed when they are killed or discarded`,
+    text: `This space is where cards are placed when they are killed or discarded, when they finish being executed as spells, when they are moved to the trash as an effect, etc.`,
   },
   {
     id: `107.1.b`,
-    section: `107.1.b. Represents`,
-    text: `Represents
-
-cards
-
-that
-
-have
-
-been
-
-used
-
-or
-
-spent.`,
+    section: `107.1.b. Represents cards that have been used or spent`,
+    text: `Represents cards that have been used or spent.`,
   },
   {
     id: `107.1.c`,
-    section: `107.1.c. Each`,
-    text: `Each
-
-player
-
-has
-
-a
-
-separate
-
-trash.`,
+    section: `107.1.c. Each player has a separate trash`,
+    text: `Each player has a separate trash.`,
   },
   {
     id: `107.1.d`,
-    section: `107.1.d. A`,
-    text: `A
-
-card
-
-ow ned
-
-by
-
-a
-
-player
-
-can
-
-never,
-
-for
-
-any
-
-reason,
-
-be
-
-put
-
-into
-
-a
-
-trash
-
-of
-
-another
-
-player.
-
-If
-
-it
-
-w ould
-
-be,
-
-it's
-
-put
-
-into
-
-its
-
-ow ner's
-
-trash
-
-instead.`,
+    section: `107.1.d. A card owned by a player can never`,
+    text: `A card owned by a player can never, for any reason, be put into a trash of another player. If it would be, it's put into its owner's trash instead.`,
   },
   {
     id: `107.1.e`,
-    section: `107.1.e. The`,
-    text: `The
-
-cards
-
-in
-
-the
-
-Trash
-
-are
-
-unordered.
-
-Their
-
-sequence
-
-does
-
-not
-
-m atter,
-
-and
-
-they
-
-m ay
-
-be
-
-reorganized.`,
+    section: `107.1.e. The cards in the Trash are unordered`,
+    text: `The cards in the Trash are unordered. Their sequence does not matter, and they may be reorganized.`,
   },
   {
     id: `107.1.f`,
-    section: `107.1.f. The`,
-    text: `The
-
-cards
-
-in
-
-any
-
-player's
-
-Trash
-
-are
-
-Public
-
-Inform ation.
-
-See
-
-rule`,
-  },
-  {
-    id: `127`,
-    section: `127. Privacy`,
-    text: `Privacy
-
-for
-
-more
-
-information.`,
+    section: `107.1.f. The cards in any player's Trash are Public Information`,
+    text: `The cards in any player's Trash are Public Information. See rule 127. Privacy for more information.`,
   },
   {
     id: `107.2`,
-    section: `107.2. The`,
-    text: `The
-
-Cham pion
-
-Zone`,
+    section: `107.2. The Champion Zone`,
+    text: `The Champion Zone`,
   },
   {
     id: `107.2.a`,
-    section: `107.2.a. The`,
-    text: `The
-
-space
-
-each
-
-player
-
-puts
-
-their
-
-Chosen
-
-Cham pion
-
-at
-
-the
-
-start
-
-of
-
-the
-
-gam e.`,
+    section: `107.2.a. The space each player puts their Chosen Champion at the start of the game`,
+    text: `The space each player puts their Chosen Champion at the start of the game.`,
   },
   {
     id: `107.2.b`,
-    section: `107.2.b. The`,
-    text: `The
+    section: `107.2.b. The Chosen Champion here cannot be returned to this zone by normal means`,
+    text: `The Chosen Champion here cannot be returned to this zone by normal means.
 
-Chosen
-
-Cham pion
-
-here
-
-cannot
-
-be
-
-returned
-
-to
-
-this
-
-zone
-
-by
-
-norm al
-
-m eans.
-
-107.2.b.1.
-
-If
-
-a
-
-Chosen
-
-Cham pion
-
-is
-
-instructed
-
-to
-
-be
-
-returned
-
-to
-
-this
-
-zone,
-
-it
-
-can
-
-only
-
-do
-
-so
-
-if
-
-there
-
-is
-
-not
-
-a
-
-card
-
-already
-
-in
-
-this
-
-zone.`,
+1. If a Chosen Champion is instructed to be returned to this zone, it can only do so if there is not a card already in this zone.`,
   },
   {
     id: `107.2.c`,
-    section: `107.2.c. The`,
-    text: `The
-
-Chosen
-
-Cham pion
-
-can
-
-be
-
-played
-
-from
-
-here
-
-as
-
-norm al,
-
-follow ing
-
-the
-
-rules
-
-of
-
-Playing
-
-a
-
-Card.
-
-See
-
-rule`,
-  },
-  {
-    id: `346`,
-    section: `346. Playing`,
-    text: `Playing
-
-Cards
-
-for
-
-more
-
-information.
-
-Playing
-
-Cards
-
-for
-
-more
-
-information.
-
-142.2.a.1.
-
-This
-
-behaves,
-
-once
-
-activated,
-
-like
-
-a
-
-spell
-
-w ithout
-
-an
-
-associated
-
-card.
-
-Playing
-
-Cards
-
-for
-
-more
-
-information.
-
-145.2.a.1.
-
-This
-
-behaves,
-
-once
-
-activated,
-
-like
-
-a
-
-spell
-
-w ithout
-
-an
-
-associated
-
-card.
-
-Playing
-
-Cards
-
-for
-
-more
-
-information.
-
-333.1.c.1.
-
-If
-
-the
-
-Chain
-
-is
-
-em pty,
-
-play
-
-proceeds
-
-in
-
-an
-
-Open
-
-State.
-
-333.1.c.2.
-
-If
-
-the
-
-Chain
-
-is
-
-not
-
-em pty
-
-and
-
-there
-
-are
-
-one
-
-or
-
-m ore
-
-Pending
-
-Item s ,
-
-repeat
-
-Step
-
-1.
-
-333.1.c.3.
-
-If
-
-the
-
-Chain
-
-is
-
-not
-
-em pty
-
-and
-
-there
-
-are
-
-no
-
-Pending
-
-Item s ,
-
-the
-
-controller
-
-of
-
-the
-
-new est
-
-item
-
-on
-
-the
-
-chain
-
-gains
-
-Priority
-
-and
-
-becom es
-
-the
-
-Active
-
-Player.
-
-Proceed
-
-to
-
-Step
-
-2:
-
-Execute.
-
-Playing
-
-Cards
-
-for
-
-more
-
-information.
-
-334.1.a.7.
-
-Playing
-
-a
-
-card
-
-w ill
-
-create
-
-one
-
-or
-
-m ore
-
-Pending
-
-Item s .
-
-Return
-
-to
-
-Step
-
-1:
-
-Finalize.
-
-Playing
-
-Cards
-
-for
-
-more
-
-information
-
-on
-
-resolving
-
-spells.
-
-See
-
-rule`,
+    section: `107.2.c. The Chosen Champion can be played from here as normal`,
+    text: `The Chosen Champion can be played from here as normal, following the rules of Playing a Card. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `107.3`,
-    section: `107.3. The`,
-    text: `The
-
-Main
-
-Deck
-
-Zone`,
+    section: `107.3. The Main Deck Zone`,
+    text: `The Main Deck Zone`,
   },
   {
     id: `107.3.a`,
-    section: `107.3.a. The`,
-    text: `The
-
-space
-
-for
-
-the
-
-player's
-
-Main
-
-Deck.`,
+    section: `107.3.a. The space for the player's Main Deck`,
+    text: `The space for the player's Main Deck.`,
   },
   {
     id: `107.3.b`,
-    section: `107.3.b. Prim arily`,
-    text: `Prim arily
-
-houses
-
-the
-
-face-dow n
-
-deck
-
-during
-
-gam eplay.`,
+    section: `107.3.b. Primarily houses the face-down deck during gameplay`,
+    text: `Primarily houses the face-down deck during gameplay.`,
   },
   {
     id: `107.3.c`,
-    section: `107.3.c. The`,
-    text: `The
-
-order
-
-of
-
-cards
-
-in
-
-the
-
-deck
-
-is
-
-Secret
-
-Inform ation
-
-during
-
-the
-
-course
-
-of
-
-play.
-
-See
-
-rule`,
+    section: `107.3.c. The order of cards in the deck is Secret Information during the course of play`,
+    text: `The order of cards in the deck is Secret Information during the course of play. See rule 127. Privacy for more information.`,
   },
   {
     id: `107.4`,
-    section: `107.4. The`,
-    text: `The
-
-Rune
-
-Deck
-
-Zone`,
+    section: `107.4. The Rune Deck Zone`,
+    text: `The Rune Deck Zone`,
   },
   {
     id: `107.4.a`,
-    section: `107.4.a. The`,
-    text: `The
-
-space
-
-for
-
-the
-
-player's
-
-Rune
-
-Deck.`,
+    section: `107.4.a. The space for the player's Rune Deck`,
+    text: `The space for the player's Rune Deck.`,
   },
   {
     id: `107.4.b`,
-    section: `107.4.b. Prim arily`,
-    text: `Prim arily
-
-houses
-
-the
-
-face-dow n
-
-runes
-
-during
-
-gam eplay.`,
+    section: `107.4.b. Primarily houses the face-down runes during gameplay`,
+    text: `Primarily houses the face-down runes during gameplay.`,
   },
   {
     id: `107.4.c`,
-    section: `107.4.c. The`,
-    text: `The
-
-order
-
-of
-
-runes
-
-in
-
-the
-
-deck
-
-is
-
-Secret
-
-Inform ation
-
-during
-
-the
-
-course
-
-of
-
-play.
-
-See
-
-rule`,
+    section: `107.4.c. The order of runes in the deck is Secret Information during the course of play`,
+    text: `The order of runes in the deck is Secret Information during the course of play. See rule 127. Privacy for more information.`,
   },
   {
     id: `107.5`,
-    section: `107.5. Banishm ent`,
-    text: `Banishm ent
-
-Banishment
-
-for
-
-more
-
-information.`,
+    section: `107.5. Banishment`,
+    text: `Banishment`,
   },
   {
     id: `107.5.a`,
-    section: `107.5.a. This`,
-    text: `This
-
-space
-
-is
-
-w here
-
-cards
-
-are
-
-placed
-
-w hen
-
-they
-
-are
-
-banished
-
-by
-
-a
-
-spell
-
-or
-
-effect.`,
+    section: `107.5.a. This space is where cards are placed when they are banished by a spell or effect`,
+    text: `This space is where cards are placed when they are banished by a spell or effect.`,
   },
   {
     id: `107.5.b`,
-    section: `107.5.b. Represents`,
-    text: `Represents
-
-cards
-
-that
-
-have
-
-been
-
-rem oved
-
-from
-
-play
-
-in
-
-a
-
-m ore
-
-difﬁcult-to-recover
-
-w ay,
-
-or
-
-a
-
-tem porary
-
-space
-
-to
-
-hold
-
-cards
-
-w hile
-
-effects
-
-are
-
-being
-
-processed.`,
+    section: `107.5.b. Represents cards that have been removed from play in a more difficult-to-recover way`,
+    text: `Represents cards that have been removed from play in a more difficult-to-recover way, or a temporary space to hold cards while effects are being processed.`,
   },
   {
     id: `107.5.c`,
-    section: `107.5.c. Each`,
-    text: `Each
-
-player
-
-has
-
-a
-
-separate
-
-banishm ent.`,
+    section: `107.5.c. Each player has a separate banishment`,
+    text: `Each player has a separate banishment.`,
   },
   {
     id: `107.5.d`,
-    section: `107.5.d. A`,
-    text: `A
-
-card
-
-ow ned
-
-by
-
-a
-
-player
-
-can
-
-never,
-
-for
-
-any
-
-reason,
-
-be
-
-put
-
-into
-
-the
-
-banishm ent
-
-of
-
-another
-
-player.
-
-If
-
-it
-
-w ould
-
-be,
-
-it's
-
-put
-
-into
-
-its
-
-ow ner's
-
-banishm ent
-
-instead.`,
+    section: `107.5.d. A card owned by a player can never`,
+    text: `A card owned by a player can never, for any reason, be put into the banishment of another player. If it would be, it's put into its owner's banishment instead.`,
   },
   {
     id: `107.5.e`,
-    section: `107.5.e. The`,
-    text: `The
-
-cards
-
-in
-
-the
-
-banishm ent
-
-are
-
-unordered.
-
-Their
-
-sequence
-
-does
-
-not
-
-m atter,
-
-and
-
-they
-
-m ay
-
-be
-
-reorganized.`,
+    section: `107.5.e. The cards in the banishment are unordered`,
+    text: `The cards in the banishment are unordered. Their sequence does not matter, and they may be reorganized.`,
   },
   {
     id: `107.5.f`,
-    section: `107.5.f. The`,
-    text: `The
-
-cards
-
-in
-
-any
-
-player's
-
-Banishm ent
-
-are
-
-Public
-
-Inform ation.
-
-See
-
-rule`,
+    section: `107.5.f. The cards in any player's Banishment are Public Information`,
+    text: `The cards in any player's Banishment are Public Information. See rule 127. Privacy for more information.`,
   },
   {
     id: `107.5.g`,
-    section: `107.5.g. Som e`,
-    text: `Som e
-
-spells
-
-or
-
-effects
-
-m ay
-
-reference
-
-cards
-
-placed
-
-into
-
-banishm ent
-
-directly.`,
+    section: `107.5.g. Some spells or effects may reference cards placed into banishment directly`,
+    text: `Some spells or effects may reference cards placed into banishment directly.`,
   },
   {
     id: `107.5.h`,
-    section: `107.5.h. Effects`,
-    text: `Effects
-
-that
-
-reference
-
-cards
-
-in
-
-banishm ent
-
-only
-
-do
-
-so
-
-by
-
-m eans
-
-of
-
-also
-
-putting
-
-the
-
-cards
-
-there.`,
+    section: `107.5.h. Effects that reference cards in banishment only do so by means of also putting the cards there`,
+    text: `Effects that reference cards in banishment only do so by means of also putting the cards there.`,
   },
   {
     id: `107.5.i`,
-    section: `107.5.i. The`,
-    text: `The
-
-effects
-
-or
-
-references
-
-to
-
-cards
-
-in
-
-banishm ent
-
-do
-
-not
-
-count
-
-as
-
-Choosing.`,
+    section: `107.5.i. The effects or references to cards in banishment do not count as Choosing`,
+    text: `The effects or references to cards in banishment do not count as Choosing.`,
   },
   {
     id: `107.5.j`,
-    section: `107.5.j. The`,
-    text: `The
-
-effects
-
-or
-
-references
-
-to
-
-cards
-
-in
-
-banishm ent
-
-do
-
-not
-
-count
-
-as
-
-Attachm ent.`,
+    section: `107.5.j. The effects or references to cards in banishment do not count as Attachment`,
+    text: `The effects or references to cards in banishment do not count as Attachment.`,
   },
   {
     id: `107.6`,
-    section: `107.6. The`,
-    text: `The
-
-Hand`,
+    section: `107.6. The Hand`,
+    text: `The Hand`,
   },
   {
     id: `107.6.a`,
-    section: `107.6.a. Each`,
-    text: `Each
-
-player
-
-has
-
-a
-
-collection
-
-of
-
-cards
-
-they
-
-m ay
-
-Play
-
-cards
-
-from .`,
+    section: `107.6.a. Each player has a collection of cards they may Play cards from`,
+    text: `Each player has a collection of cards they may Play cards from.`,
   },
   {
     id: `107.6.b`,
-    section: `107.6.b. This`,
-    text: `This
-
-is
-
-the
-
-location
-
-cards
-
-go
-
-w hen
-
-Drawn.`,
+    section: `107.6.b. This is the location cards go when Drawn`,
+    text: `This is the location cards go when Drawn.`,
   },
   {
     id: `107.6.c`,
-    section: `107.6.c. The`,
-    text: `The
-
-cards
-
-in
-
-a
-
-player's
-
-hand
-
-are
-
-Private
-
-Inform ation.`,
+    section: `107.6.c. The cards in a player's hand are Private Information`,
+    text: `The cards in a player's hand are Private Information.`,
   },
   {
     id: `107.6.d`,
-    section: `107.6.d. The`,
-    text: `The
-
-num ber
-
-of
-
-cards
-
-in
-
-a
-
-player's
-
-hand
-
-is
-
-Public
-
-Inform ation.`,
+    section: `107.6.d. The number of cards in a player's hand is Public Information`,
+    text: `The number of cards in a player's hand is Public Information.`,
   },
   {
     id: `107.6.e`,
-    section: `107.6.e. The`,
-    text: `The
-
-hand
-
-can
-
-be
-
-targeted
-
-as
-
-a
-
-zone,
-
-and
-
-cards
-
-there
-
-can
-
-be
-
-affected
-
-by
-
-spells
-
-and
-
-effects
-
-w hen
-
-speciﬁed.`,
+    section: `107.6.e. The hand can be targeted as a zone`,
+    text: `The hand can be targeted as a zone, and cards there can be affected by spells and effects when specified.`,
   },
   {
     id: `107.6.f`,
-    section: `107.6.f. A`,
-    text: `A
-
-card
-
-ow ned
-
-by
-
-a
-
-player
-
-can
-
-never,
-
-for
-
-any
-
-reason,
-
-be
-
-put
-
-into
-
-the
-
-hand
-
-of
-
-another
-
-player.
-
-If
-
-it
-
-w ould
-
-be,
-
-it's
-
-put
-
-into
-
-its
-
-ow ner's
-
-hand
-
-instead.`,
+    section: `107.6.f. A card owned by a player can never`,
+    text: `A card owned by a player can never, for any reason, be put into the hand of another player. If it would be, it's put into its owner's hand instead.`,
   },
   {
     id: `108`,
-    section: `108. All`,
-    text: `All
-
-Gam e
-
-Objects
-
-in
-
-the
-
-collective
-
-Play
-
-Areas
-
-are
-
-Public
-
-Inform ation.`,
+    section: `108. All Game Objects in the collective Play Areas are Public Information`,
+    text: `All Game Objects in the collective Play Areas are Public Information.`,
   },
   {
     id: `108.1`,
-    section: `108.1. Any`,
-    text: `Any
-
-player
-
-m ay
-
-view ,
-
-or
-
-be
-
-provided
-
-w ith
-
-the
-
-details
-
-of
-
-the
-
-face-up
-
-inform ation
-
-printed
-
-on
-
-the
-
-cards
-
-in
-
-the
-
-Play
-
-Area.`,
+    section: `108.1. Any player may view`,
+    text: `Any player may view, or be provided with the details of the face-up information printed on the cards in the Play Area.`,
   },
   {
     id: `108.2`,
-    section: `108.2. The`,
-    text: `The
-
-State
-
-of
-
-all
-
-Gam e
-
-Objects
-
-in
-
-the
-
-Play
-
-Area
-
-is
-
-also
-
-Public
-
-Inform ation.
-
-Examples:
-
-If
-
-a
-
-Unit
-
-is
-
-Buffed
-
-If
-
-a
-
-Gear
-
-is
-
-Exhausted
-
-Etc.`,
+    section: `108.2. The State of all Game Objects in the Play Area is also Public Information`,
+    text: `The State of all Game Objects in the Play Area is also Public Information. Examples: If a Unit is Buffed If a Gear is Exhausted Etc.`,
   },
   {
     id: `109`,
-    section: `109. W henever`,
-    text: `W henever
-
-a
-
-Gam e
-
-Object
-
-changes
-
-zones
-
-to
-
-or
-
-from
-
-a
-
-Non-Board
-
-Zone ,
-
-all
-
-Tem porary
-
-Modiﬁcations
-
-of
-
-all
-
-kinds
-
-cease
-
-to
-
-be
-
-tracked
-
-on
-
-it
-
-in
-
-all
-
-capacities.
-
-Examples:
-
-D am age
-
-is
-
-cleared.
-
-Buffs
-
-are
-
-rem oved.
-
-Tem porarily
-
-granted
-
-Keywords
-
-are
-
-no
-
-longer
-
-granted.`,
+    section: `109. Whenever a Game Object changes zones to or from a Non-Board Zone`,
+    text: `Whenever a Game Object changes zones to or from a Non-Board Zone, all Temporary Modifications of all kinds cease to be tracked on it in all capacities. Examples: Damage is cleared. Buffs are removed. Temporarily granted Keywords are no longer granted.`,
   },
   {
     id: `110`,
-    section: `110. Setup`,
-    text: `Setup
-
-Process`,
+    section: `110. Setup Process`,
+    text: `Setup Process`,
   },
   {
     id: `111`,
-    section: `111. Each`,
-    text: `Each
-
-player
-
-separates
-
-their
-
-Cham pion
-
-Legend
-
-and
-
-places
-
-it
-
-in
-
-the
-
-Legend
-
-Zone.`,
+    section: `111. Each player separates their Champion Legend and places it in the Legend Zone`,
+    text: `Each player separates their Champion Legend and places it in the Legend Zone.`,
   },
   {
     id: `112`,
-    section: `112. Each`,
-    text: `Each
-
-player
-
-separates
-
-their
-
-Chosen
-
-Cham pion
-
-and
-
-places
-
-it
-
-in
-
-the
-
-Cham pion
-
-Zone.`,
+    section: `112. Each player separates their Chosen Champion and places it in the Champion Zone`,
+    text: `Each player separates their Chosen Champion and places it in the Champion Zone.`,
   },
   {
     id: `113`,
-    section: `113. Each`,
-    text: `Each
-
-player
-
-sets
-
-aside
-
-their
-
-Battleﬁelds.`,
+    section: `113. Each player sets aside their Battlefields`,
+    text: `Each player sets aside their Battlefields.`,
   },
   {
     id: `113.1`,
-    section: `113.1. Your`,
-    text: `Your
-
-Mode
-
-of
-
-Play
-
-w ill
-
-dictate
-
-how
-
-these
-
-are
-
-used
-
-and
-
-placed
-
-into
-
-the
-
-Battleﬁeld
-
-Zone.
-
-See
-
-rule`,
-  },
-  {
-    id: `454`,
-    section: `454. Modes`,
-    text: `Modes
-
-of
-
-Play
-
-for
-
-more
-
-information.`,
+    section: `113.1. Your Mode of Play will dictate how these are used and placed into the Battlefield Zone`,
+    text: `Your Mode of Play will dictate how these are used and placed into the Battlefield Zone. See rule 454. Modes of Play for more information.`,
   },
   {
     id: `114`,
-    section: `114. Each`,
-    text: `Each
-
-player
-
-shufﬂes
-
-their
-
-decks,
-
-separately,
-
-then
-
-places
-
-them
-
-into
-
-their
-
-respective
-
-Zones.`,
+    section: `114. Each player shuffles their decks`,
+    text: `Each player shuffles their decks, separately, then places them into their respective Zones.`,
   },
   {
     id: `114.1`,
-    section: `114.1. The`,
-    text: `The
-
-Main
-
-Deck
-
-is
-
-placed
-
-in
-
-the
-
-Main
-
-Deck
-
-Zone.`,
+    section: `114.1. The Main Deck is placed in the Main Deck Zone`,
+    text: `The Main Deck is placed in the Main Deck Zone.`,
   },
   {
     id: `114.2`,
-    section: `114.2. The`,
-    text: `The
-
-Rune
-
-Deck
-
-is
-
-placed
-
-in
-
-the
-
-Rune
-
-Deck
-
-Zone.`,
+    section: `114.2. The Rune Deck is placed in the Rune Deck Zone`,
+    text: `The Rune Deck is placed in the Rune Deck Zone.`,
   },
   {
     id: `115`,
-    section: `115. D eterm ine`,
-    text: `D eterm ine
-
-Turn
-
-Order
-
-using
-
-any
-
-fair
-
-random
-
-m ethod
-
-agreed
-
-on
-
-by
-
-all
-
-players.`,
+    section: `115. Determine Turn Order using any fair random method agreed on by all players`,
+    text: `Determine Turn Order using any fair random method agreed on by all players.`,
   },
   {
     id: `115.1`,
-    section: `115.1. Turn`,
-    text: `Turn
-
-Order
-
-is
-
-established
-
-as
-
-a
-
-repeating
-
-set
-
-of
-
-the
-
-players.`,
+    section: `115.1. Turn Order is established as a repeating set of the players`,
+    text: `Turn Order is established as a repeating set of the players.`,
   },
   {
     id: `115.1.a`,
-    section: `115.1.a. The`,
-    text: `The
-
-Mode
-
-of
-
-Play
-
-w ill
-
-specify
-
-how
-
-to
-
-determ ine
-
-a
-
-First
-
-Player.`,
+    section: `115.1.a. The Mode of Play will specify how to determine a First Player`,
+    text: `The Mode of Play will specify how to determine a First Player.`,
   },
   {
     id: `115.1.b`,
-    section: `115.1.b. If`,
-    text: `If
+    section: `115.1.b. If not otherwise specified`,
+    text: `If not otherwise specified, Seating then determines the sequence, play proceeding clockwise from the First Player.
 
-not
-
-otherw ise
-
-speciﬁed,
-
-Seating
-
-then
-
-determ ines
-
-the
-
-sequence,
-
-play
-
-proceeding
-
-clockw ise
-
-from
-
-the
-
-First
-
-Player.
-
-115.1.b.1.
-
-The
-
-First
-
-Player
-
-is
-
-the
-
-player
-
-w ho
-
-becom es
-
-the
-
-Turn
-
-Player
-
-ﬁrst.`,
+1. The First Player is the player who becomes the Turn Player first.`,
   },
   {
     id: `115.1.c`,
-    section: `115.1.c. Turn`,
-    text: `Turn
-
-Order
-
-repeats
-
-until
-
-the
-
-gam e
-
-ends.`,
+    section: `115.1.c. Turn Order repeats until the game ends`,
+    text: `Turn Order repeats until the game ends.`,
   },
   {
     id: `115.2`,
-    section: `115.2. See`,
-    text: `See
-
-the
-
-selected
-
-Mode
-
-of
-
-Play
-
-for
-
-any
-
-adjustm ents
-
-to
-
-each
-
-player's
-
-ﬁrst
-
-turn.
-
-See
-
-rule`,
+    section: `115.2. See the selected Mode of Play for any adjustments to each player's first turn`,
+    text: `See the selected Mode of Play for any adjustments to each player's first turn. See rule 454. Modes of Play for more information.`,
   },
   {
     id: `116`,
-    section: `116. Players`,
-    text: `Players
-
-each
-
-draw
-
-4.`,
+    section: `116. Players each draw 4`,
+    text: `Players each draw 4.`,
   },
   {
     id: `117`,
-    section: `117. In`,
-    text: `In
-
-turn
-
-order,
-
-players
-
-perform
-
-their
-
-Mulligan.`,
+    section: `117. In turn order`,
+    text: `In turn order, players perform their Mulligan.`,
   },
   {
     id: `117.1`,
-    section: `117.1. A`,
-    text: `A
-
-player
-
-m ay
-
-choose
-
-up
-
-to
-
-tw o
-
-cards
-
-in
-
-their
-
-hand.
-
-They
-
-set
-
-those
-
-cards
-
-aside.`,
+    section: `117.1. A player may choose up to two cards in their hand`,
+    text: `A player may choose up to two cards in their hand. They set those cards aside.`,
   },
   {
     id: `117.2`,
-    section: `117.2. Then,`,
-    text: `Then,
-
-that
-
-player
-
-draw s
-
-as
-
-m any
-
-cards
-
-as
-
-they
-
-set
-
-aside.`,
+    section: `117.2. Then`,
+    text: `Then, that player draws as many cards as they set aside.`,
   },
   {
     id: `117.3`,
-    section: `117.3. Finally,`,
-    text: `Finally,
-
-that
-
-player
-
-Recycles
-
-the
-
-cards
-
-that
-
-w ere
-
-set
-
-aside.
-
-See
-
-rule`,
-  },
-  {
-    id: `403`,
-    section: `403. Recycle`,
-    text: `Recycle
-
-for
-
-more
-
-information.`,
+    section: `117.3. Finally`,
+    text: `Finally, that player Recycles the cards that were set aside. See rule 403. Recycle for more information.`,
   },
   {
     id: `118`,
-    section: `118. Begin`,
-    text: `Begin
-
-play
-
-w ith
-
-the
-
-First
-
-Player
-
-taking
-
-their
-
-turn.`,
+    section: `118. Begin play with the First Player taking their turn`,
+    text: `Begin play with the First Player taking their turn.`,
+  },
+  {
+    id: `119`,
+    section: `119. Game Objects`,
+    text: `Game Objects`,
   },
   {
     id: `120`,
-    section: `120. A`,
-    text: `A
-
-Gam e
-
-Object
-
-is
-
-any
-
-gam e
-
-piece
-
-that
-
-can
-
-produce
-
-one
-
-or
-
-m ore
-
-Gam e
-
-Effects
-
-or
-
-grant
-
-prerequisites
-
-for
-
-players
-
-to
-
-take
-
-Gam e
-
-Actions.`,
+    section: `120. A Game Object is any game piece that can produce one or more Game Effects or grant prerequisites for players to take Game Actions`,
+    text: `A Game Object is any game piece that can produce one or more Game Effects or grant prerequisites for players to take Game Actions.`,
   },
   {
     id: `121`,
-    section: `121. A`,
-    text: `A
-
-Gam e
-
-Object
-
-does
-
-not
-
-include
-
-nor
-
-preclude
-
-any
-
-inherent
-
-properties
-
-beyond
-
-the
-
-ability
-
-to
-
-produce,
-
-or
-
-act
-
-as
-
-the
-
-prerequisite
-
-for,
-
-Gam e
-
-Effects
-
-and
-
-Gam e
-
-Actions.`,
+    section: `121. A Game Object does not include nor preclude any inherent properties beyond the ability to produce`,
+    text: `A Game Object does not include nor preclude any inherent properties beyond the ability to produce, or act as the prerequisite for, Game Effects and Game Actions.`,
   },
   {
     id: `122`,
-    section: `122. A`,
-    text: `A
-
-Gam e
-
-Object
-
-can
-
-be
-
-a
-
-literal
-
-object
-
-or
-
-a
-
-logical
-
-object.`,
+    section: `122. A Game Object can be a literal object or a logical object`,
+    text: `A Game Object can be a literal object or a logical object.`,
   },
   {
     id: `123`,
-    section: `123. Gam e`,
-    text: `Gam e
-
-Objects
-
-include,
-
-but
-
-are
-
-not
-
-lim ited
-
-to,
-
-the
-
-follow ing:
-
-M ain
-
-D eck
-
-cards
-
-in
-
-any
-
-zone
-
-Runes
-
-in
-
-any
-
-zone
-
-Legends
-
-Battleﬁelds
-
-Tokens
-
-Abilities
-
-of
-
-any
-
-type
-
-on
-
-the
-
-chain
-
-Buffs
-
-and
-
-other
-
-status
-
-m arkers`,
+    section: `123. Game Objects include`,
+    text: `Game Objects include, but are not limited to, the following: Main Deck cards in any zone Runes in any zone Legends Battlefields Tokens Abilities of any type on the chain Buffs and other status markers`,
   },
   {
     id: `124`,
@@ -4715,32 +672,8 @@ m arkers`,
   },
   {
     id: `125`,
-    section: `125. Riftbound`,
-    text: `Riftbound
-
-gam es
-
-are
-
-com posed
-
-of
-
-players
-
-playing
-
-the
-
-cards
-
-in
-
-their
-
-respective
-
-decks.`,
+    section: `125. Riftbound games are composed of players playing the cards in their respective decks`,
+    text: `Riftbound games are composed of players playing the cards in their respective decks.`,
   },
   {
     id: `126`,
@@ -4749,1639 +682,157 @@ decks.`,
   },
   {
     id: `126.1`,
-    section: `126.1. For`,
-    text: `For
-
-gam eplay
-
-purposes,
-
-a
-
-card's
-
-Owner
-
-is
-
-the
-
-player
-
-w ho
-
-brought
-
-it
-
-into
-
-the
-
-gam e,
-
-either
-
-as
-
-their
-
-Cham pion
-
-Legend ,
-
-one
-
-of
-
-their
-
-Battleﬁelds ,
-
-or
-
-part
-
-of
-
-their
-
-Main
-
-Deck
-
-or
-
-Rune
-
-Deck .
-
-The
-
-legal
-
-ow ner
-
-of
-
-a
-
-card
-
-doesn't
-
-m atter
-
-during
-
-gam eplay.
-
-Example:
-
-Bo
-
-didn't
-
-bring
-
-a
-
-deck,
-
-so
-
-Alice
-
-loans
-
-him
-
-a
-
-deck.
-
-D uring
-
-the
-
-gam e,
-
-Bo
-
-is
-
-considered
-
-the
-
-ow ner
-
-of
-
-those
-
-cards,
-
-even
-
-though
-
-legally
-
-they
-
-belong
-
-to
-
-Alice.`,
+    section: `126.1. For gameplay purposes`,
+    text: `For gameplay purposes, a card's Owner is the player who brought it into the game, either as their Champion Legend, one of their Battlefields, or part of their Main Deck or Rune Deck. The legal owner of a card doesn't matter during gameplay. Example: Bo didn't bring a deck, so Alice loans him a deck. During the game, Bo is considered the owner of those cards, even though legally they belong to Alice.`,
+  },
+  {
+    id: `127`,
+    section: `127. Privacy`,
+    text: `Privacy`,
   },
   {
     id: `127.1`,
-    section: `127.1. A`,
-    text: `A
-
-card
-
-w ill
-
-alw ays
-
-exist
-
-in
-
-one
-
-of
-
-the
-
-m any
-
-Zones
-
-described
-
-during
-
-Setup.`,
+    section: `127.1. A card will always exist in one of the many Zones described during Setup`,
+    text: `A card will always exist in one of the many Zones described during Setup.`,
   },
   {
     id: `127.2`,
-    section: `127.2. A`,
-    text: `A
-
-card
-
-w ill
-
-have
-
-a
-
-different
-
-level
-
-of
-
-Privacy
-
-based
-
-on
-
-w here
-
-it
-
-resides
-
-at
-
-a
-
-given
-
-tim e`,
+    section: `127.2. A card will have a different level of Privacy based on where it resides at a given time`,
+    text: `A card will have a different level of Privacy based on where it resides at a given time`,
   },
   {
     id: `127.3`,
-    section: `127.3. Secret:`,
-    text: `Secret:
-
-This
-
-level
-
-of
-
-Privacy
-
-indicates
-
-that
-
-neither
-
-player
-
-m ay
-
-read
-
-or
-
-look
-
-at
-
-the
-
-face
-
-of
-
-the
-
-card.`,
+    section: `127.3. Secret: This level of Privacy indicates that neither player may read or look at the face of the card`,
+    text: `Secret: This level of Privacy indicates that neither player may read or look at the face of the card.`,
   },
   {
     id: `127.4`,
-    section: `127.4. Private:`,
-    text: `Private:
-
-This
-
-level
-
-of
-
-Privacy
-
-indicates
-
-that
-
-only
-
-the
-
-controller
-
-of
-
-a
-
-card
-
-on
-
-the
-
-board
-
-or
-
-the
-
-ow ner
-
-of
-
-a
-
-card
-
-in
-
-any
-
-other
-
-zone
-
-m ay
-
-read
-
-or
-
-look
-
-at
-
-the
-
-face
-
-of
-
-the
-
-card.
-
-Example:
-
-Cards
-
-in
-
-a
-
-player's
-
-hand
-
-are
-
-ow ned
-
-by
-
-that
-
-player.
-
-O nly
-
-that
-
-player
-
-m ay
-
-read
-
-or
-
-look
-
-at
-
-their
-
-faces.
-
-Example:
-
-If
-
-a
-
-player
-
-controls
-
-a
-
-facedow n
-
-card
-
-at
-
-a
-
-battleﬁeld,
-
-that
-
-player
-
-and
-
-only
-
-that
-
-player
-
-m ay
-
-read
-
-or
-
-look
-
-at
-
-that
-
-card's
-
-face,
-
-regardless
-
-of
-
-w ho
-
-ow ns
-
-that
-
-card.`,
+    section: `127.4. Private: This level of Privacy indicates that only the controller of a card on the board or the owner of a card in any other zone may read or look at the face of the card`,
+    text: `Private: This level of Privacy indicates that only the controller of a card on the board or the owner of a card in any other zone may read or look at the face of the card. Example: Cards in a player's hand are owned by that player. Only that player may read or look at their faces. Example: If a player controls a facedown card at a battlefield, that player and only that player may read or look at that card's face, regardless of who owns that card.`,
   },
   {
     id: `127.5`,
-    section: `127.5. Public:`,
-    text: `Public:
-
-This
-
-level
-
-of
-
-Privacy
-
-indicates
-
-that
-
-any
-
-player
-
-m ay
-
-read
-
-or
-
-look
-
-at
-
-the
-
-face
-
-of
-
-the
-
-card.`,
+    section: `127.5. Public: This level of Privacy indicates that any player may read or look at the face of the card`,
+    text: `Public: This level of Privacy indicates that any player may read or look at the face of the card.`,
   },
   {
     id: `128`,
-    section: `128. Back`,
-    text: `Back
-
-Side`,
+    section: `128. Back Side`,
+    text: `Back Side`,
   },
   {
     id: `128.1`,
-    section: `128.1. The`,
-    text: `The
-
-back
-
-side
-
-of
-
-a
-
-card
-
-is
-
-the
-
-side
-
-w ith
-
-the
-
-Riftbound
-
-logo.`,
+    section: `128.1. The back side of a card is the side with the Riftbound logo`,
+    text: `The back side of a card is the side with the Riftbound logo.`,
   },
   {
     id: `128.2`,
-    section: `128.2. There`,
-    text: `There
-
-is
-
-a
-
-unique
-
-pattern
-
-of
-
-back
-
-side
-
-for
-
-each
-
-of
-
-the
-
-three
-
-categories
-
-of
-
-card:
-
-Main
-
-Deck
-
-cards,
-
-Rune
-
-Deck
-
-cards,
-
-and
-
-Battleﬁelds
-
-and
-
-Cham pion
-
-Legends.`,
+    section: `128.2. There is a unique pattern of back side for each of the three categories of card: Main Deck cards`,
+    text: `There is a unique pattern of back side for each of the three categories of card: Main Deck cards, Rune Deck cards, and Battlefields and Champion Legends.`,
   },
   {
     id: `128.3`,
-    section: `128.3. The`,
-    text: `The
-
-back
-
-side
-
-of
-
-a
-
-card
-
-is
-
-presented
-
-to
-
-conceal
-
-inform ation
-
-for
-
-Private
-
-and
-
-Secret
-
-inform ation
-
-cards.
-
-For
-
-exam ple,
-
-cards
-
-in
-
-the
-
-Main
-
-Deck
-
-and
-
-cards
-
-in
-
-hand
-
-have
-
-their
-
-back
-
-side
-
-presented.`,
+    section: `128.3. The back side of a card is presented to conceal information for Private and Secret information cards`,
+    text: `The back side of a card is presented to conceal information for Private and Secret information cards. For example, cards in the Main Deck and cards in hand have their back side presented.`,
   },
   {
     id: `128.4`,
-    section: `128.4. The`,
-    text: `The
-
-term
-
-facedown
-
-is
-
-used
-
-to
-
-describe
-
-the
-
-state
-
-during
-
-regular
-
-play
-
-of
-
-having
-
-a
-
-card's
-
-back
-
-side
-
-presented
-
-on
-
-the
-
-Board.
-
-A
-
-facedow n
-
-card’s
-
-front
-
-side
-
-is
-
-considered
-
-Private
-
-Inform ation.`,
+    section: `128.4. The term facedown is used to describe the state during regular play of having a card's back side presented on the Board`,
+    text: `The term facedown is used to describe the state during regular play of having a card's back side presented on the Board. A facedown card’s front side is considered Private Information.`,
   },
   {
     id: `129`,
-    section: `129. Front`,
-    text: `Front
-
-Side`,
+    section: `129. Front Side`,
+    text: `Front Side`,
   },
   {
     id: `129.1`,
-    section: `129.1. The`,
-    text: `The
-
-front
-
-side
-
-of
-
-a
-
-card
-
-is
-
-the
-
-opposite
-
-of
-
-its
-
-back.`,
+    section: `129.1. The front side of a card is the opposite of its back`,
+    text: `The front side of a card is the opposite of its back.`,
   },
   {
     id: `129.2`,
-    section: `129.2. This`,
-    text: `This
-
-is
-
-also
-
-referred
-
-to
-
-as
-
-a
-
-front
-
-face.`,
+    section: `129.2. This is also referred to as a front face`,
+    text: `This is also referred to as a front face.`,
   },
   {
     id: `129.3`,
-    section: `129.3. This`,
-    text: `This
-
-can
-
-be
-
-identiﬁed
-
-in
-
-situations
-
-w here
-
-the
-
-back
-
-is
-
-not
-
-easily
-
-discernible
-
-by
-
-the
-
-presence
-
-of
-
-the
-
-Play
-
-Cost
-
-in
-
-the
-
-upper
-
-left
-
-corner
-
-of
-
-the
-
-card.`,
+    section: `129.3. This can be identified in situations where the back is not easily discernible by the presence of the Play Cost in the upper left corner of the card`,
+    text: `This can be identified in situations where the back is not easily discernible by the presence of the Play Cost in the upper left corner of the card.`,
   },
   {
     id: `129.4`,
-    section: `129.4. Cards,`,
-    text: `Cards,
-
-w hen
-
-played,
-
-are
-
-played
-
-w ith
-
-their
-
-front
-
-face
-
-presented.`,
+    section: `129.4. Cards`,
+    text: `Cards, when played, are played with their front face presented.`,
   },
   {
     id: `129.5`,
-    section: `129.5. The`,
-    text: `The
-
-term
-
-face
-
-up
-
-is
-
-used
-
-to
-
-describe
-
-the
-
-state
-
-during
-
-regular
-
-play
-
-of
-
-having
-
-a
-
-card's
-
-front
-
-face
-
-presented`,
+    section: `129.5. The term face up is used to describe the state during regular play of having a card's front face presented`,
+    text: `The term face up is used to describe the state during regular play of having a card's front face presented`,
   },
   {
     id: `129.6`,
-    section: `129.6. Cards`,
-    text: `Cards
-
-are
-
-considered
-
-to
-
-be
-
-Public
-
-Inform ation
-
-w hile
-
-in
-
-this
-
-state,
-
-even
-
-if
-
-obscured
-
-by
-
-other
-
-cards
-
-in
-
-a
-
-pile.
-
-Example:
-
-The
-
-Trash
-
-is
-
-Public
-
-Inform ation
-
-because
-
-all
-
-cards
-
-there
-
-have
-
-their
-
-front
-
-face
-
-presented
-
-even
-
-w hile
-
-stacked.`,
+    section: `129.6. Cards are considered to be Public Information while in this state`,
+    text: `Cards are considered to be Public Information while in this state, even if obscured by other cards in a pile. Example: The Trash is Public Information because all cards there have their front face presented even while stacked.`,
   },
   {
     id: `130`,
     section: `130. Cost`,
-    text: `Cost`,
+    text: `Cost
+
+4 Effects that need to determine a card’s cost for any purpose always use its base cost, even if that cost is altered or ignored as the card is played. Example: Sky Splitter is a spell that costs 8 Energy and says in part “This spell's Energy cost is reduced by the highest Might among units you control.” Lux, Illuminated is a unit that says “When you play a spell that costs 5 or more, give me +3 [M] this turn.” If a player who controls Lux plays Sky Splitter, Lux’s ability will trigger, regardless of how much was actually paid for Sky Splitter.`,
   },
   {
     id: `130.1`,
-    section: `130.1. Main`,
-    text: `Main
-
-Deck
-
-cards
-
-have
-
-a
-
-Cost ,
-
-listed
-
-in
-
-the
-
-upper
-
-left
-
-corner
-
-of
-
-the
-
-front
-
-face
-
-of
-
-the
-
-card.
-
-See
-
-rule`,
-  },
-  {
-    id: `158`,
-    section: `158. Rune`,
-    text: `Rune
-
-Pools
-
-for
-
-more
-
-information.
-
-Rune
-
-Pools
-
-and
-
-rule`,
+    section: `130.1. Main Deck cards have a Cost`,
+    text: `Main Deck cards have a Cost, listed in the upper left corner of the front face of the card. See rule 158. Rune Pools for more information.`,
   },
   {
     id: `130.2`,
-    section: `130.2. Energy`,
-    text: `Energy
-
-Cost`,
+    section: `130.2. Energy Cost`,
+    text: `Energy Cost`,
   },
   {
     id: `130.2.a`,
-    section: `130.2.a. The`,
-    text: `The
-
-num eral
-
-listed
-
-in
-
-the
-
-Cost
-
-elem ent
-
-in
-
-the
-
-upper
-
-left
-
-corner
-
-of
-
-the
-
-card.`,
+    section: `130.2.a. The numeral listed in the Cost element in the upper left corner of the card`,
+    text: `The numeral listed in the Cost element in the upper left corner of the card.`,
   },
   {
     id: `130.3`,
-    section: `130.3. Power`,
-    text: `Power
-
-cost`,
+    section: `130.3. Power cost`,
+    text: `Power cost`,
   },
   {
     id: `130.3.a`,
-    section: `130.3.a. The`,
-    text: `The
-
-sym bols,
-
-listed
-
-vertically,
-
-in
-
-the
-
-Cost
-
-elem ent
-
-in
-
-the
-
-upper
-
-left
-
-corner
-
-of
-
-the
-
-card.`,
+    section: `130.3.a. The symbols`,
+    text: `The symbols, listed vertically, in the Cost element in the upper left corner of the card.`,
   },
   {
     id: `130.3.b`,
-    section: `130.3.b. This`,
-    text: `This
-
-section
-
-m ay
-
-not
-
-be
-
-present
-
-on
-
-every
-
-card.
-
-130.4
-
-Effects
-
-that
-
-need
-
-to
-
-determ ine
-
-a
-
-card’s
-
-cost
-
-for
-
-any
-
-purpose
-
-alw ays
-
-use
-
-its
-
-base
-
-cost,
-
-even
-
-if
-
-that
-
-cost
-
-is
-
-altered
-
-or
-
-ignored
-
-as
-
-the
-
-card
-
-is
-
-played.
-
-Example:
-
-Sky
-
-Splitter
-
-is
-
-a
-
-spell
-
-that
-
-costs
-
-8
-
-Energy
-
-and
-
-says
-
-in
-
-part
-
-“This
-
-spell's
-
-Energy
-
-cost
-
-is
-
-reduced
-
-by
-
-the
-
-highest
-
-M ight
-
-am ong
-
-units
-
-you
-
-control.”
-
-Lux,
-
-Illum inated
-
-is
-
-a
-
-unit
-
-that
-
-says
-
-“W hen
-
-you
-
-play
-
-a
-
-spell
-
-that
-
-costs
-
-5
-
-or
-
-m ore,
-
-give
-
-m e
-
-+3
-
-[M ]
-
-this
-
-turn.”
-
-If
-
-a
-
-player
-
-w ho
-
-controls
-
-Lux
-
-plays
-
-Sky
-
-Splitter,
-
-Lux’s
-
-ability
-
-w ill
-
-trigger,
-
-regardless
-
-of
-
-how
-
-m uch
-
-w as
-
-actually
-
-paid
-
-for
-
-Sky
-
-Splitter.`,
+    section: `130.3.b. This section may not be present on every card`,
+    text: `This section may not be present on every card.`,
   },
   {
     id: `131`,
-    section: `131. Nam e`,
-    text: `Nam e`,
+    section: `131. Name`,
+    text: `Name
+
+4 Some cards have both a short name and a subtitle. For all purposes, including rules and deckbuilding, such a card’s name is “[Short Name], [Subtitle]”. Example: Kai’Sa, Evolutionary and Kai’Sa, Survivor both have the short name Kai’Sa, but they have different names. You can include 3 of each in your deck under normal deckbuilding rules. If one of them is your Chosen Champion, the other is not.`,
   },
   {
     id: `131.1`,
-    section: `131.1. Each`,
-    text: `Each
-
-card
-
-has
-
-a
-
-nam e
-
-that
-
-identiﬁes
-
-it
-
-uniquely.`,
+    section: `131.1. Each card has a name that identifies it uniquely`,
+    text: `Each card has a name that identifies it uniquely.`,
   },
   {
     id: `131.2`,
-    section: `131.2. This`,
-    text: `This
-
-is
-
-usually
-
-located
-
-in
-
-the
-
-m iddle
-
-of
-
-the
-
-card.`,
+    section: `131.2. This is usually located in the middle of the card`,
+    text: `This is usually located in the middle of the card.`,
   },
   {
     id: `131.3`,
-    section: `131.3. Cards`,
-    text: `Cards
-
-that
-
-are
-
-printed
-
-in
-
-different
-
-languages
-
-but
-
-represent
-
-the
-
-sam e
-
-card
-
-are
-
-considered
-
-to
-
-have
-
-the
-
-sam e
-
-nam e
-
-for
-
-the
-
-purposes
-
-of
-
-deckbuilding
-
-and
-
-gam eplay.
-
-Example:
-
-Chem tech
-
-Enforcer
-
-in
-
-English
-
-and
-
-its
-
-counterpart
-
-in
-
-Chinese
-
-are
-
-considered
-
-the
-
-sam e
-
-card,
-
-despite
-
-the
-
-Nam e
-
-elem ent
-
-on
-
-the
-
-card
-
-reading
-
-differently.
-
-131.4
-
-Som e
-
-cards
-
-have
-
-both
-
-a
-
-short
-
-nam e
-
-and
-
-a
-
-subtitle.
-
-For
-
-all
-
-purposes,
-
-including
-
-rules
-
-and
-
-deckbuilding,
-
-such
-
-a
-
-card’s
-
-nam e
-
-is
-
-“[Short
-
-N am e],
-
-[Subtitle]”.
-
-Example:
-
-Kai’Sa,
-
-Evolutionary
-
-and
-
-Kai’Sa,
-
-Survivor
-
-both
-
-have
-
-the
-
-short
-
-nam e
-
-Kai’Sa,
-
-but
-
-they
-
-have
-
-different
-
-nam es.
-
-You
-
-can
-
-include
-
-3
-
-of
-
-each
-
-in
-
-your
-
-deck
-
-under
-
-norm al
-
-deckbuilding
-
-rules.
-
-If
-
-one
-
-of
-
-them
-
-is
-
-your
-
-Chosen
-
-Cham pion,
-
-the
-
-other
-
-is
-
-not.`,
+    section: `131.3. Cards that are printed in different languages but represent the same card are considered to have the same name for the purposes of deckbuilding and gameplay`,
+    text: `Cards that are printed in different languages but represent the same card are considered to have the same name for the purposes of deckbuilding and gameplay. Example: Chemtech Enforcer in English and its counterpart in Chinese are considered the same card, despite the Name element on the card reading differently.`,
   },
   {
     id: `132`,
@@ -6390,2187 +841,248 @@ not.`,
   },
   {
     id: `132.1`,
-    section: `132.1. A`,
-    text: `A
-
-card
-
-can
-
-have
-
-one
-
-or
-
-m ore
-
-Categories
-
-and
-
-Sub-Categories
-
-based
-
-on
-
-the
-
-properties
-
-of
-
-its
-
-front
-
-and
-
-back
-
-sides.`,
+    section: `132.1. A card can have one or more Categories and Sub-Categories based on the properties of its front and back sides`,
+    text: `A card can have one or more Categories and Sub-Categories based on the properties of its front and back sides.`,
   },
   {
     id: `132.2`,
-    section: `132.2. These`,
-    text: `These
-
-Categories
-
-and
-
-Sub-Categories
-
-dictate
-
-the
-
-behaviors
-
-of
-
-the
-
-card
-
-during
-
-play.`,
+    section: `132.2. These Categories and Sub-Categories dictate the behaviors of the card during play`,
+    text: `These Categories and Sub-Categories dictate the behaviors of the card during play.`,
   },
   {
     id: `132.3`,
-    section: `132.3. Spells`,
-    text: `Spells
-
-and
-
-other
-
-effects
-
-can
-
-refer
-
-to
-
-categories,
-
-sub-categories,
-
-supertypes,
-
-card
-
-types,
-
-tags,
-
-and
-
-other
-
-characteristics
-
-inclusively
-
-or
-
-exclusively.
-
-Example:
-
-A
-
-"non-unit
-
-card"
-
-is
-
-any
-
-card
-
-that
-
-is
-
-not
-
-a
-
-unit.
-
-Example:
-
-A
-
-"unit"
-
-is
-
-any
-
-gam e
-
-object
-
-that
-
-is
-
-a
-
-unit,
-
-regardless
-
-of
-
-any
-
-other
-
-categories
-
-it
-
-belongs
-
-to.`,
+    section: `132.3. Spells and other effects can refer to categories`,
+    text: `Spells and other effects can refer to categories, sub-categories, supertypes, card types, tags, and other characteristics inclusively or exclusively. Example: A "non-unit card" is any card that is not a unit. Example: A "unit" is any game object that is a unit, regardless of any other categories it belongs to.`,
   },
   {
     id: `132.4`,
-    section: `132.4. Main`,
-    text: `Main
-
-Deck
-
-Cards
-
-begin
-
-the
-
-gam e
-
-in
-
-the
-
-Main
-
-Deck
-
-or
-
-(in
-
-the
-
-case
-
-of
-
-a
-
-Chosen
-
-Cham pion )
-
-the
-
-Cham pion
-
-Zone.`,
+    section: `132.4. Main Deck Cards begin the game in the Main Deck or (in the case of a Chosen Champion) the Champion Zone`,
+    text: `Main Deck Cards begin the game in the Main Deck or (in the case of a Chosen Champion) the Champion Zone.`,
   },
   {
     id: `132.4.a`,
-    section: `132.4.a. Perm anents`,
-    text: `Perm anents
+    section: `132.4.a. Permanents`,
+    text: `Permanents
 
-132.4.a.1.
+1. An umbrella sub-category encompassing Main Deck Game Objects that remain on the board after being played.
 
-An
-
-um brella
-
-sub-category
-
-encom passing
-
-Main
-
-Deck
-
-Gam e
-
-O bjects
-
-that
-
-rem ain
-
-on
-
-the
-
-board
-
-after
-
-being
-
-played.
-
-132.4.a.2.
-
-Unit
-
-and
-
-Gear
-
-are
-
-perm anent
-
-types.`,
+2. Unit and Gear are permanent types.`,
   },
   {
     id: `132.4.b`,
     section: `132.4.b. Spells`,
     text: `Spells
 
-132.4.b.1.
-
-A
-
-sub-category
-
-encom passing
-
-M ain
-
-D eck
-
-cards
-
-w ith
-
-the
-
-spell
-
-type,
-
-w hich
-
-do
-
-not
-
-rem ain
-
-on
-
-the
-
-board
-
-after
-
-being
-
-played.`,
+1. A sub-category encompassing Main Deck cards with the spell type, which do not remain on the board after being played.`,
   },
   {
     id: `132.5`,
-    section: `132.5. Rune`,
-    text: `Rune
-
-Deck
-
-Cards
-
-begin
-
-the
-
-gam e
-
-in
-
-the
-
-Rune
-
-Deck.`,
+    section: `132.5. Rune Deck Cards begin the game in the Rune Deck`,
+    text: `Rune Deck Cards begin the game in the Rune Deck.`,
   },
   {
     id: `132.5.a`,
     section: `132.5.a. Runes`,
     text: `Runes
 
-132.5.a.1.
-
-A
-
-sub-category
-
-encom passing
-
-cards
-
-w ith
-
-the
-
-rune
-
-type.
-
-These
-
-are
-
-channeled
-
-rather
-
-than
-
-played.
-
-They
-
-rem ain
-
-on
-
-the
-
-board
-
-after
-
-being
-
-channeled,
-
-but
-
-they
-
-are
-
-not
-
-perm anents,
-
-as
-
-they
-
-are
-
-not
-
-Main
-
-Deck
-
-cards.`,
+1. A sub-category encompassing cards with the rune type. These are channeled rather than played. They remain on the board after being channeled, but they are not permanents, as they are not Main Deck cards.`,
   },
   {
     id: `132.6`,
-    section: `132.6. Non-Deck`,
-    text: `Non-Deck
-
-Cards
-
-are
-
-not
-
-part
-
-of
-
-any
-
-deck
-
-and
-
-begin
-
-the
-
-gam e
-
-in
-
-a
-
-zone
-
-determ ined
-
-by
-
-their
-
-type.`,
+    section: `132.6. Non-Deck Cards are not part of any deck and begin the game in a zone determined by their type`,
+    text: `Non-Deck Cards are not part of any deck and begin the game in a zone determined by their type.`,
   },
   {
     id: `132.6.a`,
-    section: `132.6.a. Battleﬁelds`,
-    text: `Battleﬁelds
+    section: `132.6.a. Battlefields`,
+    text: `Battlefields
 
-132.6.a.1.
-
-A
-
-sub-category
-
-encom passing
-
-cards
-
-w ith
-
-the
-
-battleﬁeld
-
-type.
-
-They
-
-are
-
-not
-
-played
-
-or
-
-channeled.
-
-They
-
-start
-
-the
-
-gam e
-
-on
-
-the
-
-board.`,
+1. A sub-category encompassing cards with the battlefield type. They are not played or channeled. They start the game on the board.`,
   },
   {
     id: `132.6.b`,
     section: `132.6.b. Legends`,
     text: `Legends
 
-132.6.b.1.
-
-A
-
-sub-category
-
-encom passing
-
-cards
-
-w ith
-
-the
-
-legend
-
-type.
-
-They
-
-are
-
-not
-
-played
-
-or
-
-channeled.
-
-They
-
-start
-
-the
-
-gam e
-
-in
-
-the
-
-Legend
-
-Zone
-
-and
-
-cannot
-
-leave
-
-it
-
-during
-
-play.`,
+1. A sub-category encompassing cards with the legend type. They are not played or channeled. They start the game in the Legend Zone and cannot leave it during play.`,
   },
   {
     id: `132.7`,
-    section: `132.7. Supertypes`,
-    text: `Supertypes
-
-are
-
-Categories
-
-that
-
-m ay
-
-apply
-
-to
-
-gam e
-
-objects
-
-of
-
-m ultiple
-
-types.
-
-They
-
-are
-
-listed
-
-before
-
-a
-
-card’s
-
-type.`,
+    section: `132.7. Supertypes are Categories that may apply to game objects of multiple types`,
+    text: `Supertypes are Categories that may apply to game objects of multiple types. They are listed before a card’s type.`,
   },
   {
     id: `132.7.a`,
-    section: `132.7.a. Cham pion`,
-    text: `Cham pion
-
-is
-
-a
-
-supertype
-
-that
-
-applies
-
-exclusively
-
-to
-
-units.
-
-It
-
-im pacts
-
-the
-
-rules
-
-for
-
-deckbuilding.
-
-See
-
-rule`,
+    section: `132.7.a. Champion is a supertype that applies exclusively to units`,
+    text: `Champion is a supertype that applies exclusively to units. It impacts the rules for deckbuilding. See rule 103.2.a. Chosen Champion for more information.`,
   },
   {
     id: `132.7.b`,
-    section: `132.7.b. Signature`,
-    text: `Signature
-
-is
-
-a
-
-supertype
-
-that
-
-m ay
-
-apply
-
-to
-
-gam e
-
-objects
-
-of
-
-any
-
-card
-
-type.
-
-It
-
-im pacts
-
-the
-
-rules
-
-for
-
-deckbuilding.
-
-See
-
-rule`,
+    section: `132.7.b. Signature is a supertype that may apply to game objects of any card type`,
+    text: `Signature is a supertype that may apply to game objects of any card type. It impacts the rules for deckbuilding. See rule 103.2.d. for more information about Signature cards.`,
   },
   {
     id: `132.7.c`,
-    section: `132.7.c. Token`,
-    text: `Token
-
-is
-
-a
-
-supertype
-
-applied
-
-to
-
-tem porary
-
-gam e
-
-objects
-
-of
-
-any
-
-card
-
-type.
-
-See
-
-rule`,
-  },
-  {
-    id: `170`,
-    section: `170. Tokens`,
-    text: `Tokens
-
-for
-
-more
-
-information.`,
+    section: `132.7.c. Token is a supertype applied to temporary game objects of any card type`,
+    text: `Token is a supertype applied to temporary game objects of any card type. See rule 170. Tokens for more information.`,
   },
   {
     id: `132.8`,
-    section: `132.8. Tags`,
-    text: `Tags
-
-are
-
-Categories
-
-that
-
-m ay
-
-apply
-
-to
-
-gam e
-
-objects
-
-of
-
-m ultiple
-
-types.
-
-They
-
-are
-
-listed
-
-after
-
-a
-
-card’s
-
-type.`,
+    section: `132.8. Tags are Categories that may apply to game objects of multiple types`,
+    text: `Tags are Categories that may apply to game objects of multiple types. They are listed after a card’s type.`,
   },
   {
     id: `132.8.a`,
-    section: `132.8.a. Tags`,
-    text: `Tags
-
-have
-
-no
-
-innate
-
-rules
-
-m eaning,
-
-but
-
-m ay
-
-be
-
-referenced
-
-by
-
-gam e
-
-rules
-
-and
-
-card
-
-effects.`,
+    section: `132.8.a. Tags have no innate rules meaning`,
+    text: `Tags have no innate rules meaning, but may be referenced by game rules and card effects.`,
   },
   {
     id: `132.8.b`,
-    section: `132.8.b. Tags`,
-    text: `Tags
-
-used
-
-to
-
-link
-
-Legends ,
-
-Cham pion
-
-Units ,
-
-and
-
-Signature
-
-cards
-
-are
-
-know n
-
-as
-
-Cham pion
-
-Tags.`,
+    section: `132.8.b. Tags used to link Legends`,
+    text: `Tags used to link Legends, Champion Units, and Signature cards are known as Champion Tags.`,
   },
   {
     id: `133`,
-    section: `133. Dom ain`,
-    text: `Dom ain
-
-Domain
-
-for
-
-more
-
-information.
-
-134.2.e.5.
-
-Pow er
-
-of
-
-any
-
-Dom ain
-
-is
-
-represented
-
-by
-
-a
-
-sw irling
-
-rainbow
-
-sym bol.
-
-Its
-
-shorthand
-
-is
-
-[A].
-
-134.2.e.5.a.
-
-W hen
-
-required
-
-as
-
-a
-
-cost,
-
-[A]
-
-can
-
-be
-
-paid
-
-by
-
-Power
-
-of
-
-any
-
-Dom ain .
-
-134.2.e.5.b.
-
-W hen
-
-Added
-
-to
-
-a
-
-player’s
-
-Rune
-
-Pool,
-
-[A]
-
-can
-
-be
-
-spent
-
-to
-
-pay
-
-a
-
-Power
-
-cost
-
-of
-
-any
-
-Dom ain.
-
-134.2.e.6.
-
-Pow er
-
-of
-
-a
-
-dom ain
-
-corresponding
-
-to
-
-a
-
-card’s
-
-ow n
-
-Dom ain
-
-is
-
-not
-
-represented
-
-by
-
-a
-
-sym bol,
-
-but
-
-appears
-
-in
-
-these
-
-rules
-
-sim ilarly
-
-to
-
-other
-
-sym bols.
-
-Its
-
-shorthand
-
-is
-
-[C].
-
-134.2.e.6.a.
-
-W hen
-
-a
-
-[C]
-
-shorthand
-
-is
-
-printed
-
-on
-
-a
-
-card
-
-as
-
-rem inder
-
-text,
-
-it
-
-assum es
-
-that
-
-card’s
-
-usual
-
-Dom ain ,
-
-but
-
-it
-
-still
-
-m eans
-
-“one
-
-Pow er
-
-of
-
-this
-
-card’s
-
-Dom ain .”
-
-134.2.e.6.b.
-
-A
-
-[C]
-
-shorthand
-
-on
-
-a
-
-card
-
-w ith
-
-no
-
-Dom ain
-
-or
-
-w ith
-
-m ultiple
-
-Dom ains
-
-is
-
-processed
-
-as
-
-[A]
-
-instead.`,
+    section: `133. Domain`,
+    text: `Domain`,
   },
   {
     id: `133.1`,
-    section: `133.1. M ost`,
-    text: `M ost
-
-cards
-
-belong
-
-to
-
-one
-
-or
-
-m ore
-
-of
-
-six
-
-Dom ains ,
-
-identiﬁed
-
-by
-
-one
-
-or
-
-m ore
-
-sym bols
-
-in
-
-the
-
-low er
-
-right
-
-corner.`,
+    section: `133.1. Most cards belong to one or more of six Domains`,
+    text: `Most cards belong to one or more of six Domains, identified by one or more symbols in the lower right corner.`,
   },
   {
     id: `133.2`,
-    section: `133.2. Each`,
-    text: `Each
-
-D om ain
-
-has
-
-an
-
-associated
-
-color,
-
-a
-
-unique
-
-sym bol,
-
-and
-
-a
-
-shorthand
-
-used
-
-to
-
-represent
-
-that
-
-sym bol
-
-in
-
-w ritten
-
-text.`,
+    section: `133.2. Each Domain has an associated color`,
+    text: `Each Domain has an associated color, a unique symbol, and a shorthand used to represent that symbol in written text.`,
   },
   {
     id: `133.2.a`,
-    section: `133.2.a. Fury`,
-    text: `Fury
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-red
-
-and
-
-represented
-
-by
-
-a
-
-circular
-
-sym bol
-
-w ith
-
-three
-
-projecting
-
-points.
-
-Its
-
-shorthand
-
-is
-
-[R].`,
+    section: `133.2.a. Fury is associated with the color red and represented by a circular symbol with three projecting points`,
+    text: `Fury is associated with the color red and represented by a circular symbol with three projecting points. Its shorthand is [R].`,
   },
   {
     id: `133.2.b`,
-    section: `133.2.b. Calm`,
-    text: `Calm
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-green
-
-and
-
-represented
-
-by
-
-a
-
-sym bol
-
-resem bling
-
-a
-
-leaf.
-
-Its
-
-shorthand
-
-is
-
-[G].`,
+    section: `133.2.b. Calm is associated with the color green and represented by a symbol resembling a leaf`,
+    text: `Calm is associated with the color green and represented by a symbol resembling a leaf. Its shorthand is [G].`,
   },
   {
     id: `133.2.c`,
-    section: `133.2.c. Mind`,
-    text: `Mind
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-blue
-
-and
-
-represented
-
-by
-
-a
-
-sym bol
-
-resem bling
-
-a
-
-sun
-
-and
-
-m oon.
-
-Its
-
-shorthand
-
-is
-
-[B].`,
+    section: `133.2.c. Mind is associated with the color blue and represented by a symbol resembling a sun and moon`,
+    text: `Mind is associated with the color blue and represented by a symbol resembling a sun and moon. Its shorthand is [B].`,
   },
   {
     id: `133.2.d`,
-    section: `133.2.d. Body`,
-    text: `Body
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-orange
-
-and
-
-represented
-
-by
-
-a
-
-blocky
-
-diam ond-shaped
-
-sym bol.
-
-Its
-
-shorthand
-
-is
-
-[O ].`,
+    section: `133.2.d. Body is associated with the color orange and represented by a blocky diamond-shaped symbol`,
+    text: `Body is associated with the color orange and represented by a blocky diamond-shaped symbol. Its shorthand is [O].`,
   },
   {
     id: `133.2.e`,
-    section: `133.2.e. Chaos`,
-    text: `Chaos
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-purple
-
-and
-
-represented
-
-by
-
-a
-
-hexagonal
-
-sym bol
-
-w ith
-
-sw irls
-
-em anating
-
-from
-
-its
-
-center.
-
-Its
-
-shorthand
-
-is
-
-[P].`,
+    section: `133.2.e. Chaos is associated with the color purple and represented by a hexagonal symbol with swirls emanating from its center`,
+    text: `Chaos is associated with the color purple and represented by a hexagonal symbol with swirls emanating from its center. Its shorthand is [P].`,
   },
   {
     id: `133.2.f`,
-    section: `133.2.f. Order`,
-    text: `Order
-
-is
-
-associated
-
-w ith
-
-the
-
-color
-
-yellow
-
-and
-
-represented
-
-by
-
-an
-
-angular
-
-w inged
-
-sym bol.
-
-Its
-
-shorthand
-
-is
-
-[Y].`,
+    section: `133.2.f. Order is associated with the color yellow and represented by an angular winged symbol`,
+    text: `Order is associated with the color yellow and represented by an angular winged symbol. Its shorthand is [Y].`,
   },
   {
     id: `134`,
-    section: `134. Rules`,
-    text: `Rules
-
-Text`,
+    section: `134. Rules Text`,
+    text: `Rules Text`,
   },
   {
     id: `134.1`,
-    section: `134.1. All`,
-    text: `All
-
-cards
-
-have
-
-a
-
-section
-
-that
-
-describes
-
-how
-
-they
-
-affect
-
-the
-
-gam e.
-
-This
-
-section
-
-is
-
-know n
-
-as
-
-the
-
-Rules
-
-Text
-
-of
-
-the
-
-card.`,
+    section: `134.1. All cards have a section that describes how they affect the game`,
+    text: `All cards have a section that describes how they affect the game. This section is known as the Rules Text of the card.`,
   },
   {
     id: `134.2`,
-    section: `134.2. This`,
-    text: `This
-
-section
-
-m ay
-
-contain:`,
+    section: `134.2. This section may contain:`,
+    text: `This section may contain:`,
   },
   {
     id: `134.2.a`,
     section: `134.2.a. Abilities`,
     text: `Abilities
 
-134.2.a.1.
+1. Abilities are discrete pieces of text that describe what a card may or must do. See rule 357. Abilities for more information.
 
-Abilities
-
-are
-
-discrete
-
-pieces
-
-of
-
-text
-
-that
-
-describe
-
-w hat
-
-a
-
-card
-
-m ay
-
-or
-
-m ust
-
-do.
-
-See
-
-rule`,
-  },
-  {
-    id: `357`,
-    section: `357. Abilities`,
-    text: `Abilities
-
-for
-
-more
-
-information.
-
-134.2.a.2.
-
-They
-
-m ay
-
-appear
-
-on
-
-any
-
-card.`,
+2. They may appear on any card.`,
   },
   {
     id: `134.2.b`,
     section: `134.2.b. Instructions`,
     text: `Instructions
 
-134.2.b.1.
+1. Instructions are a type of text that appears on spells and within abilities.
 
-Instructions
-
-are
-
-a
-
-type
-
-of
-
-text
-
-that
-
-appears
-
-on
-
-spells
-
-and
-
-w ithin
-
-abilities.
-
-134.2.b.2.
-
-They
-
-describe
-
-the
-
-actions
-
-to
-
-be
-
-taken
-
-as
-
-the
-
-spell
-
-or
-
-ability
-
-resolves.`,
+2. They describe the actions to be taken as the spell or ability resolves.`,
   },
   {
     id: `134.2.c`,
     section: `134.2.c. Keywords`,
     text: `Keywords
 
-134.2.c.1.
+1. Keywords are short words or phrases that represent longer abilities or instructions. See rule 716. Keywords for more information.
 
-Keyw ords
-
-are
-
-short
-
-w ords
-
-or
-
-phrases
-
-that
-
-represent
-
-longer
-
-abilities
-
-or
-
-instructions.
-
-See
-
-rule`,
-  },
-  {
-    id: `716`,
-    section: `716. Keywords`,
-    text: `Keywords
-
-for
-
-more
-
-information.
-
-134.2.c.2.
-
-Keyw ords
-
-m ay
-
-or
-
-m ay
-
-not
-
-have
-
-rem inder
-
-text.`,
+2. Keywords may or may not have reminder text.`,
   },
   {
     id: `134.2.d`,
-    section: `134.2.d. Rem inder`,
-    text: `Rem inder
+    section: `134.2.d. Reminder Text`,
+    text: `Reminder Text
 
-Text
+1. Reminder text appears in italics and parentheses.
 
-134.2.d.1.
+2. Its purpose is to summarize relevant rules, including keywords and other rules.
 
-Rem inder
-
-text
-
-appears
-
-in
-
-italics
-
-and
-
-parentheses.
-
-134.2.d.2.
-
-Its
-
-purpose
-
-is
-
-to
-
-sum m arize
-
-relevant
-
-rules,
-
-including
-
-keyw ords
-
-and
-
-other
-
-rules.
-
-134.2.d.3.
-
-The
-
-presence,
-
-absence,
-
-or
-
-exact
-
-w ording
-
-of
-
-rem inder
-
-text
-
-has
-
-no
-
-effect
-
-on
-
-gam e
-
-function.`,
+3. The presence, absence, or exact wording of reminder text has no effect on game function.`,
   },
   {
     id: `134.2.e`,
-    section: `134.2.e. Sym bols`,
-    text: `Sym bols
+    section: `134.2.e. Symbols`,
+    text: `Symbols
 
-134.2.e.1.
+1. Rules text sometimes contains symbols that express game concepts. Each symbol also has a shorthand used to represent it in written text.
 
-Rules
+2. The cost of Exhausting a Permanent is represented by the “exhaust symbol,” which resembles a card turning sideways. Its shorthand is [E]. (Some previous rules information has given its shorthand as [T].)
 
-text
+3. Might is represented by the “Might symbol,” which resembles a sword and shield. Its shorthand is [M]. (Some previous rules information has given its shorthand as [S].)
 
-som etim es
+4. Power of a specific Domain is represented by its domain symbol and the corresponding shorthand. See rule 133. Domain for more information.
 
-contains
+5. Power of any Domain is represented by a swirling rainbow symbol. Its shorthand is [A].
 
-sym bols
+5.a. When required as a cost, [A] can be paid by Power of any Domain.
 
-that
+5.b. When Added to a player’s Rune Pool, [A] can be spent to pay a Power cost of any Domain.
 
-express
+6. Power of a domain corresponding to a card’s own Domain is not represented by a symbol, but appears in these rules similarly to other symbols. Its shorthand is [C].
 
-gam e
+6.a. When a [C] shorthand is printed on a card as reminder text, it assumes that card’s usual Domain, but it still means “one Power of this card’s Domain.”
 
-concepts.
-
-Each
-
-sym bol
-
-also
-
-has
-
-a
-
-shorthand
-
-used
-
-to
-
-represent
-
-it
-
-in
-
-w ritten
-
-text.
-
-134.2.e.2.
-
-The
-
-cost
-
-of
-
-Exhausting
-
-a
-
-Perm anent
-
-is
-
-represented
-
-by
-
-the
-
-“exhaust
-
-sym bol,”
-
-w hich
-
-resem bles
-
-a
-
-card
-
-turning
-
-sidew ays.
-
-Its
-
-shorthand
-
-is
-
-[E].
-
-(Som e
-
-previous
-
-rules
-
-inform ation
-
-has
-
-given
-
-its
-
-shorthand
-
-as
-
-[T].)
-
-134.2.e.3.
-
-Might
-
-is
-
-represented
-
-by
-
-the
-
-“M ight
-
-sym bol,”
-
-w hich
-
-resem bles
-
-a
-
-sw ord
-
-and
-
-shield.
-
-Its
-
-shorthand
-
-is
-
-[M ].
-
-(Som e
-
-previous
-
-rules
-
-inform ation
-
-has
-
-given
-
-its
-
-shorthand
-
-as
-
-[S].)
-
-134.2.e.4.
-
-Power
-
-of
-
-a
-
-speciﬁc
-
-Dom ain
-
-is
-
-represented
-
-by
-
-its
-
-dom ain
-
-sym bol
-
-and
-
-the
-
-corresponding
-
-shorthand.
-
-See
-
-rule`,
+6.b. A [C] shorthand on a card with no Domain or with multiple Domains is processed as [A] instead.`,
   },
   {
     id: `134.3`,
-    section: `134.3. Rules`,
-    text: `Rules
-
-text
-
-can
-
-be
-
-blank.`,
+    section: `134.3. Rules text can be blank`,
+    text: `Rules text can be blank.`,
   },
   {
     id: `135`,
-    section: `135. Flavor`,
-    text: `Flavor
-
-Text`,
+    section: `135. Flavor Text`,
+    text: `Flavor Text`,
   },
   {
     id: `135.1`,
-    section: `135.1. Flavor`,
-    text: `Flavor
-
-text
-
-is
-
-text
-
-that
-
-appears
-
-at
-
-the
-
-bottom
-
-of
-
-som e
-
-cards
-
-to
-
-provide
-
-aesthetic
-
-enjoym ent.
-
-It
-
-conveys
-
-no
-
-gam eplay
-
-inform ation.
-
-Example:
-
-The
-
-card
-
-Void
-
-Seeker
-
-features
-
-a
-
-quote
-
-from
-
-the
-
-character
-
-Kai'Sa.
-
-It
-
-does
-
-not
-
-have
-
-the
-
-Kai'Sa
-
-tag
-
-and
-
-has
-
-no
-
-gam eplay
-
-connection
-
-to
-
-the
-
-Cham pion
-
-unit
-
-Kai'Sa.`,
+    section: `135.1. Flavor text is text that appears at the bottom of some cards to provide aesthetic enjoyment`,
+    text: `Flavor text is text that appears at the bottom of some cards to provide aesthetic enjoyment. It conveys no gameplay information. Example: The card Void Seeker features a quote from the character Kai'Sa. It does not have the Kai'Sa tag and has no gameplay connection to the Champion unit Kai'Sa.`,
   },
   {
     id: `135.2`,
-    section: `135.2. Flavor`,
-    text: `Flavor
-
-text
-
-is
-
-located
-
-at
-
-the
-
-bottom
-
-of
-
-the
-
-section
-
-provided
-
-for
-
-rules
-
-text,
-
-usually
-
-in
-
-a
-
-shaded
-
-bar.
-
-It
-
-appears
-
-in
-
-italics.`,
+    section: `135.2. Flavor text is located at the bottom of the section provided for rules text`,
+    text: `Flavor text is located at the bottom of the section provided for rules text, usually in a shaded bar. It appears in italics.`,
   },
   {
     id: `136`,
@@ -8579,26 +1091,8 @@ italics.`,
   },
   {
     id: `136.1`,
-    section: `136.1. Each`,
-    text: `Each
-
-card
-
-has
-
-an
-
-illustration.
-
-It
-
-conveys
-
-no
-
-gam eplay
-
-inform ation.`,
+    section: `136.1. Each card has an illustration`,
+    text: `Each card has an illustration. It conveys no gameplay information.`,
   },
   {
     id: `137`,
@@ -8607,2121 +1101,330 @@ inform ation.`,
   },
   {
     id: `138`,
-    section: `138. Unit`,
-    text: `Unit
-
-is :`,
+    section: `138. Unit is:`,
+    text: `Unit is:`,
   },
   {
     id: `138.1`,
-    section: `138.1. A`,
-    text: `A
-
-Gam e
-
-Object`,
+    section: `138.1. A Game Object`,
+    text: `A Game Object`,
   },
   {
     id: `138.1.a`,
-    section: `138.1.a. W hile`,
-    text: `W hile
+    section: `138.1.a. While on the Board:`,
+    text: `While on the Board:
 
-on
+1. Units are at one of several Locations while on the Board: a Battlefield or their Base.
 
-the
+2. Units and their details are Public Information while on the Board.
 
-Board :
+3. Units can be chosen, affected, or manipulated by spells, affects, or game actions that specify Units.
 
-138.1.a.1.
-
-Units
-
-are
-
-at
-
-one
-
-of
-
-several
-
-Locations
-
-w hile
-
-on
-
-the
-
-Board :
-
-a
-
-Battleﬁeld
-
-or
-
-their
-
-Base.
-
-138.1.a.2.
-
-Units
-
-and
-
-their
-
-details
-
-are
-
-Public
-
-Inform ation
-
-w hile
-
-on
-
-the
-
-Board.
-
-138.1.a.3.
-
-Units
-
-can
-
-be
-
-chosen,
-
-affected,
-
-or
-
-m anipulated
-
-by
-
-spells,
-
-affects,
-
-or
-
-gam e
-
-actions
-
-that
-
-specify
-
-Units.
-
-138.1.a.4.
-
-Units
-
-can
-
-be
-
-Killed.
-
-See
-
-rule`,
-  },
-  {
-    id: `415`,
-    section: `415. Kill`,
-    text: `Kill
-
-for
-
-more
-
-information.`,
+4. Units can be Killed. See rule 415. Kill for more information.`,
   },
   {
     id: `138.1.b`,
-    section: `138.1.b. W hile`,
-    text: `W hile
+    section: `138.1.b. While in the Trash:`,
+    text: `While in the Trash:
 
-in
+1. Units are treated as Cards, similar to when in the Hand.
 
-the
+2. They retain the properties of being a Unit, but are not on the Board and thus cannot take actions or be affected by spells, abilities, or game actions that target Units on the Board.
 
-Trash:
-
-138.1.b.1.
-
-Units
-
-are
-
-treated
-
-as
-
-Cards ,
-
-sim ilar
-
-to
-
-w hen
-
-in
-
-the
-
-Hand.
-
-138.1.b.2.
-
-They
-
-retain
-
-the
-
-properties
-
-of
-
-being
-
-a
-
-Unit ,
-
-but
-
-are
-
-not
-
-on
-
-the
-
-Board
-
-and
-
-thus
-
-cannot
-
-take
-
-actions
-
-or
-
-be
-
-affected
-
-by
-
-spells,
-
-abilities,
-
-or
-
-gam e
-
-actions
-
-that
-
-target
-
-Units
-
-on
-
-the
-
-Board.
-
-138.1.b.3.
-
-Units
-
-can
-
-be
-
-affected
-
-by
-
-spells
-
-and
-
-gam e
-
-effects
-
-that
-
-target
-
-Units
-
-in
-
-the
-
-Trash.`,
+3. Units can be affected by spells and game effects that target Units in the Trash.`,
   },
   {
     id: `138.2`,
-    section: `138.2. A`,
-    text: `A
-
-Card
-
-Type`,
+    section: `138.2. A Card Type`,
+    text: `A Card Type`,
   },
   {
     id: `138.2.a`,
-    section: `138.2.a. This`,
-    text: `This
-
-is
-
-a
-
-unique
-
-identiﬁer
-
-that
-
-som e
-
-spells
-
-or
-
-abilities
-
-w ill
-
-use
-
-to
-
-restrict
-
-w hat
-
-they
-
-can
-
-choose
-
-or
-
-affect.`,
+    section: `138.2.a. This is a unique identifier that some spells or abilities will use to restrict what they can choose or affect`,
+    text: `This is a unique identifier that some spells or abilities will use to restrict what they can choose or affect.`,
   },
   {
     id: `138.2.b`,
-    section: `138.2.b. The`,
-    text: `The
-
-card
-
-type
-
-is
-
-relevant
-
-in
-
-all
-
-zones.`,
+    section: `138.2.b. The card type is relevant in all zones`,
+    text: `The card type is relevant in all zones.`,
   },
   {
     id: `139`,
-    section: `139. Dam age`,
-    text: `Dam age
-
-is
-
-a
-
-m arked
-
-value
-
-that
-
-is
-
-applied
-
-to
-
-Units.`,
+    section: `139. Damage is a marked value that is applied to Units`,
+    text: `Damage is a marked value that is applied to Units.`,
   },
   {
     id: `139.1`,
-    section: `139.1. Dam age`,
-    text: `Dam age
-
-is
-
-not
-
-a
-
-Gam e
-
-Object.`,
+    section: `139.1. Damage is not a Game Object`,
+    text: `Damage is not a Game Object.`,
   },
   {
     id: `139.2`,
-    section: `139.2. Dam age`,
-    text: `Dam age
-
-is
-
-a
-
-value
-
-tracked
-
-per-Unit.`,
+    section: `139.2. Damage is a value tracked per-Unit`,
+    text: `Damage is a value tracked per-Unit.`,
   },
   {
     id: `139.3`,
-    section: `139.3. Dam age`,
-    text: `Dam age
-
-tracks
-
-how
-
-close
-
-a
-
-Unit
-
-is
-
-to
-
-being
-
-Killed.
-
-See
-
-rule`,
+    section: `139.3. Damage tracks how close a Unit is to being Killed`,
+    text: `Damage tracks how close a Unit is to being Killed. See rule 415. Kill for more information.`,
   },
   {
     id: `139.4`,
-    section: `139.4. Dam age`,
-    text: `Dam age
-
-can
-
-be
-
-Healed.
-
-See
-
-rule`,
-  },
-  {
-    id: `405`,
-    section: `405. Heal`,
-    text: `Heal
-
-for
-
-more
-
-information .`,
+    section: `139.4. Damage can be Healed`,
+    text: `Damage can be Healed. See rule 405. Heal for more information.`,
   },
   {
     id: `140`,
-    section: `140. Units`,
-    text: `Units
-
-have
-
-m ultiple
-
-Intrinsic
-
-Properties
-
-unique
-
-to
-
-them :
-
-for
-
-more
-
-information
-
-on
-
-the
-
-Standard
-
-Move.`,
+    section: `140. Units have multiple Intrinsic Properties unique to them:`,
+    text: `Units have multiple Intrinsic Properties unique to them:`,
   },
   {
     id: `140.1`,
-    section: `140.1. Tag:`,
-    text: `Tag:
-
-A
-
-Unit
-
-has
-
-zero
-
-or
-
-m ore
-
-Tags
-
-representing
-
-one
-
-or
-
-m ore
-
-cham pions,
-
-regions,
-
-factions,
-
-or
-
-species
-
-it
-
-belongs
-
-to.`,
+    section: `140.1. Tag: A Unit has zero or more Tags representing one or more champions`,
+    text: `Tag: A Unit has zero or more Tags representing one or more champions, regions, factions, or species it belongs to.`,
   },
   {
     id: `140.1.a`,
-    section: `140.1.a. These`,
-    text: `These
-
-have
-
-no
-
-intrinsic
-
-rules
-
-or
-
-behaviors
-
-by
-
-them selves.`,
+    section: `140.1.a. These have no intrinsic rules or behaviors by themselves`,
+    text: `These have no intrinsic rules or behaviors by themselves.`,
   },
   {
     id: `140.1.b`,
-    section: `140.1.b. Spells,`,
-    text: `Spells,
-
-abilities,
-
-and
-
-gam e
-
-actions
-
-can
-
-reference
-
-these
-
-types
-
-as
-
-part
-
-of
-
-their
-
-execution.`,
+    section: `140.1.b. Spells`,
+    text: `Spells, abilities, and game actions can reference these types as part of their execution.`,
   },
   {
     id: `140.2`,
-    section: `140.2. Might :`,
-    text: `Might :
-
-The
-
-com bat
-
-statistic
-
-of
-
-a
-
-Unit .
-
-Used
-
-to
-
-determ ine
-
-a
-
-Unit's
-
-contribution
-
-to
-
-Com bat ,
-
-as
-
-w ell
-
-as
-
-w hen
-
-it
-
-is
-
-Killed
-
-by
-
-dam aging
-
-effects.`,
+    section: `140.2. Might: The combat statistic of a Unit`,
+    text: `Might: The combat statistic of a Unit. Used to determine a Unit's contribution to Combat, as well as when it is Killed by damaging effects.`,
   },
   {
     id: `140.2.a`,
-    section: `140.2.a. If`,
-    text: `If
-
-a
-
-Unit
-
-ever
-
-has
-
-nonzero
-
-dam age
-
-m arked
-
-on
-
-it
-
-equalling
-
-or
-
-exceeding
-
-its
-
-Might ,
-
-it
-
-is
-
-Killed.`,
+    section: `140.2.a. If a Unit ever has nonzero damage marked on it equalling or exceeding its Might`,
+    text: `If a Unit ever has nonzero damage marked on it equalling or exceeding its Might, it is Killed.`,
   },
   {
     id: `140.2.b`,
-    section: `140.2.b. If`,
-    text: `If
-
-a
-
-unit's
-
-M ight
-
-is
-
-ever
-
-less
-
-than
-
-0,
-
-it
-
-is
-
-treated
-
-as
-
-0
-
-for
-
-all
-
-purposes.`,
+    section: `140.2.b. If a unit's Might is ever less than 0`,
+    text: `If a unit's Might is ever less than 0, it is treated as 0 for all purposes.`,
   },
   {
     id: `140.3`,
-    section: `140.3. Units`,
-    text: `Units
-
-can
-
-have
-
-dam age
-
-m arked
-
-on
-
-them .`,
+    section: `140.3. Units can have damage marked on them`,
+    text: `Units can have damage marked on them.`,
   },
   {
     id: `140.3.a`,
-    section: `140.3.a. W hen`,
-    text: `W hen
-
-spells,
-
-abilities,
-
-or
-
-other
-
-gam e
-
-effects
-
-deal
-
-dam age,
-
-Units
-
-m ark
-
-that
-
-dam age
-
-on
-
-them
-
-tem porarily.
-
-This
-
-can
-
-be
-
-tracked
-
-w ith
-
-coins,
-
-dice,
-
-or
-
-other
-
-m arkers,
-
-or
-
-by
-
-m em ory.`,
+    section: `140.3.a. When spells`,
+    text: `When spells, abilities, or other game effects deal damage, Units mark that damage on them temporarily. This can be tracked with coins, dice, or other markers, or by memory.`,
   },
   {
     id: `140.3.b`,
-    section: `140.3.b. Dam age`,
-    text: `Dam age
+    section: `140.3.b. Damage is Healed from Units at two specific times:`,
+    text: `Damage is Healed from Units at two specific times:
 
-is
+1. At the end of each player's turn.
 
-Healed
-
-from
-
-Units
-
-at
-
-tw o
-
-speciﬁc
-
-tim es:
-
-140.3.b.1.
-
-At
-
-the
-
-end
-
-of
-
-each
-
-player's
-
-turn.
-
-140.3.b.2.
-
-D uring
-
-a
-
-Com bat
-
-Cleanup.
-
-See
-
-rule`,
-  },
-  {
-    id: `440.1`,
-    section: `440.1. for`,
-    text: `for
-
-more
-
-information
-
-about
-
-Combat
-
-Cleanups.
-
-1.
-
-Perform
-
-a
-
-Com bat
-
-Cleanup.`,
+2. During a Combat Cleanup. See rule 440.1. for more information about Combat Cleanups.`,
   },
   {
     id: `140.4`,
-    section: `140.4. Units`,
-    text: `Units
-
-enter
-
-the
-
-Board
-
-exhausted.`,
+    section: `140.4. Units enter the Board exhausted`,
+    text: `Units enter the Board exhausted.`,
   },
   {
     id: `140.4.a`,
-    section: `140.4.a. This`,
-    text: `This
-
-can
-
-be
-
-altered
-
-by
-
-Accelerate
-
-or
-
-sim ilar
-
-gam e
-
-effects.
-
-See
-
-rule`,
-  },
-  {
-    id: `721`,
-    section: `721. Accelerate`,
-    text: `Accelerate
-
-for
-
-more
-
-information.`,
+    section: `140.4.a. This can be altered by Accelerate or similar game effects`,
+    text: `This can be altered by Accelerate or similar game effects. See rule 721. Accelerate for more information.`,
   },
   {
     id: `141`,
-    section: `141. Units`,
-    text: `Units
-
-have
-
-the
-
-Inherent
-
-Ability
-
-to
-
-perform
-
-a
-
-Standard
-
-Move.`,
+    section: `141. Units have the Inherent Ability to perform a Standard Move`,
+    text: `Units have the Inherent Ability to perform a Standard Move.`,
   },
   {
     id: `141.1`,
-    section: `141.1. This`,
-    text: `This
-
-action
-
-is
-
-lim ited
-
-in
-
-w hen
-
-it
-
-can
-
-be
-
-perform ed.`,
+    section: `141.1. This action is limited in when it can be performed`,
+    text: `This action is limited in when it can be performed.`,
   },
   {
     id: `141.1.a`,
-    section: `141.1.a. This`,
-    text: `This
-
-action
-
-can
-
-be
-
-done
-
-any
-
-tim e
-
-during
-
-a
-
-player's
-
-Action
-
-Phase.`,
+    section: `141.1.a. This action can be done any time during a player's Action Phase`,
+    text: `This action can be done any time during a player's Action Phase.`,
   },
   {
     id: `141.1.b`,
-    section: `141.1.b. This`,
-    text: `This
-
-action
-
-cannot
-
-be
-
-perform ed
-
-during
-
-a
-
-Closed
-
-State .`,
+    section: `141.1.b. This action cannot be performed during a Closed State`,
+    text: `This action cannot be performed during a Closed State.`,
   },
   {
     id: `141.1.c`,
-    section: `141.1.c. This`,
-    text: `This
-
-action
-
-cannot
-
-be
-
-perform ed
-
-during
-
-a
-
-Showdown.`,
+    section: `141.1.c. This action cannot be performed during a Showdown`,
+    text: `This action cannot be performed during a Showdown.`,
   },
   {
     id: `141.2`,
-    section: `141.2. Exhausting`,
-    text: `Exhausting
-
-the
-
-Unit
-
-is
-
-the
-
-Cost
-
-for
-
-this
-
-action.`,
+    section: `141.2. Exhausting the Unit is the Cost for this action`,
+    text: `Exhausting the Unit is the Cost for this action.`,
   },
   {
     id: `141.3`,
-    section: `141.3. Players`,
-    text: `Players
-
-m ay
-
-perform
-
-m ultiple
-
-Units'
-
-standard
-
-m ove
-
-sim ultaneously.`,
+    section: `141.3. Players may perform multiple Units' standard move simultaneously`,
+    text: `Players may perform multiple Units' standard move simultaneously.`,
   },
   {
     id: `141.3.a`,
-    section: `141.3.a. W hen`,
-    text: `W hen
-
-a
-
-Move
-
-like
-
-this
-
-is
-
-declared
-
-by
-
-a
-
-player,
-
-the
-
-units'
-
-Destination
-
-m ust
-
-be
-
-the
-
-sam e.`,
+    section: `141.3.a. When a Move like this is declared by a player`,
+    text: `When a Move like this is declared by a player, the units' Destination must be the same.`,
   },
   {
     id: `141.3.b`,
-    section: `141.3.b. W hen`,
-    text: `W hen
-
-a
-
-Move
-
-like
-
-this
-
-is
-
-declared
-
-by
-
-a
-
-player,
-
-the
-
-Origins
-
-do
-
-not
-
-need
-
-to
-
-be
-
-the
-
-sam e.`,
+    section: `141.3.b. When a Move like this is declared by a player`,
+    text: `When a Move like this is declared by a player, the Origins do not need to be the same.`,
   },
   {
     id: `141.3.c`,
-    section: `141.3.c. The`,
-    text: `The
-
-Costs
-
-of
-
-Exhausting
-
-the
-
-Units
-
-are
-
-also
-
-paid
-
-Sim ultaneously.`,
+    section: `141.3.c. The Costs of Exhausting the Units are also paid Simultaneously`,
+    text: `The Costs of Exhausting the Units are also paid Simultaneously.`,
   },
   {
     id: `141.4`,
-    section: `141.4. The`,
-    text: `The
-
-D estinations
-
-w here
-
-Units
-
-can
-
-Move
-
-to
-
-w ith
-
-their
-
-Standard
-
-Move
-
-are
-
-restricted:`,
+    section: `141.4. The Destinations where Units can Move to with their Standard Move are restricted:`,
+    text: `The Destinations where Units can Move to with their Standard Move are restricted:`,
   },
   {
     id: `141.4.a`,
-    section: `141.4.a. Units`,
-    text: `Units
+    section: `141.4.a. Units may move from their Base to a Battlefield`,
+    text: `Units may move from their Base to a Battlefield.
 
-m ay
-
-m ove
-
-from
-
-their
-
-Base
-
-to
-
-a
-
-Battleﬁeld.
-
-141.4.a.1.
-
-Units
-
-cannot
-
-Move
-
-to
-
-a
-
-Battleﬁeld
-
-that
-
-already
-
-has
-
-units
-
-from
-
-2
-
-other
-
-players
-
-present.`,
+1. Units cannot Move to a Battlefield that already has units from 2 other players present.`,
   },
   {
     id: `141.4.b`,
-    section: `141.4.b. Units`,
-    text: `Units
-
-m ay
-
-m ove
-
-from
-
-a
-
-Battleﬁeld
-
-to
-
-their
-
-Base.`,
+    section: `141.4.b. Units may move from a Battlefield to their Base`,
+    text: `Units may move from a Battlefield to their Base.`,
   },
   {
     id: `141.4.c`,
-    section: `141.4.c. Ganking`,
-    text: `Ganking
+    section: `141.4.c. Ganking is a unique ability that affects a Unit's Standard Move`,
+    text: `Ganking is a unique ability that affects a Unit's Standard Move
 
-is
-
-a
-
-unique
-
-ability
-
-that
-
-affects
-
-a
-
-Unit's
-
-Standard
-
-Move
-
-141.4.c.1.
-
-Units
-
-w ith
-
-Ganking
-
-m ay
-
-use
-
-their
-
-Standard
-
-Move
-
-to
-
-Move
-
-from
-
-Battleﬁeld
-
-to
-
-Battleﬁeld.
-
-See
-
-rule`,
-  },
-  {
-    id: `726`,
-    section: `726. Ganking`,
-    text: `Ganking
-
-for
-
-more
-
-information.`,
+1. Units with Ganking may use their Standard Move to Move from Battlefield to Battlefield. See rule 726. Ganking for more information.`,
   },
   {
     id: `142`,
-    section: `142. Units`,
-    text: `Units
-
-m ay
-
-have
-
-Activated
-
-Abilities.`,
+    section: `142. Units may have Activated Abilities`,
+    text: `Units may have Activated Abilities.`,
   },
   {
     id: `142.1`,
-    section: `142.1. Activated`,
-    text: `Activated
-
-Abilities
-
-are
-
-Gam e
-
-Effects
-
-that
-
-are
-
-w ritten
-
-as
-
-Costs
-
-follow ed
-
-by
-
-a
-
-":",
-
-and
-
-then
-
-succeeded
-
-by
-
-an
-
-effect.
-
-See
-
-rule`,
-  },
-  {
-    id: `369`,
-    section: `369. Activated`,
-    text: `Activated
-
-Abilities
-
-for
-
-more
-
-information.`,
+    section: `142.1. Activated Abilities are Game Effects that are written as Costs followed by a ":"`,
+    text: `Activated Abilities are Game Effects that are written as Costs followed by a ":", and then succeeded by an effect. See rule 369. Activated Abilities for more information.`,
   },
   {
     id: `142.2`,
-    section: `142.2. The`,
-    text: `The
-
-Activated
-
-Ability
-
-of
-
-Units
-
-m ay
-
-be
-
-executed
-
-at
-
-any
-
-tim e
-
-during
-
-the
-
-controlling
-
-player's
-
-Action
-
-Phase
-
-during
-
-an
-
-Open
-
-State ,
-
-and
-
-not
-
-during
-
-a
-
-Showdown.`,
+    section: `142.2. The Activated Ability of Units may be executed at any time during the controlling player's Action Phase during an Open State`,
+    text: `The Activated Ability of Units may be executed at any time during the controlling player's Action Phase during an Open State, and not during a Showdown.`,
   },
   {
     id: `142.2.a`,
-    section: `142.2.a. This`,
-    text: `This
+    section: `142.2.a. This follows the same process as playing a card`,
+    text: `This follows the same process as playing a card. See rule 346. Playing Cards for more information.
 
-follow s
-
-the
-
-sam e
-
-process
-
-as
-
-playing
-
-a
-
-card.
-
-See
-
-rule`,
+1. This behaves, once activated, like a spell without an associated card.`,
   },
   {
     id: `143`,
     section: `143. Gear`,
     text: `Gear
 
-Gear
-
-are:`,
+Gear are:`,
   },
   {
     id: `143.1`,
-    section: `143.1. A`,
-    text: `A
-
-Gam e
-
-Object`,
+    section: `143.1. A Game Object`,
+    text: `A Game Object`,
   },
   {
     id: `143.1.a`,
-    section: `143.1.a. W hile`,
-    text: `W hile
+    section: `143.1.a. While on the Board`,
+    text: `While on the Board.
 
-on
+1. Gear can only be played to a player's Base.
 
-the
+2. Gear and their details are Public Information while on the Board.
 
-Board.
+3. Gear can be chosen, affected, or manipulated by spells, effects, or game actions that specify Gear.
 
-143.1.a.1.
-
-Gear
-
-can
-
-only
-
-be
-
-played
-
-to
-
-a
-
-player's
-
-Base.
-
-143.1.a.2.
-
-Gear
-
-and
-
-their
-
-details
-
-are
-
-Public
-
-Inform ation
-
-w hile
-
-on
-
-the
-
-Board.
-
-143.1.a.3.
-
-Gear
-
-can
-
-be
-
-chosen,
-
-affected,
-
-or
-
-m anipulated
-
-by
-
-spells,
-
-effects,
-
-or
-
-gam e
-
-actions
-
-that
-
-specify
-
-Gear.
-
-143.1.a.4.
-
-Gear
-
-can
-
-be
-
-Killed.
-
-See
-
-rule`,
+4. Gear can be Killed. See rule 415. Kill for more information.`,
   },
   {
     id: `143.1.b`,
-    section: `143.1.b. W hile`,
-    text: `W hile
+    section: `143.1.b. While in the Trash`,
+    text: `While in the Trash
 
-in
+1. Gear are treated as Cards before Game Objects, similar to the Hand.
 
-the
+2. They retain the properties of being Gear, but are not on the Board and thus cannot take actions or be affected by spells, abilities, or game actions that affect Gear on the Board.
 
-Trash
-
-143.1.b.1.
-
-Gear
-
-are
-
-treated
-
-as
-
-Cards
-
-before
-
-Gam e
-
-Objects ,
-
-sim ilar
-
-to
-
-the
-
-Hand.
-
-143.1.b.2.
-
-They
-
-retain
-
-the
-
-properties
-
-of
-
-being
-
-Gear ,
-
-but
-
-are
-
-not
-
-on
-
-the
-
-Board
-
-and
-
-thus
-
-cannot
-
-take
-
-actions
-
-or
-
-be
-
-affected
-
-by
-
-spells,
-
-abilities,
-
-or
-
-gam e
-
-actions
-
-that
-
-affect
-
-Gear
-
-on
-
-the
-
-Board.
-
-143.1.b.3.
-
-Gear
-
-can
-
-be
-
-affected
-
-by
-
-spells
-
-and
-
-gam e
-
-effects
-
-that
-
-affect
-
-Gear
-
-in
-
-the
-
-Trash.`,
+3. Gear can be affected by spells and game effects that affect Gear in the Trash.`,
   },
   {
     id: `143.2`,
-    section: `143.2. A`,
-    text: `A
-
-Card
-
-Type`,
+    section: `143.2. A Card Type`,
+    text: `A Card Type`,
   },
   {
     id: `143.2.a`,
-    section: `143.2.a. This`,
-    text: `This
-
-is
-
-a
-
-unique
-
-identiﬁer
-
-that
-
-som e
-
-spells
-
-or
-
-abilities
-
-w ill
-
-use
-
-to
-
-restrict
-
-w hat
-
-they
-
-can
-
-choose
-
-or
-
-affect.`,
+    section: `143.2.a. This is a unique identifier that some spells or abilities will use to restrict what they can choose or affect`,
+    text: `This is a unique identifier that some spells or abilities will use to restrict what they can choose or affect.`,
   },
   {
     id: `143.2.b`,
-    section: `143.2.b. The`,
-    text: `The
-
-card
-
-type
-
-is
-
-relevant
-
-in
-
-all
-
-zones.`,
+    section: `143.2.b. The card type is relevant in all zones`,
+    text: `The card type is relevant in all zones.`,
   },
   {
     id: `144`,
-    section: `144. Gear`,
-    text: `Gear
-
-have
-
-several
-
-Intrinsic
-
-Properties
-
-unique
-
-to
-
-them .`,
+    section: `144. Gear have several Intrinsic Properties unique to them`,
+    text: `Gear have several Intrinsic Properties unique to them.`,
   },
   {
     id: `144.1`,
-    section: `144.1. Gear`,
-    text: `Gear
-
-enters
-
-play
-
-Ready.`,
+    section: `144.1. Gear enters play Ready`,
+    text: `Gear enters play Ready.`,
   },
   {
     id: `144.2`,
-    section: `144.2. Gear`,
-    text: `Gear
-
-can
-
-only
-
-be
-
-played
-
-to
-
-a
-
-player's
-
-Base.`,
+    section: `144.2. Gear can only be played to a player's Base`,
+    text: `Gear can only be played to a player's Base.`,
   },
   {
     id: `144.3`,
-    section: `144.3. If`,
-    text: `If
-
-a
-
-Gear
-
-is
-
-at
-
-a
-
-Battleﬁeld
-
-for
-
-any
-
-reason,
-
-then
-
-it
-
-is
-
-im m ediately
-
-recalled
-
-to
-
-its
-
-controller's
-
-Base
-
-as
-
-a
-
-corrective
-
-action.
-
-See
-
-rule`,
-  },
-  {
-    id: `428`,
-    section: `428. Recalls`,
-    text: `Recalls
-
-for
-
-more
-
-information.
-
-Recalls
-
-for
-
-more
-
-information.
-
-440.1.a.3.
-
-Insert
-
-“2c.
-
-Rem ove
-
-Attacker
-
-and
-
-D efender
-
-D esignation
-
-from
-
-all
-
-Units
-
-and
-
-Players. ”`,
+    section: `144.3. If a Gear is at a Battlefield for any reason`,
+    text: `If a Gear is at a Battlefield for any reason, then it is immediately recalled to its controller's Base as a corrective action. See rule 428. Recalls for more information.`,
   },
   {
     id: `145`,
-    section: `145. Gear`,
-    text: `Gear
-
-m ay
-
-have
-
-Activated
-
-Abilities.`,
+    section: `145. Gear may have Activated Abilities`,
+    text: `Gear may have Activated Abilities.`,
   },
   {
     id: `145.1`,
-    section: `145.1. Activated`,
-    text: `Activated
-
-Abilities
-
-are
-
-Gam e
-
-Effects
-
-that
-
-are
-
-w ritten
-
-as
-
-Costs
-
-follow ed
-
-by
-
-a
-
-":",
-
-and
-
-then
-
-succeeded
-
-by
-
-an
-
-effect.
-
-See
-
-rule`,
+    section: `145.1. Activated Abilities are Game Effects that are written as Costs followed by a ":"`,
+    text: `Activated Abilities are Game Effects that are written as Costs followed by a ":", and then succeeded by an effect. See rule 369. Activated Abilities for more information.`,
   },
   {
     id: `145.2`,
-    section: `145.2. The`,
-    text: `The
-
-Activated
-
-Ability
-
-of
-
-Gear
-
-m ay
-
-be
-
-executed
-
-at
-
-any
-
-tim e
-
-during
-
-the
-
-controlling
-
-player's
-
-Action
-
-Phase
-
-during
-
-an
-
-Open
-
-State ,
-
-and
-
-not
-
-during
-
-a
-
-Showdown.`,
+    section: `145.2. The Activated Ability of Gear may be executed at any time during the controlling player's Action Phase during an Open State`,
+    text: `The Activated Ability of Gear may be executed at any time during the controlling player's Action Phase during an Open State, and not during a Showdown.`,
   },
   {
     id: `145.2.a`,
-    section: `145.2.a. This`,
-    text: `This
+    section: `145.2.a. This follows the same process as playing a card`,
+    text: `This follows the same process as playing a card. See rule 346. Playing Cards for more information.
 
-follow s
-
-the
-
-sam e
-
-process
-
-as
-
-playing
-
-a
-
-card.
-
-See
-
-rule`,
+1. This behaves, once activated, like a spell without an associated card.`,
   },
   {
     id: `146`,
@@ -10730,743 +1433,81 @@ rule`,
   },
   {
     id: `147`,
-    section: `147. Spell`,
-    text: `Spell
-
-is
-
-a
-
-card
-
-type.`,
+    section: `147. Spell is a card type`,
+    text: `Spell is a card type.`,
   },
   {
     id: `148`,
-    section: `148. A`,
-    text: `A
-
-spell
-
-can
-
-be
-
-played
-
-during
-
-an
-
-Open
-
-State
-
-Outside
-
-of
-
-Showdowns
-
-on
-
-its
-
-controller's
-
-turn.`,
+    section: `148. A spell can be played during an Open State Outside of Showdowns on its controller's turn`,
+    text: `A spell can be played during an Open State Outside of Showdowns on its controller's turn.`,
   },
   {
     id: `149`,
-    section: `149. A`,
-    text: `A
-
-spell
-
-is
-
-controlled
-
-by
-
-the
-
-player
-
-w ho
-
-played
-
-it.`,
+    section: `149. A spell is controlled by the player who played it`,
+    text: `A spell is controlled by the player who played it.`,
   },
   {
     id: `150`,
-    section: `150. A`,
-    text: `A
-
-spell
-
-creates
-
-a
-
-gam e
-
-effect
-
-according
-
-to
-
-its
-
-instructions
-
-and
-
-is
-
-then
-
-placed
-
-in
-
-the
-
-Trash
-
-of
-
-the
-
-player
-
-w ho
-
-ow ns
-
-it.`,
+    section: `150. A spell creates a game effect according to its instructions and is then placed in the Trash of the player who owns it`,
+    text: `A spell creates a game effect according to its instructions and is then placed in the Trash of the player who owns it.`,
   },
   {
     id: `151`,
-    section: `151. W hen`,
-    text: `W hen
-
-a
-
-spell
-
-is
-
-successfully
-
-played,
-
-a
-
-player
-
-executes
-
-the
-
-rules
-
-text
-
-of
-
-the
-
-spell.
-
-This
-
-is
-
-called
-
-Resolving
-
-the
-
-spell.`,
+    section: `151. When a spell is successfully played`,
+    text: `When a spell is successfully played, a player executes the rules text of the spell. This is called Resolving the spell.`,
   },
   {
     id: `151.1`,
-    section: `151.1. Spells`,
-    text: `Spells
-
-have
-
-their
-
-rules
-
-text
-
-executed
-
-from
-
-top
-
-to
-
-bottom
-
-w hen
-
-they
-
-are
-
-Resolved.`,
+    section: `151.1. Spells have their rules text executed from top to bottom when they are Resolved`,
+    text: `Spells have their rules text executed from top to bottom when they are Resolved.`,
   },
   {
     id: `151.2`,
-    section: `151.2. If`,
-    text: `If
-
-a
-
-later
-
-part
-
-of
-
-a
-
-spell
-
-applies
-
-a
-
-Replacem ent
-
-Effect
-
-that
-
-alters
-
-earlier
-
-parts
-
-of
-
-the
-
-spell,
-
-apply
-
-those
-
-replacem ent
-
-effects
-
-as
-
-appropriate.
-
-Example:
-
-A
-
-spell
-
-says
-
-"Choose
-
-a
-
-unit.
-
-Kill
-
-it
-
-the
-
-next
-
-tim e
-
-it
-
-takes
-
-dam age
-
-this
-
-turn."
-
-and
-
-"[Legion]
-
-—
-
-Kill
-
-it
-
-now
-
-instead.
-
-(Get
-
-the
-
-effect
-
-if
-
-you've
-
-played
-
-another
-
-card
-
-this
-
-turn.) "
-
-If
-
-the
-
-Legion
-
-condition
-
-is
-
-satisﬁed,
-
-the
-
-unit
-
-is
-
-killed
-
-im m ediately
-
-and
-
-the
-
-instruction
-
-to
-
-kill
-
-it
-
-the
-
-next
-
-tim e
-
-it
-
-takes
-
-dam age
-
-is
-
-ignored,
-
-even
-
-if
-
-the
-
-unit
-
-rem ains
-
-on
-
-the
-
-board
-
-som ehow .`,
+    section: `151.2. If a later part of a spell applies a Replacement Effect that alters earlier parts of the spell`,
+    text: `If a later part of a spell applies a Replacement Effect that alters earlier parts of the spell, apply those replacement effects as appropriate. Example: A spell says "Choose a unit. Kill it the next time it takes damage this turn." and "[Legion] — Kill it now instead. (Get the effect if you've played another card this turn.)" If the Legion condition is satisfied, the unit is killed immediately and the instruction to kill it the next time it takes damage is ignored, even if the unit remains on the board somehow.`,
   },
   {
     id: `151.3`,
-    section: `151.3. W hile`,
-    text: `W hile
-
-a
-
-spell
-
-or
-
-ability
-
-on
-
-the
-
-chain
-
-is
-
-Resolving ,
-
-no
-
-other
-
-spells
-
-or
-
-abilities
-
-can
-
-be
-
-ﬁnalized
-
-on
-
-the
-
-chain
-
-or
-
-resolved,
-
-including
-
-triggered
-
-abilities
-
-or
-
-gam e
-
-effects
-
-that
-
-w ould
-
-occur
-
-as
-
-a
-
-result
-
-of
-
-the
-
-execution
-
-of
-
-the
-
-spell.`,
+    section: `151.3. While a spell or ability on the chain is Resolving`,
+    text: `While a spell or ability on the chain is Resolving, no other spells or abilities can be finalized on the chain or resolved, including triggered abilities or game effects that would occur as a result of the execution of the spell.`,
   },
   {
     id: `151.3.a`,
-    section: `151.3.a. Finish`,
-    text: `Finish
-
-resolving
-
-all
-
-effects
-
-of
-
-a
-
-spell
-
-before
-
-addressing
-
-anything
-
-the
-
-spell
-
-m ay
-
-have
-
-triggered
-
-or
-
-caused
-
-through
-
-execution.`,
+    section: `151.3.a. Finish resolving all effects of a spell before addressing anything the spell may have triggered or caused through execution`,
+    text: `Finish resolving all effects of a spell before addressing anything the spell may have triggered or caused through execution.`,
   },
   {
     id: `152`,
-    section: `152. Certain`,
-    text: `Certain
-
-Keywords
-
-on
-
-spells
-
-are
-
-not
-
-executable
-
-rules
-
-text,
-
-but
-
-instead
-
-intrinsic
-
-properties
-
-of
-
-the
-
-spell.`,
+    section: `152. Certain Keywords on spells are not executable rules text`,
+    text: `Certain Keywords on spells are not executable rules text, but instead intrinsic properties of the spell.`,
   },
   {
     id: `152.1`,
-    section: `152.1. These`,
-    text: `These
-
-determ ine
-
-inherent
-
-properties
-
-and
-
-behaviors
-
-of
-
-the
-
-spell
-
-before
-
-being
-
-played
-
-or
-
-w hile
-
-on
-
-the
-
-chain.`,
+    section: `152.1. These determine inherent properties and behaviors of the spell before being played or while on the chain`,
+    text: `These determine inherent properties and behaviors of the spell before being played or while on the chain.`,
   },
   {
     id: `152.2`,
-    section: `152.2. These`,
-    text: `These
-
-keyw ords
-
-are:`,
+    section: `152.2. These keywords are:`,
+    text: `These keywords are:`,
   },
   {
     id: `152.2.a`,
     section: `152.2.a. Action`,
     text: `Action
 
-152.2.a.1.
-
-This
-
-indicates
-
-that,
-
-in
-
-addition
-
-to
-
-being
-
-able
-
-to
-
-be
-
-played
-
-during
-
-an
-
-Open
-
-State ,
-
-this
-
-spell
-
-m ay
-
-also
-
-be
-
-played
-
-during
-
-Open
-
-States
-
-during
-
-Showdowns.`,
+1. This indicates that, in addition to being able to be played during an Open State, this spell may also be played during Open States during Showdowns.`,
   },
   {
     id: `152.2.b`,
     section: `152.2.b. Reaction`,
     text: `Reaction
 
-152.2.b.1.
+1. Grants all cases and rules of Action.
 
-Grants
+2. In addition to all prior cases, may also be played during all forms of Closed State.
 
-all
-
-cases
-
-and
-
-rules
-
-of
-
-Action.
-
-152.2.b.2.
-
-In
-
-addition
-
-to
-
-all
-
-prior
-
-cases,
-
-m ay
-
-also
-
-be
-
-played
-
-during
-
-all
-
-form s
-
-of
-
-Closed
-
-State.
-
-152.2.b.3.
-
-This
-
-w ill
-
-result
-
-in
-
-this
-
-spell
-
-resolving
-
-before
-
-spells
-
-and
-
-abilities
-
-that
-
-are
-
-already
-
-on
-
-the
-
-chain.`,
+3. This will result in this spell resolving before spells and abilities that are already on the chain.`,
   },
   {
     id: `153`,
@@ -11475,1165 +1516,227 @@ chain.`,
   },
   {
     id: `154`,
-    section: `154. Rune`,
-    text: `Rune
-
-is
-
-a
-
-Card
-
-Type.`,
+    section: `154. Rune is a Card Type`,
+    text: `Rune is a Card Type.`,
   },
   {
     id: `154.1`,
-    section: `154.1. A`,
-    text: `A
-
-Rune
-
-is
-
-not
-
-a
-
-Main
-
-Deck
-
-card.`,
+    section: `154.1. A Rune is not a Main Deck card`,
+    text: `A Rune is not a Main Deck card.`,
   },
   {
     id: `154.1.a`,
-    section: `154.1.a. This`,
-    text: `This
-
-m eans,
-
-despite
-
-rem aining
-
-on
-
-the
-
-Board
-
-until
-
-Recycled
-
-or
-
-otherw ise
-
-rem oved
-
-from
-
-the
-
-board,
-
-it
-
-is
-
-not
-
-a
-
-Perm anent.`,
+    section: `154.1.a. This means`,
+    text: `This means, despite remaining on the Board until Recycled or otherwise removed from the board, it is not a Permanent.`,
   },
   {
     id: `154.2`,
-    section: `154.2. Runes`,
-    text: `Runes
-
-are
-
-kept
-
-in
-
-the
-
-Rune
-
-Deck.`,
+    section: `154.2. Runes are kept in the Rune Deck`,
+    text: `Runes are kept in the Rune Deck.`,
   },
   {
     id: `154.2.a`,
-    section: `154.2.a. Exactly`,
-    text: `Exactly
-
-12
-
-Rune
-
-cards
-
-chosen
-
-during
-
-D eck
-
-Construction.
-
-See
-
-rule`,
+    section: `154.2.a. Exactly 12 Rune cards chosen during Deck Construction`,
+    text: `Exactly 12 Rune cards chosen during Deck Construction. See rule 103.3. Rune Deck for more information.`,
   },
   {
     id: `154.2.b`,
-    section: `154.2.b. W hen`,
-    text: `W hen
-
-a
-
-Rune
-
-is
-
-Recycled
-
-it
-
-is
-
-returned
-
-to
-
-the
-
-Rune
-
-Deck ,
-
-not
-
-the
-
-Main
-
-Deck.
-
-See
-
-rule`,
+    section: `154.2.b. When a Rune is Recycled it is returned to the Rune Deck`,
+    text: `When a Rune is Recycled it is returned to the Rune Deck, not the Main Deck. See rule 403. Recycle for more information.`,
   },
   {
     id: `155`,
-    section: `155. Runes`,
-    text: `Runes
-
-produce
-
-the
-
-resources
-
-needed
-
-to
-
-pay
-
-costs.`,
+    section: `155. Runes produce the resources needed to pay costs`,
+    text: `Runes produce the resources needed to pay costs.`,
   },
   {
     id: `156`,
-    section: `156. Runes`,
-    text: `Runes
-
-produce
-
-Energy
-
-and
-
-Power.`,
+    section: `156. Runes produce Energy and Power`,
+    text: `Runes produce Energy and Power.`,
   },
   {
     id: `156.1`,
-    section: `156.1. Energy`,
-    text: `Energy
-
-is
-
-used
-
-to
-
-pay
-
-num eric
-
-Energy
-
-costs.`,
+    section: `156.1. Energy is used to pay numeric Energy costs`,
+    text: `Energy is used to pay numeric Energy costs.`,
   },
   {
     id: `156.1.a`,
-    section: `156.1.a. Energy`,
-    text: `Energy
-
-has
-
-no
-
-D om ain.`,
+    section: `156.1.a. Energy has no Domain`,
+    text: `Energy has no Domain.`,
   },
   {
     id: `156.1.b`,
-    section: `156.1.b. Energy`,
-    text: `Energy
-
-has
-
-no
-
-type.`,
+    section: `156.1.b. Energy has no type`,
+    text: `Energy has no type.`,
   },
   {
     id: `156.2`,
-    section: `156.2. Power`,
-    text: `Power
-
-is
-
-used
-
-to
-
-pay
-
-D om ain-associated
-
-Power
-
-Costs.`,
+    section: `156.2. Power is used to pay Domain-associated Power Costs`,
+    text: `Power is used to pay Domain-associated Power Costs.`,
   },
   {
     id: `156.2.a`,
-    section: `156.2.a. Power`,
-    text: `Power
+    section: `156.2.a. Power has a Domain`,
+    text: `Power has a Domain.
 
-has
-
-a
-
-D om ain.
-
-156.2.a.1.
-
-Power 's
-
-D om ain
-
-usually
-
-corresponds
-
-to
-
-the
-
-D om ain
-
-of
-
-the
-
-Rune
-
-that
-
-produced
-
-it.`,
+1. Power's Domain usually corresponds to the Domain of the Rune that produced it.`,
   },
   {
     id: `156.2.b`,
-    section: `156.2.b. Som e`,
-    text: `Som e
-
-Power
-
-is
-
-Universal
-
-and
-
-can
-
-be
-
-used
-
-to
-
-pay
-
-for
-
-costs
-
-of
-
-any
-
-D om ain.`,
+    section: `156.2.b. Some Power is Universal and can be used to pay for costs of any Domain`,
+    text: `Some Power is Universal and can be used to pay for costs of any Domain.`,
   },
   {
     id: `157`,
-    section: `157. Basic`,
-    text: `Basic
-
-Runes`,
+    section: `157. Basic Runes`,
+    text: `Basic Runes`,
   },
   {
     id: `157.1`,
-    section: `157.1. There`,
-    text: `There
-
-are
-
-six
-
-Basic
-
-Runes ,
-
-each
-
-w ith
-
-a
-
-D om ain
-
-corresponding
-
-to
-
-its
-
-nam e:
-
-Fury
-
-Rune
-
-Calm
-
-Rune
-
-M ind
-
-Rune
-
-Body
-
-Rune
-
-Chaos
-
-Rune
-
-O rder
-
-Rune`,
+    section: `157.1. There are six Basic Runes`,
+    text: `There are six Basic Runes, each with a Domain corresponding to its name: Fury Rune Calm Rune Mind Rune Body Rune Chaos Rune Order Rune`,
   },
   {
     id: `157.2`,
-    section: `157.2. A`,
-    text: `A
-
-Basic
-
-Rune
-
-alw ays
-
-has
-
-the
-
-follow ing
-
-tw o
-
-Abilities :`,
+    section: `157.2. A Basic Rune always has the following two Abilities:`,
+    text: `A Basic Rune always has the following two Abilities:`,
   },
   {
     id: `157.2.a`,
-    section: `157.2.a. [E]:`,
-    text: `[E]:
-
-[Reaction]
-
-—
-
-Add
-
-[1].`,
+    section: `157.2.a. [E]: [Reaction] — Add [1]`,
+    text: `[E]: [Reaction] — Add [1].`,
   },
   {
     id: `157.2.b`,
-    section: `157.2.b. Recycle`,
-    text: `Recycle
+    section: `157.2.b. Recycle this: [Reaction] — Add [C]`,
+    text: `Recycle this: [Reaction] — Add [C].
 
-this:
-
-[Reaction]
-
-—
-
-Add
-
-[C].
-
-157.2.b.1.
-
-The
-
-Power
-
-added
-
-this
-
-w ay
-
-corresponds
-
-to
-
-the
-
-Dom ain
-
-of
-
-the
-
-Rune
-
-that
-
-is
-
-being
-
-Recycled.`,
+1. The Power added this way corresponds to the Domain of the Rune that is being Recycled.`,
+  },
+  {
+    id: `158`,
+    section: `158. Rune Pools`,
+    text: `Rune Pools`,
   },
   {
     id: `159`,
-    section: `159. The`,
-    text: `The
-
-Rune
-
-Pool
-
-is
-
-a
-
-conceptual
-
-collection
-
-of
-
-a
-
-player's
-
-available
-
-Energy
-
-and
-
-Power
-
-available
-
-to
-
-pay
-
-Costs.`,
+    section: `159. The Rune Pool is a conceptual collection of a player's available Energy and Power available to pay Costs`,
+    text: `The Rune Pool is a conceptual collection of a player's available Energy and Power available to pay Costs.`,
   },
   {
     id: `159.1`,
-    section: `159.1. W hen`,
-    text: `W hen
-
-a
-
-card
-
-adds
-
-Energy
-
-or
-
-Power,
-
-it
-
-is
-
-added
-
-to
-
-the
-
-controlling
-
-player's
-
-Rune
-
-Pool .`,
+    section: `159.1. When a card adds Energy or Power`,
+    text: `When a card adds Energy or Power, it is added to the controlling player's Rune Pool.`,
   },
   {
     id: `159.2`,
-    section: `159.2. Players`,
-    text: `Players
-
-m ust
-
-ﬁrst
-
-add
-
-Energy
-
-and
-
-Power
-
-to
-
-their
-
-Rune
-
-Pool
-
-in
-
-order
-
-to
-
-be
-
-able
-
-to
-
-spend
-
-it
-
-to
-
-play
-
-cards
-
-or
-
-pay
-
-for
-
-Abilities
-
-w ith
-
-costs.`,
+    section: `159.2. Players must first add Energy and Power to their Rune Pool in order to be able to spend it to play cards or pay for Abilities with costs`,
+    text: `Players must first add Energy and Power to their Rune Pool in order to be able to spend it to play cards or pay for Abilities with costs.`,
   },
   {
     id: `159.3`,
-    section: `159.3. Energy`,
-    text: `Energy
-
-and
-
-Power
-
-do
-
-not
-
-have
-
-a
-
-physical
-
-m arker
-
-or
-
-tracker,
-
-although
-
-players
-
-m ay
-
-w ish
-
-to
-
-use
-
-a
-
-physical
-
-tracker
-
-if
-
-they
-
-are
-
-retaining
-
-unspent
-
-Energy
-
-and
-
-Power
-
-over
-
-the
-
-course
-
-of
-
-their
-
-turn.`,
+    section: `159.3. Energy and Power do not have a physical marker or tracker`,
+    text: `Energy and Power do not have a physical marker or tracker, although players may wish to use a physical tracker if they are retaining unspent Energy and Power over the course of their turn.`,
   },
   {
     id: `160`,
-    section: `160. Every`,
-    text: `Every
-
-player's
-
-Rune
-
-Pool
-
-em pties
-
-at
-
-the
-
-end
-
-of
-
-each
-
-player's
-
-draw
-
-phase
-
-and
-
-the
-
-end
-
-of
-
-each
-
-player's
-
-turn.`,
+    section: `160. Every player's Rune Pool empties at the end of each player's draw phase and the end of each player's turn`,
+    text: `Every player's Rune Pool empties at the end of each player's draw phase and the end of each player's turn.`,
   },
   {
     id: `160.1`,
-    section: `160.1. Any`,
-    text: `Any
-
-unspent
-
-Energy
-
-or
-
-Power
-
-are
-
-lost.`,
+    section: `160.1. Any unspent Energy or Power are lost`,
+    text: `Any unspent Energy or Power are lost.`,
   },
   {
     id: `161`,
-    section: `161. All`,
-    text: `All
-
-Abilities
-
-that
-
-include
-
-the
-
-action
-
-" Add "
-
-are
-
-abilities
-
-that
-
-are
-
-adding
-
-Energy
-
-or
-
-Power
-
-to
-
-the
-
-Rune
-
-Pool.
-
-See
-
-rule`,
-  },
-  {
-    id: `416`,
-    section: `416. Add`,
-    text: `Add
-
-for
-
-more
-
-information.`,
+    section: `161. All Abilities that include the action "Add" are abilities that are adding Energy or Power to the Rune Pool`,
+    text: `All Abilities that include the action "Add" are abilities that are adding Energy or Power to the Rune Pool. See rule 416. Add for more information.`,
   },
   {
     id: `162`,
-    section: `162. Battleﬁelds`,
-    text: `Battleﬁelds`,
+    section: `162. Battlefields`,
+    text: `Battlefields`,
   },
   {
     id: `163`,
-    section: `163. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-Gam e
-
-Objects.`,
+    section: `163. Battlefields are Game Objects`,
+    text: `Battlefields are Game Objects.`,
   },
   {
     id: `163.1`,
-    section: `163.1. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-Owned
-
-by
-
-a
-
-player.`,
+    section: `163.1. Battlefields are Owned by a player`,
+    text: `Battlefields are Owned by a player.`,
   },
   {
     id: `163.2`,
-    section: `163.2. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-not
-
-shufﬂed
-
-into
-
-D ecks
-
-at
-
-the
-
-start
-
-of
-
-a
-
-gam e.`,
+    section: `163.2. Battlefields are not shuffled into Decks at the start of a game`,
+    text: `Battlefields are not shuffled into Decks at the start of a game.`,
   },
   {
     id: `163.2.a`,
-    section: `163.2.a. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-not
-
-played
-
-during
-
-the
-
-course
-
-of
-
-regular
-
-play.`,
+    section: `163.2.a. Battlefields are not played during the course of regular play`,
+    text: `Battlefields are not played during the course of regular play.`,
   },
   {
     id: `163.2.b`,
-    section: `163.2.b. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-established
-
-at
-
-the
-
-start
-
-of
-
-a
-
-gam e
-
-and
-
-rem ain
-
-in
-
-place
-
-for
-
-the
-
-duration
-
-of
-
-regular
-
-play.`,
+    section: `163.2.b. Battlefields are established at the start of a game and remain in place for the duration of regular play`,
+    text: `Battlefields are established at the start of a game and remain in place for the duration of regular play.`,
   },
   {
     id: `163.3`,
-    section: `163.3. Battleﬁelds`,
-    text: `Battleﬁelds
-
-cannot
-
-be
-
-Killed
-
-during
-
-the
-
-course
-
-of
-
-regular
-
-play.`,
+    section: `163.3. Battlefields cannot be Killed during the course of regular play`,
+    text: `Battlefields cannot be Killed during the course of regular play.`,
   },
   {
     id: `163.4`,
-    section: `163.4. Battleﬁelds`,
-    text: `Battleﬁelds
-
-cannot
-
-be
-
-Moved.`,
+    section: `163.4. Battlefields cannot be Moved`,
+    text: `Battlefields cannot be Moved.`,
   },
   {
     id: `163.5`,
-    section: `163.5. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-Locations.`,
+    section: `163.5. Battlefields are Locations`,
+    text: `Battlefields are Locations.`,
   },
   {
     id: `163.5.a`,
-    section: `163.5.a. Battleﬁelds`,
-    text: `Battleﬁelds
-
-can
-
-be
-
-Origins
-
-of
-
-m oves.`,
+    section: `163.5.a. Battlefields can be Origins of moves`,
+    text: `Battlefields can be Origins of moves.`,
   },
   {
     id: `163.5.b`,
-    section: `163.5.b. Battleﬁelds`,
-    text: `Battleﬁelds
-
-can
-
-be
-
-Destinations
-
-of
-
-m oves.`,
+    section: `163.5.b. Battlefields can be Destinations of moves`,
+    text: `Battlefields can be Destinations of moves.`,
   },
   {
     id: `163.6`,
-    section: `163.6. Any`,
-    text: `Any
-
-num ber
-
-of
-
-Units
-
-can
-
-be
-
-present
-
-at
-
-a
-
-Battleﬁeld.`,
+    section: `163.6. Any number of Units can be present at a Battlefield`,
+    text: `Any number of Units can be present at a Battlefield.`,
   },
   {
     id: `163.7`,
-    section: `163.7. Battleﬁelds`,
-    text: `Battleﬁelds
-
-can
-
-be
-
-targeted
-
-by
-
-spells
-
-or
-
-gam e
-
-effects.`,
+    section: `163.7. Battlefields can be targeted by spells or game effects`,
+    text: `Battlefields can be targeted by spells or game effects.`,
   },
   {
     id: `163.8`,
-    section: `163.8. Battleﬁelds`,
-    text: `Battleﬁelds
-
-can
-
-have
-
-Passive
-
-Abilities.
-
-See
-
-rule`,
-  },
-  {
-    id: `360`,
-    section: `360. Passive`,
-    text: `Passive
-
-Abilities
-
-for
-
-more
-
-information.
-
-Passive
-
-Abilities
-
-for
-
-more
-
-information.
-
-353.2.a.2.
-
-The
-
-cost
-
-im posed
-
-by
-
-the
-
-Deﬂect
-
-keyw ord
-
-is
-
-a
-
-Mandatory
-
-Additional
-
-Cost.
-
-See
-
-rule`,
+    section: `163.8. Battlefields can have Passive Abilities`,
+    text: `Battlefields can have Passive Abilities. See rule 360. Passive Abilities for more information.`,
   },
   {
     id: `163.9`,
-    section: `163.9. Battleﬁelds`,
-    text: `Battleﬁelds
-
-can
-
-have
-
-Triggered
-
-Abilities.
-
-See
-
-rule`,
-  },
-  {
-    id: `375`,
-    section: `375. Triggered`,
-    text: `Triggered
-
-Abilities
-
-for
-
-more
-
-information.`,
+    section: `163.9. Battlefields can have Triggered Abilities`,
+    text: `Battlefields can have Triggered Abilities. See rule 375. Triggered Abilities for more information.`,
   },
   {
     id: `164`,
-    section: `164. Battleﬁelds`,
-    text: `Battleﬁelds
-
-are
-
-not
-
-Perm anents.`,
+    section: `164. Battlefields are not Permanents`,
+    text: `Battlefields are not Permanents.`,
   },
   {
     id: `165`,
-    section: `165. The`,
-    text: `The
-
-num ber
-
-of
-
-Battleﬁelds
-
-on
-
-the
-
-Board
-
-is
-
-determ ined
-
-by
-
-the
-
-Mode
-
-of
-
-Play.`,
+    section: `165. The number of Battlefields on the Board is determined by the Mode of Play`,
+    text: `The number of Battlefields on the Board is determined by the Mode of Play.`,
   },
   {
     id: `166`,
@@ -12642,5022 +1745,741 @@ Play.`,
   },
   {
     id: `167`,
-    section: `167. Legends`,
-    text: `Legends
-
-are
-
-Gam e
-
-Objects.`,
+    section: `167. Legends are Game Objects`,
+    text: `Legends are Game Objects.`,
   },
   {
     id: `167.1`,
-    section: `167.1. Legends`,
-    text: `Legends
-
-are
-
-Owned
-
-by
-
-a
-
-player.`,
+    section: `167.1. Legends are Owned by a player`,
+    text: `Legends are Owned by a player.`,
   },
   {
     id: `167.2`,
-    section: `167.2. Legends`,
-    text: `Legends
-
-are
-
-not
-
-shufﬂed
-
-into
-
-D ecks
-
-at
-
-the
-
-start
-
-of
-
-a
-
-gam e.`,
+    section: `167.2. Legends are not shuffled into Decks at the start of a game`,
+    text: `Legends are not shuffled into Decks at the start of a game.`,
   },
   {
     id: `167.2.a`,
-    section: `167.2.a. Legends`,
-    text: `Legends
-
-are
-
-not
-
-played
-
-during
-
-the
-
-course
-
-of
-
-regular
-
-play.`,
+    section: `167.2.a. Legends are not played during the course of regular play`,
+    text: `Legends are not played during the course of regular play.`,
   },
   {
     id: `167.2.b`,
-    section: `167.2.b. Legends`,
-    text: `Legends
-
-are
-
-established
-
-at
-
-the
-
-start
-
-of
-
-a
-
-gam e,
-
-and
-
-rem ain
-
-in
-
-place
-
-for
-
-the
-
-duration
-
-of
-
-regular
-
-play.`,
+    section: `167.2.b. Legends are established at the start of a game`,
+    text: `Legends are established at the start of a game, and remain in place for the duration of regular play.`,
   },
   {
     id: `167.3`,
-    section: `167.3. Legends`,
-    text: `Legends
-
-cannot
-
-be
-
-Killed
-
-during
-
-the
-
-course
-
-of
-
-regular
-
-play.`,
+    section: `167.3. Legends cannot be Killed during the course of regular play`,
+    text: `Legends cannot be Killed during the course of regular play.`,
   },
   {
     id: `167.4`,
-    section: `167.4. Legends`,
-    text: `Legends
-
-cannot
-
-be
-
-Moved.`,
+    section: `167.4. Legends cannot be Moved`,
+    text: `Legends cannot be Moved.`,
   },
   {
     id: `167.5`,
-    section: `167.5. Legends`,
-    text: `Legends
-
-can
-
-be
-
-targeted
-
-by
-
-spells
-
-or
-
-gam e
-
-effects.`,
+    section: `167.5. Legends can be targeted by spells or game effects`,
+    text: `Legends can be targeted by spells or game effects.`,
   },
   {
     id: `167.6`,
-    section: `167.6. Legends`,
-    text: `Legends
-
-can
-
-have
-
-Passive
-
-Abilities.
-
-See
-
-rule`,
+    section: `167.6. Legends can have Passive Abilities`,
+    text: `Legends can have Passive Abilities. See rule 360. Passive Abilities for more information.`,
   },
   {
     id: `167.7`,
-    section: `167.7. Legends`,
-    text: `Legends
-
-can
-
-have
-
-Triggered
-
-Abilities.
-
-See
-
-rule`,
+    section: `167.7. Legends can have Triggered Abilities`,
+    text: `Legends can have Triggered Abilities. See rule 375. Triggered Abilities for more information.`,
   },
   {
     id: `167.8`,
-    section: `167.8. Legends`,
-    text: `Legends
-
-can
-
-have
-
-Activated
-
-Abilities.
-
-See
-
-rule`,
+    section: `167.8. Legends can have Activated Abilities`,
+    text: `Legends can have Activated Abilities. See rule 369. Activated Abilities for more information.`,
   },
   {
     id: `168`,
-    section: `168. Legends`,
-    text: `Legends
-
-are
-
-not
-
-Perm anents.`,
+    section: `168. Legends are not Permanents`,
+    text: `Legends are not Permanents.`,
   },
   {
     id: `169`,
-    section: `169. Legends`,
-    text: `Legends
-
-m ay
-
-have
-
-one
-
-or
-
-m ore
-
-Dom ains.`,
+    section: `169. Legends may have one or more Domains`,
+    text: `Legends may have one or more Domains.`,
   },
   {
     id: `169.1`,
-    section: `169.1. The`,
-    text: `The
-
-Legend
-
-determ ines
-
-the
-
-Dom ain
-
-Identity
-
-of
-
-cards
-
-its
-
-ow ner
-
-can
-
-include.
-
-See
-
-rule`,
+    section: `169.1. The Legend determines the Domain Identity of cards its owner can include`,
+    text: `The Legend determines the Domain Identity of cards its owner can include. See rule 101. Deck Construction for more information.`,
+  },
+  {
+    id: `170`,
+    section: `170. Tokens`,
+    text: `Tokens`,
   },
   {
     id: `171`,
-    section: `171. Tokens`,
-    text: `Tokens
-
-are
-
-Gam e
-
-Objects
-
-created
-
-by
-
-spells
-
-and
-
-abilities
-
-during
-
-play.`,
+    section: `171. Tokens are Game Objects created by spells and abilities during play`,
+    text: `Tokens are Game Objects created by spells and abilities during play.`,
   },
   {
     id: `172`,
-    section: `172. Tokens`,
-    text: `Tokens
-
-can
-
-be
-
-represented
-
-by
-
-anything.
-
-Printed
-
-tokens
-
-are
-
-included
-
-in
-
-Riftbound
-
-booster
-
-packs,
-
-but
-
-they
-
-are
-
-not
-
-required
-
-to
-
-play
-
-a
-
-token.`,
+    section: `172. Tokens can be represented by anything`,
+    text: `Tokens can be represented by anything. Printed tokens are included in Riftbound booster packs, but they are not required to play a token.`,
   },
   {
     id: `173`,
-    section: `173. A`,
-    text: `A
-
-token's
-
-controller
-
-is
-
-the
-
-controller
-
-of
-
-the
-
-spell
-
-or
-
-ability
-
-that
-
-created
-
-it,
-
-unless
-
-the
-
-token's
-
-type
-
-innately
-
-determ ines
-
-control
-
-or
-
-that
-
-spell
-
-or
-
-ability
-
-speciﬁes
-
-that
-
-a
-
-different
-
-player
-
-is
-
-the
-
-token's
-
-controller.`,
+    section: `173. A token's controller is the controller of the spell or ability that created it`,
+    text: `A token's controller is the controller of the spell or ability that created it, unless the token's type innately determines control or that spell or ability specifies that a different player is the token's controller.`,
   },
   {
     id: `174`,
-    section: `174. A`,
-    text: `A
-
-token's
-
-owner
-
-is
-
-the
-
-player
-
-w ho
-
-controlled
-
-the
-
-effect
-
-that
-
-created
-
-it.`,
+    section: `174. A token's owner is the player who controlled the effect that created it`,
+    text: `A token's owner is the player who controlled the effect that created it.`,
   },
   {
     id: `175`,
-    section: `175. The`,
-    text: `The
-
-effect
-
-that
-
-creates
-
-a
-
-token
-
-m ay
-
-specify
-
-the
-
-conditions
-
-or
-
-circum stances
-
-under
-
-w hich
-
-it
-
-enters
-
-the
-
-board.
-
-These
-
-stipulations
-
-m ay
-
-alter
-
-the
-
-usual
-
-steps
-
-for
-
-playing
-
-a
-
-card.`,
+    section: `175. The effect that creates a token may specify the conditions or circumstances under which it enters the board`,
+    text: `The effect that creates a token may specify the conditions or circumstances under which it enters the board. These stipulations may alter the usual steps for playing a card.`,
   },
   {
     id: `175.1`,
-    section: `175.1. The`,
-    text: `The
-
-effect
-
-m ay
-
-state
-
-that
-
-the
-
-token
-
-enters
-
-ready
-
-or
-
-exhausted,
-
-if
-
-that
-
-state
-
-is
-
-contrary
-
-to
-
-the
-
-default
-
-for
-
-the
-
-token's
-
-type.`,
+    section: `175.1. The effect may state that the token enters ready or exhausted`,
+    text: `The effect may state that the token enters ready or exhausted, if that state is contrary to the default for the token's type.`,
   },
   {
     id: `175.2`,
-    section: `175.2. The`,
-    text: `The
-
-effect
-
-m ay
-
-restrict
-
-the
-
-location
-
-to
-
-w hich
-
-the
-
-token
-
-m ay
-
-be
-
-played.`,
+    section: `175.2. The effect may restrict the location to which the token may be played`,
+    text: `The effect may restrict the location to which the token may be played.`,
   },
   {
     id: `175.3`,
-    section: `175.3. The`,
-    text: `The
-
-effect
-
-m ay
-
-grant
-
-tem porary
-
-abilities
-
-or
-
-m odiﬁcations
-
-to
-
-the
-
-token.`,
+    section: `175.3. The effect may grant temporary abilities or modifications to the token`,
+    text: `The effect may grant temporary abilities or modifications to the token.`,
   },
   {
     id: `176`,
-    section: `176. Tokens`,
-    text: `Tokens
-
-are
-
-not
-
-cards.`,
+    section: `176. Tokens are not cards`,
+    text: `Tokens are not cards.`,
   },
   {
     id: `176.1`,
-    section: `176.1. Tokens`,
-    text: `Tokens
-
-have
-
-som e
-
-properties
-
-in
-
-com m on
-
-w ith
-
-cards.`,
+    section: `176.1. Tokens have some properties in common with cards`,
+    text: `Tokens have some properties in common with cards.`,
   },
   {
     id: `176.1.a`,
-    section: `176.1.a. Tokens`,
-    text: `Tokens
-
-are
-
-played
-
-by
-
-their
-
-ow ner
-
-if
-
-their
-
-card
-
-type
-
-is
-
-played,
-
-follow ing
-
-all
-
-the
-
-applicable
-
-steps
-
-for
-
-playing
-
-a
-
-card
-
-plus
-
-any
-
-restrictions
-
-or
-
-m odiﬁcations
-
-from
-
-the
-
-effect
-
-that
-
-created
-
-the
-
-token.
-
-See
-
-rule`,
+    section: `176.1.a. Tokens are played by their owner if their card type is played`,
+    text: `Tokens are played by their owner if their card type is played, following all the applicable steps for playing a card plus any restrictions or modifications from the effect that created the token. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `176.1.b`,
-    section: `176.1.b. Token`,
-    text: `Token
-
-units
-
-have
-
-a
-
-Might .`,
+    section: `176.1.b. Token units have a Might`,
+    text: `Token units have a Might.`,
   },
   {
     id: `176.1.c`,
-    section: `176.1.c. Tokens`,
-    text: `Tokens
-
-m ay
-
-have
-
-one
-
-or
-
-m ore
-
-tags .`,
+    section: `176.1.c. Tokens may have one or more tags`,
+    text: `Tokens may have one or more tags.`,
   },
   {
     id: `176.1.d`,
-    section: `176.1.d. Tokens`,
-    text: `Tokens
-
-have
-
-a
-
-type .
-
-They
-
-follow
-
-all
-
-rules
-
-for
-
-their
-
-type
-
-unless
-
-otherw ise
-
-speciﬁed.
-
-Example:
-
-A
-
-token
-
-unit
-
-is
-
-a
-
-unit.
-
-It
-
-enters
-
-exhausted,
-
-can
-
-take
-
-the
-
-standard
-
-m ove
-
-action,
-
-deals
-
-dam age
-
-equal
-
-to
-
-its
-
-M ight
-
-in
-
-com bat,
-
-is
-
-destroyed
-
-if
-
-it
-
-takes
-
-dam age
-
-equal
-
-to
-
-or
-
-greater
-
-than
-
-its
-
-m ight,
-
-can
-
-be
-
-chosen
-
-or
-
-otherw ise
-
-affected
-
-by
-
-spells
-
-or
-
-abilities
-
-that
-
-choose
-
-or
-
-affect
-
-units,
-
-etc.`,
+    section: `176.1.d. Tokens have a type`,
+    text: `Tokens have a type. They follow all rules for their type unless otherwise specified. Example: A token unit is a unit. It enters exhausted, can take the standard move action, deals damage equal to its Might in combat, is destroyed if it takes damage equal to or greater than its might, can be chosen or otherwise affected by spells or abilities that choose or affect units, etc.`,
   },
   {
     id: `176.2`,
-    section: `176.2. Tokens`,
-    text: `Tokens
-
-differ
-
-from
-
-cards
-
-in
-
-som e
-
-w ays.`,
+    section: `176.2. Tokens differ from cards in some ways`,
+    text: `Tokens differ from cards in some ways.`,
   },
   {
     id: `176.2.a`,
-    section: `176.2.a. Tokens`,
-    text: `Tokens
-
-do
-
-not
-
-have
-
-costs .`,
+    section: `176.2.a. Tokens do not have costs`,
+    text: `Tokens do not have costs.`,
   },
   {
     id: `176.2.b`,
-    section: `176.2.b. Tokens`,
-    text: `Tokens
-
-do
-
-not
-
-have
-
-dom ains .`,
+    section: `176.2.b. Tokens do not have domains`,
+    text: `Tokens do not have domains.`,
   },
   {
     id: `177`,
-    section: `177. Tokens`,
-    text: `Tokens
-
-are
-
-created
-
-on
-
-the
-
-board
-
-and
-
-cannot
-
-exist
-
-elsew here.`,
+    section: `177. Tokens are created on the board and cannot exist elsewhere`,
+    text: `Tokens are created on the board and cannot exist elsewhere.`,
   },
   {
     id: `177.1`,
-    section: `177.1. If`,
-    text: `If
-
-a
-
-token
-
-is
-
-put
-
-into
-
-any
-
-Non-Board
-
-Zone ,
-
-it
-
-ceases
-
-to
-
-exist
-
-im m ediately
-
-after
-
-m oving
-
-to
-
-its
-
-new
-
-zone.`,
+    section: `177.1. If a token is put into any Non-Board Zone`,
+    text: `If a token is put into any Non-Board Zone, it ceases to exist immediately after moving to its new zone.`,
   },
   {
     id: `178`,
-    section: `178. The`,
-    text: `The
-
-spell
-
-or
-
-ability
-
-that
-
-creates
-
-a
-
-token
-
-speciﬁes
-
-som e
-
-of
-
-its
-
-characteristics.
-
-It
-
-m ay
-
-have
-
-other
-
-characteristics,
-
-as
-
-listed
-
-below .`,
+    section: `178. The spell or ability that creates a token specifies some of its characteristics`,
+    text: `The spell or ability that creates a token specifies some of its characteristics. It may have other characteristics, as listed below.`,
   },
   {
     id: `178.1`,
-    section: `178.1. A`,
-    text: `A
-
-1[M]
-
-Recruit
-
-token
-
-is
-
-a
-
-dom ainless
-
-unit
-
-token
-
-w ith
-
-1
-
-M ight
-
-and
-
-the
-
-Recruit
-
-tag.`,
+    section: `178.1. A 1[M] Recruit token is a domainless unit token with 1 Might and the Recruit tag`,
+    text: `A 1[M] Recruit token is a domainless unit token with 1 Might and the Recruit tag.`,
   },
   {
     id: `178.2`,
-    section: `178.2. A`,
-    text: `A
-
-3[M]
-
-Sprite
-
-token
-
-with
-
-Tem porary
-
-is
-
-a
-
-dom ainless
-
-unit
-
-token
-
-w ith
-
-3
-
-M ight,
-
-the
-
-Fae
-
-tag,
-
-and
-
-the
-
-Tem porary
-
-keyw ord.
-
-See
-
-rule`,
-  },
-  {
-    id: `732`,
-    section: `732. Temporary`,
-    text: `Temporary
-
-for
-
-more
-
-information.
-
-Tem porary`,
+    section: `178.2. A 3[M] Sprite token with Temporary is a domainless unit token with 3 Might`,
+    text: `A 3[M] Sprite token with Temporary is a domainless unit token with 3 Might, the Fae tag, and the Temporary keyword. See rule 732. Temporary for more information.`,
   },
   {
     id: `179`,
     section: `179. Control`,
-    text: `Control
-
-Control
-
-for
-
-more
-
-information
-
-on
-
-Control .
-
-See
-
-rule
-
-Control
-
-for
-
-more
-
-information
-
-on
-
-Control.
-
-See
-
-rule`,
+    text: `Control`,
   },
   {
     id: `180`,
-    section: `180. Control`,
-    text: `Control
-
-is
-
-the
-
-concept
-
-of
-
-a
-
-player
-
-having
-
-inﬂuence
-
-of
-
-a
-
-Gam e
-
-Object
-
-and
-
-applies
-
-differently
-
-to
-
-different
-
-card
-
-types.`,
+    section: `180. Control is the concept of a player having influence of a Game Object and applies differently to different card types`,
+    text: `Control is the concept of a player having influence of a Game Object and applies differently to different card types.`,
   },
   {
     id: `181`,
-    section: `181. Battleﬁelds`,
-    text: `Battleﬁelds`,
+    section: `181. Battlefields`,
+    text: `Battlefields`,
   },
   {
     id: `181.1`,
-    section: `181.1. Control`,
-    text: `Control
-
-is
-
-established
-
-over
-
-Battleﬁelds
-
-through
-
-the
-
-course
-
-of
-
-play.`,
+    section: `181.1. Control is established over Battlefields through the course of play`,
+    text: `Control is established over Battlefields through the course of play.`,
   },
   {
     id: `181.2`,
-    section: `181.2. Control`,
-    text: `Control
-
-is
-
-a
-
-binary
-
-state
-
-for
-
-Battleﬁelds
-
-and
-
-an
-
-Identiﬁer
-
-for
-
-players.`,
+    section: `181.2. Control is a binary state for Battlefields and an Identifier for players`,
+    text: `Control is a binary state for Battlefields and an Identifier for players.`,
   },
   {
     id: `181.2.a`,
-    section: `181.2.a. A`,
-    text: `A
-
-Battleﬁeld
-
-is
-
-Controlled
-
-or
-
-Uncontrolled.`,
+    section: `181.2.a. A Battlefield is Controlled or Uncontrolled`,
+    text: `A Battlefield is Controlled or Uncontrolled.`,
   },
   {
     id: `181.2.b`,
-    section: `181.2.b. A`,
-    text: `A
-
-Battleﬁeld
-
-is
-
-Controlled
-
-by
-
-a
-
-speciﬁc
-
-player
-
-or
-
-Controlled
-
-by
-
-no
-
-one.`,
+    section: `181.2.b. A Battlefield is Controlled by a specific player or Controlled by no one`,
+    text: `A Battlefield is Controlled by a specific player or Controlled by no one.`,
   },
   {
     id: `181.3`,
-    section: `181.3. Control`,
-    text: `Control
-
-can
-
-be
-
-Contested
-
-through
-
-the
-
-course
-
-of
-
-play.`,
+    section: `181.3. Control can be Contested through the course of play`,
+    text: `Control can be Contested through the course of play.`,
   },
   {
     id: `181.3.a`,
-    section: `181.3.a. Contested`,
-    text: `Contested
+    section: `181.3.a. Contested is a temporary status applied to the battlefield when a Unit controlled by a Player who does not currently Control that Battlefield Moves or otherwise becomes present there`,
+    text: `Contested is a temporary status applied to the battlefield when a Unit controlled by a Player who does not currently Control that Battlefield Moves or otherwise becomes present there.
 
-is
-
-a
-
-tem porary
-
-status
-
-applied
-
-to
-
-the
-
-battleﬁeld
-
-w hen
-
-a
-
-Unit
-
-controlled
-
-by
-
-a
-
-Player
-
-w ho
-
-does
-
-not
-
-currently
-
-Control
-
-that
-
-Battleﬁeld
-
-Moves
-
-or
-
-otherw ise
-
-becom es
-
-present
-
-there.
-
-181.3.a.1.
-
-Units
-
-m oving
-
-to
-
-or
-
-being
-
-played
-
-to
-
-a
-
-battleﬁeld
-
-apply
-
-Contested
-
-status
-
-if
-
-that
-
-battleﬁeld
-
-is
-
-not
-
-already
-
-contested
-
-and
-
-that
-
-Unit ’s
-
-controller
-
-does
-
-not
-
-already
-
-control
-
-that
-
-battleﬁeld.`,
+1. Units moving to or being played to a battlefield apply Contested status if that battlefield is not already contested and that Unit’s controller does not already control that battlefield.`,
   },
   {
     id: `181.3.b`,
-    section: `181.3.b. A`,
-    text: `A
-
-Battleﬁeld
-
-rem ains
-
-Contested
-
-until
-
-Control
-
-is
-
-established
-
-or
-
-re-established.`,
+    section: `181.3.b. A Battlefield remains Contested until Control is established or re-established`,
+    text: `A Battlefield remains Contested until Control is established or re-established.`,
   },
   {
     id: `181.3.c`,
-    section: `181.3.c. W hile`,
-    text: `W hile
-
-a
-
-Battleﬁeld
-
-rem ains
-
-Contested,
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-cannot
-
-change.`,
+    section: `181.3.c. While a Battlefield remains Contested`,
+    text: `While a Battlefield remains Contested, Control of a Battlefield cannot change.`,
   },
   {
     id: `181.3.d`,
-    section: `181.3.d. The`,
-    text: `The
-
-state
-
-of
-
-a
-
-Battleﬁeld
-
-being
-
-Contested
-
-is
-
-used
-
-to
-
-determ ine
-
-w hen
-
-Com bat
-
-should
-
-occur,
-
-w hen
-
-a
-
-Showdown
-
-w ithout
-
-a
-
-Com bat
-
-should
-
-occur,
-
-and
-
-w hen
-
-Control
-
-w ill
-
-change.`,
+    section: `181.3.d. The state of a Battlefield being Contested is used to determine when Combat should occur`,
+    text: `The state of a Battlefield being Contested is used to determine when Combat should occur, when a Showdown without a Combat should occur, and when Control will change.`,
   },
   {
     id: `181.3.e`,
-    section: `181.3.e. At`,
-    text: `At
-
-this
-
-tim e
-
-Gam e
-
-Effects
-
-cannot
-
-reference
-
-this
-
-status.`,
+    section: `181.3.e. At this time Game Effects cannot reference this status`,
+    text: `At this time Game Effects cannot reference this status.`,
   },
   {
     id: `181.4`,
-    section: `181.4. Control`,
-    text: `Control
-
-is
-
-established
-
-by
-
-having
-
-Units
-
-at
-
-a
-
-Battleﬁeld
-
-at
-
-the
-
-end
-
-of
-
-a
-
-Show dow n
-
-or
-
-Com bat
-
-after
-
-applying
-
-the
-
-contested
-
-status.`,
+    section: `181.4. Control is established by having Units at a Battlefield at the end of a Showdown or Combat after applying the contested status`,
+    text: `Control is established by having Units at a Battlefield at the end of a Showdown or Combat after applying the contested status.`,
   },
   {
     id: `181.4.a`,
-    section: `181.4.a. If`,
-    text: `If
-
-a
-
-player
-
-controls
-
-Units
-
-at
-
-a
-
-Battleﬁeld,
-
-outside
-
-of
-
-Com bat ,
-
-they
-
-m aintain
-
-Control
-
-of
-
-that
-
-Battleﬁeld
-
-for
-
-as
-
-long
-
-as
-
-they
-
-have
-
-Units
-
-at
-
-that
-
-Battleﬁeld.`,
+    section: `181.4.a. If a player controls Units at a Battlefield`,
+    text: `If a player controls Units at a Battlefield, outside of Combat, they maintain Control of that Battlefield for as long as they have Units at that Battlefield.`,
   },
   {
     id: `181.4.b`,
-    section: `181.4.b. A`,
-    text: `A
-
-player
-
-m aintains
-
-control
-
-of
-
-a
-
-Battleﬁeld
-
-w hile
-
-it
-
-is
-
-being
-
-Contested
-
-by
-
-an
-
-opponent.`,
+    section: `181.4.b. A player maintains control of a Battlefield while it is being Contested by an opponent`,
+    text: `A player maintains control of a Battlefield while it is being Contested by an opponent.`,
   },
   {
     id: `181.4.c`,
-    section: `181.4.c. If`,
-    text: `If
-
-a
-
-player
-
-has
-
-no
-
-Units
-
-at
-
-a
-
-Battleﬁeld,
-
-they
-
-lose
-
-Control
-
-of
-
-that
-
-Battleﬁeld
-
-im m ediately,
-
-unless
-
-it
-
-is
-
-Contested.`,
+    section: `181.4.c. If a player has no Units at a Battlefield`,
+    text: `If a player has no Units at a Battlefield, they lose Control of that Battlefield immediately, unless it is Contested.`,
   },
   {
     id: `181.5`,
-    section: `181.5. Control`,
-    text: `Control
-
-is
-
-a
-
-constant
-
-state.`,
+    section: `181.5. Control is a constant state`,
+    text: `Control is a constant state.`,
   },
   {
     id: `181.6`,
-    section: `181.6. Control`,
-    text: `Control
-
-of
-
-a
-
-Battleﬁeld
-
-determ ines
-
-Control
-
-of
-
-its
-
-Abilities.`,
+    section: `181.6. Control of a Battlefield determines Control of its Abilities`,
+    text: `Control of a Battlefield determines Control of its Abilities.`,
   },
   {
     id: `181.6.a`,
-    section: `181.6.a. W hile`,
-    text: `W hile
-
-a
-
-Battleﬁeld
-
-is
-
-Controlled ,
-
-its
-
-Controller
-
-controls
-
-its
-
-Abilities .
-
-That
-
-player
-
-takes
-
-responsibility
-
-for
-
-adding
-
-them
-
-to
-
-the
-
-Chain
-
-if
-
-applicable,
-
-and
-
-m akes
-
-all
-
-choices
-
-required
-
-by
-
-them
-
-unless
-
-otherw ise
-
-speciﬁed.`,
+    section: `181.6.a. While a Battlefield is Controlled`,
+    text: `While a Battlefield is Controlled, its Controller controls its Abilities. That player takes responsibility for adding them to the Chain if applicable, and makes all choices required by them unless otherwise specified.`,
   },
   {
     id: `181.6.b`,
-    section: `181.6.b. W hile`,
-    text: `W hile
-
-a
-
-Battleﬁeld
-
-is
-
-Uncontrolled ,
-
-its
-
-Abilities
-
-are
-
-also
-
-Uncontrolled.
-
-The
-
-Turn
-
-Player
-
-takes
-
-responsibility
-
-for
-
-adding
-
-them
-
-to
-
-the
-
-Chain
-
-if
-
-applicable,
-
-m akes
-
-all
-
-choices
-
-required
-
-by
-
-them
-
-unless
-
-otherw ise
-
-speciﬁed,
-
-and
-
-is
-
-treated
-
-as
-
-their
-
-Controller
-
-if
-
-any
-
-gam e
-
-rule
-
-or
-
-effect
-
-requires
-
-one.
-
-Example:
-
-The
-
-Arena’s
-
-Greatest
-
-is
-
-a
-
-battleﬁeld
-
-that
-
-reads
-
-“At
-
-the
-
-start
-
-of
-
-each
-
-player's
-
-ﬁrst
-
-Beginning
-
-Phase,
-
-that
-
-player
-
-gains
-
-1
-
-point.”
-
-This
-
-ability
-
-w ill
-
-usually
-
-trigger
-
-w hile
-
-the
-
-battleﬁeld
-
-has
-
-no
-
-controller.
-
-If
-
-it
-
-does,
-
-the
-
-Turn
-
-Player
-
-goes
-
-through
-
-the
-
-steps
-
-of
-
-adding
-
-the
-
-ability
-
-to
-
-the
-
-chain
-
-and
-
-receives
-
-priority
-
-after
-
-doing
-
-so,
-
-exactly
-
-as
-
-if
-
-they
-
-controlled
-
-the
-
-ability.`,
+    section: `181.6.b. While a Battlefield is Uncontrolled`,
+    text: `While a Battlefield is Uncontrolled, its Abilities are also Uncontrolled. The Turn Player takes responsibility for adding them to the Chain if applicable, makes all choices required by them unless otherwise specified, and is treated as their Controller if any game rule or effect requires one. Example: The Arena’s Greatest is a battlefield that reads “At the start of each player's first Beginning Phase, that player gains 1 point.” This ability will usually trigger while the battlefield has no controller. If it does, the Turn Player goes through the steps of adding the ability to the chain and receives priority after doing so, exactly as if they controlled the ability.`,
   },
   {
     id: `181.6.c`,
-    section: `181.6.c. “You”`,
-    text: `“You”
-
-in
-
-a
-
-battleﬁeld’s
-
-abilities
-
-refers
-
-to
-
-the
-
-battleﬁeld’s
-
-Controller ,
-
-as
-
-does
-
-the
-
-im plied
-
-“you”
-
-in
-
-instructions
-
-like
-
-“draw
-
-1.”
-
-If
-
-the
-
-battleﬁeld
-
-has
-
-no
-
-Controller ,
-
-“you”
-
-refers
-
-to
-
-no
-
-one,
-
-and
-
-all
-
-such
-
-instructions
-
-are
-
-ignored.`,
+    section: `181.6.c. “You” in a battlefield’s abilities refers to the battlefield’s Controller`,
+    text: `“You” in a battlefield’s abilities refers to the battlefield’s Controller, as does the implied “you” in instructions like “draw 1.” If the battlefield has no Controller, “you” refers to no one, and all such instructions are ignored.`,
   },
   {
     id: `182`,
-    section: `182. Everything`,
-    text: `Everything
-
-Else`,
+    section: `182. Everything Else`,
+    text: `Everything Else`,
   },
   {
     id: `182.1`,
-    section: `182.1. W hen`,
-    text: `W hen
-
-a
-
-player
-
-Plays
-
-a
-
-Card ,
-
-they
-
-are
-
-established
-
-as
-
-that
-
-Gam e
-
-Object's
-
-Controller.`,
+    section: `182.1. When a player Plays a Card`,
+    text: `When a player Plays a Card, they are established as that Game Object's Controller.`,
   },
   {
     id: `182.2`,
-    section: `182.2. For`,
-    text: `For
-
-Spells ,
-
-they
-
-are
-
-the
-
-Spell's
-
-Controller.`,
+    section: `182.2. For Spells`,
+    text: `For Spells, they are the Spell's Controller.`,
   },
   {
     id: `182.2.a`,
-    section: `182.2.a. That`,
-    text: `That
-
-player
-
-chooses
-
-targets.`,
+    section: `182.2.a. That player chooses targets`,
+    text: `That player chooses targets.`,
   },
   {
     id: `182.2.b`,
-    section: `182.2.b. That`,
-    text: `That
-
-player
-
-chooses
-
-m odes.`,
+    section: `182.2.b. That player chooses modes`,
+    text: `That player chooses modes.`,
   },
   {
     id: `182.2.c`,
-    section: `182.2.c. That`,
-    text: `That
-
-player
-
-pays
-
-costs.`,
+    section: `182.2.c. That player pays costs`,
+    text: `That player pays costs.`,
   },
   {
     id: `182.3`,
-    section: `182.3. For`,
-    text: `For
-
-Perm anents
-
-and
-
-Runes ,
-
-w hen
-
-they
-
-Enter
-
-the
-
-Board ,
-
-that
-
-player
-
-is
-
-assigned
-
-as
-
-that
-
-Gam e
-
-Object's
-
-Controller.`,
+    section: `182.3. For Permanents and Runes`,
+    text: `For Permanents and Runes, when they Enter the Board, that player is assigned as that Game Object's Controller.`,
   },
   {
     id: `182.3.a`,
-    section: `182.3.a. That`,
-    text: `That
-
-player
-
-m ay
-
-m ake
-
-decisions
-
-about
-
-the
-
-Gam e
-
-Object's
-
-Inherent
-
-Abilities.`,
+    section: `182.3.a. That player may make decisions about the Game Object's Inherent Abilities`,
+    text: `That player may make decisions about the Game Object's Inherent Abilities.`,
   },
   {
     id: `182.3.b`,
-    section: `182.3.b. That`,
-    text: `That
-
-player
-
-m ay
-
-m ake
-
-decisions
-
-about
-
-the
-
-Gam e
-
-Object's
-
-Unique
-
-Abilities.`,
+    section: `182.3.b. That player may make decisions about the Game Object's Unique Abilities`,
+    text: `That player may make decisions about the Game Object's Unique Abilities.`,
   },
   {
     id: `182.3.c`,
-    section: `182.3.c. That`,
-    text: `That
-
-player
-
-m ay
-
-m ake
-
-decisions
-
-about
-
-any
-
-gam e
-
-effects
-
-or
-
-decisions
-
-necessary
-
-w hile
-
-the
-
-card
-
-is
-
-being
-
-played.`,
+    section: `182.3.c. That player may make decisions about any game effects or decisions necessary while the card is being played`,
+    text: `That player may make decisions about any game effects or decisions necessary while the card is being played.`,
   },
   {
     id: `182.3.d`,
-    section: `182.3.d. That`,
-    text: `That
-
-player
-
-m ay
-
-m ake
-
-decisions
-
-about
-
-any
-
-gam e
-
-effects
-
-created
-
-from
-
-"W hen
-
-you
-
-play
-
-m e"
-
-effects
-
-of
-
-Perm anents.`,
+    section: `182.3.d. That player may make decisions about any game effects created from "When you play me" effects of Permanents`,
+    text: `That player may make decisions about any game effects created from "When you play me" effects of Permanents.`,
   },
   {
     id: `183`,
-    section: `183. W hen`,
-    text: `W hen
-
-a
-
-gam e
-
-effect
-
-or
-
-rules
-
-text
-
-refers
-
-to
-
-the
-
-Controller
-
-of
-
-a
-
-speciﬁc
-
-object,
-
-it
-
-can
-
-be
-
-referring
-
-to
-
-either
-
-context
-
-interchangeably.`,
+    section: `183. When a game effect or rules text refers to the Controller of a specific object`,
+    text: `When a game effect or rules text refers to the Controller of a specific object, it can be referring to either context interchangeably.`,
   },
   {
     id: `183.1`,
-    section: `183.1. The`,
-    text: `The
-
-m ethod
-
-of
-
-assignm ent
-
-of
-
-control
-
-is
-
-different,
-
-but
-
-the
-
-status
-
-of
-
-Control
-
-is
-
-the
-
-sam e
-
-across
-
-all
-
-Gam e
-
-Objects.`,
+    section: `183.1. The method of assignment of control is different`,
+    text: `The method of assignment of control is different, but the status of Control is the same across all Game Objects.`,
   },
   {
     id: `300`,
-    section: `300. Playing`,
-    text: `Playing
-
-the
-
-Game`,
+    section: `300. Playing the Game`,
+    text: `Playing the Game`,
   },
   {
     id: `301`,
-    section: `301. The`,
-    text: `The
-
-Turn`,
+    section: `301. The Turn`,
+    text: `The Turn`,
   },
   {
     id: `302`,
-    section: `302. Play`,
-    text: `Play
-
-continues
-
-cyclically
-
-until
-
-one
-
-player
-
-w ins.`,
+    section: `302. Play continues cyclically until one player wins`,
+    text: `Play continues cyclically until one player wins.`,
   },
   {
     id: `303`,
-    section: `303. The`,
-    text: `The
-
-phases
-
-of
-
-a
-
-turn
-
-are
-
-rigid,
-
-but
-
-the
-
-actions
-
-taken
-
-during
-
-those
-
-steps
-
-can
-
-be
-
-done
-
-in
-
-any
-
-order,
-
-unless
-
-otherw ise
-
-speciﬁed.`,
+    section: `303. The phases of a turn are rigid`,
+    text: `The phases of a turn are rigid, but the actions taken during those steps can be done in any order, unless otherwise specified.`,
   },
   {
     id: `303.1`,
-    section: `303.1. Gam e`,
-    text: `Gam e
-
-Actions
-
-of
-
-any
-
-nature
-
-are
-
-perform ed
-
-one
-
-at
-
-a
-
-tim e
-
-and
-
-are
-
-executed
-
-com pletely.`,
+    section: `303.1. Game Actions of any nature are performed one at a time and are executed completely`,
+    text: `Game Actions of any nature are performed one at a time and are executed completely.`,
   },
   {
     id: `303.2`,
-    section: `303.2. Gam e`,
-    text: `Gam e
-
-Actions
-
-cannot
-
-be
-
-perform ed
-
-sim ultaneously
-
-for
-
-any
-
-reason.`,
+    section: `303.2. Game Actions cannot be performed simultaneously for any reason`,
+    text: `Game Actions cannot be performed simultaneously for any reason.`,
   },
   {
     id: `303.2.a`,
-    section: `303.2.a. If`,
-    text: `If
-
-one
-
-or
-
-m ore
-
-actions,
-
-gam e
-
-effects,
-
-or
-
-Triggered
-
-Abilities
-
-are
-
-activated
-
-sim ultaneously,
-
-then
-
-Turn
-
-Order
-
-is
-
-referenced
-
-to
-
-organize
-
-the
-
-sequence
-
-of
-
-actions.
-
-See
-
-rule`,
+    section: `303.2.a. If one or more actions`,
+    text: `If one or more actions, game effects, or Triggered Abilities are activated simultaneously, then Turn Order is referenced to organize the sequence of actions. See rule 375. Triggered Abilities for more information.`,
   },
   {
     id: `304`,
-    section: `304. The`,
-    text: `The
-
-Turn
-
-Player
-
-is
-
-the
-
-player
-
-taking
-
-the
-
-current
-
-turn.`,
+    section: `304. The Turn Player is the player taking the current turn`,
+    text: `The Turn Player is the player taking the current turn.`,
   },
   {
     id: `305`,
-    section: `305. W hen`,
-    text: `W hen
-
-there
-
-are
-
-no
-
-item s
-
-on
-
-the
-
-Chain
-
-and
-
-the
-
-Turn
-
-Player
-
-cannot
-
-or
-
-chooses
-
-not
-
-to
-
-perform
-
-any
-
-Discretionary
-
-Actions ,
-
-the
-
-current
-
-phase
-
-or
-
-step
-
-of
-
-the
-
-turn
-
-ends
-
-and
-
-the
-
-next
-
-phase,
-
-step,
-
-or
-
-turn
-
-begins.`,
+    section: `305. When there are no items on the Chain and the Turn Player cannot or chooses not to perform any Discretionary Actions`,
+    text: `When there are no items on the Chain and the Turn Player cannot or chooses not to perform any Discretionary Actions, the current phase or step of the turn ends and the next phase, step, or turn begins.`,
   },
   {
     id: `306`,
-    section: `306. The`,
-    text: `The
-
-Turn
-
-Player
-
-changes
-
-w hen
-
-the
-
-current
-
-Turn
-
-Player
-
-reaches
-
-the
-
-End
-
-of
-
-all
-
-of
-
-the
-
-Phases
-
-of
-
-their
-
-Turn.`,
+    section: `306. The Turn Player changes when the current Turn Player reaches the End of all of the Phases of their Turn`,
+    text: `The Turn Player changes when the current Turn Player reaches the End of all of the Phases of their Turn.`,
   },
   {
     id: `307`,
-    section: `307. States`,
-    text: `States
-
-of
-
-the
-
-Turn
-
-States
-
-of
-
-the
-
-Turn
-
-for
-
-more
-
-information.
-
-States
-
-of
-
-the
-
-Turn
-
-for
-
-more
-
-information.
-
-316.2.b.1.
-
-In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-team m ates,
-
-the
-
-Turn
-
-Player's
-
-team m ates
-
-m ay
-
-play
-
-spells
-
-and
-
-activate
-
-abilities,
-
-including
-
-ones
-
-w ithout
-
-Action
-
-or
-
-Reaction.`,
+    section: `307. States of the Turn`,
+    text: `States of the Turn`,
   },
   {
     id: `308`,
-    section: `308. At`,
-    text: `At
-
-any
-
-given
-
-tim e,
-
-the
-
-turn
-
-is
-
-in
-
-either
-
-a
-
-Neutral
-
-State
-
-or
-
-a
-
-Showdown
-
-State.`,
+    section: `308. At any given time`,
+    text: `At any given time, the turn is in either a Neutral State or a Showdown State.`,
   },
   {
     id: `308.1`,
-    section: `308.1. If`,
-    text: `If
-
-a
-
-Showdown
-
-is
-
-in
-
-progress,
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Showdown
-
-State.`,
+    section: `308.1. If a Showdown is in progress`,
+    text: `If a Showdown is in progress, the turn is in a Showdown State.`,
   },
   {
     id: `308.1.a`,
-    section: `308.1.a. O nly`,
-    text: `O nly
-
-cards
-
-and
-
-abilities
-
-w ith
-
-the
-
-Action
-
-or
-
-Reaction
-
-keyw ords
-
-can
-
-be
-
-played
-
-or
-
-activated
-
-in
-
-a
-
-Showdown
-
-State.`,
+    section: `308.1.a. Only cards and abilities with the Action or Reaction keywords can be played or activated in a Showdown State`,
+    text: `Only cards and abilities with the Action or Reaction keywords can be played or activated in a Showdown State.`,
   },
   {
     id: `308.2`,
-    section: `308.2. If`,
-    text: `If
-
-no
-
-Showdown
-
-is
-
-in
-
-progress,
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Neutral
-
-State.`,
+    section: `308.2. If no Showdown is in progress`,
+    text: `If no Showdown is in progress, the turn is in a Neutral State.`,
   },
   {
     id: `309`,
-    section: `309. At`,
-    text: `At
-
-any
-
-given
-
-tim e,
-
-the
-
-turn
-
-is
-
-in
-
-either
-
-an
-
-Open
-
-State
-
-or
-
-a
-
-Closed
-
-State.`,
+    section: `309. At any given time`,
+    text: `At any given time, the turn is in either an Open State or a Closed State.`,
   },
   {
     id: `309.1`,
-    section: `309.1. If`,
-    text: `If
-
-a
-
-Chain
-
-exists,
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Closed
-
-State.`,
+    section: `309.1. If a Chain exists`,
+    text: `If a Chain exists, the turn is in a Closed State.`,
   },
   {
     id: `309.1.a`,
-    section: `309.1.a. O nly`,
-    text: `O nly
-
-cards
-
-and
-
-abilities
-
-w ith
-
-the
-
-Reaction
-
-keyw ord
-
-can
-
-be
-
-played
-
-or
-
-activated
-
-in
-
-a
-
-Closed
-
-State.`,
+    section: `309.1.a. Only cards and abilities with the Reaction keyword can be played or activated in a Closed State`,
+    text: `Only cards and abilities with the Reaction keyword can be played or activated in a Closed State.`,
   },
   {
     id: `309.2`,
-    section: `309.2. If`,
-    text: `If
-
-no
-
-Chain
-
-exists,
-
-the
-
-turn
-
-is
-
-in
-
-an
-
-Open
-
-State.`,
+    section: `309.2. If no Chain exists`,
+    text: `If no Chain exists, the turn is in an Open State.`,
   },
   {
     id: `310`,
-    section: `310. These`,
-    text: `These
-
-descriptions
-
-can
-
-be
-
-com bined,
-
-such
-
-that
-
-the
-
-turn
-
-is
-
-alw ays
-
-in
-
-one
-
-of
-
-these
-
-four
-
-states:`,
+    section: `310. These descriptions can be combined`,
+    text: `These descriptions can be combined, such that the turn is always in one of these four states:`,
   },
   {
     id: `310.1`,
-    section: `310.1. Neutral`,
-    text: `Neutral
-
-Open:
-
-There
-
-is
-
-no
-
-Showdown
-
-in
-
-progress
-
-and
-
-no
-
-Chain
-
-exists.`,
+    section: `310.1. Neutral Open: There is no Showdown in progress and no Chain exists`,
+    text: `Neutral Open: There is no Showdown in progress and no Chain exists.`,
   },
   {
     id: `310.1.a`,
-    section: `310.1.a. By`,
-    text: `By
-
-default,
-
-cards
-
-can
-
-be
-
-played
-
-and
-
-abilities
-
-activated
-
-only
-
-w hen
-
-a
-
-player
-
-has
-
-priority
-
-on
-
-their
-
-turn
-
-in
-
-a
-
-Neutral
-
-Open
-
-state.`,
+    section: `310.1.a. By default`,
+    text: `By default, cards can be played and abilities activated only when a player has priority on their turn in a Neutral Open state.`,
   },
   {
     id: `310.2`,
-    section: `310.2. Neutral`,
-    text: `Neutral
-
-Closed:
-
-There
-
-is
-
-no
-
-Showdown
-
-in
-
-progress
-
-and
-
-a
-
-Chain
-
-exists.`,
+    section: `310.2. Neutral Closed: There is no Showdown in progress and a Chain exists`,
+    text: `Neutral Closed: There is no Showdown in progress and a Chain exists.`,
   },
   {
     id: `310.3`,
-    section: `310.3. Showdown`,
-    text: `Showdown
-
-Open:
-
-A
-
-Showdown
-
-is
-
-in
-
-progress
-
-and
-
-no
-
-Chain
-
-exists.`,
+    section: `310.3. Showdown Open: A Showdown is in progress and no Chain exists`,
+    text: `Showdown Open: A Showdown is in progress and no Chain exists.`,
   },
   {
     id: `310.4`,
-    section: `310.4. Showdown`,
-    text: `Showdown
-
-Closed:
-
-A
-
-Showdown
-
-is
-
-in
-
-progress
-
-and
-
-a
-
-Chain
-
-exists.`,
+    section: `310.4. Showdown Closed: A Showdown is in progress and a Chain exists`,
+    text: `Showdown Closed: A Showdown is in progress and a Chain exists.`,
   },
   {
     id: `311`,
-    section: `311. Priority`,
-    text: `Priority
-
-and
-
-Focus`,
+    section: `311. Priority and Focus`,
+    text: `Priority and Focus`,
   },
   {
     id: `312`,
-    section: `312. At`,
-    text: `At
-
-any
-
-given
-
-tim e,
-
-up
-
-to
-
-one
-
-player
-
-has
-
-Priority.`,
+    section: `312. At any given time`,
+    text: `At any given time, up to one player has Priority.`,
   },
   {
     id: `312.1`,
-    section: `312.1. Priority`,
-    text: `Priority
-
-is
-
-the
-
-perm ission
-
-to
-
-take
-
-Discretionary
-
-Actions.
-
-See
-
-rule`,
-  },
-  {
-    id: `398.1`,
-    section: `398.1. Discretionary`,
-    text: `Discretionary
-
-Actions
-
-for
-
-more
-
-information.`,
+    section: `312.1. Priority is the permission to take Discretionary Actions`,
+    text: `Priority is the permission to take Discretionary Actions. See rule 398.1. Discretionary Actions for more information.`,
   },
   {
     id: `312.1.a`,
-    section: `312.1.a. The`,
-    text: `The
-
-player
-
-w ith
-
-Priority
-
-can
-
-take
-
-appropriately
-
-tim ed
-
-Discretionary
-
-Actions.`,
+    section: `312.1.a. The player with Priority can take appropriately timed Discretionary Actions`,
+    text: `The player with Priority can take appropriately timed Discretionary Actions.`,
   },
   {
     id: `312.1.b`,
-    section: `312.1.b. If`,
-    text: `If
+    section: `312.1.b. If no player has Priority`,
+    text: `If no player has Priority, no player can take Discretionary Actions.
 
-no
-
-player
-
-has
-
-Priority ,
-
-no
-
-player
-
-can
-
-take
-
-Discretionary
-
-Actions.
-
-312.1.b.1.
-
-Players
-
-can
-
-alw ays
-
-take
-
-and
-
-m ake
-
-choices
-
-for
-
-Lim ited
-
-Actions
-
-w hen
-
-instructed,
-
-regardless
-
-of
-
-Priority.`,
+1. Players can always take and make choices for Limited Actions when instructed, regardless of Priority.`,
   },
   {
     id: `312.2`,
-    section: `312.2. A`,
-    text: `A
-
-player
-
-receives
-
-Priority
-
-at
-
-the
-
-follow ing
-
-tim es:`,
+    section: `312.2. A player receives Priority at the following times:`,
+    text: `A player receives Priority at the following times:`,
   },
   {
     id: `312.2.a`,
-    section: `312.2.a. W hen`,
-    text: `W hen
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Neutral
-
-Open
-
-State
-
-during
-
-their
-
-Action
-
-Phase.`,
+    section: `312.2.a. When the turn is in a Neutral Open State during their Action Phase`,
+    text: `When the turn is in a Neutral Open State during their Action Phase.`,
   },
   {
     id: `312.2.b`,
-    section: `312.2.b. W hen`,
-    text: `W hen
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Showdown
-
-State
-
-and
-
-they
-
-gain
-
-Focus.`,
+    section: `312.2.b. When the turn is in a Showdown State and they gain Focus`,
+    text: `When the turn is in a Showdown State and they gain Focus.`,
   },
   {
     id: `312.2.c`,
-    section: `312.2.c. W hen`,
-    text: `W hen
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Closed
-
-State
-
-and
-
-they
-
-control
-
-the
-
-next
-
-item
-
-on
-
-the
-
-Chain.`,
+    section: `312.2.c. When the turn is in a Closed State and they control the next item on the Chain`,
+    text: `When the turn is in a Closed State and they control the next item on the Chain.`,
   },
   {
     id: `312.2.d`,
-    section: `312.2.d. W hen`,
-    text: `W hen
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Closed
-
-State ,
-
-they
-
-are
-
-the
-
-next
-
-Player
-
-in
-
-Turn
-
-Order ,
-
-and
-
-the
-
-player
-
-w ith
-
-Priority
-
-passes.`,
+    section: `312.2.d. When the turn is in a Closed State`,
+    text: `When the turn is in a Closed State, they are the next Player in Turn Order, and the player with Priority passes.`,
   },
   {
     id: `313`,
-    section: `313. At`,
-    text: `At
-
-any
-
-given
-
-tim e,
-
-up
-
-to
-
-one
-
-player
-
-has
-
-Focus.`,
+    section: `313. At any given time`,
+    text: `At any given time, up to one player has Focus.`,
   },
   {
     id: `313.1`,
-    section: `313.1. Focus`,
-    text: `Focus
-
-is
-
-the
-
-perm ission
-
-to
-
-take
-
-appropriately
-
-tim ed
-
-Discretionary
-
-Actions
-
-w hen
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Showdown
-
-Open
-
-State.
-
-See
-
-rule`,
+    section: `313.1. Focus is the permission to take appropriately timed Discretionary Actions when the turn is in a Showdown Open State`,
+    text: `Focus is the permission to take appropriately timed Discretionary Actions when the turn is in a Showdown Open State. See rule 307. States of the Turn for more information.`,
   },
   {
     id: `313.1.a`,
-    section: `313.1.a. The`,
-    text: `The
-
-player
-
-w ith
-
-Focus
-
-m ust
-
-obey
-
-any
-
-additional
-
-restrictions
-
-on
-
-w hich
-
-Discretionary
-
-Actions
-
-m ay
-
-be
-
-perform ed.
-
-Example:
-
-A
-
-player
-
-w ith
-
-Focus
-
-m ay
-
-not
-
-play
-
-spells
-
-or
-
-activate
-
-abilities
-
-that
-
-don't
-
-have
-
-the
-
-Action
-
-or
-
-Reaction
-
-keyw ords.`,
+    section: `313.1.a. The player with Focus must obey any additional restrictions on which Discretionary Actions may be performed`,
+    text: `The player with Focus must obey any additional restrictions on which Discretionary Actions may be performed. Example: A player with Focus may not play spells or activate abilities that don't have the Action or Reaction keywords.`,
   },
   {
     id: `313.2`,
-    section: `313.2. A`,
-    text: `A
-
-player
-
-w ho
-
-gains
-
-Focus
-
-also
-
-gains
-
-Priority.`,
+    section: `313.2. A player who gains Focus also gains Priority`,
+    text: `A player who gains Focus also gains Priority.`,
   },
   {
     id: `313.3`,
-    section: `313.3. A`,
-    text: `A
-
-player
-
-w ho
-
-passes
-
-Priority
-
-retains
-
-Focus.`,
+    section: `313.3. A player who passes Priority retains Focus`,
+    text: `A player who passes Priority retains Focus.`,
   },
   {
     id: `313.4`,
-    section: `313.4. If`,
-    text: `If
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Neutral
-
-State ,
-
-no
-
-player
-
-has
-
-Focus.`,
+    section: `313.4. If the turn is in a Neutral State`,
+    text: `If the turn is in a Neutral State, no player has Focus.`,
   },
   {
     id: `314`,
-    section: `314. Phases`,
-    text: `Phases
-
-of
-
-the
-
-Turn`,
+    section: `314. Phases of the Turn`,
+    text: `Phases of the Turn`,
   },
   {
     id: `315`,
-    section: `315. Start`,
-    text: `Start
-
-of
-
-Turn`,
+    section: `315. Start of Turn`,
+    text: `Start of Turn`,
   },
   {
     id: `315.1`,
-    section: `315.1. Awaken`,
-    text: `Awaken
-
-Phase`,
+    section: `315.1. Awaken Phase`,
+    text: `Awaken Phase`,
   },
   {
     id: `315.1.a`,
-    section: `315.1.a. The`,
-    text: `The
-
-Turn
-
-Player
-
-readies
-
-all
-
-Gam e
-
-Objects
-
-they
-
-control
-
-that
-
-are
-
-able
-
-to
-
-be
-
-readied.
-
-See
-
-rule`,
-  },
-  {
-    id: `402`,
-    section: `402. Ready`,
-    text: `Ready
-
-for
-
-more
-
-information.`,
+    section: `315.1.a. The Turn Player readies all Game Objects they control that are able to be readied`,
+    text: `The Turn Player readies all Game Objects they control that are able to be readied. See rule 402. Ready for more information.`,
   },
   {
     id: `315.2`,
-    section: `315.2. Beginning`,
-    text: `Beginning
-
-Phase`,
+    section: `315.2. Beginning Phase`,
+    text: `Beginning Phase`,
   },
   {
     id: `315.2.a`,
-    section: `315.2.a. Beginning`,
-    text: `Beginning
+    section: `315.2.a. Beginning Step`,
+    text: `Beginning Step
 
-Step
-
-315.2.a.1.
-
-At
-
-the
-
-start
-
-of
-
-Beginning
-
-Phase
-
-gam e
-
-effects
-
-take
-
-place.`,
+1. At the start of Beginning Phase game effects take place.`,
   },
   {
     id: `315.2.b`,
-    section: `315.2.b. Scoring`,
-    text: `Scoring
+    section: `315.2.b. Scoring Step`,
+    text: `Scoring Step
 
-Step
+1. Holding occurs at this time. See rule 441. Scoring for more information.
 
-315.2.b.1.
-
-Holding
-
-occurs
-
-at
-
-this
-
-tim e.
-
-See
-
-rule`,
-  },
-  {
-    id: `441`,
-    section: `441. Scoring`,
-    text: `Scoring
-
-for
-
-more
-
-information.
-
-315.2.b.2.
-
-Reminder:
-
-In
-
-Modes
-
-of
-
-Play
-
-with
-
-Teams ,
-
-Battleﬁelds
-
-held
-
-by
-
-a
-
-Teammate
-
-of
-
-the
-
-Turn
-
-Player
-
-during
-
-this
-
-phase
-
-are
-
-disqualiﬁed
-
-from
-
-being
-
-scored
-
-this
-
-turn
-
-by
-
-the
-
-Turn
-
-Player.`,
+2. Reminder: In Modes of Play with Teams, Battlefields held by a Teammate of the Turn Player during this phase are disqualified from being scored this turn by the Turn Player.`,
   },
   {
     id: `315.2.c`,
-    section: `315.2.c. Speciﬁc`,
-    text: `Speciﬁc
-
-gam e
-
-effects
-
-or
-
-abilities
-
-w ill
-
-reference
-
-this
-
-tim ing
-
-and
-
-phase
-
-as
-
-necessary.`,
+    section: `315.2.c. Specific game effects or abilities will reference this timing and phase as necessary`,
+    text: `Specific game effects or abilities will reference this timing and phase as necessary.`,
   },
   {
     id: `315.3`,
-    section: `315.3. Channel`,
-    text: `Channel
-
-Phase`,
+    section: `315.3. Channel Phase`,
+    text: `Channel Phase`,
   },
   {
     id: `315.3.a`,
-    section: `315.3.a. The`,
-    text: `The
-
-Turn
-
-Player
-
-gains
-
-their
-
-additional
-
-runes
-
-for
-
-the
-
-turn.`,
+    section: `315.3.a. The Turn Player gains their additional runes for the turn`,
+    text: `The Turn Player gains their additional runes for the turn.`,
   },
   {
     id: `315.3.b`,
-    section: `315.3.b. The`,
-    text: `The
+    section: `315.3.b. The Turn Player channels 2 runes from their Rune Deck`,
+    text: `The Turn Player channels 2 runes from their Rune Deck. See rule 417. Channel for more information.
 
-Turn
-
-Player
-
-channels
-
-2
-
-runes
-
-from
-
-their
-
-Rune
-
-Deck.
-
-See
-
-rule`,
-  },
-  {
-    id: `417`,
-    section: `417. Channel`,
-    text: `Channel
-
-for
-
-more
-
-information.
-
-315.3.b.1.
-
-If
-
-there
-
-are
-
-few er
-
-than
-
-2
-
-runes
-
-in
-
-the
-
-Rune
-
-Deck,
-
-they
-
-channel
-
-as
-
-m any
-
-as
-
-possible.`,
+1. If there are fewer than 2 runes in the Rune Deck, they channel as many as possible.`,
   },
   {
     id: `315.3.c`,
-    section: `315.3.c. Perform`,
-    text: `Perform
-
-any
-
-actions
-
-as
-
-instructed
-
-by
-
-gam e
-
-objects
-
-during
-
-this
-
-tim e.`,
+    section: `315.3.c. Perform any actions as instructed by game objects during this time`,
+    text: `Perform any actions as instructed by game objects during this time.`,
   },
   {
     id: `315.4`,
-    section: `315.4. Draw`,
-    text: `Draw
-
-Phase`,
+    section: `315.4. Draw Phase`,
+    text: `Draw Phase`,
   },
   {
     id: `315.4.a`,
-    section: `315.4.a. The`,
-    text: `The
-
-Turn
-
-Player
-
-gains
-
-their
-
-additional
-
-card
-
-for
-
-the
-
-turn.`,
+    section: `315.4.a. The Turn Player gains their additional card for the turn`,
+    text: `The Turn Player gains their additional card for the turn.`,
   },
   {
     id: `315.4.b`,
-    section: `315.4.b. The`,
-    text: `The
+    section: `315.4.b. The Turn Player draws 1`,
+    text: `The Turn Player draws 1.
 
-Turn
+1. If there are no cards remaining in their Main Deck to draw, the Turn Player has been Burned Out. See rule 418. Burn Out for more information.
 
-Player
-
-draw s
-
-1.
-
-315.4.b.1.
-
-If
-
-there
-
-are
-
-no
-
-cards
-
-rem aining
-
-in
-
-their
-
-Main
-
-Deck
-
-to
-
-draw ,
-
-the
-
-Turn
-
-Player
-
-has
-
-been
-
-Burned
-
-Out .
-
-See
-
-rule`,
-  },
-  {
-    id: `418`,
-    section: `418. Burn`,
-    text: `Burn
-
-Out
-
-for
-
-more
-
-information.
-
-315.4.b.2.
-
-After
-
-com pleting
-
-the
-
-Burn
-
-Out
-
-the
-
-Turn
-
-Player
-
-still
-
-Draws
-
-1.`,
+2. After completing the Burn Out the Turn Player still Draws 1.`,
   },
   {
     id: `315.4.c`,
-    section: `315.4.c. Perform`,
-    text: `Perform
-
-any
-
-actions
-
-as
-
-instructed
-
-by
-
-gam e
-
-objects
-
-during
-
-this
-
-tim e.`,
+    section: `315.4.c. Perform any actions as instructed by game objects during this time`,
+    text: `Perform any actions as instructed by game objects during this time.`,
   },
   {
     id: `315.4.d`,
-    section: `315.4.d. As`,
-    text: `As
-
-the
-
-Draw
-
-Phase
-
-ends,
-
-each
-
-player's
-
-Rune
-
-Pool
-
-em pties.
-
-See
-
-rule`,
+    section: `315.4.d. As the Draw Phase ends`,
+    text: `As the Draw Phase ends, each player's Rune Pool empties. See rule 158. Rune Pools for more information.`,
   },
   {
     id: `316`,
-    section: `316. Action`,
-    text: `Action
-
-Phase`,
+    section: `316. Action Phase`,
+    text: `Action Phase`,
   },
   {
     id: `316.1`,
-    section: `316.1. W hen`,
-    text: `W hen
-
-all
-
-steps
-
-of
-
-the
-
-Start
-
-of
-
-Turn
-
-have
-
-been
-
-com pleted,
-
-the
-
-Action
-
-Phase
-
-begins.`,
+    section: `316.1. When all steps of the Start of Turn have been completed`,
+    text: `When all steps of the Start of Turn have been completed, the Action Phase begins.`,
   },
   {
     id: `316.2`,
-    section: `316.2. The`,
-    text: `The
-
-Action
-
-Phase
-
-has
-
-no
-
-deﬁned
-
-structure.`,
+    section: `316.2. The Action Phase has no defined structure`,
+    text: `The Action Phase has no defined structure.`,
   },
   {
     id: `316.2.a`,
-    section: `316.2.a. A`,
-    text: `A
-
-player
-
-m ay
-
-take
-
-any
-
-num ber
-
-of
-
-Discretionary
-
-Actions
-
-they
-
-are
-
-able
-
-to
-
-perform
-
-during
-
-this
-
-phase.
-
-See
-
-rule`,
+    section: `316.2.a. A player may take any number of Discretionary Actions they are able to perform during this phase`,
+    text: `A player may take any number of Discretionary Actions they are able to perform during this phase. See rule 398.1. Discretionary Actions for more information.`,
   },
   {
     id: `316.2.b`,
-    section: `316.2.b. This`,
-    text: `This
+    section: `316.2.b. This is denoted as a Neutral Open State`,
+    text: `This is denoted as a Neutral Open State, and only the Turn Player has the ability to play spells or activate abilities. See rule 307. States of the Turn for more information.
 
-is
-
-denoted
-
-as
-
-a
-
-Neutral
-
-Open
-
-State ,
-
-and
-
-only
-
-the
-
-Turn
-
-Player
-
-has
-
-the
-
-ability
-
-to
-
-play
-
-spells
-
-or
-
-activate
-
-abilities.
-
-See
-
-rule`,
+1. In Modes of Play with teammates, the Turn Player's teammates may play spells and activate abilities, including ones without Action or Reaction.`,
   },
   {
     id: `316.2.c`,
-    section: `316.2.c. In`,
-    text: `In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-Team m ates,
-
-spells
-
-m ay
-
-be
-
-played
-
-by
-
-Team m ates
-
-of
-
-the
-
-Turn
-
-Player
-
-during
-
-this
-
-tim e,
-
-but
-
-the
-
-actions
-
-of
-
-the
-
-Turn
-
-Player
-
-take
-
-precedence.`,
+    section: `316.2.c. In Modes of Play with Teammates`,
+    text: `In Modes of Play with Teammates, spells may be played by Teammates of the Turn Player during this time, but the actions of the Turn Player take precedence.`,
   },
   {
     id: `316.3`,
-    section: `316.3. As`,
-    text: `As
-
-a
-
-result
-
-of
-
-a
-
-player
-
-taking
-
-Discretionary
-
-Actions ,
-
-one
-
-or
-
-m ore
-
-structured
-
-phases
-
-m ay
-
-occur.`,
+    section: `316.3. As a result of a player taking Discretionary Actions`,
+    text: `As a result of a player taking Discretionary Actions, one or more structured phases may occur.`,
   },
   {
     id: `316.4`,
-    section: `316.4. Com bat`,
-    text: `Com bat`,
+    section: `316.4. Combat`,
+    text: `Combat`,
   },
   {
     id: `316.4.a`,
-    section: `316.4.a. A`,
-    text: `A
-
-Com bat
-
-phase
-
-occurs
-
-as
-
-a
-
-result
-
-of
-
-Units
-
-controlled
-
-by
-
-opposing
-
-players
-
-being
-
-present
-
-at
-
-the
-
-sam e
-
-Battleﬁeld .`,
+    section: `316.4.a. A Combat phase occurs as a result of Units controlled by opposing players being present at the same Battlefield`,
+    text: `A Combat phase occurs as a result of Units controlled by opposing players being present at the same Battlefield.`,
   },
   {
     id: `316.4.b`,
-    section: `316.4.b. This`,
-    text: `This
-
-could
-
-be
-
-the
-
-result
-
-of
-
-a
-
-Standard
-
-Move
-
-Standard
-
-Action ,
-
-a
-
-Spell ,
-
-or
-
-other
-
-Gam e
-
-Effect.`,
+    section: `316.4.b. This could be the result of a Standard Move Standard Action`,
+    text: `This could be the result of a Standard Move Standard Action, a Spell, or other Game Effect.`,
   },
   {
     id: `316.4.c`,
-    section: `316.4.c. The`,
-    text: `The
-
-source
-
-effect
-
-does
-
-not
-
-change
-
-the
-
-structure
-
-or
-
-ﬂow
-
-of
-
-Com bat
-
-once
-
-initiated.`,
+    section: `316.4.c. The source effect does not change the structure or flow of Combat once initiated`,
+    text: `The source effect does not change the structure or flow of Combat once initiated.`,
   },
   {
     id: `316.4.d`,
-    section: `316.4.d. A`,
-    text: `A
-
-Com bat
-
-can
-
-only
-
-occur
-
-betw een
-
-tw o
-
-players.
-
-See
-
-rule`,
-  },
-  {
-    id: `433`,
-    section: `433. Combat`,
-    text: `Combat
-
-for
-
-more
-
-information.
-
-Combat
-
-for
-
-more
-
-information.
-
-345.2.b.1.
-
-The
-
-player
-
-w ho
-
-applied
-
-Contested
-
-to
-
-the
-
-Battleﬁeld
-
-w ill
-
-be
-
-the
-
-Attacker
-
-in
-
-the
-
-subsequent
-
-Com bat.
-
-Combat
-
-for
-
-more
-
-information.
-
-723.1.d.1.
-
-Assault
-
-rem ains
-
-in
-
-effect
-
-as
-
-long
-
-as
-
-the
-
-Unit
-
-m aintains
-
-the
-
-Attacker
-
-designation.
-
-Combat
-
-for
-
-more
-
-information.
-
-730.1.d.1.
-
-Shield
-
-rem ains
-
-in
-
-effect
-
-as
-
-long
-
-as
-
-the
-
-Unit
-
-m aintains
-
-the
-
-D efender
-
-designation.`,
+    section: `316.4.d. A Combat can only occur between two players`,
+    text: `A Combat can only occur between two players. See rule 433. Combat for more information.`,
   },
   {
     id: `316.4.e`,
-    section: `316.4.e. Play`,
-    text: `Play
-
-proceeds
-
-follow ing
-
-the
-
-steps
-
-of
-
-com bat.
-
-See
-
-rule`,
-  },
-  {
-    id: `437`,
-    section: `437. Steps`,
-    text: `Steps
-
-of
-
-Combat
-
-for
-
-more
-
-information.
-
-The
-
-Steps
-
-of
-
-Combat
-
-for
-
-more
-
-information.
-
-The
-
-Steps
-
-of
-
-Com bat`,
+    section: `316.4.e. Play proceeds following the steps of combat`,
+    text: `Play proceeds following the steps of combat. See rule 437. Steps of Combat for more information.`,
   },
   {
     id: `316.4.f`,
-    section: `316.4.f. Com bat`,
-    text: `Com bat
-
-w ill
-
-also
-
-include
-
-a
-
-Showdown.`,
+    section: `316.4.f. Combat will also include a Showdown`,
+    text: `Combat will also include a Showdown.`,
   },
   {
     id: `316.5`,
@@ -17666,8416 +2488,884 @@ Showdown.`,
   },
   {
     id: `316.5.a`,
-    section: `316.5.a. A`,
-    text: `A
+    section: `316.5.a. A Showdown occurs when a Combat occurs`,
+    text: `A Showdown occurs when a Combat occurs.
 
-Showdown
-
-occurs
-
-w hen
-
-a
-
-Com bat
-
-occurs.
-
-316.5.a.1.
-
-Show dow ns
-
-that
-
-occur
-
-as
-
-a
-
-result
-
-of
-
-Com bat
-
-are
-
-a
-
-Sub-Phase
-
-of
-
-Com bat.`,
+1. Showdowns that occur as a result of Combat are a Sub-Phase of Combat.`,
   },
   {
     id: `316.5.b`,
-    section: `316.5.b. A`,
-    text: `A
+    section: `316.5.b. A Showdown is marked as Staged at a Battlefield when the Contested status is applied to a Battlefield with no current controller`,
+    text: `A Showdown is marked as Staged at a Battlefield when the Contested status is applied to a Battlefield with no current controller.
 
-Showdown
-
-is
-
-m arked
-
-as
-
-Staged
-
-at
-
-a
-
-Battleﬁeld
-
-w hen
-
-the
-
-Contested
-
-status
-
-is
-
-applied
-
-to
-
-a
-
-Battleﬁeld
-
-w ith
-
-no
-
-current
-
-controller.
-
-316.5.b.1.
-
-Show dow ns
-
-that
-
-occur
-
-as
-
-a
-
-result
-
-of
-
-a
-
-player
-
-m oving
-
-to
-
-an
-
-em pty
-
-Battleﬁeld
-
-are
-
-a
-
-stand-alone
-
-Phase
-
-and
-
-do
-
-not
-
-create
-
-a
-
-Com bat.`,
+1. Showdowns that occur as a result of a player moving to an empty Battlefield are a stand-alone Phase and do not create a Combat.`,
   },
   {
     id: `316.5.c`,
-    section: `316.5.c. A`,
-    text: `A
-
-Showdown
-
-is
-
-a
-
-structured
-
-W indow
-
-of
-
-Opportunity
-
-w here
-
-Players
-
-m ay
-
-play
-
-cards
-
-and
-
-activate
-
-abilities
-
-w ith
-
-Action
-
-or
-
-Reaction.
-
-See
-
-rule`,
-  },
-  {
-    id: `337`,
-    section: `337. Showdowns`,
-    text: `Showdowns
-
-for
-
-more
-
-information.`,
+    section: `316.5.c. A Showdown is a structured Window of Opportunity where Players may play cards and activate abilities with Action or Reaction`,
+    text: `A Showdown is a structured Window of Opportunity where Players may play cards and activate abilities with Action or Reaction. See rule 337. Showdowns for more information.`,
   },
   {
     id: `316.6`,
-    section: `316.6. W hen`,
-    text: `W hen
-
-a
-
-player
-
-has
-
-no
-
-m ore
-
-Discretionary
-
-Actions
-
-they
-
-w ish
-
-to
-
-execute,
-
-they
-
-m ust
-
-indicate
-
-they
-
-are
-
-ending
-
-their
-
-turn.`,
+    section: `316.6. When a player has no more Discretionary Actions they wish to execute`,
+    text: `When a player has no more Discretionary Actions they wish to execute, they must indicate they are ending their turn.`,
   },
   {
     id: `316.6.a`,
-    section: `316.6.a. This`,
-    text: `This
-
-ends
-
-the
-
-Action
-
-Phase.`,
+    section: `316.6.a. This ends the Action Phase`,
+    text: `This ends the Action Phase.`,
   },
   {
     id: `316.6.b`,
-    section: `316.6.b. Play`,
-    text: `Play
-
-proceeds
-
-to
-
-the
-
-End
-
-of
-
-Turn.`,
+    section: `316.6.b. Play proceeds to the End of Turn`,
+    text: `Play proceeds to the End of Turn.`,
   },
   {
     id: `317`,
-    section: `317. End`,
-    text: `End
-
-of
-
-Turn
-
-Phase`,
+    section: `317. End of Turn Phase`,
+    text: `End of Turn Phase`,
   },
   {
     id: `317.1`,
-    section: `317.1. Ending`,
-    text: `Ending
-
-Step`,
+    section: `317.1. Ending Step`,
+    text: `Ending Step`,
   },
   {
     id: `317.1.a`,
-    section: `317.1.a. At`,
-    text: `At
-
-the
-
-end
-
-of
-
-the
-
-turn
-
-Gam e
-
-Effects
-
-take
-
-place.`,
+    section: `317.1.a. At the end of the turn Game Effects take place`,
+    text: `At the end of the turn Game Effects take place.`,
   },
   {
     id: `317.1.b`,
-    section: `317.1.b. Speciﬁc`,
-    text: `Speciﬁc
-
-gam e
-
-effects
-
-and
-
-abilities
-
-w ill
-
-reference
-
-this
-
-tim ing
-
-and
-
-phase
-
-as
-
-necessary.`,
+    section: `317.1.b. Specific game effects and abilities will reference this timing and phase as necessary`,
+    text: `Specific game effects and abilities will reference this timing and phase as necessary.`,
   },
   {
     id: `317.2`,
-    section: `317.2. End`,
-    text: `End
-
-of
-
-Turn
-
-Cleanup`,
+    section: `317.2. End of Turn Cleanup`,
+    text: `End of Turn Cleanup`,
   },
   {
     id: `317.2.a`,
-    section: `317.2.a. Invoke`,
-    text: `Invoke
-
-a
-
-Special
-
-Cleanup.
-
-See
-
-rule`,
+    section: `317.2.a. Invoke a Special Cleanup`,
+    text: `Invoke a Special Cleanup. See rule 318. Cleanups for more information.`,
   },
   {
     id: `317.2.b`,
-    section: `317.2.b. Insert`,
-    text: `Insert
-
-“2a.
-
-Heal
-
-all
-
-Units .”`,
+    section: `317.2.b. Insert “2a`,
+    text: `Insert “2a. Heal all Units.”`,
   },
   {
     id: `317.3`,
-    section: `317.3. Expiration`,
-    text: `Expiration
-
-Step`,
+    section: `317.3. Expiration Step`,
+    text: `Expiration Step`,
   },
   {
     id: `317.3.a`,
-    section: `317.3.a. All`,
-    text: `All
-
-"this
-
-turn"
-
-effects
-
-expire
-
-sim ultaneously.`,
+    section: `317.3.a. All "this turn" effects expire simultaneously`,
+    text: `All "this turn" effects expire simultaneously.`,
   },
   {
     id: `317.3.b`,
-    section: `317.3.b. As`,
-    text: `As
-
-the
-
-Expiration
-
-Step
-
-ends,
-
-all
-
-players'
-
-Rune
-
-Pools
-
-em pty.
-
-Any
-
-unspent
-
-Energy
-
-and
-
-Power
-
-are
-
-lost.`,
+    section: `317.3.b. As the Expiration Step ends`,
+    text: `As the Expiration Step ends, all players' Rune Pools empty. Any unspent Energy and Power are lost.`,
   },
   {
     id: `317.4`,
-    section: `317.4. The`,
-    text: `The
-
-Turn
-
-Player
-
-then
-
-becom es
-
-the
-
-next
-
-player
-
-in
-
-Turn
-
-Order.`,
+    section: `317.4. The Turn Player then becomes the next player in Turn Order`,
+    text: `The Turn Player then becomes the next player in Turn Order.`,
+  },
+  {
+    id: `318`,
+    section: `318. Cleanups`,
+    text: `Cleanups`,
   },
   {
     id: `319`,
-    section: `319. A`,
-    text: `A
-
-Cleanup
-
-occurs
-
-at
-
-the
-
-follow ing
-
-tim es:`,
+    section: `319. A Cleanup occurs at the following times:`,
+    text: `A Cleanup occurs at the following times:`,
   },
   {
     id: `319.1`,
-    section: `319.1. After`,
-    text: `After
-
-the
-
-gam e
-
-transitions
-
-to
-
-or
-
-from
-
-an
-
-Open
-
-or
-
-Closed
-
-state`,
+    section: `319.1. After the game transitions to or from an Open or Closed state`,
+    text: `After the game transitions to or from an Open or Closed state`,
   },
   {
     id: `319.2`,
-    section: `319.2. After`,
-    text: `After
-
-the
-
-gam e
-
-transitions
-
-betw een
-
-Phases`,
+    section: `319.2. After the game transitions between Phases`,
+    text: `After the game transitions between Phases`,
   },
   {
     id: `319.3`,
-    section: `319.3. After`,
-    text: `After
-
-a
-
-Pending
-
-Item
-
-becom es
-
-a
-
-Legal
-
-Item
-
-on
-
-the
-
-Chain`,
+    section: `319.3. After a Pending Item becomes a Legal Item on the Chain`,
+    text: `After a Pending Item becomes a Legal Item on the Chain`,
   },
   {
     id: `319.4`,
-    section: `319.4. After`,
-    text: `After
-
-a
-
-Chain
-
-Item
-
-is
-
-rem oved
-
-from
-
-the
-
-Chain
-
-for
-
-any
-
-reason`,
+    section: `319.4. After a Chain Item is removed from the Chain for any reason`,
+    text: `After a Chain Item is removed from the Chain for any reason`,
   },
   {
     id: `319.5`,
-    section: `319.5. After`,
-    text: `After
-
-any
-
-num ber
-
-of
-
-Gam e
-
-Objects
-
-enter
-
-or
-
-leave
-
-the
-
-Board`,
+    section: `319.5. After any number of Game Objects enter or leave the Board`,
+    text: `After any number of Game Objects enter or leave the Board`,
   },
   {
     id: `319.6`,
-    section: `319.6. After`,
-    text: `After
-
-the
-
-status
-
-of
-
-any
-
-num ber
-
-of
-
-Gam e
-
-Objects
-
-changes
-
-for
-
-any
-
-reason`,
+    section: `319.6. After the status of any number of Game Objects changes for any reason`,
+    text: `After the status of any number of Game Objects changes for any reason`,
   },
   {
     id: `319.7`,
-    section: `319.7. After`,
-    text: `After
-
-a
-
-Move
-
-is
-
-com pleted`,
+    section: `319.7. After a Move is completed`,
+    text: `After a Move is completed`,
   },
   {
     id: `320`,
-    section: `320. W hile`,
-    text: `W hile
-
-a
-
-Cleanup
-
-is
-
-occurring,
-
-Chain
-
-Item s
-
-cannot
-
-be
-
-Resolved.`,
+    section: `320. While a Cleanup is occurring`,
+    text: `While a Cleanup is occurring, Chain Items cannot be Resolved.`,
   },
   {
     id: `320.1`,
-    section: `320.1. N ew`,
-    text: `N ew
-
-Pending
-
-Item s
-
-can
-
-be
-
-added,
-
-but
-
-Legal
-
-Item s
-
-cannot
-
-be
-
-executed
-
-and
-
-Priority
-
-and
-
-Focus
-
-are
-
-not
-
-passed
-
-or
-
-aw arded.`,
+    section: `320.1. New Pending Items can be added`,
+    text: `New Pending Items can be added, but Legal Items cannot be executed and Priority and Focus are not passed or awarded.`,
   },
   {
     id: `321`,
-    section: `321. If`,
-    text: `If
-
-an
-
-event
-
-occurs
-
-during
-
-a
-
-Cleanup
-
-that
-
-qualiﬁes
-
-for
-
-a
-
-Cleanup,
-
-another
-
-Cleanup
-
-w ill
-
-occur
-
-im m ediately
-
-after
-
-the
-
-ﬁrst
-
-com pletes,
-
-repeating
-
-until
-
-a
-
-Cleanup
-
-occurs
-
-w ith
-
-no
-
-new
-
-change
-
-in
-
-the
-
-gam e’s
-
-state.`,
+    section: `321. If an event occurs during a Cleanup that qualifies for a Cleanup`,
+    text: `If an event occurs during a Cleanup that qualifies for a Cleanup, another Cleanup will occur immediately after the first completes, repeating until a Cleanup occurs with no new change in the game’s state.`,
   },
   {
     id: `322`,
-    section: `322. W hen`,
-    text: `W hen
-
-a
-
-Cleanup
-
-occurs,
-
-the
-
-follow ing
-
-steps
-
-occur
-
-in
-
-order:`,
+    section: `322. When a Cleanup occurs`,
+    text: `When a Cleanup occurs, the following steps occur in order:`,
   },
   {
     id: `322.1`,
-    section: `322.1. 1.`,
-    text: `1.
-
-If
-
-a
-
-player
-
-has
-
-as
-
-m any
-
-points
-
-as
-
-the
-
-Victory
-
-Score ,
-
-that
-
-player
-
-w ins.`,
+    section: `322.1. 1`,
+    text: `1. If a player has as many points as the Victory Score, that player wins.`,
   },
   {
     id: `322.2`,
-    section: `322.2. 2.`,
-    text: `2.
-
-All
-
-Units
-
-that
-
-have
-
-non-zero
-
-Dam age
-
-m arked
-
-on
-
-them
-
-equalling
-
-or
-
-exceeding
-
-their
-
-Might
-
-are
-
-killed
-
-and
-
-placed
-
-in
-
-their
-
-ow ners'
-
-Trash.`,
+    section: `322.2. 2`,
+    text: `2. All Units that have non-zero Damage marked on them equalling or exceeding their Might are killed and placed in their owners' Trash.`,
   },
   {
     id: `322.3`,
-    section: `322.3. 3.`,
-    text: `3.
-
-Assign
-
-or
-
-Rem ove
-
-the
-
-Attacker
-
-or
-
-Defender
-
-designation
-
-from
-
-Units
-
-as
-
-needed
-
-if
-
-there
-
-is
-
-a
-
-Com bat
-
-in
-
-progress`,
+    section: `322.3. 3`,
+    text: `3. Assign or Remove the Attacker or Defender designation from Units as needed if there is a Combat in progress`,
   },
   {
     id: `322.3.a`,
-    section: `322.3.a. If`,
-    text: `If
-
-there
-
-are
-
-Units
-
-present
-
-at
-
-the
-
-Battleﬁeld
-
-the
-
-Com bat
-
-is
-
-taking
-
-place
-
-at,
-
-but
-
-do
-
-not
-
-have
-
-a
-
-designation,
-
-they
-
-gain
-
-the
-
-sam e
-
-designation
-
-as
-
-their
-
-Controller
-
-now`,
+    section: `322.3.a. If there are Units present at the Battlefield the Combat is taking place at`,
+    text: `If there are Units present at the Battlefield the Combat is taking place at, but do not have a designation, they gain the same designation as their Controller now`,
   },
   {
     id: `322.3.b`,
-    section: `322.3.b. If`,
-    text: `If
-
-there
-
-are
-
-Units
-
-present
-
-at
-
-the
-
-Battleﬁeld
-
-the
-
-Com bat
-
-is
-
-taking
-
-place
-
-at,
-
-but
-
-have
-
-the
-
-opposite
-
-designation
-
-of
-
-their
-
-controller,
-
-they
-
-lose
-
-that
-
-designation,
-
-and
-
-gain
-
-the
-
-sam e
-
-designation
-
-as
-
-their
-
-controller
-
-now`,
+    section: `322.3.b. If there are Units present at the Battlefield the Combat is taking place at`,
+    text: `If there are Units present at the Battlefield the Combat is taking place at, but have the opposite designation of their controller, they lose that designation, and gain the same designation as their controller now`,
   },
   {
     id: `322.3.c`,
-    section: `322.3.c. If`,
-    text: `If
-
-there
-
-are
-
-Units
-
-at
-
-locations
-
-other
-
-than
-
-the
-
-Battleﬁeld
-
-that
-
-the
-
-Com bat
-
-is
-
-taking
-
-place
-
-at,
-
-but
-
-have
-
-either
-
-Attacker
-
-or
-
-Defender
-
-designations,
-
-they
-
-lose
-
-those
-
-designations
-
-now`,
+    section: `322.3.c. If there are Units at locations other than the Battlefield that the Combat is taking place at`,
+    text: `If there are Units at locations other than the Battlefield that the Combat is taking place at, but have either Attacker or Defender designations, they lose those designations now`,
   },
   {
     id: `322.4`,
-    section: `322.4. 4.`,
-    text: `4.
-
-Battleﬁelds
-
-w ith
-
-no
-
-Units
-
-occupying
-
-them
-
-and
-
-no
-
-Contested
-
-status
-
-becom e
-
-Uncontrolled.`,
+    section: `322.4. 4`,
+    text: `4. Battlefields with no Units occupying them and no Contested status become Uncontrolled.`,
   },
   {
     id: `322.5`,
-    section: `322.5. 5.`,
-    text: `5.
-
-Recall
-
-all
-
-Gear
-
-at
-
-Battleﬁelds.
-
-Rem ove
-
-all
-
-Hidden
-
-cards
-
-from
-
-all
-
-Battleﬁelds
-
-that
-
-are
-
-not
-
-controlled
-
-by
-
-the
-
-sam e
-
-player
-
-and
-
-place
-
-them
-
-in
-
-their
-
-ow ner's
-
-Trash.`,
+    section: `322.5. 5`,
+    text: `5. Recall all Gear at Battlefields. Remove all Hidden cards from all Battlefields that are not controlled by the same player and place them in their owner's Trash.`,
   },
   {
     id: `322.6`,
-    section: `322.6. 6.`,
-    text: `6.
-
-M ark
-
-a
-
-Showdown
-
-as
-
-Staged
-
-at
-
-each
-
-Battleﬁeld
-
-that
-
-Contested
-
-w as
-
-applied
-
-to
-
-that
-
-is
-
-Uncontrolled .`,
+    section: `322.6. 6`,
+    text: `6. Mark a Showdown as Staged at each Battlefield that Contested was applied to that is Uncontrolled.`,
   },
   {
     id: `322.7`,
-    section: `322.7. 7.`,
-    text: `7.
-
-M ark
-
-a
-
-Com bat
-
-as
-
-Staged
-
-at
-
-each
-
-Battleﬁeld
-
-that
-
-Contested
-
-w as
-
-applied
-
-to
-
-that
-
-is
-
-controlled
-
-by
-
-a
-
-different
-
-player
-
-than
-
-the
-
-one
-
-w ho
-
-applied
-
-the
-
-Contested
-
-Status.`,
+    section: `322.7. 7`,
+    text: `7. Mark a Combat as Staged at each Battlefield that Contested was applied to that is controlled by a different player than the one who applied the Contested Status.`,
   },
   {
     id: `322.7.a`,
-    section: `322.7.a. The`,
-    text: `The
-
-Com bat
-
-rem ains
-
-Staged
-
-at
-
-that
-
-Battleﬁeld
-
-as
-
-long
-
-as
-
-there
-
-are
-
-Units
-
-present
-
-from
-
-tw o
-
-opposing
-
-players
-
-there.`,
+    section: `322.7.a. The Combat remains Staged at that Battlefield as long as there are Units present from two opposing players there`,
+    text: `The Combat remains Staged at that Battlefield as long as there are Units present from two opposing players there.`,
   },
   {
     id: `322.8`,
-    section: `322.8. 8.`,
-    text: `8.
-
-Finalize
-
-any
-
-Pending
-
-Item s
-
-on
-
-the
-
-Chain`,
+    section: `322.8. 8`,
+    text: `8. Finalize any Pending Items on the Chain`,
   },
   {
     id: `322.9`,
-    section: `322.9. 9.`,
-    text: `9.
-
-If
-
-the
-
-current
-
-state
-
-is
-
-a
-
-Neutral
-
-Open
-
-State
-
-and
-
-one
-
-or
-
-m ore
-
-Showdowns
-
-are
-
-Staged ,
-
-the
-
-Turn
-
-Player
-
-chooses
-
-one
-
-of
-
-those
-
-Battleﬁelds.
-
-A
-
-Showdown
-
-begins
-
-there.`,
+    section: `322.9. 9`,
+    text: `9. If the current state is a Neutral Open State and one or more Showdowns are Staged, the Turn Player chooses one of those Battlefields. A Showdown begins there.`,
   },
   {
     id: `322.10`,
-    section: `322.10. 10.`,
-    text: `10.
-
-If
-
-the
-
-current
-
-state
-
-is
-
-a
-
-Neutral
-
-Open
-
-State
-
-and
-
-Com bat
-
-is
-
-Staged
-
-at
-
-one
-
-or
-
-m ore
-
-Battleﬁelds ,
-
-the
-
-Turn
-
-Player
-
-chooses
-
-one
-
-of
-
-those
-
-Battleﬁelds .
-
-Com bat
-
-begins
-
-there.`,
+    section: `322.10. 10`,
+    text: `10. If the current state is a Neutral Open State and Combat is Staged at one or more Battlefields, the Turn Player chooses one of those Battlefields. Combat begins there.`,
   },
   {
     id: `323`,
-    section: `323. Special`,
-    text: `Special
-
-Cleanups
-
-are
-
-Cleanup
-
-steps
-
-invoked
-
-at
-
-speciﬁc
-
-tim es
-
-that
-
-have
-
-additional
-
-steps
-
-not
-
-present
-
-in
-
-a
-
-norm al
-
-Cleanup.`,
+    section: `323. Special Cleanups are Cleanup steps invoked at specific times that have additional steps not present in a normal Cleanup`,
+    text: `Special Cleanups are Cleanup steps invoked at specific times that have additional steps not present in a normal Cleanup.`,
   },
   {
     id: `323.1`,
-    section: `323.1. W hen`,
-    text: `W hen
-
-a
-
-Special
-
-Cleanup
-
-is
-
-invoked,
-
-the
-
-unique
-
-steps
-
-added
-
-w ill
-
-be
-
-inserted
-
-and
-
-deﬁned
-
-by
-
-the
-
-sub-section
-
-that
-
-invokes
-
-it.
-
-Example:
-
-W hen
-
-a
-
-Com bat
-
-Cleanup
-
-is
-
-invoked,
-
-the
-
-Com bat
-
-section
-
-deﬁnes
-
-w hat
-
-steps
-
-are
-
-added
-
-to
-
-the
-
-Cleanup.`,
+    section: `323.1. When a Special Cleanup is invoked`,
+    text: `When a Special Cleanup is invoked, the unique steps added will be inserted and defined by the sub-section that invokes it. Example: When a Combat Cleanup is invoked, the Combat section defines what steps are added to the Cleanup.`,
   },
   {
     id: `323.2`,
-    section: `323.2. If`,
-    text: `If
-
-events
-
-during
-
-a
-
-Special
-
-Cleanup
-
-require
-
-another
-
-Cleanup,
-
-a
-
-norm al
-
-Cleanup
-
-is
-
-invoked,
-
-not
-
-another
-
-iteration
-
-of
-
-the
-
-Special
-
-Cleanup .`,
+    section: `323.2. If events during a Special Cleanup require another Cleanup`,
+    text: `If events during a Special Cleanup require another Cleanup, a normal Cleanup is invoked, not another iteration of the Special Cleanup.`,
   },
   {
     id: `324`,
-    section: `324. Chains`,
-    text: `Chains
-
-and
-
-Showdowns`,
+    section: `324. Chains and Showdowns`,
+    text: `Chains and Showdowns`,
   },
   {
     id: `325`,
-    section: `325. Players`,
-    text: `Players
-
-can
-
-act
-
-during
-
-the
-
-follow ing
-
-W indows
-
-of
-
-Opportunity
-
-that
-
-occur
-
-during
-
-the
-
-course
-
-of
-
-regular
-
-play:`,
+    section: `325. Players can act during the following Windows of Opportunity that occur during the course of regular play:`,
+    text: `Players can act during the following Windows of Opportunity that occur during the course of regular play:`,
   },
   {
     id: `325.1`,
-    section: `325.1. D uring`,
-    text: `D uring
-
-a
-
-Chain`,
+    section: `325.1. During a Chain`,
+    text: `During a Chain`,
   },
   {
     id: `325.2`,
-    section: `325.2. D uring`,
-    text: `D uring
-
-a
-
-Showdown`,
+    section: `325.2. During a Showdown`,
+    text: `During a Showdown`,
   },
   {
     id: `326`,
     section: `326. Chains`,
-    text: `Chains
-
-Chains
-
-for
-
-more
-
-information .
-
-Chains
-
-for
-
-more
-
-information.`,
+    text: `Chains`,
   },
   {
     id: `327`,
-    section: `327. The`,
-    text: `The
-
-Chain
-
-is
-
-a
-
-Non-Board
-
-Zone
-
-that
-
-tem porarily
-
-exists
-
-w henever
-
-a
-
-card
-
-is
-
-played
-
-or
-
-an
-
-ability
-
-is
-
-activated.`,
+    section: `327. The Chain is a Non-Board Zone that temporarily exists whenever a card is played or an ability is activated`,
+    text: `The Chain is a Non-Board Zone that temporarily exists whenever a card is played or an ability is activated.`,
   },
   {
     id: `327.1`,
-    section: `327.1. Cards`,
-    text: `Cards
-
-are
-
-placed
-
-here
-
-as
-
-part
-
-of
-
-the
-
-process
-
-of
-
-being
-
-played.`,
+    section: `327.1. Cards are placed here as part of the process of being played`,
+    text: `Cards are placed here as part of the process of being played.`,
   },
   {
     id: `327.2`,
-    section: `327.2. Abilities`,
-    text: `Abilities
-
-are
-
-queued
-
-here
-
-as
-
-part
-
-of
-
-the
-
-process
-
-of
-
-resolving.
-
-See
-
-rule`,
+    section: `327.2. Abilities are queued here as part of the process of resolving`,
+    text: `Abilities are queued here as part of the process of resolving. See rule 357. Abilities for more information.`,
   },
   {
     id: `328`,
-    section: `328. Cards`,
-    text: `Cards
-
-and
-
-abilities
-
-added
-
-to
-
-the
-
-chain
-
-are
-
-added
-
-as
-
-Pending
-
-Chain
-
-Item s
-
-that
-
-becom e
-
-Finalized
-
-Chain
-
-Item s.`,
+    section: `328. Cards and abilities added to the chain are added as Pending Chain Items that become Finalized Chain Items`,
+    text: `Cards and abilities added to the chain are added as Pending Chain Items that become Finalized Chain Items.`,
   },
   {
     id: `328.1`,
-    section: `328.1. Pending`,
-    text: `Pending
-
-Item s
-
-are
-
-on
-
-the
-
-Chain.`,
+    section: `328.1. Pending Items are on the Chain`,
+    text: `Pending Items are on the Chain.`,
   },
   {
     id: `328.2`,
-    section: `328.2. Chain`,
-    text: `Chain
-
-Item s
-
-are
-
-Pending
-
-until
-
-the
-
-“Check
-
-Legality”
-
-step
-
-of
-
-playing
-
-a
-
-card.
-
-See
-
-rule`,
+    section: `328.2. Chain Items are Pending until the “Check Legality” step of playing a card`,
+    text: `Chain Items are Pending until the “Check Legality” step of playing a card. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `328.3`,
-    section: `328.3. W hen`,
-    text: `W hen
-
-a
-
-Pending
-
-Chain
-
-Item
-
-is
-
-no
-
-longer
-
-Pending
-
-it
-
-is
-
-ﬁnalized
-
-and
-
-becom es
-
-a
-
-Finalized
-
-Chain
-
-Item .`,
+    section: `328.3. When a Pending Chain Item is no longer Pending it is finalized and becomes a Finalized Chain Item`,
+    text: `When a Pending Chain Item is no longer Pending it is finalized and becomes a Finalized Chain Item.`,
   },
   {
     id: `329`,
-    section: `329. The`,
-    text: `The
-
-Chain
-
-exists
-
-as
-
-long
-
-as
-
-a
-
-Chain
-
-Item
-
-is
-
-on
-
-it.`,
+    section: `329. The Chain exists as long as a Chain Item is on it`,
+    text: `The Chain exists as long as a Chain Item is on it.`,
   },
   {
     id: `329.1`,
-    section: `329.1. O nly`,
-    text: `O nly
-
-one
-
-Chain
-
-can
-
-exist
-
-at
-
-a
-
-tim e.`,
+    section: `329.1. Only one Chain can exist at a time`,
+    text: `Only one Chain can exist at a time.`,
   },
   {
     id: `329.2`,
-    section: `329.2. If`,
-    text: `If
-
-a
-
-card
-
-w ould
-
-begin
-
-to
-
-be
-
-played
-
-w hile
-
-a
-
-Chain
-
-already
-
-exists,
-
-it
-
-is
-
-placed
-
-on
-
-the
-
-existing
-
-Chain.`,
+    section: `329.2. If a card would begin to be played while a Chain already exists`,
+    text: `If a card would begin to be played while a Chain already exists, it is placed on the existing Chain.`,
   },
   {
     id: `330`,
-    section: `330. The`,
-    text: `The
-
-State
-
-of
-
-the
-
-Turn
-
-is
-
-partially
-
-determ ined
-
-by
-
-w hether
-
-or
-
-not
-
-the
-
-Chain
-
-currently
-
-exists.`,
+    section: `330. The State of the Turn is partially determined by whether or not the Chain currently exists`,
+    text: `The State of the Turn is partially determined by whether or not the Chain currently exists.`,
   },
   {
     id: `330.1`,
-    section: `330.1. The`,
-    text: `The
-
-turn
-
-is
-
-said
-
-to
-
-be
-
-in
-
-a
-
-Closed
-
-State
-
-if
-
-a
-
-Chain
-
-exists.`,
+    section: `330.1. The turn is said to be in a Closed State if a Chain exists`,
+    text: `The turn is said to be in a Closed State if a Chain exists.`,
   },
   {
     id: `330.1.a`,
-    section: `330.1.a. Cards`,
-    text: `Cards
-
-of
-
-all
-
-Categories,
-
-by
-
-default,
-
-cannot
-
-be
-
-played
-
-during
-
-a
-
-Closed
-
-State.`,
+    section: `330.1.a. Cards of all Categories`,
+    text: `Cards of all Categories, by default, cannot be played during a Closed State.`,
   },
   {
     id: `330.1.b`,
-    section: `330.1.b. Card`,
-    text: `Card
-
-abilities,
-
-by
-
-default,
-
-cannot
-
-be
-
-played
-
-during
-
-a
-
-Closed
-
-State.`,
+    section: `330.1.b. Card abilities`,
+    text: `Card abilities, by default, cannot be played during a Closed State.`,
   },
   {
     id: `330.2`,
-    section: `330.2. The`,
-    text: `The
-
-turn
-
-is
-
-said
-
-to
-
-be
-
-in
-
-an
-
-Open
-
-State
-
-if
-
-no
-
-Chain
-
-exists.`,
+    section: `330.2. The turn is said to be in an Open State if no Chain exists`,
+    text: `The turn is said to be in an Open State if no Chain exists.`,
   },
   {
     id: `331`,
-    section: `331. Steps`,
-    text: `Steps
-
-of
-
-Resolving
-
-Chain
-
-Item s`,
+    section: `331. Steps of Resolving Chain Items`,
+    text: `Steps of Resolving Chain Items`,
   },
   {
     id: `332`,
-    section: `332. W henever`,
-    text: `W henever
-
-a
-
-card
-
-or
-
-token
-
-is
-
-played
-
-or
-
-an
-
-ability
-
-is
-
-activated
-
-or
-
-triggered,
-
-a
-
-Chain
-
-is
-
-created.`,
+    section: `332. Whenever a card or token is played or an ability is activated or triggered`,
+    text: `Whenever a card or token is played or an ability is activated or triggered, a Chain is created.`,
   },
   {
     id: `332.1`,
-    section: `332.1. The`,
-    text: `The
-
-player
-
-that
-
-created
-
-the
-
-chain
-
-becom es
-
-the
-
-ﬁrst
-
-Active
-
-Player.`,
+    section: `332.1. The player that created the chain becomes the first Active Player`,
+    text: `The player that created the chain becomes the first Active Player.`,
   },
   {
     id: `332.2`,
-    section: `332.2. The`,
-    text: `The
-
-Active
-
-Player
-
-is
-
-a
-
-designator
-
-sim ilar
-
-to,
-
-but
-
-distinct
-
-from ,
-
-Turn
-
-Player.`,
+    section: `332.2. The Active Player is a designator similar to`,
+    text: `The Active Player is a designator similar to, but distinct from, Turn Player.`,
   },
   {
     id: `332.3`,
-    section: `332.3. Sim ilar`,
-    text: `Sim ilar
-
-to
-
-the
-
-Turn
-
-Player ,
-
-this
-
-designation
-
-w ill
-
-pass
-
-betw een
-
-players
-
-over
-
-the
-
-course
-
-of
-
-play.`,
+    section: `332.3. Similar to the Turn Player`,
+    text: `Similar to the Turn Player, this designation will pass between players over the course of play.`,
   },
   {
     id: `333`,
-    section: `333. Step`,
-    text: `Step
-
-1:
-
-Finalize`,
+    section: `333. Step 1: Finalize`,
+    text: `Step 1: Finalize`,
   },
   {
     id: `333.1`,
-    section: `333.1. If`,
-    text: `If
-
-one
-
-or
-
-m ore
-
-Item s
-
-are
-
-Pending ,
-
-their
-
-controllers
-
-m ust
-
-com plete
-
-the
-
-steps
-
-of
-
-Playing
-
-those
-
-Pending
-
-Item s
-
-until
-
-they
-
-are
-
-Finalized
-
-Item s
-
-or
-
-leave
-
-the
-
-Chain.`,
+    section: `333.1. If one or more Items are Pending`,
+    text: `If one or more Items are Pending, their controllers must complete the steps of Playing those Pending Items until they are Finalized Items or leave the Chain.`,
   },
   {
     id: `333.1.a`,
-    section: `333.1.a. This`,
-    text: `This
-
-process
-
-does
-
-not
-
-pass
-
-Priority.`,
+    section: `333.1.a. This process does not pass Priority`,
+    text: `This process does not pass Priority.`,
   },
   {
     id: `333.1.b`,
-    section: `333.1.b. Each`,
-    text: `Each
-
-Item
-
-is
-
-Finalized
-
-in
-
-the
-
-order
-
-it
-
-w as
-
-appended
-
-to
-
-the
-
-Chain.`,
+    section: `333.1.b. Each Item is Finalized in the order it was appended to the Chain`,
+    text: `Each Item is Finalized in the order it was appended to the Chain.`,
   },
   {
     id: `333.1.c`,
-    section: `333.1.c. Abilities`,
-    text: `Abilities
+    section: `333.1.c. Abilities that Add resources`,
+    text: `Abilities that Add resources, Units, and Gear resolve immediately when Finalized and do not progress to Step 2: Execute. See rule 346. Playing Cards for more information.
 
-that
+1. If the Chain is empty, play proceeds in an Open State.
 
-Add
+2. If the Chain is not empty and there are one or more Pending Items, repeat Step 1.
 
-resources,
-
-Units ,
-
-and
-
-Gear
-
-resolve
-
-im m ediately
-
-w hen
-
-Finalized
-
-and
-
-do
-
-not
-
-progress
-
-to
-
-Step
-
-2:
-
-Execute.
-
-See
-
-rule`,
+3. If the Chain is not empty and there are no Pending Items, the controller of the newest item on the chain gains Priority and becomes the Active Player. Proceed to Step 2: Execute.`,
   },
   {
     id: `334`,
-    section: `334. Step`,
-    text: `Step
-
-2:
-
-Execute`,
+    section: `334. Step 2: Execute`,
+    text: `Step 2: Execute`,
   },
   {
     id: `334.1`,
-    section: `334.1. The`,
-    text: `The
-
-Active
-
-Player
-
-m ay
-
-do
-
-any
-
-the
-
-follow ing:`,
+    section: `334.1. The Active Player may do any the following:`,
+    text: `The Active Player may do any the following:`,
   },
   {
     id: `334.1.a`,
-    section: `334.1.a. Play`,
-    text: `Play
+    section: `334.1.a. Play a Card that is legally timed`,
+    text: `Play a Card that is legally timed.
 
-a
+1. Cards, by default, cannot be played during a Closed State.
 
-Card
+2. A Legally Timed Card would be a Card with Reaction.
 
-that
+3. Other exceptions may be created during regular play.
 
-is
+4. The card will be added to the chain as a Pending Item, following the steps of playing a card.
 
-legally
+5. This can be an additional card to the item that Started the Chain in the case of the first Active Player after creating the Chain.
 
-tim ed.
+6. Whether a Card is legally timed is evaluated during the “Check Legality” step of Playing a Card. See rule 346. Playing Cards for more information.
 
-334.1.a.1.
-
-Cards ,
-
-by
-
-default,
-
-cannot
-
-be
-
-played
-
-during
-
-a
-
-Closed
-
-State.
-
-334.1.a.2.
-
-A
-
-Legally
-
-Tim ed
-
-Card
-
-w ould
-
-be
-
-a
-
-Card
-
-w ith
-
-Reaction.
-
-334.1.a.3.
-
-O ther
-
-exceptions
-
-m ay
-
-be
-
-created
-
-during
-
-regular
-
-play.
-
-334.1.a.4.
-
-The
-
-card
-
-w ill
-
-be
-
-added
-
-to
-
-the
-
-chain
-
-as
-
-a
-
-Pending
-
-Item ,
-
-follow ing
-
-the
-
-steps
-
-of
-
-playing
-
-a
-
-card.
-
-334.1.a.5.
-
-This
-
-can
-
-be
-
-an
-
-additional
-
-card
-
-to
-
-the
-
-item
-
-that
-
-Started
-
-the
-
-Chain
-
-in
-
-the
-
-case
-
-of
-
-the
-
-ﬁrst
-
-Active
-
-Player
-
-after
-
-creating
-
-the
-
-Chain.
-
-334.1.a.6.
-
-W hether
-
-a
-
-Card
-
-is
-
-legally
-
-tim ed
-
-is
-
-evaluated
-
-during
-
-the
-
-“Check
-
-Legality”
-
-step
-
-of
-
-Playing
-
-a
-
-Card.
-
-See
-
-rule`,
+7. Playing a card will create one or more Pending Items. Return to Step 1: Finalize.`,
   },
   {
     id: `334.1.b`,
-    section: `334.1.b. Activate`,
-    text: `Activate
+    section: `334.1.b. Activate Abilities of Game Objects that are legally timed`,
+    text: `Activate Abilities of Game Objects that are legally timed. See rule 386. Playing or Activating Abilities for more information.
 
-Abilities
+1. All rules for legally timed cards apply to legally timed abilities.
 
-of
-
-Gam e
-
-Objects
-
-that
-
-are
-
-legally
-
-tim ed.
-
-See
-
-rule`,
-  },
-  {
-    id: `386`,
-    section: `386. Playing`,
-    text: `Playing
-
-or
-
-Activating
-
-Abilities
-
-for
-
-more
-
-information.
-
-334.1.b.1.
-
-All
-
-rules
-
-for
-
-legally
-
-tim ed
-
-cards
-
-apply
-
-to
-
-legally
-
-tim ed
-
-abilities.
-
-334.1.b.2.
-
-Activating
-
-abilities
-
-w ill
-
-create
-
-one
-
-or
-
-m ore
-
-Pending
-
-Item s .
-
-Return
-
-to
-
-Step
-
-1:
-
-Finalize.
-
-Playing
-
-or
-
-Activating
-
-Abilities
-
-for
-
-more
-
-information
-
-on
-
-resolving
-
-abilities.`,
+2. Activating abilities will create one or more Pending Items. Return to Step 1: Finalize.`,
   },
   {
     id: `334.1.c`,
-    section: `334.1.c. Pass`,
-    text: `Pass
+    section: `334.1.c. Pass Priority`,
+    text: `Pass Priority
 
-Priority
-
-334.1.c.1.
-
-The
-
-Active
-
-Player
-
-passes
-
-Priority
-
-to
-
-the
-
-next
-
-Player
-
-in
-
-Turn
-
-Order.
-
-Proceed
-
-to
-
-Step
-
-3:
-
-Pass.`,
+1. The Active Player passes Priority to the next Player in Turn Order. Proceed to Step 3: Pass.`,
   },
   {
     id: `335`,
-    section: `335. Step`,
-    text: `Step
-
-3:
-
-Pass`,
+    section: `335. Step 3: Pass`,
+    text: `Step 3: Pass`,
   },
   {
     id: `335.1`,
-    section: `335.1. If`,
-    text: `If
-
-all
-
-players
-
-have
-
-passed
-
-Priority
-
-w ithout
-
-adding
-
-any
-
-item s
-
-to
-
-the
-
-Chain ,
-
-proceed
-
-to
-
-Step
-
-4:
-
-Resolve.`,
+    section: `335.1. If all players have passed Priority without adding any items to the Chain`,
+    text: `If all players have passed Priority without adding any items to the Chain, proceed to Step 4: Resolve.`,
   },
   {
     id: `335.2`,
-    section: `335.2. O therw ise,`,
-    text: `O therw ise,
-
-the
-
-Active
-
-Player
-
-passes
-
-Priority
-
-to
-
-the
-
-next
-
-Player
-
-in
-
-Turn
-
-Order.
-
-Return
-
-to
-
-Step
-
-3:
-
-Execute.`,
+    section: `335.2. Otherwise`,
+    text: `Otherwise, the Active Player passes Priority to the next Player in Turn Order. Return to Step 3: Execute.`,
   },
   {
     id: `336`,
-    section: `336. Step`,
-    text: `Step
-
-4:
-
-Resolve`,
+    section: `336. Step 4: Resolve`,
+    text: `Step 4: Resolve`,
   },
   {
     id: `336.1`,
-    section: `336.1. The`,
-    text: `The
-
-new est
-
-item
-
-on
-
-the
-
-Chain
-
-resolves.
-
-Execute
-
-its
-
-gam e
-
-effects
-
-in
-
-their
-
-entirety.
-
-See
-
-rule`,
+    section: `336.1. The newest item on the Chain resolves`,
+    text: `The newest item on the Chain resolves. Execute its game effects in their entirety. See rule 346. Playing Cards for more information on resolving spells. See rule 386. Playing or Activating Abilities for more information on resolving abilities.`,
   },
   {
     id: `336.2`,
-    section: `336.2. If`,
-    text: `If
-
-the
-
-Chain
-
-is
-
-em pty,
-
-play
-
-proceeds
-
-in
-
-an
-
-Open
-
-State.`,
+    section: `336.2. If the Chain is empty`,
+    text: `If the Chain is empty, play proceeds in an Open State.`,
   },
   {
     id: `336.3`,
-    section: `336.3. If`,
-    text: `If
-
-the
-
-Chain
-
-is
-
-not
-
-em pty
-
-and
-
-there
-
-are
-
-one
-
-or
-
-m ore
-
-Pending
-
-Item s ,
-
-return
-
-to
-
-Step
-
-1:
-
-Finalize.`,
+    section: `336.3. If the Chain is not empty and there are one or more Pending Items`,
+    text: `If the Chain is not empty and there are one or more Pending Items, return to Step 1: Finalize.`,
   },
   {
     id: `336.4`,
-    section: `336.4. If`,
-    text: `If
-
-the
-
-Chain
-
-is
-
-not
-
-em pty
-
-and
-
-there
-
-are
-
-no
-
-Pending
-
-Item s ,
-
-the
-
-controller
-
-of
-
-the
-
-new est
-
-item
-
-on
-
-the
-
-chain
-
-gains
-
-Priority
-
-and
-
-becom es
-
-the
-
-Active
-
-Player.
-
-Return
-
-to
-
-Step
-
-2:
-
-Execute.`,
+    section: `336.4. If the Chain is not empty and there are no Pending Items`,
+    text: `If the Chain is not empty and there are no Pending Items, the controller of the newest item on the chain gains Priority and becomes the Active Player. Return to Step 2: Execute.`,
+  },
+  {
+    id: `337`,
+    section: `337. Showdowns`,
+    text: `Showdowns`,
   },
   {
     id: `338`,
-    section: `338. A`,
-    text: `A
-
-Showdown
-
-is
-
-a
-
-W indow
-
-of
-
-Opportunity
-
-in
-
-w hich
-
-Players
-
-have
-
-an
-
-Open
-
-State
-
-in
-
-w hich
-
-they
-
-m ay
-
-play
-
-Spells
-
-in
-
-an
-
-alternating
-
-fashion.`,
+    section: `338. A Showdown is a Window of Opportunity in which Players have an Open State in which they may play Spells in an alternating fashion`,
+    text: `A Showdown is a Window of Opportunity in which Players have an Open State in which they may play Spells in an alternating fashion.`,
   },
   {
     id: `338.1`,
-    section: `338.1. Each`,
-    text: `Each
-
-spell
-
-played
-
-this
-
-w ay
-
-creates
-
-a
-
-Chain
-
-as
-
-norm al.`,
+    section: `338.1. Each spell played this way creates a Chain as normal`,
+    text: `Each spell played this way creates a Chain as normal.`,
   },
   {
     id: `339`,
-    section: `339. The`,
-    text: `The
-
-State
-
-of
-
-the
-
-turn
-
-is
-
-partially
-
-determ ined
-
-by
-
-w hether
-
-or
-
-not
-
-a
-
-Showdown
-
-is
-
-in
-
-progress.`,
+    section: `339. The State of the turn is partially determined by whether or not a Showdown is in progress`,
+    text: `The State of the turn is partially determined by whether or not a Showdown is in progress.`,
   },
   {
     id: `339.1`,
-    section: `339.1. The`,
-    text: `The
-
-turn
-
-is
-
-said
-
-to
-
-be
-
-in
-
-a
-
-Showdown
-
-State
-
-if
-
-a
-
-Showdown
-
-is
-
-in
-
-progress.`,
+    section: `339.1. The turn is said to be in a Showdown State if a Showdown is in progress`,
+    text: `The turn is said to be in a Showdown State if a Showdown is in progress.`,
   },
   {
     id: `339.1.a`,
-    section: `339.1.a. Cards`,
-    text: `Cards
-
-of
-
-all
-
-Categories,
-
-by
-
-default,
-
-cannot
-
-be
-
-played
-
-during
-
-a
-
-Showdown
-
-State.`,
+    section: `339.1.a. Cards of all Categories`,
+    text: `Cards of all Categories, by default, cannot be played during a Showdown State.`,
   },
   {
     id: `339.1.b`,
-    section: `339.1.b. Card`,
-    text: `Card
-
-abilities,
-
-by
-
-default,
-
-cannot
-
-be
-
-played
-
-during
-
-a
-
-Showdown
-
-State.`,
+    section: `339.1.b. Card abilities`,
+    text: `Card abilities, by default, cannot be played during a Showdown State.`,
   },
   {
     id: `339.2`,
-    section: `339.2. The`,
-    text: `The
-
-turn
-
-is
-
-said
-
-to
-
-be
-
-in
-
-a
-
-Neutral
-
-State
-
-if
-
-no
-
-Showdown
-
-is
-
-in
-
-progress.`,
+    section: `339.2. The turn is said to be in a Neutral State if no Showdown is in progress`,
+    text: `The turn is said to be in a Neutral State if no Showdown is in progress.`,
   },
   {
     id: `340`,
-    section: `340. A`,
-    text: `A
-
-Showdown
-
-begins
-
-w hen
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-is
-
-Contested
-
-and
-
-the
-
-turn
-
-is
-
-in
-
-a
-
-Neutral
-
-Open
-
-State.`,
+    section: `340. A Showdown begins when Control of a Battlefield is Contested and the turn is in a Neutral Open State`,
+    text: `A Showdown begins when Control of a Battlefield is Contested and the turn is in a Neutral Open State.`,
   },
   {
     id: `340.1`,
-    section: `340.1. If`,
-    text: `If
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-is
-
-Contested
-
-betw een
-
-tw o
-
-players,
-
-then
-
-a
-
-Showdown
-
-w ill
-
-be
-
-opened
-
-as
-
-the
-
-ﬁrst
-
-step
-
-of
-
-Com bat.
-
-See
-
-rule`,
+    section: `340.1. If Control of a Battlefield is Contested between two players`,
+    text: `If Control of a Battlefield is Contested between two players, then a Showdown will be opened as the first step of Combat. See rule 433. Combat for more information.`,
   },
   {
     id: `340.2`,
-    section: `340.2. If`,
-    text: `If
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-is
-
-Contested
-
-and
-
-the
-
-Battleﬁeld
-
-in
-
-question
-
-is
-
-uncontrolled
-
-w hen
-
-it
-
-becom es
-
-Contested ,
-
-a
-
-Showdown
-
-is
-
-opened
-
-during
-
-the
-
-Cleanup
-
-at
-
-the
-
-end
-
-of
-
-the
-
-action
-
-that
-
-caused
-
-the
-
-Battleﬁeld
-
-to
-
-becom e
-
-Contested.`,
+    section: `340.2. If Control of a Battlefield is Contested and the Battlefield in question is uncontrolled when it becomes Contested`,
+    text: `If Control of a Battlefield is Contested and the Battlefield in question is uncontrolled when it becomes Contested, a Showdown is opened during the Cleanup at the end of the action that caused the Battlefield to become Contested.`,
   },
   {
     id: `341`,
-    section: `341. As`,
-    text: `As
-
-a
-
-Showdown
-
-begins,
-
-the
-
-player
-
-w ho
-
-applied
-
-Contested
-
-status
-
-to
-
-the
-
-Battleﬁeld
-
-gains
-
-Focus.`,
+    section: `341. As a Showdown begins`,
+    text: `As a Showdown begins, the player who applied Contested status to the Battlefield gains Focus.`,
   },
   {
     id: `342`,
-    section: `342. W hen`,
-    text: `W hen
-
-a
-
-Showdown
-
-begins,
-
-it
-
-m ay
-
-or
-
-m ay
-
-not
-
-begin
-
-w ith
-
-an
-
-Initial
-
-Chain.`,
+    section: `342. When a Showdown begins`,
+    text: `When a Showdown begins, it may or may not begin with an Initial Chain.`,
   },
   {
     id: `342.1`,
-    section: `342.1. Showdowns`,
-    text: `Showdowns
-
-that
-
-open
-
-as
-
-a
-
-result
-
-of
-
-Com bat
-
-m ay
-
-have
-
-an
-
-Initial
-
-Chain
-
-of
-
-Triggered
-
-Abilities.`,
+    section: `342.1. Showdowns that open as a result of Combat may have an Initial Chain of Triggered Abilities`,
+    text: `Showdowns that open as a result of Combat may have an Initial Chain of Triggered Abilities.`,
   },
   {
     id: `342.1.a`,
-    section: `342.1.a. These`,
-    text: `These
-
-Triggered
-
-Abilities
-
-should
-
-be
-
-put
-
-on
-
-the
-
-chain
-
-ﬁrst
-
-by
-
-the
-
-player
-
-w ith
-
-Focus ,
-
-then
-
-proceeding
-
-w ith
-
-players
-
-w ithout
-
-the
-
-D efender
-
-designation
-
-in
-
-Turn
-
-Order.
-
-Finally,
-
-the
-
-player
-
-w ith
-
-the
-
-Defender
-
-designation
-
-w ill
-
-add
-
-their
-
-Triggered
-
-Abilities ,
-
-if
-
-any,
-
-to
-
-the
-
-Chain.`,
+    section: `342.1.a. These Triggered Abilities should be put on the chain first by the player with Focus`,
+    text: `These Triggered Abilities should be put on the chain first by the player with Focus, then proceeding with players without the Defender designation in Turn Order. Finally, the player with the Defender designation will add their Triggered Abilities, if any, to the Chain.`,
   },
   {
     id: `342.1.b`,
-    section: `342.1.b. If`,
-    text: `If
-
-there
-
-are
-
-no
-
-such
-
-Triggered
-
-Abilities
-
-present
-
-during
-
-a
-
-Com bat -initiated
-
-Showdown
-
-then
-
-no
-
-Initial
-
-Chain
-
-is
-
-created,
-
-but
-
-the
-
-Showdown
-
-w ill
-
-still
-
-proceed.`,
+    section: `342.1.b. If there are no such Triggered Abilities present during a Combat-initiated Showdown then no Initial Chain is created`,
+    text: `If there are no such Triggered Abilities present during a Combat-initiated Showdown then no Initial Chain is created, but the Showdown will still proceed.`,
   },
   {
     id: `343`,
-    section: `343. W hen`,
-    text: `W hen
-
-the
-
-last
-
-item
-
-on
-
-the
-
-chain
-
-resolves
-
-during
-
-a
-
-Showdown ,
-
-Focus
-
-passes,
-
-and
-
-the
-
-next
-
-Player
-
-gains
-
-both
-
-Focus
-
-and
-
-Priority.`,
+    section: `343. When the last item on the chain resolves during a Showdown`,
+    text: `When the last item on the chain resolves during a Showdown, Focus passes, and the next Player gains both Focus and Priority.`,
   },
   {
     id: `343.1`,
-    section: `343.1. Focus`,
-    text: `Focus
-
-does
-
-not
-
-pass
-
-w hen
-
-the
-
-last
-
-item
-
-on
-
-the
-
-Initial
-
-Chain
-
-resolves,
-
-if
-
-there
-
-w as
-
-one.
-
-Instead
-
-the
-
-player
-
-w ith
-
-Focus
-
-proceeds
-
-w ith
-
-play.`,
+    section: `343.1. Focus does not pass when the last item on the Initial Chain resolves`,
+    text: `Focus does not pass when the last item on the Initial Chain resolves, if there was one. Instead the player with Focus proceeds with play.`,
   },
   {
     id: `344`,
-    section: `344. D uring`,
-    text: `D uring
-
-a
-
-Showdown ,
-
-the
-
-player
-
-w ith
-
-Focus
-
-m ay
-
-do
-
-one
-
-of
-
-the
-
-follow ing:`,
+    section: `344. During a Showdown`,
+    text: `During a Showdown, the player with Focus may do one of the following:`,
   },
   {
     id: `344.1`,
-    section: `344.1. Play`,
-    text: `Play
-
-a
-
-spell
-
-that
-
-is
-
-legally
-
-tim ed.`,
+    section: `344.1. Play a spell that is legally timed`,
+    text: `Play a spell that is legally timed.`,
   },
   {
     id: `344.1.a`,
-    section: `344.1.a. The`,
-    text: `The
-
-spell
-
-w ill
-
-start
-
-a
-
-Chain
-
-as
-
-norm al.`,
+    section: `344.1.a. The spell will start a Chain as normal`,
+    text: `The spell will start a Chain as normal.`,
   },
   {
     id: `344.2`,
-    section: `344.2. Activate`,
-    text: `Activate
-
-Abilities
-
-of
-
-Gam e
-
-Objects
-
-that
-
-are
-
-legally
-
-tim ed.
-
-See
-
-rule`,
+    section: `344.2. Activate Abilities of Game Objects that are legally timed`,
+    text: `Activate Abilities of Game Objects that are legally timed. See rule 357. Abilities for more information.`,
   },
   {
     id: `344.3`,
-    section: `344.3. Pass.`,
+    section: `344.3. Pass`,
     text: `Pass.`,
   },
   {
     id: `344.3.a`,
-    section: `344.3.a. If`,
-    text: `If
+    section: `344.3.a. If all Players have passed once in sequence`,
+    text: `If all Players have passed once in sequence, the Showdown ends.
 
-all
-
-Players
-
-have
-
-passed
-
-once
-
-in
-
-sequence,
-
-the
-
-Showdown
-
-ends.
-
-344.3.a.1.
-
-Perform
-
-a
-
-Cleanup.`,
+1. Perform a Cleanup.`,
   },
   {
     id: `344.4`,
-    section: `344.4. O therw ise,`,
-    text: `O therw ise,
-
-Focus
-
-passes
-
-to
-
-the
-
-next
-
-Player
-
-in
-
-Turn
-
-Order.`,
+    section: `344.4. Otherwise`,
+    text: `Otherwise, Focus passes to the next Player in Turn Order.`,
   },
   {
     id: `345`,
-    section: `345. If`,
-    text: `If
-
-all
-
-players
-
-pass
-
-Focus
-
-w ithout
-
-playing
-
-a
-
-spell
-
-or
-
-activating
-
-an
-
-ability,
-
-then
-
-the
-
-Showdown
-
-Closes.`,
+    section: `345. If all players pass Focus without playing a spell or activating an ability`,
+    text: `If all players pass Focus without playing a spell or activating an ability, then the Showdown Closes.`,
   },
   {
     id: `345.1`,
-    section: `345.1. If`,
-    text: `If
-
-this
-
-Showdown
-
-opened
-
-as
-
-a
-
-result
-
-of
-
-Com bat,
-
-proceed
-
-w ith
-
-the
-
-rem aining
-
-steps
-
-of
-
-Com bat
-
-to
-
-resolve
-
-the
-
-phase.
-
-See
-
-rule`,
+    section: `345.1. If this Showdown opened as a result of Combat`,
+    text: `If this Showdown opened as a result of Combat, proceed with the remaining steps of Combat to resolve the phase. See rule 437. The Steps of Combat for more information.`,
   },
   {
     id: `345.2`,
-    section: `345.2. If`,
-    text: `If
-
-this
-
-Showdown
-
-opened
-
-as
-
-a
-
-result
-
-of
-
-Contested
-
-being
-
-applied
-
-to
-
-a
-
-Battleﬁeld
-
-w ithout
-
-a
-
-controller,
-
-do
-
-one
-
-of
-
-the
-
-follow ing:`,
+    section: `345.2. If this Showdown opened as a result of Contested being applied to a Battlefield without a controller`,
+    text: `If this Showdown opened as a result of Contested being applied to a Battlefield without a controller, do one of the following:`,
   },
   {
     id: `345.2.a`,
-    section: `345.2.a. If`,
-    text: `If
+    section: `345.2.a. If only one player’s Units remain at the Battlefield`,
+    text: `If only one player’s Units remain at the Battlefield, and if that player does not already Control the Battlefield, that player establishes Control over the Battlefield. See rule 179. Control for more information on Control. See rule 442.1. for more information on Conquering.
 
-only
-
-one
-
-player’s
-
-Units
-
-rem ain
-
-at
-
-the
-
-Battleﬁeld ,
-
-and
-
-if
-
-that
-
-player
-
-does
-
-not
-
-already
-
-Control
-
-the
-
-Battleﬁeld ,
-
-that
-
-player
-
-establishes
-
-Control
-
-over
-
-the
-
-Battleﬁeld .
-
-See
-
-rule`,
-  },
-  {
-    id: `442.1`,
-    section: `442.1. for`,
-    text: `for
-
-more
-
-information
-
-on
-
-Conquering .
-
-345.2.a.1.
-
-This
-
-results
-
-in
-
-a
-
-Conquer
-
-if
-
-that
-
-player
-
-has
-
-not
-
-yet
-
-scored
-
-that
-
-Battleﬁeld
-
-this
-
-turn.
-
-for
-
-more
-
-information
-
-on
-
-Conquering.
-
-Conquer:
-
-A
-
-player
-
-gains
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-they
-
-did
-
-not
-
-yet
-
-Score
-
-this
-
-turn.`,
+1. This results in a Conquer if that player has not yet scored that Battlefield this turn.`,
   },
   {
     id: `345.2.b`,
-    section: `345.2.b. If`,
-    text: `If
+    section: `345.2.b. If two players’ Units remain at the Battlefield`,
+    text: `If two players’ Units remain at the Battlefield, Control cannot be established and the Battlefield remains Contested. This results in a Staged Combat. See rule 433. Combat for more information.
 
-tw o
-
-players’
-
-Units
-
-rem ain
-
-at
-
-the
-
-Battleﬁeld ,
-
-Control
-
-cannot
-
-be
-
-established
-
-and
-
-the
-
-Battleﬁeld
-
-rem ains
-
-Contested .
-
-This
-
-results
-
-in
-
-a
-
-Staged
-
-Com bat .
-
-See
-
-rule`,
+1. The player who applied Contested to the Battlefield will be the Attacker in the subsequent Combat.`,
+  },
+  {
+    id: `346`,
+    section: `346. Playing Cards`,
+    text: `Playing Cards`,
   },
   {
     id: `347`,
-    section: `347. Playing`,
-    text: `Playing
-
-a
-
-card
-
-is
-
-the
-
-act
-
-of
-
-a
-
-player
-
-utilizing
-
-their
-
-cards.`,
+    section: `347. Playing a card is the act of a player utilizing their cards`,
+    text: `Playing a card is the act of a player utilizing their cards.`,
   },
   {
     id: `347.1`,
-    section: `347.1. A`,
-    text: `A
-
-card
-
-is
-
-Played
-
-w hen
-
-it
-
-has
-
-ﬁnished
-
-this
-
-process
-
-in
-
-its
-
-entirety.`,
+    section: `347.1. A card is Played when it has finished this process in its entirety`,
+    text: `A card is Played when it has finished this process in its entirety.`,
   },
   {
     id: `347.2`,
-    section: `347.2. Tokens`,
-    text: `Tokens
-
-are
-
-not
-
-cards,
-
-but
-
-can
-
-still
-
-be
-
-Played.
-
-See
-
-rule`,
+    section: `347.2. Tokens are not cards`,
+    text: `Tokens are not cards, but can still be Played. See rule 170. Tokens for more information.`,
   },
   {
     id: `348`,
-    section: `348. Cards`,
-    text: `Cards
-
-have
-
-different
-
-behaviors
-
-w hen
-
-played.`,
+    section: `348. Cards have different behaviors when played`,
+    text: `Cards have different behaviors when played.`,
   },
   {
     id: `348.1`,
-    section: `348.1. Perm anents`,
-    text: `Perm anents
-
-becom e
-
-Gam e
-
-Objects
-
-w hen
-
-Played.`,
+    section: `348.1. Permanents become Game Objects when Played`,
+    text: `Permanents become Game Objects when Played.`,
   },
   {
     id: `348.2`,
-    section: `348.2. Spells`,
-    text: `Spells
-
-create
-
-gam e
-
-effects
-
-that
-
-are
-
-executed,
-
-then
-
-the
-
-card
-
-is
-
-placed
-
-in
-
-the
-
-trash
-
-w hen
-
-Played.`,
+    section: `348.2. Spells create game effects that are executed`,
+    text: `Spells create game effects that are executed, then the card is placed in the trash when Played.`,
   },
   {
     id: `349`,
-    section: `349. Cards`,
-    text: `Cards
-
-have
-
-different
-
-states
-
-during
-
-the
-
-process
-
-of
-
-being
-
-played.`,
+    section: `349. Cards have different states during the process of being played`,
+    text: `Cards have different states during the process of being played.`,
   },
   {
     id: `349.1`,
-    section: `349.1. W hen`,
-    text: `W hen
-
-initially
-
-being
-
-played
-
-cards
-
-are
-
-Pending,
-
-as
-
-Pending
-
-Chain
-
-Item s.`,
+    section: `349.1. When initially being played cards are Pending`,
+    text: `When initially being played cards are Pending, as Pending Chain Items.`,
   },
   {
     id: `349.2`,
-    section: `349.2. N ear`,
-    text: `N ear
-
-the
-
-end
-
-of
-
-the
-
-process
-
-cards
-
-w ill
-
-cease
-
-being
-
-Pending
-
-and
-
-becom e
-
-Finalized
-
-Chain
-
-Item s .`,
+    section: `349.2. Near the end of the process cards will cease being Pending and become Finalized Chain Items`,
+    text: `Near the end of the process cards will cease being Pending and become Finalized Chain Items.`,
   },
   {
     id: `350`,
-    section: `350. The`,
-    text: `The
-
-Process
-
-of
-
-Play`,
+    section: `350. The Process of Play`,
+    text: `The Process of Play`,
   },
   {
     id: `351`,
-    section: `351. 1.`,
-    text: `1.
-
-Rem ove
-
-the
-
-card
-
-from
-
-the
-
-zone
-
-you
-
-are
-
-playing
-
-it
-
-from
-
-and
-
-put
-
-it
-
-onto
-
-the
-
-Chain.`,
+    section: `351. 1`,
+    text: `1. Remove the card from the zone you are playing it from and put it onto the Chain.`,
   },
   {
     id: `351.1`,
-    section: `351.1. This`,
-    text: `This
-
-Closes
-
-the
-
-State.
-
-See
-
-rule`,
+    section: `351.1. This Closes the State`,
+    text: `This Closes the State. See rule 307. States of the Turn for more information.`,
   },
   {
     id: `351.2`,
-    section: `351.2. This`,
-    text: `This
-
-item
-
-becom es
-
-Pending.`,
+    section: `351.2. This item becomes Pending`,
+    text: `This item becomes Pending.`,
   },
   {
     id: `351.3`,
-    section: `351.3. If`,
-    text: `If
-
-another
-
-Card
-
-Effect
-
-or
-
-ability
-
-is
-
-currently
-
-resolving,
-
-continue
-
-resolving
-
-it
-
-before
-
-proceeding
-
-w ith
-
-any
-
-further
-
-steps
-
-of
-
-this
-
-process.`,
+    section: `351.3. If another Card Effect or ability is currently resolving`,
+    text: `If another Card Effect or ability is currently resolving, continue resolving it before proceeding with any further steps of this process.`,
   },
   {
     id: `352`,
-    section: `352. 2.`,
-    text: `2.
-
-M ake
-
-necessary
-
-choices.
-
-They
-
-use
-
-the
-
-phrase
-
-"as
-
-an
-
-additional
-
-cost"
-
-and
-
-the
-
-w ord
-
-"m ay."
-
-Example:
-
-A
-
-unit
-
-has
-
-the
-
-ability
-
-"As
-
-you
-
-play
-
-m e,
-
-you
-
-m ay
-
-discard
-
-1
-
-as
-
-an
-
-additional
-
-cost.
-
-If
-
-you
-
-do,
-
-reduce
-
-m y
-
-cost
-
-by
-
-[2]."
-
-W hile
-
-playing
-
-the
-
-unit,
-
-its
-
-controller
-
-declares
-
-their
-
-intention
-
-to
-
-pay
-
-the
-
-additional
-
-cost
-
-in
-
-rule
-
-352 ,
-
-applies
-
-that
-
-additional
-
-cost
-
-in
-
-rule
-
-353.2 ,
-
-applies
-
-the
-
-discount
-
-granted
-
-by
-
-paying
-
-that
-
-cost
-
-in
-
-rule
-
-353.4 ,
-
-and
-
-discards
-
-a
-
-card
-
-to
-
-pay
-
-that
-
-additional
-
-cost
-
-in
-
-rule`,
+    section: `352. 2`,
+    text: `2. Make necessary choices.`,
   },
   {
     id: `352.1`,
-    section: `352.1. If`,
-    text: `If
-
-the
-
-card
-
-is
-
-a
-
-spell,
-
-or
-
-has
-
-an
-
-effect
-
-that
-
-speciﬁes
-
-a
-
-choice
-
-"As
-
-I
-
-am
-
-played,"
-
-those
-
-choices
-
-are
-
-m ade
-
-now .`,
+    section: `352.1. If the card is a spell`,
+    text: `If the card is a spell, or has an effect that specifies a choice "As I am played," those choices are made now.`,
   },
   {
     id: `352.2`,
-    section: `352.2. For`,
-    text: `For
+    section: `352.2. For Units`,
+    text: `For Units, choose a valid Location where that Unit will be placed upon being Played.
 
-Units ,
-
-choose
-
-a
-
-valid
-
-Location
-
-w here
-
-that
-
-Unit
-
-w ill
-
-be
-
-placed
-
-upon
-
-being
-
-Played.
-
-,
-
-they
-
-chose
-
-to
-
-play
-
-Cruel
-
-Patron
-
-to
-
-that
-
-battleﬁeld.
-
-W hile
-
-paying
-
-costs,
-
-they
-
-can't
-
-choose
-
-to
-
-kill
-
-the
-
-unit
-
-at
-
-that
-
-battleﬁeld,
-
-because
-
-then
-
-they
-
-w ill
-
-no
-
-longer
-
-control
-
-that
-
-battleﬁeld
-
-and
-
-Cruel
-
-Patron
-
-cannot
-
-legally
-
-be
-
-played
-
-there.
-
-If
-
-they
-
-controlled
-
-that
-
-battleﬁeld
-
-w ith
-
-m ultiple
-
-units,
-
-any
-
-of
-
-those
-
-units
-
-w ould
-
-be
-
-a
-
-legal
-
-choice,
-
-because
-
-they
-
-w ould
-
-still
-
-control
-
-the
-
-battleﬁeld
-
-after
-
-killing
-
-one.`,
+, they chose to play Cruel Patron to that battlefield. While paying costs, they can't choose to kill the unit at that battlefield, because then they will no longer control that battlefield and Cruel Patron cannot legally be played there. If they controlled that battlefield with multiple units, any of those units would be a legal choice, because they would still control the battlefield after killing one.`,
   },
   {
     id: `352.3`,
-    section: `352.3. For`,
-    text: `For
-
-Spells
-
-and
-
-Abilities
-
-that
-
-Move
-
-one
-
-or
-
-m ore
-
-Units ,
-
-choose
-
-a
-
-valid
-
-Location
-
-as
-
-the
-
-Move
-
-Destination
-
-for
-
-each
-
-Move
-
-that
-
-w ill
-
-be
-
-perform ed.`,
+    section: `352.3. For Spells and Abilities that Move one or more Units`,
+    text: `For Spells and Abilities that Move one or more Units, choose a valid Location as the Move Destination for each Move that will be performed.`,
   },
   {
     id: `352.4`,
-    section: `352.4. If`,
-    text: `If
-
-a
-
-card
-
-requires
-
-you
-
-to
-
-speciﬁcally
-
-choose
-
-one
-
-or
-
-m ore
-
-Gam e
-
-Objects ,
-
-that
-
-choice
-
-is
-
-m ade
-
-now .`,
+    section: `352.4. If a card requires you to specifically choose one or more Game Objects`,
+    text: `If a card requires you to specifically choose one or more Game Objects, that choice is made now.`,
   },
   {
     id: `352.4.a`,
-    section: `352.4.a. This`,
-    text: `This
-
-does
-
-not
-
-include
-
-cards
-
-that
-
-affect
-
-one
-
-or
-
-m ore
-
-Gam e
-
-Objects
-
-based
-
-on
-
-criteria.
-
-Example:
-
-"Stun
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld"
-
-is
-
-a
-
-Choice.
-
-Example:
-
-"Kill
-
-all
-
-gear"
-
-is
-
-not
-
-a
-
-Choice.`,
+    section: `352.4.a. This does not include cards that affect one or more Game Objects based on criteria`,
+    text: `This does not include cards that affect one or more Game Objects based on criteria. Example: "Stun a unit at a battlefield" is a Choice. Example: "Kill all gear" is not a Choice.`,
   },
   {
     id: `352.4.b`,
-    section: `352.4.b. This`,
-    text: `This
-
-does
-
-not
-
-include
-
-m aking
-
-choices
-
-for
-
-Triggered
-
-Abilities
-
-of
-
-perm anents,
-
-even
-
-if
-
-those
-
-abilities
-
-trigger
-
-w hen
-
-the
-
-perm anent
-
-is
-
-played.
-
-Example:
-
-A
-
-unit
-
-w ith
-
-a
-
-triggered
-
-ability
-
-that
-
-says
-
-"W hen
-
-I'm
-
-played,
-
-kill
-
-a
-
-unit"
-
-does
-
-not
-
-require
-
-you
-
-to
-
-choose
-
-a
-
-target
-
-as
-
-it's
-
-played.
-
-The
-
-target
-
-w ill
-
-be
-
-chosen
-
-w hen
-
-the
-
-ability
-
-triggers.
-
-See
-
-rule`,
+    section: `352.4.b. This does not include making choices for Triggered Abilities of permanents`,
+    text: `This does not include making choices for Triggered Abilities of permanents, even if those abilities trigger when the permanent is played. Example: A unit with a triggered ability that says "When I'm played, kill a unit" does not require you to choose a target as it's played. The target will be chosen when the ability triggers. See rule 375. Triggered Abilities for more information.`,
   },
   {
     id: `352.5`,
     section: `352.5. Targeting`,
-    text: `Targeting
-
-Targeting
-
-for
-
-more
-
-information
-
-on
-
-Mistargeting.
-
-Targeting
-
-for
-
-more
-
-information.
-
-727.1.d.1.
-
-A
-
-hidden
-
-unit
-
-m ust
-
-be
-
-played
-
-to
-
-that
-
-battleﬁeld.
-
-727.1.d.2.
-
-If
-
-a
-
-hidden
-
-spell
-
-or
-
-a
-
-play
-
-effect
-
-of
-
-a
-
-hidden
-
-perm anent
-
-chooses
-
-any
-
-targets,
-
-those
-
-targets
-
-m ust
-
-be
-
-chosen
-
-from
-
-am ong
-
-options
-
-at
-
-that
-
-battleﬁeld,
-
-unless
-
-the
-
-ability
-
-explicitly
-
-restricts
-
-targeting
-
-in
-
-a
-
-w ay
-
-that
-
-m akes
-
-this
-
-im possible.
-
-Example:
-
-Blastcone
-
-Fae
-
-is
-
-a
-
-unit
-
-w ith
-
-H idden
-
-and
-
-“W hen
-
-you
-
-play
-
-m e,
-
-give
-
-a
-
-unit
-
--2
-
-[M ]
-
-this
-
-turn,
-
-to
-
-a
-
-m inim um
-
-of
-
-1
-
-[M ].”
-
-Because
-
-this
-
-is
-
-a
-
-play
-
-effect,
-
-its
-
-target
-
-m ust
-
-be
-
-chosen
-
-from
-
-am ong
-
-units
-
-at
-
-the
-
-sam e
-
-battleﬁeld
-
-if
-
-Blastcone
-
-Fae
-
-w as
-
-played
-
-from
-
-H idden.
-
-Example:
-
-Tideturner
-
-is
-
-a
-
-unit
-
-w ith
-
-H idden
-
-and
-
-“W hen
-
-you
-
-play
-
-m e,
-
-you
-
-m ay
-
-choose
-
-a
-
-unit
-
-you
-
-control
-
-at
-
-another
-
-location.
-
-M ove
-
-m e
-
-to
-
-its
-
-location
-
-and
-
-it
-
-to
-
-m y
-
-original
-
-location.”
-
-Because
-
-its
-
-play
-
-ability
-
-has
-
-a
-
-targeting
-
-restriction
-
-that
-
-can
-
-never
-
-be
-
-fulﬁlled
-
-by
-
-a
-
-unit
-
-at
-
-its
-
-battleﬁeld,
-
-its
-
-target
-
-m ay
-
-be
-
-chosen
-
-freely
-
-from
-
-am ong
-
-the
-
-available
-
-options.
-
-727.1.d.3.
-
-If
-
-a
-
-hidden
-
-spell
-
-or
-
-a
-
-play
-
-effect
-
-of
-
-a
-
-hidden
-
-perm anent
-
-causes
-
-you
-
-to
-
-play
-
-a
-
-unit,
-
-you
-
-m ust
-
-choose
-
-to
-
-play
-
-that
-
-unit
-
-at
-
-that
-
-battleﬁeld.`,
+    text: `Targeting`,
   },
   {
     id: `352.6`,
-    section: `352.6. W hen`,
-    text: `W hen
-
-a
-
-card
-
-Chooses
-
-one
-
-or
-
-m ore
-
-speciﬁc
-
-Gam e
-
-Objects
-
-to
-
-affect,
-
-it
-
-is
-
-Targeted.`,
+    section: `352.6. When a card Chooses one or more specific Game Objects to affect`,
+    text: `When a card Chooses one or more specific Game Objects to affect, it is Targeted.`,
   },
   {
     id: `352.7`,
-    section: `352.7. In`,
-    text: `In
-
-order
-
-to
-
-put
-
-a
-
-spell
-
-or
-
-ability
-
-on
-
-the
-
-chain,
-
-valid
-
-choices
-
-m ust
-
-be
-
-m ade
-
-for
-
-all
-
-targets.`,
+    section: `352.7. In order to put a spell or ability on the chain`,
+    text: `In order to put a spell or ability on the chain, valid choices must be made for all targets.`,
   },
   {
     id: `352.8`,
-    section: `352.8. A`,
-    text: `A
-
-target
-
-is
-
-a
-
-valid
-
-choice
-
-if
-
-it
-
-m eets
-
-all
-
-of
-
-the
-
-follow ing
-
-requirem ents:`,
+    section: `352.8. A target is a valid choice if it meets all of the following requirements:`,
+    text: `A target is a valid choice if it meets all of the following requirements:`,
   },
   {
     id: `352.8.a`,
-    section: `352.8.a. It`,
-    text: `It
+    section: `352.8.a. It is a permanent or rune on the board`,
+    text: `It is a permanent or rune on the board, a spell or ability on the chain, a player or zone, or specified explicitly or implicitly as being in some other zone. e.g., “Kill a unit” targets a unit on the board. e.g., “Recycle a unit from your trash” targets a unit card in your trash.
 
-is
+1. “Unit,” “gear,” and “rune” refer to objects on the Board unless specified otherwise.
 
-a
+2. “Spell” and “ability” refer to objects on the Chain unless specified otherwise.
 
-perm anent
+3. “Facedown card” refers to a card in a Facedown Zone unless specified otherwise.
 
-or
+4. “Legend” refers to a legend in the Legend Zone.
 
-rune
-
-on
-
-the
-
-board,
-
-a
-
-spell
-
-or
-
-ability
-
-on
-
-the
-
-chain,
-
-a
-
-player
-
-or
-
-zone,
-
-or
-
-speciﬁed
-
-explicitly
-
-or
-
-im plicitly
-
-as
-
-being
-
-in
-
-som e
-
-other
-
-zone.
-
-e.g.,
-
-“Kill
-
-a
-
-unit”
-
-targets
-
-a
-
-unit
-
-on
-
-the
-
-board.
-
-e.g.,
-
-“Recycle
-
-a
-
-unit
-
-from
-
-your
-
-trash”
-
-targets
-
-a
-
-unit
-
-card
-
-in
-
-your
-
-trash.
-
-352.8.a.1.
-
-“Unit,”
-
-“gear,”
-
-and
-
-“rune”
-
-refer
-
-to
-
-objects
-
-on
-
-the
-
-Board
-
-unless
-
-speciﬁed
-
-otherw ise.
-
-352.8.a.2.
-
-“Spell”
-
-and
-
-“ability”
-
-refer
-
-to
-
-objects
-
-on
-
-the
-
-Chain
-
-unless
-
-speciﬁed
-
-otherw ise.
-
-352.8.a.3.
-
-“Facedow n
-
-card”
-
-refers
-
-to
-
-a
-
-card
-
-in
-
-a
-
-Facedow n
-
-Zone
-
-unless
-
-speciﬁed
-
-otherw ise.
-
-352.8.a.4.
-
-“Legend”
-
-refers
-
-to
-
-a
-
-legend
-
-in
-
-the
-
-Legend
-
-Zone.
-
-352.8.a.5.
-
-“Chosen
-
-Cham pion”
-
-and
-
-“unit
-
-in
-
-the
-
-Cham pion
-
-Zone”
-
-refer
-
-to
-
-a
-
-unit
-
-in
-
-the
-
-Cham pion
-
-Zone
-
-unless
-
-speciﬁed
-
-otherw ise.`,
+5. “Chosen Champion” and “unit in the Champion Zone” refer to a unit in the Champion Zone unless specified otherwise.`,
   },
   {
     id: `352.8.b`,
-    section: `352.8.b. It`,
-    text: `It
-
-m eets
-
-all
-
-targeting
-
-restrictions.
-
-e.g.,
-
-A
-
-unit
-
-is
-
-a
-
-valid
-
-target
-
-for
-
-a
-
-spell
-
-that
-
-refers
-
-to
-
-a
-
-“unit
-
-at
-
-a
-
-battleﬁeld,”
-
-“enemy
-
-unit,”
-
-“unit
-
-you
-
-control,”
-
-or
-
-“unit
-
-with
-
-Might
-
-4
-
-or
-
-greater”
-
-only
-
-if
-
-it
-
-meets
-
-the
-
-appropriate
-
-criteria.`,
+    section: `352.8.b. It meets all targeting restrictions`,
+    text: `It meets all targeting restrictions. e.g., A unit is a valid target for a spell that refers to a “unit at a battlefield,” “enemy unit,” “unit you control,” or “unit with Might 4 or greater” only if it meets the appropriate criteria.`,
   },
   {
     id: `352.8.c`,
-    section: `352.8.c. It`,
-    text: `It
-
-is
-
-not
-
-the
-
-spell
-
-or
-
-ability
-
-itself.
-
-e.g.,
-
-A
-
-spell
-
-that
-
-says
-
-“Counter
-
-a
-
-spell”
-
-cannot
-
-target
-
-itself.
-
-e.g.,
-
-An
-
-ability
-
-of
-
-a
-
-permanent
-
-can
-
-target
-
-that
-
-permanent,
-
-because
-
-abilities
-
-and
-
-their
-
-sources
-
-are
-
-separate
-
-objects.`,
+    section: `352.8.c. It is not the spell or ability itself`,
+    text: `It is not the spell or ability itself. e.g., A spell that says “Counter a spell” cannot target itself. e.g., An ability of a permanent can target that permanent, because abilities and their sources are separate objects.`,
   },
   {
     id: `352.9`,
-    section: `352.9. If`,
-    text: `If
-
-a
-
-spell
-
-or
-
-ability
-
-requires
-
-one
-
-or
-
-m ore
-
-players
-
-to
-
-choose
-
-objects,
-
-players,
-
-or
-
-zones
-
-that
-
-are
-
-not
-
-targets,
-
-those
-
-choices
-
-are
-
-m ade
-
-on
-
-resolution.`,
+    section: `352.9. If a spell or ability requires one or more players to choose objects`,
+    text: `If a spell or ability requires one or more players to choose objects, players, or zones that are not targets, those choices are made on resolution.`,
   },
   {
     id: `352.9.a`,
-    section: `352.9.a. Passive`,
-    text: `Passive
-
-abilities
-
-never
-
-have
-
-targets.`,
+    section: `352.9.a. Passive abilities never have targets`,
+    text: `Passive abilities never have targets.`,
   },
   {
     id: `352.9.b`,
-    section: `352.9.b. Replacem ent`,
-    text: `Replacem ent
-
-effects
-
-never
-
-have
-
-targets.`,
+    section: `352.9.b. Replacement effects never have targets`,
+    text: `Replacement effects never have targets.`,
   },
   {
     id: `352.9.c`,
-    section: `352.9.c. Units`,
-    text: `Units
-
-and
-
-gear
-
-never
-
-have
-
-targets,
-
-although
-
-their
-
-abilities
-
-m ay.`,
+    section: `352.9.c. Units and gear never have targets`,
+    text: `Units and gear never have targets, although their abilities may.`,
   },
   {
     id: `352.10`,
-    section: `352.10. A`,
-    text: `A
-
-gam e
-
-object,
-
-player,
-
-or
-
-zone
-
-m entioned
-
-in
-
-the
-
-text
-
-of
-
-a
-
-spell,
-
-activated
-
-ability,
-
-or
-
-triggered
-
-ability
-
-is
-
-a
-
-target
-
-UN LESS
-
-any
-
-of
-
-the
-
-follow ing
-
-are
-
-true:`,
+    section: `352.10. A game object`,
+    text: `A game object, player, or zone mentioned in the text of a spell, activated ability, or triggered ability is a target UNLESS any of the following are true:`,
   },
   {
     id: `352.10.a`,
-    section: `352.10.a. It`,
-    text: `It
+    section: `352.10.a. It is in a zone whose information status is not Public`,
+    text: `It is in a zone whose information status is not Public. e.g., “Ready a legend” targets a legend, because the Legend Zone is Public. e.g., “Return a unit from your trash to your hand” targets a unit card in your trash, because your trash is Public. e.g., “You may play a unit from your hand, ignoring its costs” does not target a unit card in your hand, because your hand is not a public zone.
 
-is
-
-in
-
-a
-
-zone
-
-w hose
-
-inform ation
-
-status
-
-is
-
-not
-
-Public.
-
-e.g.,
-
-“Ready
-
-a
-
-legend”
-
-targets
-
-a
-
-legend,
-
-because
-
-the
-
-Legend
-
-Zone
-
-is
-
-Public.
-
-e.g.,
-
-“Return
-
-a
-
-unit
-
-from
-
-your
-
-trash
-
-to
-
-your
-
-hand”
-
-targets
-
-a
-
-unit
-
-card
-
-in
-
-your
-
-trash,
-
-because
-
-your
-
-trash
-
-is
-
-Public.
-
-e.g.,
-
-“You
-
-may
-
-play
-
-a
-
-unit
-
-from
-
-your
-
-hand,
-
-ignoring
-
-its
-
-costs”
-
-does
-
-not
-
-target
-
-a
-
-unit
-
-card
-
-in
-
-your
-
-hand,
-
-because
-
-your
-
-hand
-
-is
-
-not
-
-a
-
-public
-
-zone.
-
-352.10.a.1.
-
-Public
-
-zones
-
-are
-
-Battleﬁeld
-
-Zones,
-
-Bases,
-
-Trashes,
-
-Legend
-
-Zones,
-
-Cham pion
-
-Zones,
-
-and
-
-Facedow n
-
-Zones.`,
+1. Public zones are Battlefield Zones, Bases, Trashes, Legend Zones, Champion Zones, and Facedown Zones.`,
   },
   {
     id: `352.10.b`,
-    section: `352.10.b. It`,
-    text: `It
-
-is
-
-included
-
-only
-
-as
-
-part
-
-of
-
-a
-
-targeting
-
-restriction
-
-for
-
-another
-
-choice.
-
-e.g.,
-
-“Kill
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld”
-
-targets
-
-a
-
-unit,
-
-but
-
-not
-
-a
-
-battleﬁeld,
-
-because
-
-the
-
-units
-
-are
-
-targets
-
-and
-
-“at
-
-a
-
-battleﬁeld”
-
-is
-
-a
-
-restriction.
-
-e.g.,
-
-“Kill
-
-all
-
-units
-
-at
-
-a
-
-battleﬁeld”
-
-targets
-
-a
-
-battleﬁeld,
-
-but
-
-not
-
-any
-
-units.
-
-e.g.,
-
-“Move
-
-a
-
-unit
-
-to
-
-a
-
-battleﬁeld”
-
-targets
-
-both
-
-a
-
-unit
-
-and
-
-a
-
-battleﬁeld.`,
+    section: `352.10.b. It is included only as part of a targeting restriction for another choice`,
+    text: `It is included only as part of a targeting restriction for another choice. e.g., “Kill a unit at a battlefield” targets a unit, but not a battlefield, because the units are targets and “at a battlefield” is a restriction. e.g., “Kill all units at a battlefield” targets a battlefield, but not any units. e.g., “Move a unit to a battlefield” targets both a unit and a battlefield.`,
   },
   {
     id: `352.10.c`,
-    section: `352.10.c. It`,
-    text: `It
+    section: `352.10.c. It is included only as part of a cost`,
+    text: `It is included only as part of a cost, trigger condition, or replacement effect. e.g., “As an additional cost to play me, kill a friendly unit” doesn’t target anything. e.g., “When a friendly unit dies, kill a gear” targets a gear, but not a friendly unit. e.g., “When you play me, the next time a friendly unit would die this turn, return it to your hand instead” doesn’t target anything. The replacement effect applies when any friendly unit dies. e.g., “Choose a friendly unit. The next time it would die this turn, return it to your hand instead” targets a friendly unit, because “choose a friendly unit” is not part of the replacement effect.
 
-is
-
-included
-
-only
-
-as
-
-part
-
-of
-
-a
-
-cost,
-
-trigger
-
-condition,
-
-or
-
-replacem ent
-
-effect.
-
-e.g.,
-
-“As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-me,
-
-kill
-
-a
-
-friendly
-
-unit”
-
-doesn’t
-
-target
-
-anything.
-
-e.g.,
-
-“When
-
-a
-
-friendly
-
-unit
-
-dies,
-
-kill
-
-a
-
-gear”
-
-targets
-
-a
-
-gear,
-
-but
-
-not
-
-a
-
-friendly
-
-unit.
-
-e.g.,
-
-“When
-
-you
-
-play
-
-me,
-
-the
-
-next
-
-time
-
-a
-
-friendly
-
-unit
-
-would
-
-die
-
-this
-
-turn,
-
-return
-
-it
-
-to
-
-your
-
-hand
-
-instead”
-
-doesn’t
-
-target
-
-anything.
-
-The
-
-replacement
-
-effect
-
-applies
-
-when
-
-any
-
-friendly
-
-unit
-
-dies.
-
-e.g.,
-
-“Choose
-
-a
-
-friendly
-
-unit.
-
-The
-
-next
-
-time
-
-it
-
-would
-
-die
-
-this
-
-turn,
-
-return
-
-it
-
-to
-
-your
-
-hand
-
-instead”
-
-targets
-
-a
-
-friendly
-
-unit,
-
-because
-
-“choose
-
-a
-
-friendly
-
-unit”
-
-is
-
-not
-
-part
-
-of
-
-the
-
-replacement
-
-effect.
-
-352.10.c.1.
-
-This
-
-includes
-
-costs
-
-w ithin
-
-instructions,
-
-identiﬁed
-
-by
-
-phrases
-
-like
-
-“[do
-
-X]
-
-to
-
-[do
-
-Y].”
-
-The
-
-cost
-
-w ithin
-
-that
-
-instruction
-
-is
-
-“[do
-
-X].”
-
-e.g.,
-
-“When
-
-I
-
-hold,
-
-you
-
-may
-
-kill
-
-another
-
-friendly
-
-unit
-
-here
-
-to
-
-draw
-
-1”
-
-does
-
-not
-
-target
-
-anything.
-
-e.g.,
-
-“When
-
-you
-
-play
-
-me,
-
-you
-
-may
-
-spend
-
-a
-
-buff
-
-to
-
-move
-
-a
-
-friendly
-
-unit”
-
-targets
-
-the
-
-friendly
-
-unit,
-
-but
-
-not
-
-the
-
-buff.`,
+1. This includes costs within instructions, identified by phrases like “[do X] to [do Y].” The cost within that instruction is “[do X].” e.g., “When I hold, you may kill another friendly unit here to draw 1” does not target anything. e.g., “When you play me, you may spend a buff to move a friendly unit” targets the friendly unit, but not the buff.`,
   },
   {
     id: `352.10.d`,
-    section: `352.10.d. It`,
-    text: `It
+    section: `352.10.d. It is programmatically selected based on its characteristics rather than chosen by the spell or ability’s controller`,
+    text: `It is programmatically selected based on its characteristics rather than chosen by the spell or ability’s controller. e.g., “Kill all units at a battlefield” targets a battlefield, but does not target any units. e.g., “Kill all units at battlefields” doesn’t target anything. e.g., “Destroy a unit. Its controller draws 2 cards” targets the unit, but not its controller. e.g., “Ready your legend” doesn’t target anything, because you can only have one legend. e.g., “Ready a friendly legend” targets a legend, because in a 2v2 game there are two friendly legends. e.g., “Recycle all cards in your trash” doesn’t target anything, because it affects all cards and you only have one trash.
 
-is
+1. This exception applies solely to objects for which no choice is ever possible.
 
-program m atically
-
-selected
-
-based
-
-on
-
-its
-
-characteristics
-
-rather
-
-than
-
-chosen
-
-by
-
-the
-
-spell
-
-or
-
-ability’s
-
-controller.
-
-e.g.,
-
-“Kill
-
-all
-
-units
-
-at
-
-a
-
-battleﬁeld”
-
-targets
-
-a
-
-battleﬁeld,
-
-but
-
-does
-
-not
-
-target
-
-any
-
-units.
-
-e.g.,
-
-“Kill
-
-all
-
-units
-
-at
-
-battleﬁelds”
-
-doesn’t
-
-target
-
-anything.
-
-e.g.,
-
-“Destroy
-
-a
-
-unit.
-
-Its
-
-controller
-
-draws
-
-2
-
-cards”
-
-targets
-
-the
-
-unit,
-
-but
-
-not
-
-its
-
-controller.
-
-e.g.,
-
-“Ready
-
-your
-
-legend”
-
-doesn’t
-
-target
-
-anything,
-
-because
-
-you
-
-can
-
-only
-
-have
-
-one
-
-legend.
-
-e.g.,
-
-“Ready
-
-a
-
-friendly
-
-legend”
-
-targets
-
-a
-
-legend,
-
-because
-
-in
-
-a
-
-2v2
-
-game
-
-there
-
-are
-
-two
-
-friendly
-
-legends.
-
-e.g.,
-
-“Recycle
-
-all
-
-cards
-
-in
-
-your
-
-trash”
-
-doesn’t
-
-target
-
-anything,
-
-because
-
-it
-
-affects
-
-all
-
-cards
-
-and
-
-you
-
-only
-
-have
-
-one
-
-trash.
-
-352.10.d.1.
-
-This
-
-exception
-
-applies
-
-solely
-
-to
-
-objects
-
-for
-
-w hich
-
-no
-
-choice
-
-is
-
-ever
-
-possible.
-
-352.10.d.2.
-
-This
-
-exception
-
-does
-
-not
-
-apply
-
-to
-
-objects
-
-that
-
-are
-
-the
-
-only
-
-valid
-
-choice
-
-at
-
-the
-
-m om ent
-
-a
-
-spell
-
-or
-
-ability
-
-is
-
-placed
-
-on
-
-the
-
-chain,
-
-but
-
-w hich
-
-w ould
-
-require
-
-a
-
-choice
-
-under
-
-other
-
-circum stances.
-
-e.g.,
-
-“Kill
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld”
-
-always
-
-targets
-
-a
-
-unit,
-
-even
-
-if
-
-that
-
-unit
-
-is
-
-the
-
-only
-
-unit
-
-currently
-
-at
-
-a
-
-battleﬁeld.`,
+2. This exception does not apply to objects that are the only valid choice at the moment a spell or ability is placed on the chain, but which would require a choice under other circumstances. e.g., “Kill a unit at a battlefield” always targets a unit, even if that unit is the only unit currently at a battlefield.`,
   },
   {
     id: `352.10.e`,
-    section: `352.10.e. It`,
-    text: `It
-
-is
-
-part
-
-of
-
-a
-
-set
-
-of
-
-objects
-
-chosen
-
-in
-
-w hole
-
-or
-
-in
-
-part
-
-by
-
-other
-
-players.
-
-e.g.,
-
-“Each
-
-player
-
-kills
-
-a
-
-unit
-
-they
-
-control”
-
-does
-
-not
-
-target.
-
-Each
-
-player,
-
-including
-
-the
-
-one
-
-who
-
-played
-
-the
-
-spell,
-
-chooses
-
-a
-
-unit
-
-to
-
-kill
-
-as
-
-the
-
-spell
-
-or
-
-ability
-
-resolves.`,
+    section: `352.10.e. It is part of a set of objects chosen in whole or in part by other players`,
+    text: `It is part of a set of objects chosen in whole or in part by other players. e.g., “Each player kills a unit they control” does not target. Each player, including the one who played the spell, chooses a unit to kill as the spell or ability resolves.`,
   },
   {
     id: `352.10.f`,
-    section: `352.10.f. It`,
-    text: `It
-
-is
-
-identiﬁed
-
-in
-
-an
-
-instruction
-
-that
-
-a
-
-player
-
-“m ust”
-
-com plete.
-
-e.g.,
-
-“You
-
-must
-
-recycle
-
-one
-
-of
-
-your
-
-runes”
-
-doesn’t
-
-target
-
-anything.
-
-You
-
-choose
-
-from
-
-among
-
-your
-
-runes
-
-as
-
-the
-
-spell
-
-or
-
-ability
-
-resolves.
-
-e.g.,
-
-“Recycle
-
-a
-
-rune
-
-you
-
-control”
-
-targets
-
-a
-
-rune.
-
-You
-
-choose
-
-a
-
-rune
-
-you
-
-control
-
-as
-
-you
-
-put
-
-the
-
-spell
-
-or
-
-ability
-
-on
-
-the
-
-chain.`,
+    section: `352.10.f. It is identified in an instruction that a player “must” complete`,
+    text: `It is identified in an instruction that a player “must” complete. e.g., “You must recycle one of your runes” doesn’t target anything. You choose from among your runes as the spell or ability resolves. e.g., “Recycle a rune you control” targets a rune. You choose a rune you control as you put the spell or ability on the chain.`,
   },
   {
     id: `352.11`,
-    section: `352.11. Som e`,
-    text: `Som e
-
-cards
-
-identify
-
-a
-
-group
-
-of
-
-Targets
-
-w ith
-
-Targeting
-
-Requirem ents
-
-that
-
-m ust
-
-be
-
-m et
-
-by
-
-the
-
-group
-
-as
-
-a
-
-w hole.`,
+    section: `352.11. Some cards identify a group of Targets with Targeting Requirements that must be met by the group as a whole`,
+    text: `Some cards identify a group of Targets with Targeting Requirements that must be met by the group as a whole.`,
   },
   {
     id: `352.11.a`,
-    section: `352.11.a. As`,
-    text: `As
-
-they’re
-
-ﬁnalized
-
-on
-
-the
-
-chain,
-
-such
-
-cards
-
-can
-
-choose
-
-any
-
-group
-
-of
-
-valid
-
-targets
-
-that
-
-collectively
-
-fulﬁll
-
-the
-
-targeting
-
-restriction.`,
+    section: `352.11.a. As they’re finalized on the chain`,
+    text: `As they’re finalized on the chain, such cards can choose any group of valid targets that collectively fulfill the targeting restriction.`,
   },
   {
     id: `352.11.b`,
-    section: `352.11.b. If`,
-    text: `If
-
-the
-
-group
-
-of
-
-targets
-
-no
-
-longer
-
-collectively
-
-fulﬁll
-
-the
-
-targeting
-
-restriction
-
-as
-
-the
-
-spell
-
-or
-
-ability
-
-resolves,
-
-that
-
-spell
-
-or
-
-ability’s
-
-controller
-
-can
-
-choose
-
-a
-
-subset
-
-of
-
-the
-
-original
-
-targets
-
-that
-
-fulﬁlls
-
-the
-
-targeting
-
-requirem ent
-
-for
-
-the
-
-spell
-
-or
-
-ability
-
-to
-
-affect.
-
-Example:
-
-A
-
-player
-
-plays
-
-Fox-Fire,
-
-a
-
-spell
-
-that
-
-says
-
-in
-
-part
-
-“Kill
-
-any
-
-num ber
-
-of
-
-units
-
-at
-
-a
-
-battleﬁeld
-
-w ith
-
-total
-
-M ight
-
-4
-
-or
-
-less.”
-
-That
-
-player
-
-chooses
-
-four
-
-1
-
-[M ]
-
-Recruit
-
-tokens
-
-at
-
-a
-
-single
-
-battleﬁeld.
-
-As
-
-a
-
-Reaction,
-
-another
-
-player
-
-gives
-
-tw o
-
-of
-
-those
-
-Recruits
-
-+1
-
-[M ],
-
-so
-
-the
-
-Recruits’
-
-M ights
-
-are
-
-1,
-
-1,
-
-2,
-
-and
-
-2.
-
-Then
-
-Fox-Fire
-
-resolves.
-
-The
-
-Recruits
-
-no
-
-longer
-
-have
-
-total
-
-M ight
-
-4
-
-or
-
-less,
-
-so
-
-Fox-Fire’s
-
-controller
-
-m ust
-
-choose
-
-a
-
-legal
-
-subset
-
-of
-
-the
-
-original
-
-targets
-
-to
-
-affect.
-
-They
-
-could
-
-choose
-
-to
-
-kill
-
-the
-
-tw o
-
-2
-
-[M ]
-
-Recruits,
-
-or
-
-the
-
-tw o
-
-1
-
-[M ]
-
-Recruits
-
-plus
-
-one
-
-2
-
-[M ]
-
-Recruit.
-
-The
-
-units
-
-they
-
-choose
-
-are
-
-Fox-Fire’s
-
-rem aining
-
-legal
-
-targets.
-
-They
-
-can’t
-
-choose
-
-to
-
-affect
-
-units
-
-at
-
-the
-
-sam e
-
-battleﬁeld
-
-that
-
-w eren’t
-
-initially
-
-chosen
-
-as
-
-targets,
-
-and
-
-they
-
-can’t
-
-affect
-
-any
-
-units
-
-that
-
-are
-
-no
-
-longer
-
-at
-
-the
-
-chosen
-
-battleﬁeld.`,
+    section: `352.11.b. If the group of targets no longer collectively fulfill the targeting restriction as the spell or ability resolves`,
+    text: `If the group of targets no longer collectively fulfill the targeting restriction as the spell or ability resolves, that spell or ability’s controller can choose a subset of the original targets that fulfills the targeting requirement for the spell or ability to affect. Example: A player plays Fox-Fire, a spell that says in part “Kill any number of units at a battlefield with total Might 4 or less.” That player chooses four 1 [M] Recruit tokens at a single battlefield. As a Reaction, another player gives two of those Recruits +1 [M], so the Recruits’ Mights are 1, 1, 2, and 2. Then Fox-Fire resolves. The Recruits no longer have total Might 4 or less, so Fox-Fire’s controller must choose a legal subset of the original targets to affect. They could choose to kill the two 2 [M] Recruits, or the two 1 [M] Recruits plus one 2 [M] Recruit. The units they choose are Fox-Fire’s remaining legal targets. They can’t choose to affect units at the same battlefield that weren’t initially chosen as targets, and they can’t affect any units that are no longer at the chosen battlefield.`,
   },
   {
     id: `352.12`,
-    section: `352.12. If`,
-    text: `If
-
-a
-
-card
-
-speciﬁes
-
-that
-
-a
-
-player
-
-may
-
-choose
-
-som e
-
-num ber
-
-of
-
-Gam e
-
-Objects
-
-to
-
-be
-
-affected
-
-by
-
-a
-
-card,
-
-then
-
-all
-
-choices
-
-are
-
-considered
-
-targeted
-
-and
-
-chosen
-
-independently.`,
+    section: `352.12. If a card specifies that a player may choose some number of Game Objects to be affected by a card`,
+    text: `If a card specifies that a player may choose some number of Game Objects to be affected by a card, then all choices are considered targeted and chosen independently.`,
   },
   {
     id: `352.13`,
-    section: `352.13. If`,
-    text: `If
-
-a
-
-card
-
-speciﬁes
-
-that
-
-a
-
-player
-
-chooses
-
-“any
-
-num ber”
-
-or
-
-“up
-
-to”
-
-som e
-
-num ber
-
-of
-
-Gam e
-
-Objects
-
-to
-
-be
-
-affected,
-
-they
-
-m ay
-
-choose
-
-any
-
-num ber
-
-of
-
-available
-
-targets,
-
-including
-
-zero.
-
-If
-
-they
-
-choose
-
-zero,
-
-the
-
-spell
-
-or
-
-ability
-
-can
-
-be
-
-played
-
-w ithout
-
-any
-
-targets.`,
+    section: `352.13. If a card specifies that a player chooses “any number” or “up to” some number of Game Objects to be affected`,
+    text: `If a card specifies that a player chooses “any number” or “up to” some number of Game Objects to be affected, they may choose any number of available targets, including zero. If they choose zero, the spell or ability can be played without any targets.`,
   },
   {
     id: `352.14`,
@@ -26084,11443 +3374,960 @@ targets.`,
   },
   {
     id: `352.14.a`,
-    section: `352.14.a. If`,
-    text: `If
-
-a
-
-card
-
-speciﬁes
-
-that
-
-an
-
-am ount
-
-of
-
-dam age
-
-m ay
-
-be
-
-split
-
-am ong
-
-som e
-
-num ber
-
-of
-
-Units ,
-
-then
-
-each
-
-Unit
-
-chosen
-
-is
-
-Targeted.`,
+    section: `352.14.a. If a card specifies that an amount of damage may be split among some number of Units`,
+    text: `If a card specifies that an amount of damage may be split among some number of Units, then each Unit chosen is Targeted.`,
   },
   {
     id: `352.14.b`,
-    section: `352.14.b. The`,
-    text: `The
-
-Targets
-
-are
-
-chosen
-
-w hen
-
-the
-
-spell
-
-or
-
-ability
-
-is
-
-ﬁnalized
-
-on
-
-the
-
-chain.`,
+    section: `352.14.b. The Targets are chosen when the spell or ability is finalized on the chain`,
+    text: `The Targets are chosen when the spell or ability is finalized on the chain.`,
   },
   {
     id: `352.14.c`,
-    section: `352.14.c. A`,
-    text: `A
-
-num ber
-
-of
-
-Targets
-
-can
-
-only
-
-be
-
-chosen
-
-up
-
-to,
-
-and
-
-not
-
-exceeding,
-
-the
-
-initial
-
-am ount
-
-of
-
-dam age
-
-available
-
-w hen
-
-the
-
-spell
-
-is
-
-played.
-
-Example:
-
-A
-
-player
-
-playing
-
-a
-
-spell
-
-that
-
-instructs
-
-them
-
-to
-
-"Split
-
-5
-
-dam age"
-
-m ay
-
-only
-
-choose
-
-up
-
-to
-
-5
-
-units,
-
-but
-
-m ay
-
-choose
-
-few er.`,
+    section: `352.14.c. A number of Targets can only be chosen up to`,
+    text: `A number of Targets can only be chosen up to, and not exceeding, the initial amount of damage available when the spell is played. Example: A player playing a spell that instructs them to "Split 5 damage" may only choose up to 5 units, but may choose fewer.`,
   },
   {
     id: `352.14.d`,
-    section: `352.14.d. Each`,
-    text: `Each
-
-Target
-
-is
-
-valid,
-
-and
-
-contributes
-
-to
-
-Chosen
-
-triggers
-
-individually.`,
+    section: `352.14.d. Each Target is valid`,
+    text: `Each Target is valid, and contributes to Chosen triggers individually.`,
   },
   {
     id: `352.14.e`,
-    section: `352.14.e. The`,
-    text: `The
-
-choice
-
-of
-
-how
-
-m uch
-
-dam age
-
-is
-
-divided
-
-across
-
-the
-
-split
-
-is
-
-not
-
-decided
-
-until
-
-the
-
-resolution
-
-of
-
-the
-
-spell
-
-or
-
-ability.`,
+    section: `352.14.e. The choice of how much damage is divided across the split is not decided until the resolution of the spell or ability`,
+    text: `The choice of how much damage is divided across the split is not decided until the resolution of the spell or ability.`,
   },
   {
     id: `352.14.f`,
-    section: `352.14.f. Each`,
-    text: `Each
-
-Target
-
-m ust
-
-receive
-
-a
-
-valid
-
-am ount
-
-of
-
-dam age.`,
+    section: `352.14.f. Each Target must receive a valid amount of damage`,
+    text: `Each Target must receive a valid amount of damage.`,
   },
   {
     id: `352.14.g`,
-    section: `352.14.g. Valid`,
-    text: `Valid
-
-dam age
-
-is
-
-a
-
-positive
-
-integer
-
-am ount,
-
-greater
-
-than
-
-or
-
-equal
-
-to
-
-1
-
-dam age.`,
+    section: `352.14.g. Valid damage is a positive integer amount`,
+    text: `Valid damage is a positive integer amount, greater than or equal to 1 damage.`,
   },
   {
     id: `352.14.h`,
-    section: `352.14.h. If,`,
-    text: `If,
-
-at
-
-resolution
-
-of
-
-the
-
-spell
-
-or
-
-effect,
-
-there
-
-are
-
-m ore
-
-Targets
-
-than
-
-available
-
-dam age
-
-to
-
-divide,
-
-then
-
-the
-
-player
-
-w ho
-
-controls
-
-the
-
-effect
-
-dealing
-
-dam age
-
-determ ines
-
-w hich
-
-Targets
-
-cease
-
-being
-
-Targets.`,
+    section: `352.14.h. If`,
+    text: `If, at resolution of the spell or effect, there are more Targets than available damage to divide, then the player who controls the effect dealing damage determines which Targets cease being Targets.`,
   },
   {
     id: `352.14.i`,
-    section: `352.14.i. Any`,
-    text: `Any
-
-costs
-
-that
-
-w ere
-
-paid,
-
-or
-
-effects
-
-that
-
-w ere
-
-triggered
-
-as
-
-a
-
-result
-
-of
-
-those
-
-Gam e
-
-Objects
-
-being
-
-chosen
-
-as
-
-Targets
-
-rem ain
-
-in
-
-effect,
-
-paid,
-
-or
-
-otherw ise
-
-triggered.`,
+    section: `352.14.i. Any costs that were paid`,
+    text: `Any costs that were paid, or effects that were triggered as a result of those Game Objects being chosen as Targets remain in effect, paid, or otherwise triggered.`,
   },
   {
     id: `352.15`,
-    section: `352.15. These`,
-    text: `These
-
-choices
-
-cannot
-
-be
-
-changed
-
-after
-
-this
-
-step.`,
+    section: `352.15. These choices cannot be changed after this step`,
+    text: `These choices cannot be changed after this step.`,
   },
   {
     id: `352.16`,
-    section: `352.16. A`,
-    text: `A
-
-player
-
-m ay
-
-not
-
-m ake
-
-choices
-
-during
-
-this
-
-step
-
-that
-
-w ill
-
-determ inistically
-
-result
-
-in
-
-illegal
-
-choices
-
-or
-
-actions
-
-later
-
-in
-
-this
-
-process
-
-unless
-
-they
-
-have
-
-no
-
-choice.
-
-Example:
-
-A
-
-player
-
-plays
-
-Cruel
-
-Patron,
-
-w hich
-
-says
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-m e,
-
-kill
-
-a
-
-friendly
-
-unit."
-
-They
-
-control
-
-exactly
-
-one
-
-unit,
-
-w hich
-
-is
-
-at
-
-a
-
-battleﬁeld.
-
-They
-
-can't
-
-choose
-
-to
-
-play
-
-Cruel
-
-Patron
-
-to
-
-that
-
-battleﬁeld,
-
-because
-
-by
-
-the
-
-tim e
-
-they
-
-have
-
-ﬁnished
-
-paying
-
-costs,
-
-they
-
-w ill
-
-no
-
-longer
-
-control
-
-that
-
-battleﬁeld.`,
+    section: `352.16. A player may not make choices during this step that will deterministically result in illegal choices or actions later in this process unless they have no choice`,
+    text: `A player may not make choices during this step that will deterministically result in illegal choices or actions later in this process unless they have no choice. Example: A player plays Cruel Patron, which says "As an additional cost to play me, kill a friendly unit." They control exactly one unit, which is at a battlefield. They can't choose to play Cruel Patron to that battlefield, because by the time they have finished paying costs, they will no longer control that battlefield.`,
   },
   {
     id: `353`,
-    section: `353. 3.`,
-    text: `3.
-
-D eterm ine
-
-Total
-
-Cost.`,
+    section: `353. 3`,
+    text: `3. Determine Total Cost.`,
   },
   {
     id: `353.1`,
-    section: `353.1. If`,
-    text: `If
-
-an
-
-ability
-
-or
-
-instruction
-
-allow s
-
-you
-
-to
-
-"ignore"
-
-one
-
-or
-
-m ore
-
-of
-
-a
-
-card's
-
-costs,
-
-set
-
-the
-
-appropriate
-
-Base
-
-Cost(s)
-
-of
-
-the
-
-card
-
-to
-
-zero.`,
+    section: `353.1. If an ability or instruction allows you to "ignore" one or more of a card's costs`,
+    text: `If an ability or instruction allows you to "ignore" one or more of a card's costs, set the appropriate Base Cost(s) of the card to zero.`,
   },
   {
     id: `353.1.a`,
-    section: `353.1.a. If`,
-    text: `If
-
-a
-
-card
-
-allow s
-
-a
-
-player
-
-to
-
-play
-
-a
-
-card
-
-"ignoring
-
-its
-
-cost,"
-
-its
-
-base
-
-Energy
-
-cost
-
-and
-
-base
-
-Power
-
-cost
-
-are
-
-set
-
-to
-
-zero.`,
+    section: `353.1.a. If a card allows a player to play a card "ignoring its cost`,
+    text: `If a card allows a player to play a card "ignoring its cost," its base Energy cost and base Power cost are set to zero.`,
   },
   {
     id: `353.1.b`,
-    section: `353.1.b. If`,
-    text: `If
-
-a
-
-card
-
-instructs
-
-a
-
-player
-
-to
-
-play
-
-a
-
-card
-
-"ignoring
-
-its
-
-Energy
-
-cost"
-
-or
-
-"ignoring
-
-its
-
-Pow er
-
-cost,"
-
-only
-
-the
-
-appropriate
-
-cost
-
-is
-
-set
-
-to
-
-zero,
-
-and
-
-the
-
-rem aining
-
-cost
-
-still
-
-applies.`,
+    section: `353.1.b. If a card instructs a player to play a card "ignoring its Energy cost" or "ignoring its Power cost`,
+    text: `If a card instructs a player to play a card "ignoring its Energy cost" or "ignoring its Power cost," only the appropriate cost is set to zero, and the remaining cost still applies.`,
   },
   {
     id: `353.1.c`,
-    section: `353.1.c. Further`,
-    text: `Further
-
-additional
-
-costs
-
-and/or
-
-cost
-
-increases
-
-applied
-
-in
-
-subsequent
-
-steps
-
-m ay
-
-raise
-
-the
-
-card's
-
-Total
-
-Cost
-
-above
-
-zero.
-
-Example:
-
-Legion
-
-Rearguard
-
-is
-
-a
-
-Fury
-
-unit
-
-that
-
-costs
-
-2
-
-Energy
-
-and
-
-0
-
-Pow er
-
-and
-
-has
-
-Accelerate.
-
-A
-
-player
-
-plays
-
-Legion
-
-Rearguard
-
-and
-
-is
-
-instructed
-
-to
-
-ignore
-
-its
-
-costs,
-
-but
-
-chooses
-
-to
-
-pay
-
-the
-
-Accelerate
-
-cost.
-
-They
-
-ignore
-
-Legion
-
-Rearguard's
-
-Base
-
-Cost
-
-of
-
-2
-
-Energy,
-
-but
-
-the
-
-optional
-
-additional
-
-cost
-
-of
-
-1
-
-Energy
-
-and
-
-1
-
-Fury
-
-Pow er
-
-is
-
-added
-
-to
-
-its
-
-Total
-
-Cost
-
-and
-
-m ust
-
-be
-
-paid.`,
+    section: `353.1.c. Further additional costs and/or cost increases applied in subsequent steps may raise the card's Total Cost above zero`,
+    text: `Further additional costs and/or cost increases applied in subsequent steps may raise the card's Total Cost above zero. Example: Legion Rearguard is a Fury unit that costs 2 Energy and 0 Power and has Accelerate. A player plays Legion Rearguard and is instructed to ignore its costs, but chooses to pay the Accelerate cost. They ignore Legion Rearguard's Base Cost of 2 Energy, but the optional additional cost of 1 Energy and 1 Fury Power is added to its Total Cost and must be paid.`,
   },
   {
     id: `353.2`,
-    section: `353.2. Apply`,
-    text: `Apply
-
-additional
-
-costs
-
-in
-
-any
-
-order.`,
+    section: `353.2. Apply additional costs in any order`,
+    text: `Apply additional costs in any order.`,
   },
   {
     id: `353.2.a`,
-    section: `353.2.a. Mandatory`,
-    text: `Mandatory
+    section: `353.2.a. Mandatory Additional Costs`,
+    text: `Mandatory Additional Costs
 
-Additional
+1. Some Additional Costs specified by Passive Abilities on the card being played or another card are Mandatory, and must be paid to complete playing the card. They use the phrase "as an additional cost" and don't include the word "may." Example: A unit has the passive ability "As an additional cost to play me, kill a friendly unit." To play that unit, a player must kill a friendly unit. See rule 360. Passive Abilities for more information.
 
-Costs
-
-353.2.a.1.
-
-Som e
-
-Additional
-
-Costs
-
-speciﬁed
-
-by
-
-Passive
-
-Abilities
-
-on
-
-the
-
-card
-
-being
-
-played
-
-or
-
-another
-
-card
-
-are
-
-Mandatory ,
-
-and
-
-m ust
-
-be
-
-paid
-
-to
-
-com plete
-
-playing
-
-the
-
-card.
-
-They
-
-use
-
-the
-
-phrase
-
-"as
-
-an
-
-additional
-
-cost"
-
-and
-
-don't
-
-include
-
-the
-
-w ord
-
-"m ay."
-
-Example:
-
-A
-
-unit
-
-has
-
-the
-
-passive
-
-ability
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-m e,
-
-kill
-
-a
-
-friendly
-
-unit."
-
-To
-
-play
-
-that
-
-unit,
-
-a
-
-player
-
-m ust
-
-kill
-
-a
-
-friendly
-
-unit.
-
-See
-
-rule`,
-  },
-  {
-    id: `725`,
-    section: `725. Deﬂect`,
-    text: `Deﬂect
-
-for
-
-more
-
-information.`,
+2. The cost imposed by the Deflect keyword is a Mandatory Additional Cost. See rule 725. Deflect for more information.`,
   },
   {
     id: `353.2.b`,
-    section: `353.2.b. Optional`,
-    text: `Optional
+    section: `353.2.b. Optional Additional Costs`,
+    text: `Optional Additional Costs
 
-Additional
-
-Costs
-
-353.2.b.1.
-
-Som e
-
-Optional
-
-Costs
-
-speciﬁed
-
-by
-
-Passive
-
-Abilities
-
-on
-
-the
-
-card
-
-being
-
-played
-
-or
-
-another
-
-card
-
-are
-
-Non-Mandatory ,
-
-and
-
-m ust
-
-be
-
-paid
-
-only
-
-if
-
-the
-
-player
-
-m ade
-
-the
-
-choice
-
-to
-
-pay
-
-them
-
-in
-
-rule`,
-  },
-  {
-    id: `354.2`,
-    section: `354.2. See`,
-    text: `See
-
-rule
-
-In
-
-addition,
-
-pay
-
-any
-
-non-standard
-
-Cost
-
-sum m ed
-
-in
-
-rule
-
-353.2
-
-in
-
-any
-
-order.`,
+1. Some Optional Costs specified by Passive Abilities on the card being played or another card are Non-Mandatory, and must be paid only if the player made the choice to pay them in rule 352. They use the phrase "as an additional cost" and the word "may." Example: A unit has the ability "As you play me, you may discard 1 as an additional cost. If you do, reduce my cost by [2]." While playing the unit, its controller declares their intention to pay the additional cost in rule 352, applies that additional cost in rule 353.2, applies the discount granted by paying that cost in rule 353.4, and discards a card to pay that additional cost in rule 354.2. See rule 360. Passive Abilities for more information.`,
   },
   {
     id: `353.3`,
-    section: `353.3. Apply`,
-    text: `Apply
-
-cost
-
-increases.`,
+    section: `353.3. Apply cost increases`,
+    text: `Apply cost increases.`,
   },
   {
     id: `353.4`,
-    section: `353.4. Apply`,
-    text: `Apply
-
-discounts
-
-in
-
-any
-
-order.`,
+    section: `353.4. Apply discounts in any order`,
+    text: `Apply discounts in any order.`,
   },
   {
     id: `353.4.a`,
-    section: `353.4.a. D iscounts`,
-    text: `D iscounts
-
-m ay
-
-be
-
-applied
-
-by
-
-the
-
-card
-
-being
-
-played
-
-or
-
-by
-
-any
-
-other
-
-card
-
-or
-
-effect.`,
+    section: `353.4.a. Discounts may be applied by the card being played or by any other card or effect`,
+    text: `Discounts may be applied by the card being played or by any other card or effect.`,
   },
   {
     id: `353.4.b`,
-    section: `353.4.b. D iscounts`,
-    text: `D iscounts
-
-m ay
-
-say
-
-that
-
-cards
-
-"cost
-
-[am ount]
-
-less"
-
-or
-
-that
-
-one
-
-or
-
-m ore
-
-of
-
-their
-
-costs
-
-are
-
-"reduced
-
-by
-
-[am ount]."`,
+    section: `353.4.b. Discounts may say that cards "cost [amount] less" or that one or more of their costs are "reduced by [amount]`,
+    text: `Discounts may say that cards "cost [amount] less" or that one or more of their costs are "reduced by [amount]."`,
   },
   {
     id: `353.4.c`,
-    section: `353.4.c. If`,
-    text: `If
-
-a
-
-discount
-
-applies
-
-a
-
-m inim um
-
-cost,
-
-that
-
-m inim um
-
-applies
-
-only
-
-to
-
-that
-
-discount.
-
-Example:
-
-Eager
-
-Apprentice
-
-says
-
-"W hile
-
-I'm
-
-at
-
-a
-
-battleﬁeld,
-
-the
-
-Energy
-
-costs
-
-for
-
-spells
-
-you
-
-play
-
-is
-
-reduced
-
-by
-
-[1],
-
-to
-
-a
-
-m inim um
-
-of
-
-[1]."
-
-A
-
-player
-
-w ho
-
-controls
-
-Eager
-
-Apprentice
-
-and
-
-a
-
-unit
-
-w ith
-
-7
-
-M ight
-
-plays
-
-Sky
-
-Splitter,
-
-a
-
-spell
-
-that
-
-costs
-
-8
-
-Energy
-
-and
-
-says
-
-"This
-
-spell's
-
-Energy
-
-cost
-
-is
-
-reduced
-
-by
-
-the
-
-highest
-
-M ight
-
-am ong
-
-units
-
-you
-
-control."
-
-That
-
-player
-
-can
-
-choose
-
-to
-
-apply
-
-Eager
-
-Apprentice's
-
-discount
-
-ﬁrst,
-
-reducing
-
-Sky
-
-Splitter's
-
-Energy
-
-cost
-
-to
-
-7,
-
-then
-
-apply
-
-Sky
-
-Splitter's
-
-discount,
-
-reducing
-
-its
-
-Energy
-
-cost
-
-to
-
-0.
-
-If
-
-they
-
-applied
-
-these
-
-discounts
-
-in
-
-the
-
-other
-
-order,
-
-Sky
-
-Splitter's
-
-Energy
-
-cost
-
-w ould
-
-be
-
-1.`,
+    section: `353.4.c. If a discount applies a minimum cost`,
+    text: `If a discount applies a minimum cost, that minimum applies only to that discount. Example: Eager Apprentice says "While I'm at a battlefield, the Energy costs for spells you play is reduced by [1], to a minimum of [1]." A player who controls Eager Apprentice and a unit with 7 Might plays Sky Splitter, a spell that costs 8 Energy and says "This spell's Energy cost is reduced by the highest Might among units you control." That player can choose to apply Eager Apprentice's discount first, reducing Sky Splitter's Energy cost to 7, then apply Sky Splitter's discount, reducing its Energy cost to 0. If they applied these discounts in the other order, Sky Splitter's Energy cost would be 1.`,
   },
   {
     id: `353.4.d`,
-    section: `353.4.d. D iscounts`,
-    text: `D iscounts
+    section: `353.4.d. Discounts can reduce additional costs`,
+    text: `Discounts can reduce additional costs, including to 0.
 
-can
-
-reduce
-
-additional
-
-costs,
-
-including
-
-to
-
-0.
-
-353.4.d.1.
-
-An
-
-optional
-
-additional
-
-cost
-
-w as
-
-"paid"
-
-if
-
-the
-
-player
-
-m ade
-
-the
-
-decision
-
-in
-
-rule
-
-352
-
-to
-
-pay
-
-it.
-
-It
-
-doesn't
-
-m atter
-
-how
-
-m uch
-
-the
-
-player
-
-actually
-
-paid.
-
-Example:
-
-Clockw ork
-
-Keeper
-
-is
-
-a
-
-unit
-
-that
-
-costs
-
-2
-
-Energy
-
-and
-
-0
-
-Pow er
-
-and
-
-says
-
-"As
-
-you
-
-play
-
-m e,
-
-you
-
-m ay
-
-pay
-
-[C]
-
-as
-
-an
-
-additional
-
-cost.
-
-If
-
-you
-
-do,
-
-draw
-
-"
-
-A
-
-player
-
-controls
-
-a
-
-card
-
-that
-
-says
-
-"Units
-
-you
-
-play
-
-cost
-
-[A]
-
-less."
-
-That
-
-player
-
-plays
-
-Clockw ork
-
-Keeper
-
-and
-
-chooses
-
-to
-
-pay
-
-the
-
-optional
-
-additional
-
-cost
-
-of
-
-[C].
-
-They
-
-w ill
-
-draw
-
-a
-
-card,
-
-even
-
-though
-
-the
-
-optional
-
-additional
-
-cost
-
-w as
-
-reduced
-
-to
-
-0.`,
+1. An optional additional cost was "paid" if the player made the decision in rule 352 to pay it. It doesn't matter how much the player actually paid. Example: Clockwork Keeper is a unit that costs 2 Energy and 0 Power and says "As you play me, you may pay [C] as an additional cost. If you do, draw " A player controls a card that says "Units you play cost [A] less." That player plays Clockwork Keeper and chooses to pay the optional additional cost of [C]. They will draw a card, even though the optional additional cost was reduced to 0.`,
   },
   {
     id: `353.5`,
-    section: `353.5. Energy`,
-    text: `Energy
-
-and
-
-Pow er
-
-costs
-
-can't
-
-be
-
-reduced
-
-below
-
-0.`,
+    section: `353.5. Energy and Power costs can't be reduced below 0`,
+    text: `Energy and Power costs can't be reduced below 0.`,
   },
   {
     id: `353.6`,
-    section: `353.6. Costs`,
-    text: `Costs
-
-m ay
-
-be
-
-Energy
-
-costs,
-
-Pow er
-
-costs,
-
-or
-
-non-standard
-
-costs.
-
-Example:
-
-A
-
-card
-
-reads
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-m e,
-
-kill
-
-a
-
-friendly
-
-unit."
-
-Killing
-
-a
-
-friendly
-
-unit
-
-is
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-that
-
-card.`,
+    section: `353.6. Costs may be Energy costs`,
+    text: `Costs may be Energy costs, Power costs, or non-standard costs. Example: A card reads "As an additional cost to play me, kill a friendly unit." Killing a friendly unit is an additional cost to play that card.`,
   },
   {
     id: `354`,
-    section: `354. 4.`,
-    text: `4.
-
-Pay
-
-the
-
-card's
-
-costs.`,
+    section: `354. 4`,
+    text: `4. Pay the card's costs.`,
   },
   {
     id: `354.1`,
-    section: `354.1. In`,
-    text: `In
-
-total,
-
-pay
-
-the
-
-com bined
-
-Energy
-
-cost
-
-(if
-
-any)
-
-and
-
-Power
-
-cost
-
-(if
-
-any).`,
+    section: `354.1. In total`,
+    text: `In total, pay the combined Energy cost (if any) and Power cost (if any).`,
   },
   {
     id: `354.1.a`,
-    section: `354.1.a. D uring`,
-    text: `D uring
-
-this
-
-step,
-
-the
-
-spell's
-
-controller
-
-can
-
-use
-
-activated
-
-abilities
-
-w ith
-
-the
-
-Reaction
-
-tag
-
-that
-
-Add
-
-resources
-
-to
-
-add
-
-Energy
-
-and
-
-Power
-
-to
-
-pay
-
-the
-
-spell's
-
-costs.
-
-See
-
-rule`,
+    section: `354.1.a. During this step`,
+    text: `During this step, the spell's controller can use activated abilities with the Reaction tag that Add resources to add Energy and Power to pay the spell's costs. See rule 158. Rune Pools and rule 416. Add for more information.`,
+  },
+  {
+    id: `354.2`,
+    section: `354.2. In addition`,
+    text: `In addition, pay any non-standard Cost summed in rule 353.2 in any order.`,
   },
   {
     id: `354.2.a`,
-    section: `354.2.a. Costs`,
-    text: `Costs
-
-that
-
-are
-
-replaced
-
-w ith
-
-other
-
-events
-
-by
-
-replacem ent
-
-effects
-
-are
-
-still
-
-considered
-
-paid.
-
-Example:
-
-A
-
-player
-
-plays
-
-Cruel
-
-Patron,
-
-w hich
-
-says
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-m e,
-
-kill
-
-a
-
-friendly
-
-unit."
-
-They
-
-also
-
-control
-
-Zhonya’s
-
-H ourglass,
-
-w hich
-
-says
-
-“If
-
-a
-
-friendly
-
-unit
-
-w ould
-
-die,
-
-kill
-
-this
-
-instead.
-
-H eal
-
-that
-
-unit,
-
-exhaust
-
-it,
-
-and
-
-recall
-
-it.”
-
-They
-
-choose
-
-to
-
-kill
-
-a
-
-friendly
-
-unit
-
-during
-
-rule
-
-353.2 ,
-
-but
-
-as
-
-they
-
-pay
-
-the
-
-cost
-
-in
-
-rule
-
-354.2 ,
-
-Zhonya’s
-
-H ourglass
-
-replaces
-
-that
-
-unit’s
-
-death.
-
-The
-
-cost
-
-is
-
-considered
-
-paid,
-
-and
-
-the
-
-player
-
-can
-
-continue
-
-playing
-
-Cruel
-
-Patron.`,
+    section: `354.2.a. Costs that are replaced with other events by replacement effects are still considered paid`,
+    text: `Costs that are replaced with other events by replacement effects are still considered paid. Example: A player plays Cruel Patron, which says "As an additional cost to play me, kill a friendly unit." They also control Zhonya’s Hourglass, which says “If a friendly unit would die, kill this instead. Heal that unit, exhaust it, and recall it.” They choose to kill a friendly unit during rule 353.2, but as they pay the cost in rule 354.2, Zhonya’s Hourglass replaces that unit’s death. The cost is considered paid, and the player can continue playing Cruel Patron.`,
   },
   {
     id: `354.3`,
-    section: `354.3. A`,
-    text: `A
-
-player
-
-m ay
-
-not
-
-pay
-
-costs
-
-during
-
-this
-
-step
-
-that
-
-w ill
-
-determ inistically
-
-result
-
-in
-
-illegal
-
-choices
-
-or
-
-actions
-
-later
-
-in
-
-this
-
-process
-
-unless
-
-they
-
-have
-
-no
-
-choice.
-
-Example:
-
-A
-
-player
-
-plays
-
-Cruel
-
-Patron,
-
-w hich
-
-says
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-m e,
-
-kill
-
-a
-
-friendly
-
-unit."
-
-They
-
-control
-
-m ultiple
-
-units,
-
-one
-
-of
-
-w hich
-
-is
-
-alone
-
-at
-
-a
-
-battleﬁeld.
-
-D uring
-
-rule`,
+    section: `354.3. A player may not pay costs during this step that will deterministically result in illegal choices or actions later in this process unless they have no choice`,
+    text: `A player may not pay costs during this step that will deterministically result in illegal choices or actions later in this process unless they have no choice. Example: A player plays Cruel Patron, which says "As an additional cost to play me, kill a friendly unit." They control multiple units, one of which is alone at a battlefield. During rule`,
   },
   {
     id: `355`,
-    section: `355. 5.`,
-    text: `5.
-
-Check
-
-legality.`,
+    section: `355. 5`,
+    text: `5. Check legality.`,
   },
   {
     id: `355.1`,
-    section: `355.1. Check`,
-    text: `Check
-
-that
-
-all
-
-chosen
-
-targets
-
-are
-
-legal.`,
+    section: `355.1. Check that all chosen targets are legal`,
+    text: `Check that all chosen targets are legal.`,
   },
   {
     id: `355.2`,
-    section: `355.2. Ensure`,
-    text: `Ensure
-
-that
-
-the
-
-outcom e
-
-of
-
-the
-
-effect
-
-of
-
-this
-
-card
-
-being
-
-played
-
-w ould
-
-not
-
-create
-
-an
-
-illegal
-
-state.
-
-Example:
-
-Check
-
-that
-
-a
-
-spell's
-
-execution
-
-does
-
-not
-
-create
-
-a
-
-state
-
-w here
-
-a
-
-Battleﬁeld
-
-has
-
-Units
-
-controlled
-
-by
-
-3
-
-different
-
-players.`,
+    section: `355.2. Ensure that the outcome of the effect of this card being played would not create an illegal state`,
+    text: `Ensure that the outcome of the effect of this card being played would not create an illegal state. Example: Check that a spell's execution does not create a state where a Battlefield has Units controlled by 3 different players.`,
   },
   {
     id: `355.3`,
-    section: `355.3. If`,
-    text: `If
-
-the
-
-card,
-
-if
-
-continued
-
-to
-
-be
-
-played,
-
-w ould
-
-create
-
-an
-
-illegal
-
-state,
-
-or
-
-if
-
-a
-
-choice
-
-or
-
-action
-
-at
-
-this
-
-state
-
-is
-
-illegal,
-
-the
-
-actions
-
-taken
-
-in
-
-this
-
-process
-
-are
-
-undone
-
-and
-
-the
-
-action
-
-is
-
-cancelled.`,
+    section: `355.3. If the card`,
+    text: `If the card, if continued to be played, would create an illegal state, or if a choice or action at this state is illegal, the actions taken in this process are undone and the action is cancelled.`,
   },
   {
     id: `356`,
-    section: `356. 6.`,
-    text: `6.
-
-Finalize
-
-this
-
-card
-
-and
-
-proceed
-
-w ith
-
-the
-
-card's
-
-category
-
-of
-
-Play.`,
+    section: `356. 6`,
+    text: `6. Finalize this card and proceed with the card's category of Play.`,
   },
   {
     id: `356.1`,
-    section: `356.1. This`,
-    text: `This
-
-card
-
-is
-
-no
-
-longer
-
-Pending .`,
+    section: `356.1. This card is no longer Pending`,
+    text: `This card is no longer Pending.`,
   },
   {
     id: `356.2`,
-    section: `356.2. A`,
-    text: `A
-
-Perm anent
-
-leaves
-
-the
-
-Chain
-
-and
-
-becom es
-
-a
-
-Gam e
-
-Object.`,
+    section: `356.2. A Permanent leaves the Chain and becomes a Game Object`,
+    text: `A Permanent leaves the Chain and becomes a Game Object.`,
   },
   {
     id: `356.2.a`,
-    section: `356.2.a. Any`,
-    text: `Any
-
-passive
-
-abilities
-
-becom e
-
-active.`,
+    section: `356.2.a. Any passive abilities become active`,
+    text: `Any passive abilities become active.`,
   },
   {
     id: `356.2.b`,
-    section: `356.2.b. Execute`,
-    text: `Execute
-
-all
-
-rules
-
-text
-
-on
-
-the
-
-card,
-
-from
-
-top
-
-to
-
-bottom .`,
+    section: `356.2.b. Execute all rules text on the card`,
+    text: `Execute all rules text on the card, from top to bottom.`,
   },
   {
     id: `356.2.c`,
-    section: `356.2.c. If`,
-    text: `If
-
-it
-
-is
-
-a
-
-Unit ,
-
-it
-
-enters
-
-the
-
-Board
-
-exhausted
-
-at
-
-the
-
-Location
-
-that
-
-w as
-
-chosen.`,
+    section: `356.2.c. If it is a Unit`,
+    text: `If it is a Unit, it enters the Board exhausted at the Location that was chosen.`,
   },
   {
     id: `356.2.d`,
-    section: `356.2.d. If`,
-    text: `If
-
-it
-
-is
-
-a
-
-Gear,
-
-it
-
-enters
-
-the
-
-Board
-
-Ready
-
-at
-
-the
-
-player's
-
-Base.`,
+    section: `356.2.d. If it is a Gear`,
+    text: `If it is a Gear, it enters the Board Ready at the player's Base.`,
   },
   {
     id: `356.3`,
-    section: `356.3. A`,
-    text: `A
-
-Spell
-
-lingers
-
-on
-
-the
-
-Chain.`,
+    section: `356.3. A Spell lingers on the Chain`,
+    text: `A Spell lingers on the Chain.`,
   },
   {
     id: `356.3.a`,
-    section: `356.3.a. This`,
-    text: `This
-
-card
-
-becom es
-
-a
-
-Finalized
-
-Chain
-
-Item .`,
+    section: `356.3.a. This card becomes a Finalized Chain Item`,
+    text: `This card becomes a Finalized Chain Item.`,
   },
   {
     id: `356.3.b`,
-    section: `356.3.b. If`,
-    text: `If
-
-there
-
-are
-
-other
-
-Pending
-
-Item s
-
-on
-
-the
-
-Chain,
-
-then
-
-the
-
-controller
-
-of
-
-those
-
-Pending
-
-Item s
-
-com pletes
-
-Steps
-
-2
-
-through
-
-5
-
-of
-
-Playing
-
-Cards
-
-for
-
-those
-
-item s
-
-before
-
-continuing.
-
-See
-
-rule`,
+    section: `356.3.b. If there are other Pending Items on the Chain`,
+    text: `If there are other Pending Items on the Chain, then the controller of those Pending Items completes Steps 2 through 5 of Playing Cards for those items before continuing. See rule 326. Chains for more information.`,
   },
   {
     id: `356.3.c`,
-    section: `356.3.c. O ther`,
-    text: `O ther
-
-players
-
-have
-
-an
-
-opportunity
-
-to
-
-play
-
-Reactions
-
-before
-
-the
-
-resolution
-
-of
-
-spells.
-
-See
-
-rule`,
+    section: `356.3.c. Other players have an opportunity to play Reactions before the resolution of spells`,
+    text: `Other players have an opportunity to play Reactions before the resolution of spells. See rule 326. Chains for more information.`,
   },
   {
     id: `356.3.d`,
-    section: `356.3.d. O therw ise,`,
-    text: `O therw ise,
-
-execute
-
-the
-
-gam e
-
-effect
-
-of
-
-the
-
-spell,
-
-from
-
-top
-
-to
-
-bottom
-
-of
-
-the
-
-rules
-
-text
-
-of
-
-the
-
-card
-
-and
-
-then
-
-place
-
-the
-
-card
-
-in
-
-the
-
-Trash
-
-of
-
-the
-
-owning
-
-player.`,
+    section: `356.3.d. Otherwise`,
+    text: `Otherwise, execute the game effect of the spell, from top to bottom of the rules text of the card and then place the card in the Trash of the owning player.`,
   },
   {
     id: `356.3.e`,
-    section: `356.3.e. H andling`,
-    text: `H andling
+    section: `356.3.e. Handling illegal and impossible instructions`,
+    text: `Handling illegal and impossible instructions
 
-illegal
+1. The spell resolves even if some or all of its targets are illegal.
 
-and
+2. A target is illegal as the spell resolves if it no longer meets the targeting requirements of the spell, or if it has changed Zones to or from a Non-Board Zone.
 
-im possible
+3. If a target ceases to meet the targeting requirements while the spell is on the chain, then meets them again, it's a legal target. Example: A spell targets "a unit at a battlefield." A player reacts with a spell that moves the unit to base, then another player reacts with a spell that moves it back to that battlefield, then the original spell resolves. The unit is a legal target.
 
-instructions
+4. If a target changes Zones to or from a Non-Board Zone and then returns to its original zone, it is no longer a legal target, because it's not treated as the same object. Examples: An enemy unit at a battlefield is no longer a legal target if it is no longer an enemy, no longer a unit, or no longer at a battlefield. A unit with 3 or less Might is no longer a legal target if it is no longer a unit or if its Might is greater than 3. Something that's exhausted is no longer a legal target if it is no longer exhausted. (It can't stop being "something.") A spell that's played from hidden has the additional targeting requirement "here." A target for such a spell ceases to be a legal target if it moves from the battlefield where that spell was played, even if the spell has no location targeting requirement otherwise.
 
-356.3.e.1.
+5. If any of the spell's targets are no longer legal, those targets are unaffected by the spell as it resolves. Example: A player plays Void Seeker, a spell that says "Deal 4 to a unit at a battlefield. Draw 1." The unit's controller uses a Reaction to move the unit to their base. Since the unit is no longer a legal target, it is not dealt any damage. Void Seeker's controller still draws 1.
 
-The
+6. Instructions that can't be followed, either because of illegal targets or other circumstances, are ignored.
 
-spell
+7. If all of an instruction's Targets become Invalid or Unavailable by the time the spell is finished being played, that instruction will not execute.
 
-resolves
+8. If an instruction has more than one Target and fewer than all of the Targets become Invalid or Unavailable by the time the spell is finished being played, the instruction will execute, with only the Targets available and valid being operated on.
 
-even
+9. The process for a card's choice becoming Invalid or Unavailable is referred to as mistargeting. Example: A spell has the instruction "Deal 2 to a unit at a battlefield." Before that instruction can execute, the chosen unit is moved to its base. The instruction will not be executed, because it specifies that the unit it chooses must be at a Battlefield, and by the time it attempted to execute, the unit was no longer valid as a choice.
 
-if
+10. It is possible for none of a spell's instructions to be executed as it resolves, due to all of them requiring targets to act on and all of those targets becoming Invalid or Unavailable. In this case, the spell has no effect but is still considered played. Example: A player plays a spell that reads "Deal 2 to a unit at a battlefield" with no other instructions, and chooses an enemy unit at a battlefield. They also control a unit with the ability "When you play a spell, give me +1 [M] this turn." Before the spell resolves, the chosen unit is moved to its base. The spell resolves and its only instruction cannot be executed, but the unit's ability still triggers as the spell resolves and gives it +1 [M].
 
-som e
+11. Instructions that can be partially followed are followed as much as possible and ignored otherwise. Example: A player plays a spell that says "Discard 2, then draw 2" If their hand is empty, the instruction to discard 2 will be ignored. They'll still draw 2. If they had 1 card in hand, they would discard it and draw 2.
 
-or
+12. If the spell checks information about a target that is no longer legal or a card or permanent whose location, zone, or status has changed such that that information is no longer available, that check returns "null" and all calculations based on it are ignored. Examples: A unit that is no longer on the board is treated as having null Might, null cost, etc. A unit that is no longer on the board has no location, is neither exhausted nor readied, etc. Baited Hook says "[1][C], [E]: Kill a friendly unit. Look at the top 5 cards of your Main Deck. You may banish a unit from among them that has Might up to 1 more than the killed unit and play it, ignoring its cost. Then recycle the rest." While Baited Hook’s ability is on the chain, an opponent reacts with a spell that returns the friendly unit to its owner's hand. Because the friendly unit is no longer a legal target, it can't be killed and its Might is treated as null. Baited Hook’s controller reveals the top 5 cards of their Main Deck, but can’t choose any unit from among them.
 
-all
-
-of
-
-its
-
-targets
-
-are
-
-illegal.
-
-356.3.e.2.
-
-A
-
-target
-
-is
-
-illegal
-
-as
-
-the
-
-spell
-
-resolves
-
-if
-
-it
-
-no
-
-longer
-
-m eets
-
-the
-
-targeting
-
-requirem ents
-
-of
-
-the
-
-spell,
-
-or
-
-if
-
-it
-
-has
-
-changed
-
-Zones
-
-to
-
-or
-
-from
-
-a
-
-Non-Board
-
-Zone.
-
-356.3.e.3.
-
-If
-
-a
-
-target
-
-ceases
-
-to
-
-m eet
-
-the
-
-targeting
-
-requirem ents
-
-w hile
-
-the
-
-spell
-
-is
-
-on
-
-the
-
-chain,
-
-then
-
-m eets
-
-them
-
-again,
-
-it's
-
-a
-
-legal
-
-target.
-
-Example:
-
-A
-
-spell
-
-targets
-
-"a
-
-unit
-
-at
-
-a
-
-battleﬁeld."
-
-A
-
-player
-
-reacts
-
-w ith
-
-a
-
-spell
-
-that
-
-m oves
-
-the
-
-unit
-
-to
-
-base,
-
-then
-
-another
-
-player
-
-reacts
-
-w ith
-
-a
-
-spell
-
-that
-
-m oves
-
-it
-
-back
-
-to
-
-that
-
-battleﬁeld,
-
-then
-
-the
-
-original
-
-spell
-
-resolves.
-
-The
-
-unit
-
-is
-
-a
-
-legal
-
-target.
-
-356.3.e.4.
-
-If
-
-a
-
-target
-
-changes
-
-Zones
-
-to
-
-or
-
-from
-
-a
-
-Non-Board
-
-Zone
-
-and
-
-then
-
-returns
-
-to
-
-its
-
-original
-
-zone,
-
-it
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target,
-
-because
-
-it's
-
-not
-
-treated
-
-as
-
-the
-
-sam e
-
-object.
-
-Examples:
-
-An
-
-enem y
-
-unit
-
-at
-
-a
-
-battleﬁeld
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target
-
-if
-
-it
-
-is
-
-no
-
-longer
-
-an
-
-enem y,
-
-no
-
-longer
-
-a
-
-unit,
-
-or
-
-no
-
-longer
-
-at
-
-a
-
-battleﬁeld.
-
-A
-
-unit
-
-w ith
-
-3
-
-or
-
-less
-
-M ight
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target
-
-if
-
-it
-
-is
-
-no
-
-longer
-
-a
-
-unit
-
-or
-
-if
-
-its
-
-M ight
-
-is
-
-greater
-
-than
-
-3.
-
-Som ething
-
-that's
-
-exhausted
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target
-
-if
-
-it
-
-is
-
-no
-
-longer
-
-exhausted.
-
-(It
-
-can't
-
-stop
-
-being
-
-"som ething.")
-
-A
-
-spell
-
-that's
-
-played
-
-from
-
-hidden
-
-has
-
-the
-
-additional
-
-targeting
-
-requirem ent
-
-"here."
-
-A
-
-target
-
-for
-
-such
-
-a
-
-spell
-
-ceases
-
-to
-
-be
-
-a
-
-legal
-
-target
-
-if
-
-it
-
-m oves
-
-from
-
-the
-
-battleﬁeld
-
-w here
-
-that
-
-spell
-
-w as
-
-played,
-
-even
-
-if
-
-the
-
-spell
-
-has
-
-no
-
-location
-
-targeting
-
-requirem ent
-
-otherw ise.
-
-356.3.e.5.
-
-If
-
-any
-
-of
-
-the
-
-spell's
-
-targets
-
-are
-
-no
-
-longer
-
-legal,
-
-those
-
-targets
-
-are
-
-unaffected
-
-by
-
-the
-
-spell
-
-as
-
-it
-
-resolves.
-
-Example:
-
-A
-
-player
-
-plays
-
-Void
-
-Seeker,
-
-a
-
-spell
-
-that
-
-says
-
-"D eal
-
-4
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld.
-
-D raw
-
-1."
-
-The
-
-unit's
-
-controller
-
-uses
-
-a
-
-Reaction
-
-to
-
-m ove
-
-the
-
-unit
-
-to
-
-their
-
-base.
-
-Since
-
-the
-
-unit
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target,
-
-it
-
-is
-
-not
-
-dealt
-
-any
-
-dam age.
-
-Void
-
-Seeker's
-
-controller
-
-still
-
-draw s
-
-1.
-
-356.3.e.6.
-
-Instructions
-
-that
-
-can't
-
-be
-
-follow ed,
-
-either
-
-because
-
-of
-
-illegal
-
-targets
-
-or
-
-other
-
-circum stances,
-
-are
-
-ignored.
-
-356.3.e.7.
-
-If
-
-all
-
-of
-
-an
-
-instruction's
-
-Targets
-
-becom e
-
-Invalid
-
-or
-
-Unavailable
-
-by
-
-the
-
-tim e
-
-the
-
-spell
-
-is
-
-ﬁnished
-
-being
-
-played,
-
-that
-
-instruction
-
-w ill
-
-not
-
-execute.
-
-356.3.e.8.
-
-If
-
-an
-
-instruction
-
-has
-
-m ore
-
-than
-
-one
-
-Target
-
-and
-
-few er
-
-than
-
-all
-
-of
-
-the
-
-Targets
-
-becom e
-
-Invalid
-
-or
-
-Unavailable
-
-by
-
-the
-
-tim e
-
-the
-
-spell
-
-is
-
-ﬁnished
-
-being
-
-played,
-
-the
-
-instruction
-
-w ill
-
-execute,
-
-w ith
-
-only
-
-the
-
-Targets
-
-available
-
-and
-
-valid
-
-being
-
-operated
-
-on.
-
-356.3.e.9.
-
-The
-
-process
-
-for
-
-a
-
-card's
-
-choice
-
-becom ing
-
-Invalid
-
-or
-
-Unavailable
-
-is
-
-referred
-
-to
-
-as
-
-m istargeting.
-
-Example:
-
-A
-
-spell
-
-has
-
-the
-
-instruction
-
-"D eal
-
-2
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld."
-
-Before
-
-that
-
-instruction
-
-can
-
-execute,
-
-the
-
-chosen
-
-unit
-
-is
-
-m oved
-
-to
-
-its
-
-base.
-
-The
-
-instruction
-
-w ill
-
-not
-
-be
-
-executed,
-
-because
-
-it
-
-speciﬁes
-
-that
-
-the
-
-unit
-
-it
-
-chooses
-
-m ust
-
-be
-
-at
-
-a
-
-Battleﬁeld,
-
-and
-
-by
-
-the
-
-tim e
-
-it
-
-attem pted
-
-to
-
-execute,
-
-the
-
-unit
-
-w as
-
-no
-
-longer
-
-valid
-
-as
-
-a
-
-choice.
-
-356.3.e.10.
-
-It
-
-is
-
-possible
-
-for
-
-none
-
-of
-
-a
-
-spell's
-
-instructions
-
-to
-
-be
-
-executed
-
-as
-
-it
-
-resolves,
-
-due
-
-to
-
-all
-
-of
-
-them
-
-requiring
-
-targets
-
-to
-
-act
-
-on
-
-and
-
-all
-
-of
-
-those
-
-targets
-
-becom ing
-
-Invalid
-
-or
-
-Unavailable .
-
-In
-
-this
-
-case,
-
-the
-
-spell
-
-has
-
-no
-
-effect
-
-but
-
-is
-
-still
-
-considered
-
-played.
-
-Example:
-
-A
-
-player
-
-plays
-
-a
-
-spell
-
-that
-
-reads
-
-"D eal
-
-2
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld"
-
-w ith
-
-no
-
-other
-
-instructions,
-
-and
-
-chooses
-
-an
-
-enem y
-
-unit
-
-at
-
-a
-
-battleﬁeld.
-
-They
-
-also
-
-control
-
-a
-
-unit
-
-w ith
-
-the
-
-ability
-
-"W hen
-
-you
-
-play
-
-a
-
-spell,
-
-give
-
-m e
-
-+1
-
-[M ]
-
-this
-
-turn."
-
-Before
-
-the
-
-spell
-
-resolves,
-
-the
-
-chosen
-
-unit
-
-is
-
-m oved
-
-to
-
-its
-
-base.
-
-The
-
-spell
-
-resolves
-
-and
-
-its
-
-only
-
-instruction
-
-cannot
-
-be
-
-executed,
-
-but
-
-the
-
-unit's
-
-ability
-
-still
-
-triggers
-
-as
-
-the
-
-spell
-
-resolves
-
-and
-
-gives
-
-it
-
-+1
-
-[M ].
-
-356.3.e.11.
-
-Instructions
-
-that
-
-can
-
-be
-
-partially
-
-follow ed
-
-are
-
-follow ed
-
-as
-
-m uch
-
-as
-
-possible
-
-and
-
-ignored
-
-otherw ise.
-
-Example:
-
-A
-
-player
-
-plays
-
-a
-
-spell
-
-that
-
-says
-
-"D iscard
-
-2,
-
-then
-
-draw
-
-2"
-
-If
-
-their
-
-hand
-
-is
-
-em pty,
-
-the
-
-instruction
-
-to
-
-discard
-
-2
-
-w ill
-
-be
-
-ignored.
-
-They'll
-
-still
-
-draw
-
-2.
-
-If
-
-they
-
-had
-
-1
-
-card
-
-in
-
-hand,
-
-they
-
-w ould
-
-discard
-
-it
-
-and
-
-draw
-
-2.
-
-356.3.e.12.
-
-If
-
-the
-
-spell
-
-checks
-
-inform ation
-
-about
-
-a
-
-target
-
-that
-
-is
-
-no
-
-longer
-
-legal
-
-or
-
-a
-
-card
-
-or
-
-perm anent
-
-w hose
-
-location,
-
-zone,
-
-or
-
-status
-
-has
-
-changed
-
-such
-
-that
-
-that
-
-inform ation
-
-is
-
-no
-
-longer
-
-available,
-
-that
-
-check
-
-returns
-
-"null"
-
-and
-
-all
-
-calculations
-
-based
-
-on
-
-it
-
-are
-
-ignored.
-
-Examples:
-
-A
-
-unit
-
-that
-
-is
-
-no
-
-longer
-
-on
-
-the
-
-board
-
-is
-
-treated
-
-as
-
-having
-
-null
-
-M ight,
-
-null
-
-cost,
-
-etc.
-
-A
-
-unit
-
-that
-
-is
-
-no
-
-longer
-
-on
-
-the
-
-board
-
-has
-
-no
-
-location,
-
-is
-
-neither
-
-exhausted
-
-nor
-
-readied,
-
-etc.
-
-Baited
-
-H ook
-
-says
-
-"[1][C],
-
-[E]:
-
-Kill
-
-a
-
-friendly
-
-unit.
-
-Look
-
-at
-
-the
-
-top
-
-5
-
-cards
-
-of
-
-your
-
-M ain
-
-D eck.
-
-You
-
-m ay
-
-banish
-
-a
-
-unit
-
-from
-
-am ong
-
-them
-
-that
-
-has
-
-M ight
-
-up
-
-to
-
-1
-
-m ore
-
-than
-
-the
-
-killed
-
-unit
-
-and
-
-play
-
-it,
-
-ignoring
-
-its
-
-cost.
-
-Then
-
-recycle
-
-the
-
-rest."
-
-W hile
-
-Baited
-
-H ook’s
-
-ability
-
-is
-
-on
-
-the
-
-chain,
-
-an
-
-opponent
-
-reacts
-
-w ith
-
-a
-
-spell
-
-that
-
-returns
-
-the
-
-friendly
-
-unit
-
-to
-
-its
-
-ow ner's
-
-hand.
-
-Because
-
-the
-
-friendly
-
-unit
-
-is
-
-no
-
-longer
-
-a
-
-legal
-
-target,
-
-it
-
-can't
-
-be
-
-killed
-
-and
-
-its
-
-M ight
-
-is
-
-treated
-
-as
-
-null.
-
-Baited
-
-H ook’s
-
-controller
-
-reveals
-
-the
-
-top
-
-5
-
-cards
-
-of
-
-their
-
-M ain
-
-D eck,
-
-but
-
-can’t
-
-choose
-
-any
-
-unit
-
-from
-
-am ong
-
-them .
-
-356.3.e.13.
-
-A
-
-spell
-
-or
-
-ability
-
-that
-
-m oves
-
-som ething
-
-to
-
-a
-
-different
-
-zone
-
-as
-
-a
-
-cost
-
-or
-
-effect
-
-can
-
-"look
-
-back"
-
-at
-
-its
-
-characteristics
-
-before
-
-it
-
-changes
-
-zones.`,
+13. A spell or ability that moves something to a different zone as a cost or effect can "look back" at its characteristics before it changes zones.`,
+  },
+  {
+    id: `357`,
+    section: `357. Abilities`,
+    text: `Abilities`,
   },
   {
     id: `358`,
-    section: `358. An`,
-    text: `An
-
-Ability
-
-is
-
-the
-
-structured
-
-rules
-
-and
-
-capabilities
-
-of
-
-Gam e
-
-Objects
-
-or
-
-Spells.`,
+    section: `358. An Ability is the structured rules and capabilities of Game Objects or Spells`,
+    text: `An Ability is the structured rules and capabilities of Game Objects or Spells.`,
   },
   {
     id: `358.1`,
-    section: `358.1. An`,
-    text: `An
-
-Ability
-
-has
-
-m ultiple
-
-structures.
-
-Passive
-
-Abilities
-
-Replacem ent
-
-Effects
-
-Activated
-
-Abilities
-
-Triggered
-
-Abilities
-
-Delayed
-
-Abilities`,
+    section: `358.1. An Ability has multiple structures`,
+    text: `An Ability has multiple structures. Passive Abilities Replacement Effects Activated Abilities Triggered Abilities Delayed Abilities`,
   },
   {
     id: `359`,
-    section: `359. A`,
-    text: `A
-
-card
-
-can
-
-have
-
-m ore
-
-than
-
-one
-
-Ability
-
-and
-
-m ore
-
-than
-
-one
-
-type
-
-of
-
-Ability.`,
+    section: `359. A card can have more than one Ability and more than one type of Ability`,
+    text: `A card can have more than one Ability and more than one type of Ability.`,
+  },
+  {
+    id: `360`,
+    section: `360. Passive Abilities`,
+    text: `Passive Abilities`,
   },
   {
     id: `361`,
-    section: `361. Conditions,`,
-    text: `Conditions,
-
-rules,
-
-constraints,
-
-or
-
-statem ents
-
-that
-
-affect
-
-the
-
-course
-
-of
-
-regular
-
-play.`,
+    section: `361. Conditions`,
+    text: `Conditions, rules, constraints, or statements that affect the course of regular play.`,
   },
   {
     id: `361.1`,
-    section: `361.1. These`,
-    text: `These
-
-abilities
-
-have
-
-a
-
-w ide
-
-variety
-
-of
-
-form ats
-
-to
-
-recognize.
-
-Example:
-
-"I
-
-get
-
-+1[M ]
-
-w hile
-
-you
-
-have
-
-2
-
-or
-
-m ore
-
-cards
-
-in
-
-your
-
-hand."
-
-Example:
-
-"Friendly
-
-Yordles
-
-at
-
-m y
-
-battleﬁeld
-
-have
-
-[Shield]."`,
+    section: `361.1. These abilities have a wide variety of formats to recognize`,
+    text: `These abilities have a wide variety of formats to recognize. Example: "I get +1[M] while you have 2 or more cards in your hand." Example: "Friendly Yordles at my battlefield have [Shield]."`,
   },
   {
     id: `361.2`,
-    section: `361.2. They`,
-    text: `They
-
-can
-
-be
-
-recognized
-
-by
-
-being
-
-statem ents
-
-of
-
-fact.`,
+    section: `361.2. They can be recognized by being statements of fact`,
+    text: `They can be recognized by being statements of fact.`,
   },
   {
     id: `361.3`,
-    section: `361.3. Passive`,
-    text: `Passive
-
-Abilities
-
-can
-
-be
-
-conditional.`,
+    section: `361.3. Passive Abilities can be conditional`,
+    text: `Passive Abilities can be conditional.`,
   },
   {
     id: `361.3.a`,
-    section: `361.3.a. Conditional`,
-    text: `Conditional
-
-Passive
-
-Abilities
-
-can
-
-be
-
-recognized
-
-by
-
-the
-
-occurrence
-
-of
-
-"if"
-
-or
-
-"w hile"
-
-as
-
-part
-
-of
-
-the
-
-statem ent
-
-of
-
-the
-
-ability.
-
-Example:
-
-" W hile
-
-I'm
-
-attacking
-
-or
-
-defending
-
-alone,
-
-I
-
-have
-
-+2
-
-[M ]."
-
-Example:
-
-" If
-
-an
-
-opponent
-
-controls
-
-a
-
-battleﬁeld,
-
-I
-
-enter
-
-ready."`,
+    section: `361.3.a. Conditional Passive Abilities can be recognized by the occurrence of "if" or "while" as part of the statement of the ability`,
+    text: `Conditional Passive Abilities can be recognized by the occurrence of "if" or "while" as part of the statement of the ability. Example: "While I'm attacking or defending alone, I have +2 [M]." Example: "If an opponent controls a battlefield, I enter ready."`,
   },
   {
     id: `362`,
-    section: `362. Presence`,
-    text: `Presence
-
-on
-
-Perm anents`,
+    section: `362. Presence on Permanents`,
+    text: `Presence on Permanents`,
   },
   {
     id: `362.1`,
-    section: `362.1. Passive`,
-    text: `Passive
-
-Abilities
-
-of
-
-Perm anents
-
-are
-
-typically
-
-only
-
-active
-
-w hile
-
-on
-
-the
-
-Board.`,
+    section: `362.1. Passive Abilities of Permanents are typically only active while on the Board`,
+    text: `Passive Abilities of Permanents are typically only active while on the Board.`,
   },
   {
     id: `363`,
-    section: `363. Presence`,
-    text: `Presence
-
-on
-
-Card
-
-outside
-
-of
-
-the
-
-Board`,
+    section: `363. Presence on Card outside of the Board`,
+    text: `Presence on Card outside of the Board`,
   },
   {
     id: `363.1`,
-    section: `363.1. Passive`,
-    text: `Passive
-
-Abilities
-
-of
-
-cards
-
-in
-
-zones
-
-that
-
-are
-
-outside
-
-of
-
-the
-
-Board
-
-w ill
-
-self-describe
-
-their
-
-context.
-
-Example:
-
-The
-
-passive
-
-ability
-
-"Play
-
-m e
-
-only
-
-during
-
-an
-
-opponent's
-
-turn."
-
-applies
-
-in
-
-any
-
-zone
-
-from
-
-w hich
-
-that
-
-card
-
-can
-
-be
-
-played.`,
+    section: `363.1. Passive Abilities of cards in zones that are outside of the Board will self-describe their context`,
+    text: `Passive Abilities of cards in zones that are outside of the Board will self-describe their context. Example: The passive ability "Play me only during an opponent's turn." applies in any zone from which that card can be played.`,
   },
   {
     id: `363.2`,
-    section: `363.2. Passive`,
-    text: `Passive
-
-Abilities
-
-can
-
-alter
-
-the
-
-costs
-
-of
-
-cards
-
-as
-
-they
-
-are
-
-played.`,
+    section: `363.2. Passive Abilities can alter the costs of cards as they are played`,
+    text: `Passive Abilities can alter the costs of cards as they are played.`,
   },
   {
     id: `363.2.a`,
-    section: `363.2.a. These`,
-    text: `These
-
-apply
-
-at
-
-all
-
-tim es
-
-in
-
-any
-
-zone
-
-from
-
-w hich
-
-the
-
-card
-
-w ith
-
-the
-
-ability
-
-can
-
-be
-
-played.`,
+    section: `363.2.a. These apply at all times in any zone from which the card with the ability can be played`,
+    text: `These apply at all times in any zone from which the card with the ability can be played.`,
   },
   {
     id: `364`,
-    section: `364. Replacem ent`,
-    text: `Replacem ent
-
-Effects
-
-Replacement
-
-Effects
-
-for
-
-more
-
-information.`,
+    section: `364. Replacement Effects`,
+    text: `Replacement Effects`,
   },
   {
     id: `365`,
-    section: `365. An`,
-    text: `An
-
-ability
-
-that
-
-alters
-
-the
-
-application
-
-of
-
-another
-
-gam e
-
-effect
-
-or
-
-gam e
-
-rule.`,
+    section: `365. An ability that alters the application of another game effect or game rule`,
+    text: `An ability that alters the application of another game effect or game rule.`,
   },
   {
     id: `365.1`,
-    section: `365.1. Passive`,
-    text: `Passive
-
-Abilities
-
-can
-
-be
-
-Replacem ent
-
-Effects.`,
+    section: `365.1. Passive Abilities can be Replacement Effects`,
+    text: `Passive Abilities can be Replacement Effects.`,
   },
   {
     id: `365.2`,
-    section: `365.2. Triggered`,
-    text: `Triggered
-
-Abilities
-
-can
-
-be
-
-Replacem ent
-
-Effects.`,
+    section: `365.2. Triggered Abilities can be Replacement Effects`,
+    text: `Triggered Abilities can be Replacement Effects.`,
   },
   {
     id: `366`,
-    section: `366. Replacem ent`,
-    text: `Replacem ent
-
-Effects
-
-intercede
-
-during
-
-the
-
-execution
-
-of
-
-a
-
-Gam e
-
-Effect
-
-and
-
-alter
-
-its
-
-execution.`,
+    section: `366. Replacement Effects intercede during the execution of a Game Effect and alter its execution`,
+    text: `Replacement Effects intercede during the execution of a Game Effect and alter its execution.`,
   },
   {
     id: `366.1`,
-    section: `366.1. A`,
-    text: `A
-
-Replacem ent
-
-Effect
-
-can
-
-be
-
-identiﬁed
-
-by
-
-the
-
-presence
-
-of
-
-the
-
-term
-
-"instead."
-
-Example:
-
-Zhonya's
-
-H ourglass
-
-reads
-
-"The
-
-next
-
-tim e
-
-a
-
-friendly
-
-unit
-
-w ould
-
-die,
-
-kill
-
-this
-
-instead.
-
-Recall
-
-that
-
-unit
-
-exhausted."
-
-This
-
-is
-
-a
-
-replacem ent
-
-effect
-
-that
-
-alters
-
-the
-
-execution
-
-of
-
-any
-
-Gam e
-
-Effect
-
-that
-
-w ould
-
-kill
-
-a
-
-friendly
-
-unit.`,
+    section: `366.1. A Replacement Effect can be identified by the presence of the term "instead`,
+    text: `A Replacement Effect can be identified by the presence of the term "instead." Example: Zhonya's Hourglass reads "The next time a friendly unit would die, kill this instead. Recall that unit exhausted." This is a replacement effect that alters the execution of any Game Effect that would kill a friendly unit.`,
   },
   {
     id: `367`,
-    section: `367. A`,
-    text: `A
-
-Replacem ent
-
-Effect
-
-can
-
-alter
-
-the
-
-typical
-
-ﬂow
-
-of
-
-play,
-
-including
-
-other
-
-cards'
-
-executions.`,
+    section: `367. A Replacement Effect can alter the typical flow of play`,
+    text: `A Replacement Effect can alter the typical flow of play, including other cards' executions.`,
   },
   {
     id: `368`,
-    section: `368. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-Replacem ent
-
-Effect
-
-applies
-
-to
-
-the
-
-sam e
-
-event
-
-being
-
-executed,
-
-then
-
-the
-
-ow ner
-
-of
-
-the
-
-object
-
-being
-
-acted
-
-on
-
-determ ines
-
-the
-
-order
-
-the
-
-Replacem ent
-
-Effects
-
-w ill
-
-apply.`,
+    section: `368. If more than one Replacement Effect applies to the same event being executed`,
+    text: `If more than one Replacement Effect applies to the same event being executed, then the owner of the object being acted on determines the order the Replacement Effects will apply.`,
   },
   {
     id: `368.1`,
-    section: `368.1. If`,
-    text: `If
-
-it
-
-is
-
-a
-
-player
-
-being
-
-acted
-
-on,
-
-that
-
-player
-
-decides
-
-the
-
-order
-
-the
-
-Replacem ent
-
-Effects
-
-w ill
-
-apply.`,
+    section: `368.1. If it is a player being acted on`,
+    text: `If it is a player being acted on, that player decides the order the Replacement Effects will apply.`,
   },
   {
     id: `368.2`,
-    section: `368.2. If`,
-    text: `If
-
-the
-
-affected
-
-object
-
-is
-
-an
-
-Uncontrolled
-
-Battleﬁeld
-
-then
-
-the
-
-Current
-
-Turn
-
-Player
-
-decides
-
-the
-
-order
-
-the
-
-Replacem ent
-
-Effects
-
-w ill
-
-apply.`,
+    section: `368.2. If the affected object is an Uncontrolled Battlefield then the Current Turn Player decides the order the Replacement Effects will apply`,
+    text: `If the affected object is an Uncontrolled Battlefield then the Current Turn Player decides the order the Replacement Effects will apply.`,
+  },
+  {
+    id: `369`,
+    section: `369. Activated Abilities`,
+    text: `Activated Abilities`,
   },
   {
     id: `370`,
-    section: `370. Activated`,
-    text: `Activated
-
-Abilities
-
-are
-
-repeatable
-
-effects
-
-w ith
-
-a
-
-cost.
-
-They
-
-follow
-
-a
-
-process
-
-of
-
-going
-
-onto
-
-the
-
-chain
-
-and
-
-resolving,
-
-sim ilar
-
-to
-
-Playing
-
-a
-
-Card.
-
-See
-
-rule`,
+    section: `370. Activated Abilities are repeatable effects with a cost`,
+    text: `Activated Abilities are repeatable effects with a cost. They follow a process of going onto the chain and resolving, similar to Playing a Card. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `370.1`,
-    section: `370.1. Activated`,
-    text: `Activated
-
-Abilities
-
-are
-
-recognized
-
-by
-
-the
-
-presence
-
-of
-
-a
-
-":"
-
-in
-
-the
-
-text
-
-of
-
-the
-
-card,
-
-preceded
-
-by
-
-a
-
-cost
-
-and
-
-succeeded
-
-by
-
-an
-
-effect.
-
-Example:
-
-"[2]:
-
-D raw
-
-1"
-
-is
-
-an
-
-activated
-
-ability.
-
-The
-
-cost
-
-is
-
-2
-
-energy.
-
-The
-
-effect
-
-is
-
-to
-
-draw
-
-1
-
-card.`,
+    section: `370.1. Activated Abilities are recognized by the presence of a ":" in the text of the card`,
+    text: `Activated Abilities are recognized by the presence of a ":" in the text of the card, preceded by a cost and succeeded by an effect. Example: "[2]: Draw 1" is an activated ability. The cost is 2 energy. The effect is to draw 1 card.`,
   },
   {
     id: `370.2`,
-    section: `370.2. Activated`,
-    text: `Activated
-
-Abilities
-
-use
-
-the
-
-chain.`,
+    section: `370.2. Activated Abilities use the chain`,
+    text: `Activated Abilities use the chain.`,
   },
   {
     id: `370.2.a`,
-    section: `370.2.a. D eclare`,
-    text: `D eclare
+    section: `370.2.a. Declare activation of the Ability`,
+    text: `Declare activation of the Ability.
 
-activation
-
-of
-
-the
-
-Ability.
-
-370.2.a.1.
-
-The
-
-ability
-
-goes
-
-on
-
-the
-
-chain
-
-but
-
-has
-
-no
-
-card
-
-to
-
-represent
-
-it,
-
-so
-
-players
-
-need
-
-to
-
-take
-
-note
-
-that
-
-it
-
-is
-
-now
-
-a
-
-Closed
-
-State.`,
+1. The ability goes on the chain but has no card to represent it, so players need to take note that it is now a Closed State.`,
   },
   {
     id: `370.2.b`,
-    section: `370.2.b. Proceed`,
-    text: `Proceed
+    section: `370.2.b. Proceed with executing the Chain`,
+    text: `Proceed with executing the Chain.
 
-w ith
+1. Follow the steps of “Playing or Activating Abilities” in rule 386. This ability will become a Pending Chain Item.
 
-executing
+2. Opponents have an opportunity to respond, as appropriate, as if a card was played onto the chain.
 
-the
-
-Chain.
-
-370.2.b.1.
-
-Follow
-
-the
-
-steps
-
-of
-
-“Playing
-
-or
-
-Activating
-
-Abilities”
-
-in
-
-rule
-
-386 .
-
-This
-
-ability
-
-w ill
-
-becom e
-
-a
-
-Pending
-
-Chain
-
-Item .
-
-370.2.b.2.
-
-O pponents
-
-have
-
-an
-
-opportunity
-
-to
-
-respond,
-
-as
-
-appropriate,
-
-as
-
-if
-
-a
-
-card
-
-w as
-
-played
-
-onto
-
-the
-
-chain.
-
-370.2.b.3.
-
-If
-
-no
-
-further
-
-action
-
-is
-
-taken,
-
-execute
-
-the
-
-Activated
-
-Ability.`,
+3. If no further action is taken, execute the Activated Ability.`,
   },
   {
     id: `371`,
-    section: `371. The`,
-    text: `The
-
-controlling
-
-player
-
-chooses
-
-w hen
-
-and
-
-w hether
-
-to
-
-activate
-
-an
-
-Activated
-
-Ability.`,
+    section: `371. The controlling player chooses when and whether to activate an Activated Ability`,
+    text: `The controlling player chooses when and whether to activate an Activated Ability.`,
   },
   {
     id: `372`,
-    section: `372. Activated`,
-    text: `Activated
-
-abilities
-
-are
-
-present
-
-on
-
-Gam e
-
-Objects
-
-and
-
-som e
-
-Spells.`,
+    section: `372. Activated abilities are present on Game Objects and some Spells`,
+    text: `Activated abilities are present on Game Objects and some Spells.`,
   },
   {
     id: `373`,
-    section: `373. Can`,
-    text: `Can
-
-prim arily
-
-be
-
-activated
-
-w hile
-
-on
-
-the
-
-Board.`,
+    section: `373. Can primarily be activated while on the Board`,
+    text: `Can primarily be activated while on the Board.`,
   },
   {
     id: `374`,
-    section: `374. All`,
-    text: `All
-
-Activated
-
-Abilities
-
-can
-
-only
-
-be
-
-activated
-
-on
-
-the
-
-Controlling
-
-Player's
-
-Turn
-
-and
-
-during
-
-an
-
-Open
-
-State.`,
+    section: `374. All Activated Abilities can only be activated on the Controlling Player's Turn and during an Open State`,
+    text: `All Activated Abilities can only be activated on the Controlling Player's Turn and during an Open State.`,
+  },
+  {
+    id: `375`,
+    section: `375. Triggered Abilities`,
+    text: `Triggered Abilities`,
   },
   {
     id: `376`,
-    section: `376. Triggered`,
-    text: `Triggered
-
-Abilities
-
-are
-
-repeatable
-
-effects
-
-that
-
-happen
-
-w hen
-
-a
-
-Condition
-
-is
-
-m et.`,
+    section: `376. Triggered Abilities are repeatable effects that happen when a Condition is met`,
+    text: `Triggered Abilities are repeatable effects that happen when a Condition is met.`,
   },
   {
     id: `376.1`,
-    section: `376.1. Triggered`,
-    text: `Triggered
-
-Abilities
-
-can
-
-usually
-
-be
-
-recognized
-
-by
-
-the
-
-w ord
-
-"w hen"
-
-follow ed
-
-by
-
-a
-
-gam e
-
-action
-
-or
-
-event;
-
-the
-
-w ord
-
-"at"
-
-follow ed
-
-by
-
-a
-
-point
-
-in
-
-tim e
-
-during
-
-the
-
-turn
-
-sequence;
-
-or
-
-the
-
-phrase
-
-“the
-
-[N th]
-
-tim e”
-
-follow ed
-
-by
-
-a
-
-gam e
-
-action
-
-or
-
-event.
-
-Examples:
-
-" W hen
-
-you
-
-conquer
-
-here,
-
-you
-
-m ay
-
-spend
-
-a
-
-buff
-
-to
-
-draw
-
-1."
-
-"At
-
-the
-
-end
-
-of
-
-your
-
-turn,
-
-ready
-
-2
-
-runes."
-
-“The
-
-ﬁrst
-
-tim e
-
-I
-
-m ove
-
-each
-
-turn,
-
-you
-
-m ay
-
-ready
-
-som ething
-
-else
-
-that's
-
-exhausted.”`,
+    section: `376.1. Triggered Abilities can usually be recognized by the word "when" followed by a game action or event; the word "at" followed by a point in time during the turn sequence; or the phrase “the [Nth] time” followed by a game action or event`,
+    text: `Triggered Abilities can usually be recognized by the word "when" followed by a game action or event; the word "at" followed by a point in time during the turn sequence; or the phrase “the [Nth] time” followed by a game action or event. Examples: "When you conquer here, you may spend a buff to draw 1." "At the end of your turn, ready 2 runes." “The first time I move each turn, you may ready something else that's exhausted.”`,
   },
   {
     id: `376.1.a`,
-    section: `376.1.a. The`,
-    text: `The
-
-phrases
-
-that
-
-identify
-
-triggered
-
-abilities
-
-do
-
-not
-
-alw ays
-
-appear
-
-at
-
-the
-
-beginning
-
-of
-
-sentences
-
-or
-
-abilities.
-
-Example:
-
-Sona,
-
-H arm onious
-
-says
-
-“W hile
-
-I'm
-
-at
-
-a
-
-battleﬁeld,
-
-ready
-
-up
-
-to
-
-4
-
-friendly
-
-runes
-
-at
-
-the
-
-end
-
-of
-
-your
-
-turn.”
-
-Although
-
-the
-
-ability
-
-starts
-
-w ith
-
-a
-
-conditional,
-
-“w hile,”
-
-the
-
-phrase
-
-“at
-
-the
-
-end
-
-of
-
-your
-
-turn”
-
-identiﬁes
-
-this
-
-as
-
-a
-
-triggered
-
-ability.
-
-It
-
-can
-
-only
-
-trigger
-
-w hile
-
-that
-
-condition
-
-is
-
-m et.`,
+    section: `376.1.a. The phrases that identify triggered abilities do not always appear at the beginning of sentences or abilities`,
+    text: `The phrases that identify triggered abilities do not always appear at the beginning of sentences or abilities. Example: Sona, Harmonious says “While I'm at a battlefield, ready up to 4 friendly runes at the end of your turn.” Although the ability starts with a conditional, “while,” the phrase “at the end of your turn” identifies this as a triggered ability. It can only trigger while that condition is met.`,
   },
   {
     id: `376.1.b`,
-    section: `376.1.b. If`,
-    text: `If
-
-an
-
-ability
-
-triggers
-
-“the
-
-[N th]
-
-tim e”
-
-som ething
-
-happens
-
-and
-
-that
-
-trigger
-
-condition
-
-is
-
-m et
-
-m ultiple
-
-tim es
-
-sim ultaneously,
-
-the
-
-ability’s
-
-controller
-
-picks
-
-one
-
-of
-
-those
-
-instances
-
-to
-
-serve
-
-as
-
-the
-
-trigger
-
-condition.
-
-The
-
-ability
-
-triggers
-
-only
-
-once,
-
-due
-
-to
-
-the
-
-chosen
-
-condition.
-
-Example:
-
-W raith
-
-of
-
-Echoes
-
-reads
-
-“The
-
-ﬁrst
-
-tim e
-
-another
-
-friendly
-
-unit
-
-dies
-
-each
-
-turn,
-
-draw
-
-1.”
-
-That
-
-ability
-
-hasn’t
-
-triggered
-
-yet
-
-this
-
-turn.
-
-Tw o
-
-other
-
-friendly
-
-units
-
-die
-
-sim ultaneously
-
-(say,
-
-due
-
-to
-
-com bat
-
-dam age).
-
-The
-
-W raith’s
-
-controller
-
-chooses
-
-one
-
-of
-
-those
-
-deaths
-
-to
-
-trigger
-
-W raith’s
-
-ability.`,
+    section: `376.1.b. If an ability triggers “the [Nth] time” something happens and that trigger condition is met multiple times simultaneously`,
+    text: `If an ability triggers “the [Nth] time” something happens and that trigger condition is met multiple times simultaneously, the ability’s controller picks one of those instances to serve as the trigger condition. The ability triggers only once, due to the chosen condition. Example: Wraith of Echoes reads “The first time another friendly unit dies each turn, draw 1.” That ability hasn’t triggered yet this turn. Two other friendly units die simultaneously (say, due to combat damage). The Wraith’s controller chooses one of those deaths to trigger Wraith’s ability.`,
   },
   {
     id: `376.2`,
-    section: `376.2. Triggered`,
-    text: `Triggered
-
-Abilities
-
-have
-
-a
-
-Condition
-
-and
-
-an
-
-Effect.`,
+    section: `376.2. Triggered Abilities have a Condition and an Effect`,
+    text: `Triggered Abilities have a Condition and an Effect.`,
   },
   {
     id: `376.2.a`,
-    section: `376.2.a. The`,
-    text: `The
-
-Condition
-
-follow s
-
-the
-
-W hen.`,
+    section: `376.2.a. The Condition follows the When`,
+    text: `The Condition follows the When.`,
   },
   {
     id: `376.2.b`,
-    section: `376.2.b. The`,
-    text: `The
-
-Effect
-
-is
-
-the
-
-Instruction
-
-that
-
-follow s
-
-the
-
-com m a
-
-after
-
-the
-
-Condition.`,
+    section: `376.2.b. The Effect is the Instruction that follows the comma after the Condition`,
+    text: `The Effect is the Instruction that follows the comma after the Condition.`,
   },
   {
     id: `376.2.c`,
-    section: `376.2.c. The`,
-    text: `The
+    section: `376.2.c. The Condition of a Trigger is evaluated after a potentially inciting event has been processed`,
+    text: `The Condition of a Trigger is evaluated after a potentially inciting event has been processed.
 
-Condition
+1. If a Game Object with a Triggered Ability that is active in a specific zone, it is evaluated and subsequently triggered if it enters that zone at the same time that its Trigger’s condition is met. Example: Immortal Phoenix says “When you kill a unit with a spell, you may pay [1][C] to play me from your trash.” This ability triggers if Immortal Phoenix is in your trash immediately after you kill a unit with a spell, even if the unit you killed with a spell was that Immortal Phoenix.
 
-of
-
-a
-
-Trigger
-
-is
-
-evaluated
-
-after
-
-a
-
-potentially
-
-inciting
-
-event
-
-has
-
-been
-
-processed.
-
-376.2.c.1.
-
-If
-
-a
-
-Gam e
-
-Object
-
-w ith
-
-a
-
-Triggered
-
-Ability
-
-that
-
-is
-
-active
-
-in
-
-a
-
-speciﬁc
-
-zone,
-
-it
-
-is
-
-evaluated
-
-and
-
-subsequently
-
-triggered
-
-if
-
-it
-
-enters
-
-that
-
-zone
-
-at
-
-the
-
-sam e
-
-tim e
-
-that
-
-its
-
-Trigger ’s
-
-condition
-
-is
-
-m et.
-
-Example:
-
-Im m ortal
-
-Phoenix
-
-says
-
-“W hen
-
-you
-
-kill
-
-a
-
-unit
-
-w ith
-
-a
-
-spell,
-
-you
-
-m ay
-
-pay
-
-[1][C]
-
-to
-
-play
-
-m e
-
-from
-
-your
-
-trash.”
-
-This
-
-ability
-
-triggers
-
-if
-
-Im m ortal
-
-Phoenix
-
-is
-
-in
-
-your
-
-trash
-
-im m ediately
-
-after
-
-you
-
-kill
-
-a
-
-unit
-
-w ith
-
-a
-
-spell,
-
-even
-
-if
-
-the
-
-unit
-
-you
-
-killed
-
-w ith
-
-a
-
-spell
-
-w as
-
-that
-
-Im m ortal
-
-Phoenix.
-
-376.2.c.2.
-
-A
-
-Gam e
-
-Object
-
-w ill
-
-not
-
-be
-
-able
-
-to
-
-successfully
-
-be
-
-able
-
-to
-
-evaluate
-
-its
-
-Trigger
-
-Condition ,
-
-how ever,
-
-if
-
-it
-
-leaves
-
-the
-
-zone
-
-that
-
-its
-
-Trigger
-
-is
-
-active
-
-from
-
-at
-
-the
-
-sam e
-
-tim e
-
-that
-
-its
-
-Trigger
-
-is
-
-satisﬁed.
-
-Example:
-
-Viktor,
-
-Leader
-
-says
-
-“W hen
-
-another
-
-non-Recruit
-
-unit
-
-you
-
-control
-
-dies,
-
-play
-
-a
-
-1
-
-[M ]
-
-Recruit
-
-unit
-
-token
-
-into
-
-your
-
-base.”
-
-This
-
-ability
-
-triggers
-
-if
-
-Viktor
-
-is
-
-on
-
-the
-
-board
-
-im m ediately
-
-after
-
-another
-
-non-Recruit
-
-unit
-
-you
-
-control
-
-dies.
-
-It
-
-does
-
-not
-
-trigger
-
-if
-
-Viktor
-
-and
-
-another
-
-non-Recruit
-
-unit
-
-you
-
-control
-
-die
-
-during
-
-the
-
-sam e
-
-gam e
-
-action
-
-(for
-
-instance,
-
-if
-
-they
-
-are
-
-both
-
-killed
-
-in
-
-the
-
-sam e
-
-Cleanup
-
-due
-
-to
-
-the
-
-dam age
-
-dealt
-
-by
-
-Unchecked
-
-Pow er).`,
+2. A Game Object will not be able to successfully be able to evaluate its Trigger Condition, however, if it leaves the zone that its Trigger is active from at the same time that its Trigger is satisfied. Example: Viktor, Leader says “When another non-Recruit unit you control dies, play a 1 [M] Recruit unit token into your base.” This ability triggers if Viktor is on the board immediately after another non-Recruit unit you control dies. It does not trigger if Viktor and another non-Recruit unit you control die during the same game action (for instance, if they are both killed in the same Cleanup due to the damage dealt by Unchecked Power).`,
   },
   {
     id: `376.3`,
-    section: `376.3. W hen`,
-    text: `W hen
-
-a
-
-Condition
-
-is
-
-m et,
-
-a
-
-Triggered
-
-Ability
-
-behaves
-
-like
-
-an
-
-Activated
-
-Ability
-
-and
-
-is
-
-placed
-
-on
-
-the
-
-Chain.`,
+    section: `376.3. When a Condition is met`,
+    text: `When a Condition is met, a Triggered Ability behaves like an Activated Ability and is placed on the Chain.`,
   },
   {
     id: `376.3.a`,
-    section: `376.3.a. Triggered`,
-    text: `Triggered
-
-Abilities
-
-can
-
-be
-
-put
-
-on
-
-the
-
-Chain
-
-during
-
-Closed
-
-States
-
-or
-
-Open
-
-States
-
-on
-
-any
-
-player's
-
-turn.`,
+    section: `376.3.a. Triggered Abilities can be put on the Chain during Closed States or Open States on any player's turn`,
+    text: `Triggered Abilities can be put on the Chain during Closed States or Open States on any player's turn.`,
   },
   {
     id: `376.3.b`,
-    section: `376.3.b. If`,
-    text: `If
+    section: `376.3.b. If more than one Triggered Ability is Triggered simultaneously`,
+    text: `If more than one Triggered Ability is Triggered simultaneously, then the player that controls the Abilities selects the order to place them on the Chain.
 
-m ore
-
-than
-
-one
-
-Triggered
-
-Ability
-
-is
-
-Triggered
-
-sim ultaneously,
-
-then
-
-the
-
-player
-
-that
-
-controls
-
-the
-
-Abilities
-
-selects
-
-the
-
-order
-
-to
-
-place
-
-them
-
-on
-
-the
-
-Chain.
-
-376.3.b.1.
-
-If
-
-m ultiple
-
-players
-
-separately
-
-control
-
-Triggered
-
-Abilities
-
-that
-
-are
-
-Triggered
-
-sim ultaneously,
-
-then
-
-starting
-
-w ith
-
-the
-
-Turn
-
-Player
-
-and
-
-proceeding
-
-in
-
-Turn
-
-Order ,
-
-each
-
-player
-
-orders
-
-their
-
-Triggered
-
-Abilities
-
-on
-
-the
-
-Chain.`,
+1. If multiple players separately control Triggered Abilities that are Triggered simultaneously, then starting with the Turn Player and proceeding in Turn Order, each player orders their Triggered Abilities on the Chain.`,
   },
   {
     id: `376.4`,
-    section: `376.4. Som e`,
-    text: `Som e
-
-Conditions
-
-are
-
-com m only
-
-used
-
-and
-
-structured
-
-in
-
-a
-
-w ay
-
-that
-
-explicitly
-
-deﬁnes
-
-their
-
-use
-
-and
-
-other
-
-properties
-
-of
-
-the
-
-Effect
-
-that
-
-is
-
-associated
-
-w ith
-
-it.`,
+    section: `376.4. Some Conditions are commonly used and structured in a way that explicitly defines their use and other properties of the Effect that is associated with it`,
+    text: `Some Conditions are commonly used and structured in a way that explicitly defines their use and other properties of the Effect that is associated with it.`,
   },
   {
     id: `376.4.a`,
-    section: `376.4.a. Play`,
-    text: `Play
+    section: `376.4.a. Play Effects are Triggered Abilities with the Condition that the Permanent that has the Play Effect being played to the board`,
+    text: `Play Effects are Triggered Abilities with the Condition that the Permanent that has the Play Effect being played to the board.
 
-Effects
+1. These are commonly structured as “When you play me…” for Units and “When you play this…” for Gear.
 
-are
+2. These Triggered Abilities are put on the Chain as Pending Items after the Permanent these effects correspond to is finalized and enters the board.
 
-Triggered
+3. These Triggered Abilities can be referred to as Play Effects.
 
-Abilities
-
-w ith
-
-the
-
-Condition
-
-that
-
-the
-
-Perm anent
-
-that
-
-has
-
-the
-
-Play
-
-Effect
-
-being
-
-played
-
-to
-
-the
-
-board.
-
-376.4.a.1.
-
-These
-
-are
-
-com m only
-
-structured
-
-as
-
-“W hen
-
-you
-
-play
-
-m e…”
-
-for
-
-Units
-
-and
-
-“W hen
-
-you
-
-play
-
-this…”
-
-for
-
-Gear.
-
-376.4.a.2.
-
-These
-
-Triggered
-
-Abilities
-
-are
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-Pending
-
-Item s
-
-after
-
-the
-
-Perm anent
-
-these
-
-effects
-
-correspond
-
-to
-
-is
-
-ﬁnalized
-
-and
-
-enters
-
-the
-
-board.
-
-376.4.a.3.
-
-These
-
-Triggered
-
-Abilities
-
-can
-
-be
-
-referred
-
-to
-
-as
-
-Play
-
-Effects.
-
-376.4.a.4.
-
-Abilities
-
-that
-
-trigger
-
-w hen
-
-another
-
-object
-
-is
-
-played
-
-are
-
-not
-
-considered
-
-Play
-
-Effects.`,
+4. Abilities that trigger when another object is played are not considered Play Effects.`,
   },
   {
     id: `376.4.b`,
-    section: `376.4.b. Conquer`,
-    text: `Conquer
+    section: `376.4.b. Conquer Effects are Triggered Abilities with a Condition of a Unit participating in`,
+    text: `Conquer Effects are Triggered Abilities with a Condition of a Unit participating in, and successfully Conquering a Battlefield.
 
-Effects
+1. These are commonly structured as “When I conquer…” and “When you conquer…”
 
-are
+2. This category of Triggered Abilities encompasses only those that are triggered from Units that were present during the Conquer action, or Abilities that reference the player that performed the Conquer action.
 
-Triggered
+2.a. The Conquer Abilities of Units are put on the Chain as Pending Items after the Unit(s) these effects correspond to are present at a Battlefield when a player gains control of it and gains 1 Victory Point from Conquering.
 
-Abilities
+2.b. The Conquer Abilities of anything that references the player Conquering is put on the Chain as a Pending Item when the Condition that the player that controls the triggering source has performed a Conquer and gained 1 Victory Point.
 
-w ith
+2.c. If the act of gaining one point from Conquering is negated or replaced in any way, the Conquer Effect will still trigger.
 
-a
-
-Condition
-
-of
-
-a
-
-Unit
-
-participating
-
-in,
-
-and
-
-successfully
-
-Conquering
-
-a
-
-Battleﬁeld.
-
-376.4.b.1.
-
-These
-
-are
-
-com m only
-
-structured
-
-as
-
-“W hen
-
-I
-
-conquer…”
-
-and
-
-“W hen
-
-you
-
-conquer…”
-
-376.4.b.2.
-
-This
-
-category
-
-of
-
-Triggered
-
-Abilities
-
-encom passes
-
-only
-
-those
-
-that
-
-are
-
-triggered
-
-from
-
-Units
-
-that
-
-w ere
-
-present
-
-during
-
-the
-
-Conquer
-
-action,
-
-or
-
-Abilities
-
-that
-
-reference
-
-the
-
-player
-
-that
-
-perform ed
-
-the
-
-Conquer
-
-action.
-
-376.4.b.2.a.
-
-The
-
-Conquer
-
-Abilities
-
-of
-
-Units
-
-are
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-Pending
-
-Item s
-
-after
-
-the
-
-Unit(s)
-
-these
-
-effects
-
-correspond
-
-to
-
-are
-
-present
-
-at
-
-a
-
-Battleﬁeld
-
-w hen
-
-a
-
-player
-
-gains
-
-control
-
-of
-
-it
-
-and
-
-gains
-
-1
-
-Victory
-
-Point
-
-from
-
-Conquering.
-
-376.4.b.2.b.
-
-The
-
-Conquer
-
-Abilities
-
-of
-
-anything
-
-that
-
-references
-
-the
-
-player
-
-Conquering
-
-is
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-a
-
-Pending
-
-Item
-
-w hen
-
-the
-
-Condition
-
-that
-
-the
-
-player
-
-that
-
-controls
-
-the
-
-triggering
-
-source
-
-has
-
-perform ed
-
-a
-
-Conquer
-
-and
-
-gained
-
-1
-
-Victory
-
-Point.
-
-376.4.b.2.c.
-
-If
-
-the
-
-act
-
-of
-
-gaining
-
-one
-
-point
-
-from
-
-Conquering
-
-is
-
-negated
-
-or
-
-replaced
-
-in
-
-any
-
-w ay,
-
-the
-
-Conquer
-
-Effect
-
-w ill
-
-still
-
-trigger.
-
-376.4.b.3.
-
-These
-
-Triggered
-
-Abilities
-
-can
-
-be
-
-referred
-
-to
-
-as
-
-Conquer
-
-Effects.`,
+3. These Triggered Abilities can be referred to as Conquer Effects.`,
   },
   {
     id: `376.4.c`,
-    section: `376.4.c. Hold`,
-    text: `Hold
+    section: `376.4.c. Hold Effects are Triggered Abilities with a Condition of a Unit being present at a Battlefield during the Beginning phase when a player scores Victory Points from Holding`,
+    text: `Hold Effects are Triggered Abilities with a Condition of a Unit being present at a Battlefield during the Beginning phase when a player scores Victory Points from Holding.
 
-Effects
+1. These are commonly structured as “When I hold…” or “When you hold…”
 
-are
+2. This category of Triggered Abilities encompasses only those that are triggered from Units that were present during the Hold action, or Abilities that reference the player that performed the Hold action.
 
-Triggered
+2.a. The Hold Abilities of Units are put on the Chain as Pending Items after the Unit these effects correspond to are present at a Battlefield when a player maintains control of it and Gains 1 Victory Point during their Beginning Phase from Holding.
 
-Abilities
+2.b. The Hold Abilities of anything that references the player Holding is put on the Chain as a Pending Item when the Condition that the player that controls the triggering source has performed a Hold and gained 1 Victory Point.
 
-w ith
+2.c. If the act of gaining one point from Holding is negated or replaced in any way, the Hold Effect will still trigger.
 
-a
-
-Condition
-
-of
-
-a
-
-Unit
-
-being
-
-present
-
-at
-
-a
-
-Battleﬁeld
-
-during
-
-the
-
-Beginning
-
-phase
-
-w hen
-
-a
-
-player
-
-scores
-
-Victory
-
-Points
-
-from
-
-Holding.
-
-376.4.c.1.
-
-These
-
-are
-
-com m only
-
-structured
-
-as
-
-“W hen
-
-I
-
-hold…”
-
-or
-
-“W hen
-
-you
-
-hold…”
-
-376.4.c.2.
-
-This
-
-category
-
-of
-
-Triggered
-
-Abilities
-
-encom passes
-
-only
-
-those
-
-that
-
-are
-
-triggered
-
-from
-
-Units
-
-that
-
-w ere
-
-present
-
-during
-
-the
-
-Hold
-
-action,
-
-or
-
-Abilities
-
-that
-
-reference
-
-the
-
-player
-
-that
-
-perform ed
-
-the
-
-Hold
-
-action.
-
-376.4.c.2.a.
-
-The
-
-Hold
-
-Abilities
-
-of
-
-Units
-
-are
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-Pending
-
-Item s
-
-after
-
-the
-
-Unit
-
-these
-
-effects
-
-correspond
-
-to
-
-are
-
-present
-
-at
-
-a
-
-Battleﬁeld
-
-w hen
-
-a
-
-player
-
-m aintains
-
-control
-
-of
-
-it
-
-and
-
-Gains
-
-1
-
-Victory
-
-Point
-
-during
-
-their
-
-Beginning
-
-Phase
-
-from
-
-Holding.
-
-376.4.c.2.b.
-
-The
-
-Hold
-
-Abilities
-
-of
-
-anything
-
-that
-
-references
-
-the
-
-player
-
-Holding
-
-is
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-a
-
-Pending
-
-Item
-
-w hen
-
-the
-
-Condition
-
-that
-
-the
-
-player
-
-that
-
-controls
-
-the
-
-triggering
-
-source
-
-has
-
-perform ed
-
-a
-
-Hold
-
-and
-
-gained
-
-1
-
-Victory
-
-Point.
-
-376.4.c.2.c.
-
-If
-
-the
-
-act
-
-of
-
-gaining
-
-one
-
-point
-
-from
-
-Holding
-
-is
-
-negated
-
-or
-
-replaced
-
-in
-
-any
-
-w ay,
-
-the
-
-Hold
-
-Effect
-
-w ill
-
-still
-
-trigger.
-
-376.4.c.3.
-
-These
-
-Triggered
-
-Abilities
-
-can
-
-be
-
-referred
-
-to
-
-as
-
-H old
-
-Effects.`,
+3. These Triggered Abilities can be referred to as Hold Effects.`,
   },
   {
     id: `376.4.d`,
-    section: `376.4.d. Attack`,
-    text: `Attack
+    section: `376.4.d. Attack Triggers are Triggered Abilities that trigger when a Unit gains the Attacker designation for the first time during a combat`,
+    text: `Attack Triggers are Triggered Abilities that trigger when a Unit gains the Attacker designation for the first time during a combat.
 
-Triggers
+1. These are commonly structured as “When I attack…”
 
-are
+2. These Triggered Abilities are put on the Chain as Pending Items after the Unit these effects correspond to gains the Attacker designation during Combat.
 
-Triggered
+2.a. These triggers can only become fulfilled once per combat, despite a Unit being able to gain and lose the Attacker designation multiple times in the same combat.
 
-Abilities
-
-that
-
-trigger
-
-w hen
-
-a
-
-Unit
-
-gains
-
-the
-
-Attacker
-
-designation
-
-for
-
-the
-
-ﬁrst
-
-tim e
-
-during
-
-a
-
-com bat.
-
-376.4.d.1.
-
-These
-
-are
-
-com m only
-
-structured
-
-as
-
-“W hen
-
-I
-
-attack…”
-
-376.4.d.2.
-
-These
-
-Triggered
-
-Abilities
-
-are
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-Pending
-
-Item s
-
-after
-
-the
-
-Unit
-
-these
-
-effects
-
-correspond
-
-to
-
-gains
-
-the
-
-Attacker
-
-designation
-
-during
-
-Com bat .
-
-376.4.d.2.a.
-
-These
-
-triggers
-
-can
-
-only
-
-becom e
-
-fulﬁlled
-
-once
-
-per
-
-com bat,
-
-despite
-
-a
-
-Unit
-
-being
-
-able
-
-to
-
-gain
-
-and
-
-lose
-
-the
-
-Attacker
-
-designation
-
-m ultiple
-
-tim es
-
-in
-
-the
-
-sam e
-
-com bat.
-
-376.4.d.3.
-
-These
-
-Triggered
-
-Abilities
-
-can
-
-be
-
-referred
-
-to
-
-as
-
-Attack
-
-Triggers.`,
+3. These Triggered Abilities can be referred to as Attack Triggers.`,
   },
   {
     id: `376.4.e`,
-    section: `376.4.e. Defend`,
-    text: `Defend
+    section: `376.4.e. Defend Triggers are Triggered Abilities that trigger when a Unit gains the Defender designation for the first time during a combat`,
+    text: `Defend Triggers are Triggered Abilities that trigger when a Unit gains the Defender designation for the first time during a combat.
 
-Triggers
+1. These are commonly structured as “When I defend…”
 
-are
+2. These Triggered Abilities are put on the Chain as Pending Items after the Unit these effects correspond to gains the Defender designation during Combat.
 
-Triggered
+2.a. These triggers can only become fulfilled once per combat, despite a Unit being able to gain and lose the Defender designation multiple times in the same combat.
 
-Abilities
-
-that
-
-trigger
-
-w hen
-
-a
-
-Unit
-
-gains
-
-the
-
-Defender
-
-designation
-
-for
-
-the
-
-ﬁrst
-
-tim e
-
-during
-
-a
-
-com bat.
-
-376.4.e.1.
-
-These
-
-are
-
-com m only
-
-structured
-
-as
-
-“W hen
-
-I
-
-defend…”
-
-376.4.e.2.
-
-These
-
-Triggered
-
-Abilities
-
-are
-
-put
-
-on
-
-the
-
-Chain
-
-as
-
-Pending
-
-Item s
-
-after
-
-the
-
-Unit
-
-these
-
-effects
-
-correspond
-
-to
-
-gains
-
-the
-
-Defender
-
-designation
-
-during
-
-Com bat .
-
-376.4.e.2.a.
-
-These
-
-triggers
-
-can
-
-only
-
-becom e
-
-fulﬁlled
-
-once
-
-per
-
-com bat,
-
-despite
-
-a
-
-Unit
-
-being
-
-able
-
-to
-
-gain
-
-and
-
-lose
-
-the
-
-Defender
-
-designation
-
-m ultiple
-
-tim es
-
-in
-
-the
-
-sam e
-
-com bat.
-
-376.4.e.3.
-
-These
-
-Triggered
-
-Abilities
-
-can
-
-be
-
-referred
-
-to
-
-as
-
-D efend
-
-Triggers.`,
+3. These Triggered Abilities can be referred to as Defend Triggers.`,
   },
   {
     id: `377`,
-    section: `377. Presence`,
-    text: `Presence
-
-on
-
-Perm anents`,
+    section: `377. Presence on Permanents`,
+    text: `Presence on Permanents`,
   },
   {
     id: `377.1`,
-    section: `377.1. Typically`,
-    text: `Typically
-
-active
-
-w hile
-
-on
-
-the
-
-Board.`,
+    section: `377.1. Typically active while on the Board`,
+    text: `Typically active while on the Board.`,
   },
   {
     id: `377.2`,
-    section: `377.2. Triggered`,
-    text: `Triggered
-
-Abilities
-
-of
-
-Perm anents
-
-are
-
-only
-
-able
-
-to
-
-have
-
-their
-
-Conditions
-
-evaluated
-
-w hile
-
-on
-
-the
-
-Board.`,
+    section: `377.2. Triggered Abilities of Permanents are only able to have their Conditions evaluated while on the Board`,
+    text: `Triggered Abilities of Permanents are only able to have their Conditions evaluated while on the Board.`,
   },
   {
     id: `378`,
-    section: `378. Presence`,
-    text: `Presence
-
-on
-
-Cards
-
-outside
-
-of
-
-the
-
-Board`,
+    section: `378. Presence on Cards outside of the Board`,
+    text: `Presence on Cards outside of the Board`,
   },
   {
     id: `378.1`,
-    section: `378.1. Triggered`,
-    text: `Triggered
-
-Abilities
-
-on
-
-cards
-
-outside
-
-of
-
-the
-
-Board
-
-rely
-
-on
-
-the
-
-Inform ation
-
-Level
-
-of
-
-the
-
-zone
-
-they
-
-are
-
-in.`,
+    section: `378.1. Triggered Abilities on cards outside of the Board rely on the Information Level of the zone they are in`,
+    text: `Triggered Abilities on cards outside of the Board rely on the Information Level of the zone they are in.`,
   },
   {
     id: `378.2`,
-    section: `378.2. Triggered`,
-    text: `Triggered
-
-Abilities
-
-outside
-
-of
-
-the
-
-Board
-
-w ill
-
-self-describe
-
-their
-
-context.
-
-Example:
-
-The
-
-triggered
-
-ability
-
-"W hen
-
-you
-
-conquer,
-
-you
-
-m ay
-
-discard
-
-1
-
-to
-
-return
-
-this
-
-from
-
-your
-
-trash
-
-to
-
-your
-
-hand."
-
-triggers
-
-w hile
-
-the
-
-card
-
-it's
-
-on
-
-is
-
-in
-
-the
-
-trash,
-
-and
-
-not
-
-anyw here
-
-else.`,
+    section: `378.2. Triggered Abilities outside of the Board will self-describe their context`,
+    text: `Triggered Abilities outside of the Board will self-describe their context. Example: The triggered ability "When you conquer, you may discard 1 to return this from your trash to your hand." triggers while the card it's on is in the trash, and not anywhere else.`,
   },
   {
     id: `379`,
-    section: `379. Reﬂexive`,
-    text: `Reﬂexive
-
-Triggers`,
+    section: `379. Reflexive Triggers`,
+    text: `Reflexive Triggers`,
   },
   {
     id: `380`,
-    section: `380. Reﬂexive`,
-    text: `Reﬂexive
-
-Triggers
-
-are
-
-a
-
-type
-
-of
-
-Triggered
-
-Ability
-
-that
-
-create
-
-one
-
-or
-
-m ore
-
-Chain
-
-Item s
-
-w hen
-
-their
-
-condition
-
-is
-
-m et.`,
+    section: `380. Reflexive Triggers are a type of Triggered Ability that create one or more Chain Items when their condition is met`,
+    text: `Reflexive Triggers are a type of Triggered Ability that create one or more Chain Items when their condition is met.`,
   },
   {
     id: `380.1`,
-    section: `380.1. Reﬂexive`,
-    text: `Reﬂexive
-
-Triggers
-
-can
-
-be
-
-recognized
-
-by
-
-the
-
-phrase
-
-“D o
-
-this:”
-
-or
-
-“D o
-
-one
-
-of
-
-the
-
-follow ing:”.`,
+    section: `380.1. Reflexive Triggers can be recognized by the phrase “Do this:” or “Do one of the following:”`,
+    text: `Reflexive Triggers can be recognized by the phrase “Do this:” or “Do one of the following:”.`,
   },
   {
     id: `380.1.a`,
-    section: `380.1.a. “D o`,
-    text: `“D o
-
-this”
-
-can
-
-be
-
-follow ed
-
-by
-
-“N
-
-tim es.”
-
-The
-
-Reﬂexive
-
-Trigger
-
-w ill
-
-thus
-
-be
-
-added
-
-to
-
-the
-
-chain
-
-N
-
-tim es
-
-w hen
-
-its
-
-condition
-
-is
-
-m et.`,
+    section: `380.1.a. “Do this” can be followed by “N times`,
+    text: `“Do this” can be followed by “N times.” The Reflexive Trigger will thus be added to the chain N times when its condition is met.`,
   },
   {
     id: `380.2`,
-    section: `380.2. Reﬂexive`,
-    text: `Reﬂexive
-
-Triggers
-
-w ill
-
-be
-
-preceded
-
-by
-
-their
-
-conditions,
-
-if
-
-any.
-
-If
-
-no
-
-condition
-
-is
-
-present
-
-in
-
-the
-
-ability
-
-then
-
-the
-
-Reﬂexive
-
-Trigger
-
-w ill
-
-alw ays
-
-be
-
-added
-
-to
-
-the
-
-Chain.`,
+    section: `380.2. Reflexive Triggers will be preceded by their conditions`,
+    text: `Reflexive Triggers will be preceded by their conditions, if any. If no condition is present in the ability then the Reflexive Trigger will always be added to the Chain.`,
   },
   {
     id: `380.3`,
-    section: `380.3. If`,
-    text: `If
-
-present,
-
-the
-
-Condition
-
-of
-
-a
-
-Reﬂexive
-
-Trigger
-
-w ill
-
-follow
-
-the
-
-sam e
-
-form at
-
-as
-
-a
-
-Triggered
-
-Ability.`,
+    section: `380.3. If present`,
+    text: `If present, the Condition of a Reflexive Trigger will follow the same format as a Triggered Ability.`,
   },
   {
     id: `381`,
-    section: `381. Reﬂexive`,
-    text: `Reﬂexive
-
-Triggers
-
-use
-
-the
-
-Chain.`,
+    section: `381. Reflexive Triggers use the Chain`,
+    text: `Reflexive Triggers use the Chain.`,
   },
   {
     id: `381.1`,
-    section: `381.1. A`,
-    text: `A
-
-new
-
-ability
-
-is
-
-created
-
-and
-
-added
-
-to
-
-the
-
-chain
-
-as
-
-a
-
-Pending
-
-Item .
-
-See
-
-rule`,
+    section: `381.1. A new ability is created and added to the chain as a Pending Item`,
+    text: `A new ability is created and added to the chain as a Pending Item. See rule 386. Playing or Activating Abilities for more information.`,
   },
   {
     id: `381.2`,
-    section: `381.2. If`,
-    text: `If
-
-a
-
-Reﬂexive
-
-Trigger
-
-creates
-
-m ore
-
-than
-
-one
-
-Pending
-
-Item
-
-it
-
-creates
-
-them
-
-all
-
-in
-
-order,
-
-but
-
-does
-
-not
-
-go
-
-beyond
-
-the
-
-ﬁrst
-
-step
-
-of
-
-adding
-
-them
-
-to
-
-the
-
-Chain.
-
-See
-
-rule`,
+    section: `381.2. If a Reflexive Trigger creates more than one Pending Item it creates them all in order`,
+    text: `If a Reflexive Trigger creates more than one Pending Item it creates them all in order, but does not go beyond the first step of adding them to the Chain. See rule 386. Playing or Activating Abilities for more information.`,
   },
   {
     id: `382`,
-    section: `382. D elayed`,
-    text: `D elayed
-
-Abilities`,
+    section: `382. Delayed Abilities`,
+    text: `Delayed Abilities`,
   },
   {
     id: `383`,
-    section: `383. Delayed`,
-    text: `Delayed
-
-Abilities
-
-are
-
-a
-
-type
-
-of
-
-Ability
-
-w hose
-
-trigger
-
-Condition
-
-identiﬁes
-
-a
-
-speciﬁc
-
-tim e
-
-during
-
-a
-
-turn
-
-or
-
-a
-
-speciﬁc
-
-event
-
-that
-
-can
-
-occur
-
-during
-
-a
-
-speciﬁc
-
-tim efram e.`,
+    section: `383. Delayed Abilities are a type of Ability whose trigger Condition identifies a specific time during a turn or a specific event that can occur during a specific timeframe`,
+    text: `Delayed Abilities are a type of Ability whose trigger Condition identifies a specific time during a turn or a specific event that can occur during a specific timeframe.`,
   },
   {
     id: `383.1`,
-    section: `383.1. Delayed`,
-    text: `Delayed
-
-Abilities
-
-can
-
-be
-
-any
-
-other
-
-type
-
-of
-
-Ability ,
-
-and
-
-contain
-
-all
-
-of
-
-the
-
-properties
-
-of
-
-that
-
-type
-
-in
-
-addition
-
-to
-
-the
-
-properties
-
-of
-
-Delayed
-
-Abilities.`,
+    section: `383.1. Delayed Abilities can be any other type of Ability`,
+    text: `Delayed Abilities can be any other type of Ability, and contain all of the properties of that type in addition to the properties of Delayed Abilities.`,
   },
   {
     id: `383.2`,
-    section: `383.2. Delayed`,
-    text: `Delayed
-
-Triggers
-
-are
-
-Triggered
-
-Abilities
-
-that
-
-can
-
-be
-
-recognized
-
-by
-
-describing
-
-a
-
-speciﬁc
-
-tim e
-
-of
-
-the
-
-turn,
-
-or
-
-by
-
-structuring
-
-a
-
-Triggered
-
-Ability
-
-w ith
-
-a
-
-speciﬁc
-
-fram e
-
-of
-
-tim e
-
-as
-
-a
-
-restriction.`,
+    section: `383.2. Delayed Triggers are Triggered Abilities that can be recognized by describing a specific time of the turn`,
+    text: `Delayed Triggers are Triggered Abilities that can be recognized by describing a specific time of the turn, or by structuring a Triggered Ability with a specific frame of time as a restriction.`,
   },
   {
     id: `383.3`,
-    section: `383.3. Delayed`,
-    text: `Delayed
-
-Replacem ents
-
-are
-
-Replacem ent
-
-Effects
-
-that
-
-can
-
-be
-
-recognized
-
-by
-
-specifying
-
-the
-
-effect
-
-they
-
-are
-
-replacing
-
-at
-
-a
-
-speciﬁc
-
-tim e,
-
-or
-
-“the
-
-[N th]
-
-tim e”
-
-in
-
-the
-
-description
-
-of
-
-the
-
-effect
-
-as
-
-it
-
-resolves.`,
+    section: `383.3. Delayed Replacements are Replacement Effects that can be recognized by specifying the effect they are replacing at a specific time`,
+    text: `Delayed Replacements are Replacement Effects that can be recognized by specifying the effect they are replacing at a specific time, or “the [Nth] time” in the description of the effect as it resolves.`,
   },
   {
     id: `383.4`,
-    section: `383.4. Delayed`,
-    text: `Delayed
-
-Passive
-
-Abilities
-
-are
-
-Passive
-
-Abilities
-
-that
-
-are
-
-applicable
-
-only
-
-during
-
-a
-
-speciﬁed
-
-w indow
-
-of
-
-tim e.
-
-The
-
-tim e
-
-that
-
-the
-
-Delayed
-
-Passive
-
-Ability
-
-applies
-
-w ill
-
-be
-
-recognized
-
-in
-
-the
-
-effect
-
-that
-
-initiates
-
-it.`,
+    section: `383.4. Delayed Passive Abilities are Passive Abilities that are applicable only during a specified window of time`,
+    text: `Delayed Passive Abilities are Passive Abilities that are applicable only during a specified window of time. The time that the Delayed Passive Ability applies will be recognized in the effect that initiates it.`,
   },
   {
     id: `384`,
-    section: `384. Delayed`,
-    text: `Delayed
-
-Abilities
-
-w ill
-
-resolve
-
-or
-
-be
-
-active
-
-just
-
-like
-
-the
-
-ability
-
-they
-
-augm ent,
-
-but
-
-only
-
-during
-
-the
-
-speciﬁed
-
-tim e
-
-in
-
-the
-
-effect
-
-that
-
-created
-
-the
-
-Delayed
-
-Ability.
-
-Example:
-
-Ravenborn
-
-Tom e
-
-reads
-
-“The
-
-next
-
-spell
-
-you
-
-play
-
-this
-
-turn
-
-deals
-
-1
-
-Bonus
-
-D am age”
-
-is
-
-a
-
-Delayed
-
-Passive
-
-Ability
-
-that
-
-passively
-
-adds
-
-1
-
-dam age
-
-to
-
-just
-
-the
-
-next
-
-spell
-
-played.
-
-The
-
-next
-
-spell
-
-is
-
-a
-
-speciﬁc
-
-tim e,
-
-and
-
-the
-
-1
-
-Bonus
-
-D am age
-
-is
-
-a
-
-passive
-
-ability.
-
-Example:
-
-N oxian
-
-Guillotine
-
-reads
-
-“Choose
-
-a
-
-unit.
-
-Kill
-
-it
-
-the
-
-next
-
-tim e
-
-it
-
-takes
-
-dam age
-
-this
-
-turn.”
-
-W hen
-
-the
-
-chosen
-
-unit
-
-takes
-
-dam age
-
-is
-
-the
-
-speciﬁed
-
-tim e,
-
-and
-
-killing
-
-it
-
-is
-
-the
-
-condition
-
-for
-
-a
-
-Delayed
-
-Triggered
-
-Ability.`,
+    section: `384. Delayed Abilities will resolve or be active just like the ability they augment`,
+    text: `Delayed Abilities will resolve or be active just like the ability they augment, but only during the specified time in the effect that created the Delayed Ability. Example: Ravenborn Tome reads “The next spell you play this turn deals 1 Bonus Damage” is a Delayed Passive Ability that passively adds 1 damage to just the next spell played. The next spell is a specific time, and the 1 Bonus Damage is a passive ability. Example: Noxian Guillotine reads “Choose a unit. Kill it the next time it takes damage this turn.” When the chosen unit takes damage is the specified time, and killing it is the condition for a Delayed Triggered Ability.`,
   },
   {
     id: `385`,
-    section: `385. Delayed`,
-    text: `Delayed
-
-Abilities
-
-are
-
-not
-
-associated
-
-w ith
-
-Units
-
-or
-
-Gear;
-
-they
-
-are
-
-created
-
-by
-
-other
-
-Abilities
-
-or
-
-Spells .
-
-As
-
-such
-
-they
-
-are
-
-executed
-
-w hen
-
-their
-
-condition
-
-and/or
-
-speciﬁed
-
-tim e
-
-occurs
-
-regardless
-
-of
-
-w hether
-
-the
-
-source
-
-of
-
-the
-
-Delayed
-
-Ability
-
-is
-
-still
-
-on
-
-the
-
-board
-
-or
-
-not.`,
+    section: `385. Delayed Abilities are not associated with Units or Gear; they are created by other Abilities or Spells`,
+    text: `Delayed Abilities are not associated with Units or Gear; they are created by other Abilities or Spells. As such they are executed when their condition and/or specified time occurs regardless of whether the source of the Delayed Ability is still on the board or not.`,
+  },
+  {
+    id: `386`,
+    section: `386. Playing or Activating Abilities`,
+    text: `Playing or Activating Abilities`,
   },
   {
     id: `387`,
-    section: `387. Playing`,
-    text: `Playing
-
-or
-
-activating
-
-Abilities
-
-follow s
-
-the
-
-sam e
-
-steps
-
-of
-
-playing
-
-cards.`,
+    section: `387. Playing or activating Abilities follows the same steps of playing cards`,
+    text: `Playing or activating Abilities follows the same steps of playing cards.`,
   },
   {
     id: `388`,
-    section: `388. Abilities`,
-    text: `Abilities
-
-w hen
-
-added
-
-to
-
-the
-
-Chain
-
-becom e
-
-Pending
-
-Item s
-
-until
-
-they
-
-com plete
-
-the
-
-steps
-
-of
-
-Playing.`,
+    section: `388. Abilities when added to the Chain become Pending Items until they complete the steps of Playing`,
+    text: `Abilities when added to the Chain become Pending Items until they complete the steps of Playing.`,
   },
   {
     id: `388.1`,
-    section: `388.1. W hen`,
-    text: `W hen
-
-an
-
-Ability
-
-ﬁnishes
-
-the
-
-steps
-
-of
-
-playing
-
-it
-
-becom es
-
-a
-
-Chain
-
-Item
-
-just
-
-like
-
-a
-
-Spell.`,
+    section: `388.1. When an Ability finishes the steps of playing it becomes a Chain Item just like a Spell`,
+    text: `When an Ability finishes the steps of playing it becomes a Chain Item just like a Spell.`,
   },
   {
     id: `388.2`,
-    section: `388.2. W hen`,
-    text: `W hen
-
-an
-
-Ability
-
-w ith
-
-the
-
-[Add]
-
-action
-
-is
-
-ﬁnalized
-
-it
-
-resolves
-
-im m ediately
-
-instead
-
-of
-
-becom ing
-
-a
-
-Chain
-
-Item ,
-
-like
-
-a
-
-Unit
-
-or
-
-Gear.`,
+    section: `388.2. When an Ability with the [Add] action is finalized it resolves immediately instead of becoming a Chain Item`,
+    text: `When an Ability with the [Add] action is finalized it resolves immediately instead of becoming a Chain Item, like a Unit or Gear.`,
   },
   {
     id: `389`,
-    section: `389. 1.`,
-    text: `1.
-
-Activate
-
-or
-
-trigger
-
-the
-
-Ability`,
+    section: `389. 1`,
+    text: `1. Activate or trigger the Ability`,
   },
   {
     id: `389.1`,
-    section: `389.1. Add`,
-    text: `Add
-
-a
-
-Pending
-
-Item
-
-to
-
-the
-
-chain
-
-representing
-
-the
-
-Ability
-
-that
-
-is
-
-either
-
-being
-
-Activated
-
-or
-
-Triggered.
-
-N otably,
-
-although
-
-this
-
-Chain
-
-Item
-
-w ill
-
-not
-
-have
-
-a
-
-card
-
-representing
-
-it,
-
-this
-
-w ill
-
-create
-
-a
-
-Closed
-
-State.
-
-See
-
-rule`,
+    section: `389.1. Add a Pending Item to the chain representing the Ability that is either being Activated or Triggered`,
+    text: `Add a Pending Item to the chain representing the Ability that is either being Activated or Triggered. Notably, although this Chain Item will not have a card representing it, this will create a Closed State. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `389.2`,
-    section: `389.2. If`,
-    text: `If
-
-there
-
-is
-
-currently
-
-a
-
-gam e
-
-effect
-
-being
-
-resolved,
-
-continue
-
-resolving
-
-the
-
-gam e
-
-effect
-
-instead
-
-of
-
-continuing
-
-the
-
-follow ing
-
-steps.`,
+    section: `389.2. If there is currently a game effect being resolved`,
+    text: `If there is currently a game effect being resolved, continue resolving the game effect instead of continuing the following steps.`,
   },
   {
     id: `390`,
-    section: `390. 2.`,
-    text: `2.
-
-M ake
-
-relevant
-
-choices`,
+    section: `390. 2`,
+    text: `2. Make relevant choices`,
   },
   {
     id: `390.1`,
-    section: `390.1. M ake`,
-    text: `M ake
-
-all
-
-choices
-
-required
-
-for
-
-this
-
-ability,
-
-such
-
-as
-
-targets,
-
-options,
-
-or
-
-other
-
-relevant
-
-decisions.
-
-See
-
-rule`,
+    section: `390.1. Make all choices required for this ability`,
+    text: `Make all choices required for this ability, such as targets, options, or other relevant decisions. See rule 346. Playing Cards for more information`,
   },
   {
     id: `390.2`,
-    section: `390.2. If`,
-    text: `If
-
-legal
-
-options
-
-are
-
-not
-
-available
-
-for
-
-an
-
-Activated
-
-Ability,
-
-it
-
-is
-
-not
-
-legal
-
-to
-
-activate
-
-it.`,
+    section: `390.2. If legal options are not available for an Activated Ability`,
+    text: `If legal options are not available for an Activated Ability, it is not legal to activate it.`,
   },
   {
     id: `390.3`,
-    section: `390.3. If`,
-    text: `If
-
-there
-
-are
-
-not
-
-enough
-
-options
-
-to
-
-m ake
-
-legal
-
-choices
-
-for
-
-a
-
-Triggered
-
-Ability
-
-that
-
-has
-
-been
-
-put
-
-on
-
-the
-
-chain,
-
-rem ove
-
-it
-
-from
-
-the
-
-Chain
-
-now .
-
-It
-
-ceases
-
-to
-
-be
-
-a
-
-Pending
-
-Item
-
-but
-
-never
-
-becom es
-
-a
-
-Chain
-
-Item .`,
+    section: `390.3. If there are not enough options to make legal choices for a Triggered Ability that has been put on the chain`,
+    text: `If there are not enough options to make legal choices for a Triggered Ability that has been put on the chain, remove it from the Chain now. It ceases to be a Pending Item but never becomes a Chain Item.`,
   },
   {
     id: `390.3.a`,
-    section: `390.3.a. This`,
-    text: `This
-
-is
-
-not
-
-an
-
-Ability
-
-being
-
-countered.`,
+    section: `390.3.a. This is not an Ability being countered`,
+    text: `This is not an Ability being countered.`,
   },
   {
     id: `390.3.b`,
-    section: `390.3.b. If`,
-    text: `If
-
-there
-
-are
-
-legal
-
-options
-
-to
-
-choose,
-
-the
-
-ability’s
-
-controller
-
-m ust
-
-choose
-
-them .
-
-They
-
-m ay
-
-not
-
-decline
-
-this
-
-stage
-
-of
-
-playing
-
-a
-
-Trigger.`,
+    section: `390.3.b. If there are legal options to choose`,
+    text: `If there are legal options to choose, the ability’s controller must choose them. They may not decline this stage of playing a Trigger.`,
   },
   {
     id: `391`,
-    section: `391. 3.`,
-    text: `3.
-
-D eterm ine
-
-Total
-
-Cost`,
+    section: `391. 3`,
+    text: `3. Determine Total Cost`,
   },
   {
     id: `391.1`,
-    section: `391.1. D eterm ine`,
-    text: `D eterm ine
-
-the
-
-base
-
-cost
-
-of
-
-the
-
-Ability.`,
+    section: `391.1. Determine the base cost of the Ability`,
+    text: `Determine the base cost of the Ability.`,
   },
   {
     id: `391.1.a`,
-    section: `391.1.a. Activated`,
-    text: `Activated
-
-Abilities
-
-w ill
-
-have
-
-a
-
-cost
-
-listed
-
-before
-
-the
-
-“:”
-
-in
-
-their
-
-text.`,
+    section: `391.1.a. Activated Abilities will have a cost listed before the “:” in their text`,
+    text: `Activated Abilities will have a cost listed before the “:” in their text.`,
   },
   {
     id: `391.1.b`,
-    section: `391.1.b. Triggered`,
-    text: `Triggered
-
-Abilities
-
-w ill
-
-typically
-
-not
-
-have
-
-a
-
-base
-
-cost
-
-associated
-
-w ith
-
-them
-
-w hen
-
-placed
-
-on
-
-the
-
-chain
-
-due
-
-to
-
-their
-
-conditions.`,
+    section: `391.1.b. Triggered Abilities will typically not have a base cost associated with them when placed on the chain due to their conditions`,
+    text: `Triggered Abilities will typically not have a base cost associated with them when placed on the chain due to their conditions.`,
   },
   {
     id: `391.2`,
-    section: `391.2. Apply`,
-    text: `Apply
-
-cost
-
-increases
-
-and
-
-decreases
-
-as
-
-a
-
-result
-
-of
-
-choices
-
-m ade
-
-in
-
-the
-
-prior
-
-step.
-
-See
-
-rule`,
+    section: `391.2. Apply cost increases and decreases as a result of choices made in the prior step`,
+    text: `Apply cost increases and decreases as a result of choices made in the prior step. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `391.3`,
-    section: `391.3. Apply`,
-    text: `Apply
-
-any
-
-other
-
-cost
-
-increases
-
-or
-
-decreases
-
-as
-
-necessary.
-
-See
-
-rule`,
+    section: `391.3. Apply any other cost increases or decreases as necessary`,
+    text: `Apply any other cost increases or decreases as necessary. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `392`,
-    section: `392. 4.`,
-    text: `4.
-
-Pay
-
-Costs`,
+    section: `392. 4`,
+    text: `4. Pay Costs`,
   },
   {
     id: `392.1`,
-    section: `392.1. Pay`,
-    text: `Pay
-
-costs
-
-as
-
-determ ined
-
-in
-
-the
-
-prior
-
-step.
-
-See
-
-rule`,
+    section: `392.1. Pay costs as determined in the prior step`,
+    text: `Pay costs as determined in the prior step. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `392.2`,
-    section: `392.2. At`,
-    text: `At
-
-this
-
-stage,
-
-players
-
-m ay
-
-decline
-
-to
-
-pay
-
-for
-
-Triggered
-
-Abilities
-
-that
-
-have
-
-incurred
-
-a
-
-cost.
-
-If
-
-they
-
-do,
-
-the
-
-ability
-
-w ill
-
-cease
-
-being
-
-a
-
-Pending
-
-Item
-
-and
-
-be
-
-rem oved
-
-from
-
-the
-
-Chain.
-
-It
-
-never
-
-becom es
-
-a
-
-Chain
-
-Item .`,
+    section: `392.2. At this stage`,
+    text: `At this stage, players may decline to pay for Triggered Abilities that have incurred a cost. If they do, the ability will cease being a Pending Item and be removed from the Chain. It never becomes a Chain Item.`,
   },
   {
     id: `392.2.a`,
-    section: `392.2.a. This`,
-    text: `This
-
-is
-
-not
-
-an
-
-Ability
-
-being
-
-countered.`,
+    section: `392.2.a. This is not an Ability being countered`,
+    text: `This is not an Ability being countered.`,
   },
   {
     id: `393`,
-    section: `393. 5.`,
-    text: `5.
-
-Check
-
-Legality`,
+    section: `393. 5`,
+    text: `5. Check Legality`,
   },
   {
     id: `393.1`,
-    section: `393.1. Ensure`,
-    text: `Ensure
-
-that
-
-the
-
-Ability’s
-
-targets
-
-are
-
-still
-
-legal.`,
+    section: `393.1. Ensure that the Ability’s targets are still legal`,
+    text: `Ensure that the Ability’s targets are still legal.`,
   },
   {
     id: `393.2`,
-    section: `393.2. Ensure`,
-    text: `Ensure
-
-that
-
-the
-
-Ability ’s
-
-effect
-
-w ould
-
-not
-
-create
-
-an
-
-illegal
-
-state.
-
-If
-
-it
-
-w ould,
-
-resolve
-
-in
-
-the
-
-sam e
-
-w ay
-
-you
-
-w ould
-
-resolve
-
-a
-
-Card
-
-that
-
-creates
-
-an
-
-illegal
-
-state.
-
-See
-
-rule`,
+    section: `393.2. Ensure that the Ability’s effect would not create an illegal state`,
+    text: `Ensure that the Ability’s effect would not create an illegal state. If it would, resolve in the same way you would resolve a Card that creates an illegal state. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `394`,
-    section: `394. 6.`,
-    text: `6.
-
-Proceed
-
-w ith
-
-Play`,
+    section: `394. 6`,
+    text: `6. Proceed with Play`,
   },
   {
     id: `394.1`,
-    section: `394.1. This`,
-    text: `This
-
-Ability
-
-is
-
-no
-
-longer
-
-Pending.`,
+    section: `394.1. This Ability is no longer Pending`,
+    text: `This Ability is no longer Pending.`,
   },
   {
     id: `394.2`,
-    section: `394.2. This`,
-    text: `This
-
-Ability
-
-becom es
-
-a
-
-Chain
-
-Item .`,
+    section: `394.2. This Ability becomes a Chain Item`,
+    text: `This Ability becomes a Chain Item.`,
   },
   {
     id: `394.3`,
-    section: `394.3. If`,
-    text: `If
-
-there
-
-are
-
-other
-
-Pending
-
-Item s
-
-on
-
-the
-
-Chain,
-
-their
-
-controllers
-
-perform
-
-the
-
-rem aining
-
-steps
-
-of
-
-playing
-
-now .`,
+    section: `394.3. If there are other Pending Items on the Chain`,
+    text: `If there are other Pending Items on the Chain, their controllers perform the remaining steps of playing now.`,
   },
   {
     id: `394.4`,
-    section: `394.4. O ther`,
-    text: `O ther
-
-players
-
-have
-
-an
-
-opportunity
-
-to
-
-play
-
-Reactions
-
-before
-
-the
-
-resolution
-
-of
-
-spells.
-
-See
-
-rule`,
+    section: `394.4. Other players have an opportunity to play Reactions before the resolution of spells`,
+    text: `Other players have an opportunity to play Reactions before the resolution of spells. See rule 326. Chains for more information.`,
   },
   {
     id: `394.5`,
-    section: `394.5. O therw ise,`,
-    text: `O therw ise,
-
-execute
-
-the
-
-Ability
-
-just
-
-like
-
-a
-
-Spell ,
-
-then
-
-clear
-
-the
-
-Chain
-
-Item
-
-from
-
-the
-
-Chain.`,
+    section: `394.5. Otherwise`,
+    text: `Otherwise, execute the Ability just like a Spell, then clear the Chain Item from the Chain.`,
   },
   {
     id: `395`,
-    section: `395. Gam e`,
-    text: `Gam e
-
-Actions`,
+    section: `395. Game Actions`,
+    text: `Game Actions`,
   },
   {
     id: `396`,
-    section: `396. Gam e`,
-    text: `Gam e
-
-Actions
-
-are
-
-actions
-
-players
-
-m ay
-
-perform
-
-at
-
-any
-
-given
-
-tim e
-
-during
-
-the
-
-gam e.`,
+    section: `396. Game Actions are actions players may perform at any given time during the game`,
+    text: `Game Actions are actions players may perform at any given time during the game.`,
   },
   {
     id: `397`,
-    section: `397. A`,
-    text: `A
-
-player,
-
-unless
-
-otherw ise
-
-speciﬁed
-
-or
-
-prom pted,
-
-m ay
-
-only
-
-perform
-
-actions
-
-on
-
-their
-
-turn.`,
+    section: `397. A player`,
+    text: `A player, unless otherwise specified or prompted, may only perform actions on their turn.`,
   },
   {
     id: `398`,
-    section: `398. There`,
-    text: `There
-
-are
-
-tw o
-
-types
-
-of
-
-Gam e
-
-Actions:`,
+    section: `398. There are two types of Game Actions:`,
+    text: `There are two types of Game Actions:`,
+  },
+  {
+    id: `398.1`,
+    section: `398.1. Discretionary Actions`,
+    text: `Discretionary Actions`,
   },
   {
     id: `398.1.a`,
-    section: `398.1.a. A`,
-    text: `A
-
-Discretionary
-
-Action
-
-is
-
-a
-
-Gam e
-
-Action
-
-that
-
-m ay
-
-be
-
-perform ed
-
-at
-
-any
-
-tim e
-
-during
-
-a
-
-player's
-
-turn
-
-during
-
-a
-
-Neutral
-
-Open
-
-State.
-
-See
-
-rule`,
+    section: `398.1.a. A Discretionary Action is a Game Action that may be performed at any time during a player's turn during a Neutral Open State`,
+    text: `A Discretionary Action is a Game Action that may be performed at any time during a player's turn during a Neutral Open State. See rule 307. States of the Turn for more information.`,
   },
   {
     id: `398.1.b`,
-    section: `398.1.b. A`,
-    text: `A
+    section: `398.1.b. A player may take any number of Discretionary Actions available to them during their turn`,
+    text: `A player may take any number of Discretionary Actions available to them during their turn.
 
-player
+1. As long as any conditions, if applicable, are met.
 
-m ay
+2. As long as any costs, if applicable, are paid.
 
-take
-
-any
-
-num ber
-
-of
-
-Discretionary
-
-Actions
-
-available
-
-to
-
-them
-
-during
-
-their
-
-turn.
-
-398.1.b.1.
-
-As
-
-long
-
-as
-
-any
-
-conditions,
-
-if
-
-applicable,
-
-are
-
-m et.
-
-398.1.b.2.
-
-As
-
-long
-
-as
-
-any
-
-costs,
-
-if
-
-applicable,
-
-are
-
-paid.
-
-398.1.b.3.
-
-As
-
-long
-
-as
-
-it
-
-does
-
-not
-
-result
-
-in
-
-any
-
-forbidden
-
-action
-
-being
-
-taken
-
-or
-
-gam e
-
-state
-
-being
-
-created.
-
-Example:
-
-A
-
-player
-
-can't
-
-use
-
-the
-
-Standard
-
-M ove
-
-discretionary
-
-action
-
-to
-
-m ove
-
-a
-
-unit
-
-to
-
-a
-
-Battleﬁeld
-
-that's
-
-already
-
-occupied
-
-by
-
-Units
-
-controlled
-
-by
-
-tw o
-
-other
-
-players.`,
+3. As long as it does not result in any forbidden action being taken or game state being created. Example: A player can't use the Standard Move discretionary action to move a unit to a Battlefield that's already occupied by Units controlled by two other players.`,
   },
   {
     id: `398.2`,
-    section: `398.2. Lim ited`,
-    text: `Lim ited
-
-Actions`,
+    section: `398.2. Limited Actions`,
+    text: `Limited Actions`,
   },
   {
     id: `398.2.a`,
-    section: `398.2.a. A`,
-    text: `A
-
-Lim ited
-
-Action
-
-is
-
-a
-
-gam e
-
-action
-
-that
-
-a
-
-spell,
-
-ability,
-
-or
-
-circum stance
-
-of
-
-the
-
-turn's
-
-progression
-
-causes
-
-the
-
-player
-
-to
-
-perform .
-
-A
-
-player
-
-cannot
-
-perform
-
-these
-
-actions
-
-at-w ill.`,
+    section: `398.2.a. A Limited Action is a game action that a spell`,
+    text: `A Limited Action is a game action that a spell, ability, or circumstance of the turn's progression causes the player to perform. A player cannot perform these actions at-will.`,
   },
   {
     id: `398.2.b`,
-    section: `398.2.b. These`,
-    text: `These
-
-actions
-
-can
-
-only
-
-be
-
-taken
-
-w hen
-
-a
-
-player
-
-is
-
-instructed
-
-to
-
-do
-
-so
-
-as
-
-the
-
-execution
-
-of
-
-an
-
-effect
-
-or
-
-during
-
-their
-
-speciﬁed
-
-occasion
-
-during
-
-the
-
-turn.
-
-Example:
-
-A
-
-player
-
-may
-
-Draw
-
-during
-
-the
-
-Draw
-
-Step
-
-of
-
-the
-
-Beginning
-
-Phase
-
-of
-
-their
-
-turn
-
-or
-
-when
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-a
-
-spell
-
-or
-
-ability.
-
-They
-
-can't
-
-choose
-
-to
-
-Draw
-
-at
-
-any
-
-other
-
-time.`,
+    section: `398.2.b. These actions can only be taken when a player is instructed to do so as the execution of an effect or during their specified occasion during the turn`,
+    text: `These actions can only be taken when a player is instructed to do so as the execution of an effect or during their specified occasion during the turn. Example: A player may Draw during the Draw Step of the Beginning Phase of their turn or when instructed to do so by a spell or ability. They can't choose to Draw at any other time.`,
   },
   {
     id: `399`,
-    section: `399. Types`,
-    text: `Types
-
-of
-
-Actions`,
+    section: `399. Types of Actions`,
+    text: `Types of Actions`,
   },
   {
     id: `400`,
@@ -37529,232 +4336,48 @@ Actions`,
   },
   {
     id: `400.1`,
-    section: `400.1. Drawing`,
-    text: `Drawing
-
-a
-
-card
-
-takes
-
-a
-
-single
-
-card
-
-from
-
-the
-
-top
-
-of
-
-the
-
-Main
-
-Deck
-
-and
-
-adds
-
-it
-
-to
-
-the
-
-player's
-
-Hand.`,
+    section: `400.1. Drawing a card takes a single card from the top of the Main Deck and adds it to the player's Hand`,
+    text: `Drawing a card takes a single card from the top of the Main Deck and adds it to the player's Hand.`,
   },
   {
     id: `400.2`,
-    section: `400.2. This`,
-    text: `This
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `400.2. This is a Limited Action`,
+    text: `This is a Limited Action.`,
   },
   {
     id: `400.2.a`,
-    section: `400.2.a. Each`,
-    text: `Each
-
-player
-
-draw s
-
-1
-
-during
-
-the
-
-Draw
-
-Step
-
-of
-
-their
-
-Beginning
-
-Phase.`,
+    section: `400.2.a. Each player draws 1 during the Draw Step of their Beginning Phase`,
+    text: `Each player draws 1 during the Draw Step of their Beginning Phase.`,
   },
   {
     id: `400.2.b`,
-    section: `400.2.b. The`,
-    text: `The
-
-player
-
-m ay
-
-draw
-
-cards
-
-w hen
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-other
-
-gam e
-
-effects.`,
+    section: `400.2.b. The player may draw cards when instructed to do so by other game effects`,
+    text: `The player may draw cards when instructed to do so by other game effects.`,
   },
   {
     id: `400.3`,
-    section: `400.3. This`,
-    text: `This
-
-action,
-
-w hen
-
-instructed,
-
-is
-
-form atted
-
-as
-
-"D raw
-
-X."`,
+    section: `400.3. This action`,
+    text: `This action, when instructed, is formatted as "Draw X."`,
   },
   {
     id: `400.4`,
-    section: `400.4. If`,
-    text: `If
-
-a
-
-player
-
-attem pts
-
-to
-
-draw
-
-m ore
-
-cards
-
-than
-
-are
-
-available
-
-in
-
-their
-
-Main
-
-Deck ,
-
-they
-
-do
-
-the
-
-follow ing:`,
+    section: `400.4. If a player attempts to draw more cards than are available in their Main Deck`,
+    text: `If a player attempts to draw more cards than are available in their Main Deck, they do the following:`,
   },
   {
     id: `400.4.a`,
-    section: `400.4.a. D raw`,
-    text: `D raw
-
-as
-
-m any
-
-as
-
-possible.`,
+    section: `400.4.a. Draw as many as possible`,
+    text: `Draw as many as possible.`,
   },
   {
     id: `400.4.b`,
-    section: `400.4.b. Perform`,
-    text: `Perform
-
-a
-
-Burn
-
-Out.
-
-See
-
-rule`,
+    section: `400.4.b. Perform a Burn Out`,
+    text: `Perform a Burn Out. See rule 418. Burn Out for more information.`,
   },
   {
     id: `400.4.c`,
-    section: `400.4.c. D raw`,
-    text: `D raw
-
-the
-
-rem aining
-
-cards
-
-needed
-
-to
-
-com plete
-
-the
-
-Draw
-
-action.`,
+    section: `400.4.c. Draw the remaining cards needed to complete the Draw action`,
+    text: `Draw the remaining cards needed to complete the Draw action.`,
   },
   {
     id: `401`,
@@ -37763,1431 +4386,153 @@ action.`,
   },
   {
     id: `401.1`,
-    section: `401.1. Exhausting`,
-    text: `Exhausting
-
-is
-
-an
-
-action
-
-that
-
-m arks
-
-a
-
-non-spell
-
-Gam e
-
-Object
-
-as
-
-"spent."`,
+    section: `401.1. Exhausting is an action that marks a non-spell Game Object as "spent`,
+    text: `Exhausting is an action that marks a non-spell Game Object as "spent."`,
   },
   {
     id: `401.1.a`,
-    section: `401.1.a. To`,
-    text: `To
-
-m ark
-
-it,
-
-rotate
-
-the
-
-card
-
-90
-
-degrees
-
-opposite
-
-of
-
-Readying ,
-
-so
-
-that
-
-the
-
-orientation
-
-of
-
-the
-
-card
-
-is
-
-lengthw ise
-
-in
-
-front
-
-of
-
-you.`,
+    section: `401.1.a. To mark it`,
+    text: `To mark it, rotate the card 90 degrees opposite of Readying, so that the orientation of the card is lengthwise in front of you.`,
   },
   {
     id: `401.1.b`,
-    section: `401.1.b. A`,
-    text: `A
-
-Unit
-
-that
-
-is
-
-already
-
-Exhausted
-
-cannot
-
-be
-
-Exhausted
-
-again.`,
+    section: `401.1.b. A Unit that is already Exhausted cannot be Exhausted again`,
+    text: `A Unit that is already Exhausted cannot be Exhausted again.`,
   },
   {
     id: `401.1.c`,
-    section: `401.1.c. If`,
-    text: `If
-
-a
-
-Unit
-
-is
-
-instructed
-
-to
-
-be
-
-Exhausted
-
-w hile
-
-it
-
-is
-
-already
-
-Exhausted ,
-
-nothing
-
-additional
-
-happens.`,
+    section: `401.1.c. If a Unit is instructed to be Exhausted while it is already Exhausted`,
+    text: `If a Unit is instructed to be Exhausted while it is already Exhausted, nothing additional happens.`,
   },
   {
     id: `401.2`,
-    section: `401.2. "Exhausted"`,
-    text: `"Exhausted"
-
-is
-
-a
-
-state
-
-for
-
-Gam e
-
-Objects
-
-that
-
-other
-
-gam e
-
-effects
-
-and
-
-rules
-
-can
-
-reference.`,
+    section: `401.2. "Exhausted" is a state for Game Objects that other game effects and rules can reference`,
+    text: `"Exhausted" is a state for Game Objects that other game effects and rules can reference.`,
   },
   {
     id: `401.3`,
-    section: `401.3. This`,
-    text: `This
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `401.3. This is a Limited Action`,
+    text: `This is a Limited Action.`,
   },
   {
     id: `401.3.a`,
-    section: `401.3.a. M ost`,
-    text: `M ost
-
-Exhaust
-
-actions
-
-w ill
-
-be
-
-costs
-
-for
-
-Activated
-
-Abilities
-
-or
-
-Discretionary
-
-Actions.
-
-Example:
-
-A
-
-unit's
-
-Standard
-
-M ove
-
-exhausts
-
-the
-
-unit
-
-as
-
-a
-
-cost.`,
+    section: `401.3.a. Most Exhaust actions will be costs for Activated Abilities or Discretionary Actions`,
+    text: `Most Exhaust actions will be costs for Activated Abilities or Discretionary Actions. Example: A unit's Standard Move exhausts the unit as a cost.`,
   },
   {
     id: `401.4`,
-    section: `401.4. W hen`,
-    text: `W hen
-
-Exhausting
-
-is
-
-listed
-
-as
-
-a
-
-Cost ,
-
-then
-
-the
-
-Action
-
-m ust
-
-be
-
-able
-
-to
-
-be
-
-com pleted
-
-for
-
-the
-
-cost
-
-to
-
-be
-
-paid.
-
-Example:
-
-A
-
-spell
-
-says
-
-"As
-
-an
-
-additional
-
-cost
-
-to
-
-play
-
-this,
-
-you
-
-m ay
-
-exhaust
-
-a
-
-friendly
-
-unit."
-
-An
-
-exhausted
-
-friendly
-
-unit
-
-m ay
-
-not
-
-be
-
-exhausted
-
-again
-
-as
-
-the
-
-additional
-
-cost
-
-for
-
-the
-
-spell,
-
-and
-
-the
-
-additional
-
-cost
-
-has
-
-not
-
-been
-
-paid.`,
+    section: `401.4. When Exhausting is listed as a Cost`,
+    text: `When Exhausting is listed as a Cost, then the Action must be able to be completed for the cost to be paid. Example: A spell says "As an additional cost to play this, you may exhaust a friendly unit." An exhausted friendly unit may not be exhausted again as the additional cost for the spell, and the additional cost has not been paid.`,
   },
   {
     id: `401.5`,
-    section: `401.5. In`,
-    text: `In
-
-abilities,
-
-the
-
-Exhaust
-
-sym bol
-
-represents
-
-the
-
-cost
-
-"Exhaust
-
-this"
-
-or
-
-"Exhaust
-
-m e."
-
-It
-
-resem bles
-
-a
-
-card
-
-turning
-
-sidew ays.`,
+    section: `401.5. In abilities`,
+    text: `In abilities, the Exhaust symbol represents the cost "Exhaust this" or "Exhaust me." It resembles a card turning sideways.`,
+  },
+  {
+    id: `402`,
+    section: `402. Ready`,
+    text: `Ready`,
   },
   {
     id: `402.1`,
-    section: `402.1. Readying`,
-    text: `Readying
-
-is
-
-an
-
-action
-
-that
-
-m arks
-
-a
-
-non-spell
-
-Gam e
-
-Object
-
-as
-
-available
-
-for
-
-action.`,
+    section: `402.1. Readying is an action that marks a non-spell Game Object as available for action`,
+    text: `Readying is an action that marks a non-spell Game Object as available for action.`,
   },
   {
     id: `402.1.a`,
-    section: `402.1.a. To`,
-    text: `To
-
-m ark
-
-it,
-
-rotate
-
-the
-
-card
-
-90
-
-degrees
-
-opposite
-
-of
-
-Exhausting ,
-
-so
-
-that
-
-it
-
-is
-
-vertically
-
-oriented
-
-in
-
-front
-
-of
-
-you.`,
+    section: `402.1.a. To mark it`,
+    text: `To mark it, rotate the card 90 degrees opposite of Exhausting, so that it is vertically oriented in front of you.`,
   },
   {
     id: `402.1.b`,
-    section: `402.1.b. A`,
-    text: `A
-
-Unit
-
-that
-
-is
-
-already
-
-Ready
-
-cannot
-
-be
-
-Readied
-
-again.`,
+    section: `402.1.b. A Unit that is already Ready cannot be Readied again`,
+    text: `A Unit that is already Ready cannot be Readied again.`,
   },
   {
     id: `402.1.c`,
-    section: `402.1.c. If`,
-    text: `If
-
-a
-
-Unit
-
-is
-
-instructed
-
-to
-
-be
-
-Readied
-
-w hile
-
-it
-
-is
-
-already
-
-Ready ,
-
-nothing
-
-additional
-
-happens.`,
+    section: `402.1.c. If a Unit is instructed to be Readied while it is already Ready`,
+    text: `If a Unit is instructed to be Readied while it is already Ready, nothing additional happens.`,
   },
   {
     id: `402.2`,
-    section: `402.2. "Ready"`,
-    text: `"Ready"
-
-is
-
-a
-
-state
-
-for
-
-Gam e
-
-Objects
-
-that
-
-other
-
-gam e
-
-effects
-
-and
-
-rules
-
-can
-
-reference.`,
+    section: `402.2. "Ready" is a state for Game Objects that other game effects and rules can reference`,
+    text: `"Ready" is a state for Game Objects that other game effects and rules can reference.`,
   },
   {
     id: `402.3`,
-    section: `402.3. This`,
-    text: `This
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `402.3. This is a Limited Action`,
+    text: `This is a Limited Action.`,
   },
   {
     id: `402.3.a`,
-    section: `402.3.a. A`,
-    text: `A
-
-player
-
-Readies
-
-all
-
-non-spell
-
-Gam e
-
-Objects
-
-they
-
-Control
-
-during
-
-the
-
-Ready
-
-Step
-
-of
-
-the
-
-Beginning
-
-Phase
-
-on
-
-their
-
-turn.`,
+    section: `402.3.a. A player Readies all non-spell Game Objects they Control during the Ready Step of the Beginning Phase on their turn`,
+    text: `A player Readies all non-spell Game Objects they Control during the Ready Step of the Beginning Phase on their turn.`,
   },
   {
     id: `402.3.b`,
-    section: `402.3.b. The`,
-    text: `The
-
-player
-
-m ay
-
-also
-
-Ready
-
-their
-
-Gam e
-
-Objects
-
-w hen
-
-effects
-
-or
-
-spells
-
-instruct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `402.3.b. The player may also Ready their Game Objects when effects or spells instruct them to do so`,
+    text: `The player may also Ready their Game Objects when effects or spells instruct them to do so.`,
+  },
+  {
+    id: `403`,
+    section: `403. Recycle`,
+    text: `Recycle`,
   },
   {
     id: `403.1`,
-    section: `403.1. Recycling`,
-    text: `Recycling
-
-cards
-
-is
-
-the
-
-action
-
-in
-
-w hich
-
-a
-
-player
-
-takes
-
-one
-
-or
-
-m ore
-
-cards
-
-from
-
-a
-
-speciﬁc
-
-zone
-
-and
-
-then
-
-puts
-
-it
-
-on
-
-the
-
-bottom
-
-of
-
-the
-
-corresponding
-
-deck.`,
+    section: `403.1. Recycling cards is the action in which a player takes one or more cards from a specific zone and then puts it on the bottom of the corresponding deck`,
+    text: `Recycling cards is the action in which a player takes one or more cards from a specific zone and then puts it on the bottom of the corresponding deck.`,
   },
   {
     id: `403.1.a`,
-    section: `403.1.a. Main`,
-    text: `Main
-
-Deck
-
-cards
-
-are
-
-Recycled
-
-to
-
-the
-
-Main
-
-Deck.`,
+    section: `403.1.a. Main Deck cards are Recycled to the Main Deck`,
+    text: `Main Deck cards are Recycled to the Main Deck.`,
   },
   {
     id: `403.1.b`,
-    section: `403.1.b. Runes`,
-    text: `Runes
-
-are
-
-Recycled
-
-to
-
-the
-
-Rune
-
-Deck.`,
+    section: `403.1.b. Runes are Recycled to the Rune Deck`,
+    text: `Runes are Recycled to the Rune Deck.`,
   },
   {
     id: `403.1.c`,
-    section: `403.1.c. Each`,
-    text: `Each
-
-player
-
-Recycles
-
-cards
-
-to
-
-their
-
-ow n
-
-Main
-
-Deck
-
-and
-
-Rune
-
-Deck ,
-
-regardless
-
-of
-
-w hich
-
-player
-
-is
-
-instructed
-
-to
-
-perform
-
-the
-
-Recycle
-
-action.`,
+    section: `403.1.c. Each player Recycles cards to their own Main Deck and Rune Deck`,
+    text: `Each player Recycles cards to their own Main Deck and Rune Deck, regardless of which player is instructed to perform the Recycle action.`,
   },
   {
     id: `403.2`,
-    section: `403.2. This`,
-    text: `This
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `403.2. This is a Limited Action`,
+    text: `This is a Limited Action.`,
   },
   {
     id: `403.2.a`,
-    section: `403.2.a. The`,
-    text: `The
-
-player
-
-m ust
-
-Recycle
-
-cards
-
-from
-
-the
-
-speciﬁed
-
-zones
-
-w hen
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-gam e
-
-effects
-
-or
-
-costs.`,
+    section: `403.2.a. The player must Recycle cards from the specified zones when instructed to do so by game effects or costs`,
+    text: `The player must Recycle cards from the specified zones when instructed to do so by game effects or costs.`,
   },
   {
     id: `403.3`,
-    section: `403.3. W hen`,
-    text: `W hen
-
-Recycling
-
-is
-
-listed
-
-as
-
-a
-
-Cost ,
-
-the
-
-action
-
-m ust
-
-be
-
-able
-
-to
-
-be
-
-com pleted
-
-for
-
-the
-
-cost
-
-to
-
-be
-
-paid.
-
-Example:
-
-Vi,
-
-D estructive
-
-has
-
-the
-
-ability
-
-"Recycle
-
-1
-
-from
-
-your
-
-trash:
-
-Give
-
-m e
-
-+1
-
-[M ]
-
-this
-
-turn."
-
-Each
-
-tim e
-
-a
-
-player
-
-activates
-
-the
-
-ability,
-
-they
-
-m ust
-
-recycle
-
-1
-
-card
-
-from
-
-their
-
-trash
-
-to
-
-pay
-
-its
-
-cost.
-
-If
-
-they
-
-have
-
-no
-
-cards
-
-in
-
-their
-
-trash,
-
-they
-
-can't
-
-activate
-
-the
-
-ability,
-
-because
-
-they
-
-can't
-
-pay
-
-its
-
-cost.`,
+    section: `403.3. When Recycling is listed as a Cost`,
+    text: `When Recycling is listed as a Cost, the action must be able to be completed for the cost to be paid. Example: Vi, Destructive has the ability "Recycle 1 from your trash: Give me +1 [M] this turn." Each time a player activates the ability, they must recycle 1 card from their trash to pay its cost. If they have no cards in their trash, they can't activate the ability, because they can't pay its cost.`,
   },
   {
     id: `403.4`,
-    section: `403.4. W hen`,
-    text: `W hen
-
-Recycling
-
-is
-
-part
-
-of
-
-an
-
-effect,
-
-a
-
-player
-
-m ust
-
-Recycle
-
-as
-
-m any
-
-cards
-
-as
-
-possible
-
-from
-
-the
-
-speciﬁed
-
-zone
-
-or
-
-zones.`,
+    section: `403.4. When Recycling is part of an effect`,
+    text: `When Recycling is part of an effect, a player must Recycle as many cards as possible from the specified zone or zones.`,
   },
   {
     id: `403.5`,
-    section: `403.5. If`,
-    text: `If
-
-2
-
-or
-
-m ore
-
-cards
-
-are
-
-Recycled
-
-to
-
-the
-
-Main
-
-Deck
-
-sim ultaneously,
-
-they
-
-are
-
-placed
-
-on
-
-the
-
-bottom
-
-of
-
-that
-
-deck
-
-in
-
-a
-
-random
-
-order.
-
-Example:
-
-Garbage
-
-Grabber
-
-has
-
-the
-
-ability
-
-"Recycle
-
-3
-
-from
-
-your
-
-trash,
-
-[1],
-
-[E]:
-
-D raw
-
-"
-
-To
-
-pay
-
-the
-
-cost
-
-of
-
-activating
-
-this
-
-ability,
-
-its
-
-controller
-
-chooses
-
-3
-
-cards
-
-from
-
-their
-
-trash
-
-and
-
-places
-
-them
-
-on
-
-the
-
-bottom
-
-of
-
-their
-
-Main
-
-Deck
-
-in
-
-a
-
-random
-
-order.`,
+    section: `403.5. If 2 or more cards are Recycled to the Main Deck simultaneously`,
+    text: `If 2 or more cards are Recycled to the Main Deck simultaneously, they are placed on the bottom of that deck in a random order. Example: Garbage Grabber has the ability "Recycle 3 from your trash, [1], [E]: Draw " To pay the cost of activating this ability, its controller chooses 3 cards from their trash and places them on the bottom of their Main Deck in a random order.`,
   },
   {
     id: `403.5.a`,
-    section: `403.5.a. If`,
-    text: `If
-
-2
-
-or
-
-m ore
-
-cards
-
-are
-
-Recycled
-
-to
-
-the
-
-Rune
-
-Deck
-
-sim ultaneously,
-
-they
-
-are
-
-placed
-
-on
-
-the
-
-bottom
-
-of
-
-that
-
-deck
-
-in
-
-the
-
-order
-
-of
-
-their
-
-ow ner's
-
-choosing.`,
+    section: `403.5.a. If 2 or more cards are Recycled to the Rune Deck simultaneously`,
+    text: `If 2 or more cards are Recycled to the Rune Deck simultaneously, they are placed on the bottom of that deck in the order of their owner's choosing.`,
   },
   {
     id: `403.6`,
-    section: `403.6. This`,
-    text: `This
-
-action,
-
-w hen
-
-instructed,
-
-is
-
-som etim es
-
-form atted
-
-as
-
-" Recycle
-
-X
-
-from
-
-[Zone]."
-
-That
-
-m eans
-
-to
-
-take
-
-X
-
-cards
-
-of
-
-the
-
-instructed
-
-player's
-
-choice
-
-from
-
-the
-
-relevant
-
-zone
-
-and
-
-recycle
-
-them .
-
-Example:
-
-D r.
-
-M undo,
-
-Expert
-
-has
-
-the
-
-ability
-
-"At
-
-the
-
-start
-
-of
-
-your
-
-Beginning
-
-Phase,
-
-recycle
-
-3
-
-from
-
-your
-
-trash."
-
-As
-
-that
-
-ability
-
-resolves,
-
-its
-
-controller
-
-recycles
-
-3
-
-cards
-
-from
-
-their
-
-trash.
-
-If
-
-there
-
-are
-
-few er
-
-than
-
-3
-
-cards
-
-in
-
-that
-
-player's
-
-trash,
-
-they
-
-recycle
-
-as
-
-m any
-
-as
-
-they
-
-can.`,
+    section: `403.6. This action`,
+    text: `This action, when instructed, is sometimes formatted as "Recycle X from [Zone]." That means to take X cards of the instructed player's choice from the relevant zone and recycle them. Example: Dr. Mundo, Expert has the ability "At the start of your Beginning Phase, recycle 3 from your trash." As that ability resolves, its controller recycles 3 cards from their trash. If there are fewer than 3 cards in that player's trash, they recycle as many as they can.`,
   },
   {
     id: `404`,
@@ -39196,1002 +4541,118 @@ can.`,
   },
   {
     id: `404.1`,
-    section: `404.1. Spells,`,
-    text: `Spells,
-
-Units,
-
-Abilities,
-
-and
-
-other
-
-gam e
-
-effects
-
-m ay
-
-Deal
-
-Dam age
-
-to
-
-units.`,
+    section: `404.1. Spells`,
+    text: `Spells, Units, Abilities, and other game effects may Deal Damage to units.`,
   },
   {
     id: `404.1.a`,
-    section: `404.1.a. Assigning`,
-    text: `Assigning
-
-Dam age
-
-during
-
-Com bat
-
-Resolution
-
-is
-
-not
-
-Dealing
-
-Dam age,
-
-but
-
-w ill
-
-cause
-
-Dam age
-
-to
-
-be
-
-Dealt
-
-w hen
-
-assignm ent
-
-is
-
-com plete.`,
+    section: `404.1.a. Assigning Damage during Combat Resolution is not Dealing Damage`,
+    text: `Assigning Damage during Combat Resolution is not Dealing Damage, but will cause Damage to be Dealt when assignment is complete.`,
   },
   {
     id: `404.1.b`,
-    section: `404.1.b. To`,
-    text: `To
-
-Deal
-
-Dam age
-
-to
-
-Units,
-
-m ark
-
-the
-
-speciﬁed
-
-am ount
-
-of
-
-Dam age
-
-on
-
-the
-
-Unit.`,
+    section: `404.1.b. To Deal Damage to Units`,
+    text: `To Deal Damage to Units, mark the specified amount of Damage on the Unit.`,
   },
   {
     id: `404.1.c`,
-    section: `404.1.c. Dam age`,
-    text: `Dam age
-
-is
-
-m arked
-
-on
-
-each
-
-unit
-
-separately.`,
+    section: `404.1.c. Damage is marked on each unit separately`,
+    text: `Damage is marked on each unit separately.`,
   },
   {
     id: `404.1.d`,
-    section: `404.1.d. Dam age`,
-    text: `Dam age
-
-can
-
-be
-
-Dealt
-
-to
-
-m ore
-
-than
-
-one
-
-Unit
-
-at
-
-the
-
-sam e
-
-tim e.`,
+    section: `404.1.d. Damage can be Dealt to more than one Unit at the same time`,
+    text: `Damage can be Dealt to more than one Unit at the same time.`,
   },
   {
     id: `404.2`,
-    section: `404.2. O nly`,
-    text: `O nly
-
-Dam age
-
-can
-
-be
-
-Dealt.`,
+    section: `404.2. Only Damage can be Dealt`,
+    text: `Only Damage can be Dealt.`,
   },
   {
     id: `404.3`,
-    section: `404.3. Dealing`,
-    text: `Dealing
-
-Dam age
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `404.3. Dealing Damage is a Limited Action`,
+    text: `Dealing Damage is a Limited Action.`,
   },
   {
     id: `404.3.a`,
-    section: `404.3.a. Assigning`,
-    text: `Assigning
-
-Dam age
-
-causes
-
-Dam age
-
-to
-
-be
-
-dealt
-
-outside
-
-of
-
-being
-
-directed
-
-to
-
-Deal
-
-Dam age.
-
-See
-
-rule`,
+    section: `404.3.a. Assigning Damage causes Damage to be dealt outside of being directed to Deal Damage`,
+    text: `Assigning Damage causes Damage to be dealt outside of being directed to Deal Damage. See rule 433. Combat for more information.`,
   },
   {
     id: `404.4`,
-    section: `404.4. Dealing`,
-    text: `Dealing
-
-can
-
-have
-
-the
-
-intrinsic
-
-property
-
-of
-
-Bonus
-
-Dam age.`,
+    section: `404.4. Dealing can have the intrinsic property of Bonus Damage`,
+    text: `Dealing can have the intrinsic property of Bonus Damage.`,
   },
   {
     id: `404.5`,
-    section: `404.5. Bonus`,
-    text: `Bonus
-
-Dam age
-
-is
-
-a
-
-property
-
-granted
-
-to
-
-the
-
-action
-
-of
-
-Dealing
-
-and
-
-alters
-
-the
-
-am ount
-
-of
-
-Dam age
-
-distributed
-
-by
-
-this
-
-action.
-
-See
-
-rule`,
-  },
-  {
-    id: `712`,
-    section: `712. Bonus`,
-    text: `Bonus
-
-Damage
-
-for
-
-more
-
-information.
-
-Bonus
-
-Dam age`,
+    section: `404.5. Bonus Damage is a property granted to the action of Dealing and alters the amount of Damage distributed by this action`,
+    text: `Bonus Damage is a property granted to the action of Dealing and alters the amount of Damage distributed by this action. See rule 712. Bonus Damage for more information.`,
   },
   {
     id: `404.6`,
-    section: `404.6. Deal`,
-    text: `Deal
-
-actions
-
-can
-
-originate
-
-from
-
-one
-
-or
-
-m ore
-
-sources.`,
+    section: `404.6. Deal actions can originate from one or more sources`,
+    text: `Deal actions can originate from one or more sources.`,
   },
   {
     id: `404.6.a`,
-    section: `404.6.a. If`,
-    text: `If
-
-a
-
-gam e
-
-effect
-
-does
-
-not
-
-specify
-
-a
-
-source,
-
-the
-
-gam e
-
-effect
-
-describing
-
-the
-
-Deal
-
-action
-
-is
-
-the
-
-source.
-
-Example:
-
-Void
-
-Seeker
-
-is
-
-a
-
-spell
-
-that
-
-reads
-
-“D eal
-
-4
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld.
-
-D raw
-
-1.”
-
-The
-
-dam age
-
-that
-
-Void
-
-Seeker
-
-instructs
-
-you
-
-to
-
-deal
-
-is
-
-dealt
-
-by
-
-Void
-
-Seeker.`,
+    section: `404.6.a. If a game effect does not specify a source`,
+    text: `If a game effect does not specify a source, the game effect describing the Deal action is the source. Example: Void Seeker is a spell that reads “Deal 4 to a unit at a battlefield. Draw 1.” The damage that Void Seeker instructs you to deal is dealt by Void Seeker.`,
   },
   {
     id: `404.6.b`,
-    section: `404.6.b. If`,
-    text: `If
+    section: `404.6.b. If a game effect does specify a source`,
+    text: `If a game effect does specify a source, then that source is what is considered the origin of the Damage for this Deal action.
 
-a
+1. Units and Spells can be the source of Damage for Deal actions.
 
-gam e
+2. Abilities can be the source of Damage for Deal actions.
 
-effect
+2.a. When an Ability is the source of Damage for a Deal action, it is in addition to the Spell or Unit that created that Ability. Example: Iron Ballista is a gear that says “[E]: Deal 2 to a unit at a battlefield.” This damage is dealt both by a gear and by an ability.
 
-does
-
-specify
-
-a
-
-source,
-
-then
-
-that
-
-source
-
-is
-
-w hat
-
-is
-
-considered
-
-the
-
-origin
-
-of
-
-the
-
-Dam age
-
-for
-
-this
-
-Deal
-
-action.
-
-404.6.b.1.
-
-Units
-
-and
-
-Spells
-
-can
-
-be
-
-the
-
-source
-
-of
-
-Dam age
-
-for
-
-Deal
-
-actions.
-
-404.6.b.2.
-
-Abilities
-
-can
-
-be
-
-the
-
-source
-
-of
-
-Dam age
-
-for
-
-Deal
-
-actions.
-
-404.6.b.2.a.
-
-W hen
-
-an
-
-Ability
-
-is
-
-the
-
-source
-
-of
-
-Dam age
-
-for
-
-a
-
-Deal
-
-action,
-
-it
-
-is
-
-in
-
-addition
-
-to
-
-the
-
-Spell
-
-or
-
-Unit
-
-that
-
-created
-
-that
-
-Ability.
-
-Example:
-
-Iron
-
-Ballista
-
-is
-
-a
-
-gear
-
-that
-
-says
-
-“[E]:
-
-D eal
-
-2
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld.”
-
-This
-
-dam age
-
-is
-
-dealt
-
-both
-
-by
-
-a
-
-gear
-
-and
-
-by
-
-an
-
-ability.
-
-404.6.b.3.
-
-W hen
-
-a
-
-spell
-
-or
-
-ability
-
-speciﬁes
-
-a
-
-Unit
-
-as
-
-the
-
-source
-
-of
-
-the
-
-Dam age
-
-for
-
-the
-
-Deal
-
-action,
-
-it
-
-is
-
-not
-
-in
-
-addition
-
-to
-
-the
-
-spell
-
-or
-
-ability
-
-that
-
-speciﬁed
-
-it.
-
-Example:
-
-Challenge
-
-is
-
-a
-
-spell
-
-that
-
-reads
-
-“Choose
-
-a
-
-friendly
-
-unit
-
-and
-
-an
-
-enem y
-
-unit.
-
-They
-
-deal
-
-dam age
-
-equal
-
-to
-
-their
-
-M ights
-
-to
-
-each
-
-other.”
-
-The
-
-dam age
-
-that
-
-Challenge
-
-causes
-
-to
-
-be
-
-dealt
-
-is
-
-dealt
-
-by
-
-the
-
-chosen
-
-units,
-
-not
-
-by
-
-Challenge.`,
+3. When a spell or ability specifies a Unit as the source of the Damage for the Deal action, it is not in addition to the spell or ability that specified it. Example: Challenge is a spell that reads “Choose a friendly unit and an enemy unit. They deal damage equal to their Mights to each other.” The damage that Challenge causes to be dealt is dealt by the chosen units, not by Challenge.`,
   },
   {
     id: `404.6.c`,
-    section: `404.6.c. Dam age`,
-    text: `Dam age
+    section: `404.6.c. Damage Dealt as a result of being assigned during Combat has the Units as its source`,
+    text: `Damage Dealt as a result of being assigned during Combat has the Units as its source.
 
-Dealt
-
-as
-
-a
-
-result
-
-of
-
-being
-
-assigned
-
-during
-
-Com bat
-
-has
-
-the
-
-Units
-
-as
-
-its
-
-source.
-
-404.6.c.1.
-
-The
-
-Dam age
-
-assigned,
-
-and
-
-subsequently
-
-Dealt ,
-
-to
-
-attackers
-
-has
-
-the
-
-defenders
-
-as
-
-the
-
-source
-
-and
-
-vice
-
-versa.`,
+1. The Damage assigned, and subsequently Dealt, to attackers has the defenders as the source and vice versa.`,
   },
   {
     id: `404.7`,
-    section: `404.7. Deal`,
-    text: `Deal
-
-actions
-
-can
-
-distribute
-
-Dam age
-
-as
-
-part
-
-of
-
-com bat
-
-actions
-
-or
-
-non-com bat
-
-actions.`,
+    section: `404.7. Deal actions can distribute Damage as part of combat actions or non-combat actions`,
+    text: `Deal actions can distribute Damage as part of combat actions or non-combat actions.`,
+  },
+  {
+    id: `405`,
+    section: `405. Heal`,
+    text: `Heal`,
   },
   {
     id: `405.1`,
-    section: `405.1. Dam age`,
-    text: `Dam age
-
-being
-
-cleared
-
-from
-
-Units
-
-is
-
-Healing.`,
+    section: `405.1. Damage being cleared from Units is Healing`,
+    text: `Damage being cleared from Units is Healing.`,
   },
   {
     id: `405.1.a`,
-    section: `405.1.a. If`,
-    text: `If
-
-Dam age
-
-is
-
-cleared
-
-for
-
-any
-
-reason
-
-it
-
-is
-
-considered
-
-Healing.`,
+    section: `405.1.a. If Damage is cleared for any reason it is considered Healing`,
+    text: `If Damage is cleared for any reason it is considered Healing.`,
   },
   {
     id: `405.2`,
-    section: `405.2. M ore`,
-    text: `M ore
-
-than
-
-one
-
-Unit
-
-can
-
-be
-
-Healed
-
-at
-
-the
-
-sam e
-
-tim e.`,
+    section: `405.2. More than one Unit can be Healed at the same time`,
+    text: `More than one Unit can be Healed at the same time.`,
   },
   {
     id: `405.3`,
-    section: `405.3. Healing`,
-    text: `Healing
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `405.3. Healing is a Limited Action`,
+    text: `Healing is a Limited Action.`,
   },
   {
     id: `405.3.a`,
-    section: `405.3.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Heal
-
-units
-
-w hen
-
-gam e
-
-effects
-
-instruct
-
-them
-
-to,
-
-or
-
-at
-
-speciﬁc
-
-points
-
-in
-
-the
-
-turn.`,
+    section: `405.3.a. Players may only Heal units when game effects instruct them to`,
+    text: `Players may only Heal units when game effects instruct them to, or at specific points in the turn.`,
   },
   {
     id: `406`,
@@ -40200,850 +4661,123 @@ turn.`,
   },
   {
     id: `406.1`,
-    section: `406.1. A`,
-    text: `A
-
-player
-
-Plays
-
-cards
-
-by
-
-paying
-
-costs
-
-associated
-
-w ith
-
-that
-
-card.
-
-See
-
-rule`,
+    section: `406.1. A player Plays cards by paying costs associated with that card`,
+    text: `A player Plays cards by paying costs associated with that card. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `406.2`,
-    section: `406.2. This`,
-    text: `This
-
-is
-
-a
-
-Discretionary
-
-Action.`,
+    section: `406.2. This is a Discretionary Action`,
+    text: `This is a Discretionary Action.`,
   },
   {
     id: `406.2.a`,
-    section: `406.2.a. As`,
-    text: `As
-
-long
-
-as
-
-a
-
-player
-
-has
-
-the
-
-resources
-
-to
-
-pay
-
-the
-
-costs
-
-associated
-
-w ith
-
-the
-
-card,
-
-they
-
-m ay
-
-play
-
-cards.`,
+    section: `406.2.a. As long as a player has the resources to pay the costs associated with the card`,
+    text: `As long as a player has the resources to pay the costs associated with the card, they may play cards.`,
   },
   {
     id: `406.3`,
-    section: `406.3. Gam e`,
-    text: `Gam e
-
-effects
-
-m ay
-
-result
-
-in
-
-cards
-
-being
-
-played
-
-as
-
-part
-
-of
-
-their
-
-resolution.`,
+    section: `406.3. Game effects may result in cards being played as part of their resolution`,
+    text: `Game effects may result in cards being played as part of their resolution.`,
   },
   {
     id: `406.3.a`,
-    section: `406.3.a. This`,
-    text: `This
-
-treats
-
-Play
-
-as
-
-a
-
-Lim ited
-
-Action.`,
+    section: `406.3.a. This treats Play as a Limited Action`,
+    text: `This treats Play as a Limited Action.`,
   },
   {
     id: `406.3.b`,
-    section: `406.3.b. Treat`,
-    text: `Treat
-
-all
-
-steps
-
-of
-
-Play
-
-as
-
-norm al,
-
-except
-
-as
-
-noted
-
-by
-
-the
-
-gam e
-
-effect
-
-creating
-
-this
-
-Lim ited
-
-Play
-
-Effect.`,
+    section: `406.3.b. Treat all steps of Play as normal`,
+    text: `Treat all steps of Play as normal, except as noted by the game effect creating this Limited Play Effect.`,
   },
   {
     id: `406.3.c`,
-    section: `406.3.c. If`,
-    text: `If
-
-there
-
-are
-
-no
-
-eligible
-
-cards
-
-to
-
-Play
-
-w hen
-
-instructed
-
-to
-
-Play
-
-in
-
-this
-
-m anner
-
-like
-
-this,
-
-then
-
-nothing
-
-happens
-
-and
-
-resolution
-
-continues.`,
+    section: `406.3.c. If there are no eligible cards to Play when instructed to Play in this manner like this`,
+    text: `If there are no eligible cards to Play when instructed to Play in this manner like this, then nothing happens and resolution continues.`,
   },
   {
     id: `406.4`,
-    section: `406.4. Som e`,
-    text: `Som e
-
-Abilities
-
-trigger
-
-w hen
-
-cards
-
-are
-
-played
-
-or
-
-otherw ise
-
-check
-
-w hether
-
-cards
-
-have
-
-been
-
-played.`,
+    section: `406.4. Some Abilities trigger when cards are played or otherwise check whether cards have been played`,
+    text: `Some Abilities trigger when cards are played or otherwise check whether cards have been played.`,
   },
   {
     id: `406.4.a`,
-    section: `406.4.a. These`,
-    text: `These
-
-abilities
-
-trigger
-
-w hen
-
-the
-
-act
-
-of
-
-playing
-
-the
-
-card
-
-has
-
-been
-
-completed
-
-by
-
-the
-
-resolution
-
-of
-
-the
-
-card.`,
+    section: `406.4.a. These abilities trigger when the act of playing the card has been completed by the resolution of the card`,
+    text: `These abilities trigger when the act of playing the card has been completed by the resolution of the card.`,
   },
   {
     id: `406.4.b`,
-    section: `406.4.b. If`,
-    text: `If
-
-a
-
-gam e
-
-effect
-
-prevents
-
-the
-
-resolution
-
-of
-
-the
-
-card— for
-
-exam ple,
-
-because
-
-the
-
-card
-
-w as
-
-countered — the
-
-card
-
-w asn't
-
-played
-
-and
-
-no
-
-abilities
-
-that
-
-trigger
-
-on
-
-playing
-
-cards
-
-trigger.
-
-See
-
-rule`,
-  },
-  {
-    id: `412`,
-    section: `412. Counter`,
-    text: `Counter
-
-for
-
-more
-
-information.`,
+    section: `406.4.b. If a game effect prevents the resolution of the card—for example`,
+    text: `If a game effect prevents the resolution of the card—for example, because the card was countered—the card wasn't played and no abilities that trigger on playing cards trigger. See rule 412. Counter for more information.`,
   },
   {
     id: `407`,
     section: `407. Move`,
-    text: `Move
-
-Move
-
-for
-
-more
-
-information.`,
+    text: `Move`,
   },
   {
     id: `407.1`,
-    section: `407.1. Moving`,
-    text: `Moving
-
-is
-
-the
-
-act
-
-of
-
-a
-
-Gam e
-
-Object
-
-m oving
-
-betw een
-
-tw o
-
-Locations
-
-on
-
-The
-
-Board.`,
+    section: `407.1. Moving is the act of a Game Object moving between two Locations on The Board`,
+    text: `Moving is the act of a Game Object moving between two Locations on The Board.`,
   },
   {
     id: `407.2`,
-    section: `407.2. Moving`,
-    text: `Moving
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `407.2. Moving is a Limited Action`,
+    text: `Moving is a Limited Action.`,
   },
   {
     id: `407.2.a`,
-    section: `407.2.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-m ove
-
-Gam e
-
-Objects
-
-w hen
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-Gam e
-
-Effects
-
-or
-
-costs.`,
+    section: `407.2.a. Players may only move Game Objects when instructed to do so by Game Effects or costs`,
+    text: `Players may only move Game Objects when instructed to do so by Game Effects or costs.`,
   },
   {
     id: `407.2.b`,
-    section: `407.2.b. The`,
-    text: `The
-
-Standard
-
-Move
-
-inherent
-
-to
-
-Units
-
-m ay
-
-also
-
-cause
-
-Movem ent.
-
-See
-
-rule
-
-140
-
-for
-
-more
-
-information
-
-on
-
-the
-
-Standard
-
-Move .`,
+    section: `407.2.b. The Standard Move inherent to Units may also cause Movement`,
+    text: `The Standard Move inherent to Units may also cause Movement. See rule 140 for more information on the Standard Move.`,
   },
   {
     id: `407.3`,
-    section: `407.3. The`,
-    text: `The
-
-Standard
-
-Move
-
-inherent
-
-to
-
-Units
-
-is
-
-a
-
-Discretionary
-
-Action.`,
+    section: `407.3. The Standard Move inherent to Units is a Discretionary Action`,
+    text: `The Standard Move inherent to Units is a Discretionary Action.`,
   },
   {
     id: `407.3.a`,
-    section: `407.3.a. The`,
-    text: `The
-
-Cost
-
-is
-
-Exhausting
-
-one
-
-or
-
-m ore
-
-Units.`,
+    section: `407.3.a. The Cost is Exhausting one or more Units`,
+    text: `The Cost is Exhausting one or more Units.`,
   },
   {
     id: `407.3.b`,
-    section: `407.3.b. The`,
-    text: `The
-
-Effect
-
-is
-
-Moving
-
-those
-
-Unit.`,
+    section: `407.3.b. The Effect is Moving those Unit`,
+    text: `The Effect is Moving those Unit.`,
+  },
+  {
+    id: `408`,
+    section: `408. Hide`,
+    text: `Hide`,
   },
   {
     id: `408.1`,
-    section: `408.1. Hiding`,
-    text: `Hiding
-
-a
-
-card
-
-is
-
-the
-
-act
-
-of
-
-placing
-
-a
-
-card
-
-facedow n
-
-at
-
-a
-
-Battleﬁeld
-
-you
-
-control.`,
+    section: `408.1. Hiding a card is the act of placing a card facedown at a Battlefield you control`,
+    text: `Hiding a card is the act of placing a card facedown at a Battlefield you control.`,
   },
   {
     id: `408.2`,
-    section: `408.2. Hiding`,
-    text: `Hiding
-
-is
-
-a
-
-Discretionary
-
-Action.`,
+    section: `408.2. Hiding is a Discretionary Action`,
+    text: `Hiding is a Discretionary Action.`,
   },
   {
     id: `408.2.a`,
-    section: `408.2.a. The`,
-    text: `The
-
-Hidden
-
-keyw ord
-
-allow s
-
-a
-
-player
-
-to
-
-pay
-
-a
-
-cost
-
-to
-
-Hide
-
-a
-
-card
-
-any
-
-tim e
-
-they
-
-have
-
-a
-
-Hidden
-
-card
-
-in
-
-their
-
-hand
-
-or
-
-Cham pion
-
-Zone
-
-and
-
-m eet
-
-the
-
-prerequisites.
-
-See
-
-rule`,
-  },
-  {
-    id: `727`,
-    section: `727. Hidden`,
-    text: `Hidden
-
-for
-
-more
-
-information.`,
+    section: `408.2.a. The Hidden keyword allows a player to pay a cost to Hide a card any time they have a Hidden card in their hand or Champion Zone and meet the prerequisites`,
+    text: `The Hidden keyword allows a player to pay a cost to Hide a card any time they have a Hidden card in their hand or Champion Zone and meet the prerequisites. See rule 727. Hidden for more information.`,
   },
   {
     id: `408.3`,
-    section: `408.3. Cards`,
-    text: `Cards
-
-that
-
-are
-
-facedow n
-
-at
-
-Battleﬁelds
-
-have
-
-their
-
-gam eplay
-
-properties
-
-and
-
-perm issions
-
-deﬁned
-
-by
-
-the
-
-effect
-
-that
-
-put
-
-them
-
-there.
-
-Example:
-
-Cards
-
-that
-
-players
-
-Hide
-
-w ith
-
-the
-
-Hidden
-
-keyw ord
-
-can
-
-be
-
-Played
-
-for
-
-[0]
-
-on
-
-any
-
-subsequent
-
-turn
-
-as
-
-a
-
-property
-
-of
-
-the
-
-Hidden
-
-keyw ord.`,
+    section: `408.3. Cards that are facedown at Battlefields have their gameplay properties and permissions defined by the effect that put them there`,
+    text: `Cards that are facedown at Battlefields have their gameplay properties and permissions defined by the effect that put them there. Example: Cards that players Hide with the Hidden keyword can be Played for [0] on any subsequent turn as a property of the Hidden keyword.`,
   },
   {
     id: `408.4`,
-    section: `408.4. If`,
-    text: `If
-
-a
-
-facedow n
-
-card
-
-w ould
-
-be
-
-put
-
-into
-
-a
-
-zone
-
-w hose
-
-Privacy
-
-is
-
-Private
-
-or
-
-Secret ,
-
-or
-
-if
-
-the
-
-gam e
-
-ends,
-
-its
-
-ow ner
-
-reveals
-
-it
-
-to
-
-all
-
-players.
-
-See
-
-rule`,
+    section: `408.4. If a facedown card would be put into a zone whose Privacy is Private or Secret`,
+    text: `If a facedown card would be put into a zone whose Privacy is Private or Secret, or if the game ends, its owner reveals it to all players. See rule 127. Privacy for more information.`,
   },
   {
     id: `409`,
@@ -41052,559 +4786,43 @@ rule`,
   },
   {
     id: `409.1`,
-    section: `409.1. Discarding`,
-    text: `Discarding
-
-a
-
-card
-
-is
-
-m oving
-
-it
-
-from
-
-a
-
-player's
-
-hand
-
-directly
-
-into
-
-their
-
-trash
-
-w ithout
-
-activating
-
-or
-
-executing
-
-its
-
-norm al
-
-rules
-
-text.`,
+    section: `409.1. Discarding a card is moving it from a player's hand directly into their trash without activating or executing its normal rules text`,
+    text: `Discarding a card is moving it from a player's hand directly into their trash without activating or executing its normal rules text.`,
   },
   {
     id: `409.1.a`,
-    section: `409.1.a. The`,
-    text: `The
-
-player
-
-w ho
-
-is
-
-perform ing
-
-the
-
-action
-
-chooses
-
-w hich
-
-cards
-
-to
-
-send
-
-to
-
-their
-
-Trash ,
-
-and
-
-m ay
-
-use
-
-Private
-
-Inform ation
-
-to
-
-do
-
-so.`,
+    section: `409.1.a. The player who is performing the action chooses which cards to send to their Trash`,
+    text: `The player who is performing the action chooses which cards to send to their Trash, and may use Private Information to do so.`,
   },
   {
     id: `409.1.b`,
-    section: `409.1.b. “W hen`,
-    text: `“W hen
-
-I
-
-am
-
-discarded”
-
-abilities
-
-or
-
-other
-
-Triggered
-
-Abilities
-
-that
-
-trigger
-
-on
-
-discarding
-
-are
-
-executed
-
-after
-
-discarding
-
-has
-
-occurred.`,
+    section: `409.1.b. “When I am discarded” abilities or other Triggered Abilities that trigger on discarding are executed after discarding has occurred`,
+    text: `“When I am discarded” abilities or other Triggered Abilities that trigger on discarding are executed after discarding has occurred.`,
   },
   {
     id: `409.2`,
-    section: `409.2. Discarding`,
-    text: `Discarding
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `409.2. Discarding is a Limited Action`,
+    text: `Discarding is a Limited Action.`,
   },
   {
     id: `409.2.a`,
-    section: `409.2.a. A`,
-    text: `A
-
-player
-
-m ust
-
-Discard
-
-cards
-
-w hen
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-gam e
-
-effects
-
-or
-
-costs.`,
+    section: `409.2.a. A player must Discard cards when instructed to do so by game effects or costs`,
+    text: `A player must Discard cards when instructed to do so by game effects or costs.`,
   },
   {
     id: `409.3`,
-    section: `409.3. W hen`,
-    text: `W hen
-
-Discarding
-
-is
-
-listed
-
-as
-
-a
-
-Cost ,
-
-then
-
-the
-
-Action
-
-m ust
-
-be
-
-able
-
-to
-
-be
-
-com pleted
-
-for
-
-the
-
-cost
-
-to
-
-be
-
-paid.
-
-Example:
-
-A
-
-card
-
-has
-
-the
-
-ability
-
-"D iscard
-
-2:
-
-D eal
-
-2
-
-dam age
-
-to
-
-a
-
-unit
-
-at
-
-a
-
-battleﬁeld."
-
-To
-
-activate
-
-the
-
-ability,
-
-the
-
-card's
-
-controller
-
-m ust
-
-have
-
-at
-
-least
-
-2
-
-cards
-
-in
-
-hand
-
-and
-
-m ust
-
-be
-
-able
-
-to
-
-discard
-
-them .`,
+    section: `409.3. When Discarding is listed as a Cost`,
+    text: `When Discarding is listed as a Cost, then the Action must be able to be completed for the cost to be paid. Example: A card has the ability "Discard 2: Deal 2 damage to a unit at a battlefield." To activate the ability, the card's controller must have at least 2 cards in hand and must be able to discard them.`,
   },
   {
     id: `409.4`,
-    section: `409.4. W hen`,
-    text: `W hen
-
-Discarding
-
-is
-
-part
-
-of
-
-an
-
-effect,
-
-then
-
-a
-
-player
-
-m ust
-
-Discard
-
-as
-
-m any
-
-cards
-
-as
-
-possible
-
-from
-
-their
-
-hand.
-
-If
-
-instructed
-
-to
-
-discard
-
-m ore
-
-cards
-
-than
-
-they
-
-have
-
-in
-
-their
-
-hand,
-
-further
-
-discard
-
-instructions
-
-are
-
-ignored.
-
-Example:
-
-Undercover
-
-Agent
-
-has
-
-the
-
-ability
-
-"[D eathknell]
-
-—
-
-D iscard
-
-2,
-
-then
-
-draw
-
-2.
-
-(W hen
-
-I
-
-die,
-
-get
-
-the
-
-effect.)"
-
-If
-
-Undercover
-
-Agent's
-
-controller
-
-has
-
-2
-
-or
-
-m ore
-
-cards
-
-in
-
-hand,
-
-they
-
-m ust
-
-discard
-
-2.
-
-If
-
-they
-
-have
-
-1
-
-card
-
-in
-
-hand,
-
-they
-
-discard
-
-1,
-
-and
-
-the
-
-rest
-
-of
-
-the
-
-discard
-
-instruction
-
-is
-
-ignored.
-
-If
-
-they
-
-have
-
-no
-
-cards
-
-in
-
-hand,
-
-the
-
-entire
-
-discard
-
-instruction
-
-is
-
-ignored.
-
-Regardless
-
-of
-
-how
-
-m any
-
-cards
-
-they
-
-discard,
-
-they
-
-then
-
-draw
-
-2.`,
+    section: `409.4. When Discarding is part of an effect`,
+    text: `When Discarding is part of an effect, then a player must Discard as many cards as possible from their hand. If instructed to discard more cards than they have in their hand, further discard instructions are ignored. Example: Undercover Agent has the ability "[Deathknell] — Discard 2, then draw 2. (When I die, get the effect.)" If Undercover Agent's controller has 2 or more cards in hand, they must discard 2. If they have 1 card in hand, they discard 1, and the rest of the discard instruction is ignored. If they have no cards in hand, the entire discard instruction is ignored. Regardless of how many cards they discard, they then draw 2.`,
   },
   {
     id: `409.5`,
-    section: `409.5. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"D iscard
-
-X."`,
+    section: `409.5. This action is formatted as "Discard X`,
+    text: `This action is formatted as "Discard X."`,
   },
   {
     id: `410`,
@@ -41613,1280 +4831,133 @@ X."`,
   },
   {
     id: `410.1`,
-    section: `410.1. Stunning`,
-    text: `Stunning
-
-is
-
-the
-
-act
-
-of
-
-selecting
-
-one
-
-or
-
-m ore
-
-Units
-
-on
-
-the
-
-Board
-
-and
-
-rendering
-
-them
-
-Stunned.`,
+    section: `410.1. Stunning is the act of selecting one or more Units on the Board and rendering them Stunned`,
+    text: `Stunning is the act of selecting one or more Units on the Board and rendering them Stunned.`,
   },
   {
     id: `410.1.a`,
-    section: `410.1.a. Stunned`,
-    text: `Stunned
+    section: `410.1.a. Stunned is a binary state`,
+    text: `Stunned is a binary state. A Unit is Stunned or it isn't.
 
-is
+1. A Stunned Unit can not be Stunned again. Example: Eclipse Herald has the ability "When you stun an enemy unit, ready me and give me +1 [M] this turn." Its controller plays a spell that reads "Stun a unit." They may choose a unit that's already stunned, but if they do, Eclipse Herald will not trigger.
 
-a
-
-binary
-
-state.
-
-A
-
-Unit
-
-is
-
-Stunned
-
-or
-
-it
-
-isn't.
-
-410.1.a.1.
-
-A
-
-Stunned
-
-Unit
-
-can
-
-not
-
-be
-
-Stunned
-
-again.
-
-Example:
-
-Eclipse
-
-H erald
-
-has
-
-the
-
-ability
-
-"W hen
-
-you
-
-stun
-
-an
-
-enem y
-
-unit,
-
-ready
-
-m e
-
-and
-
-give
-
-m e
-
-+1
-
-[M ]
-
-this
-
-turn."
-
-Its
-
-controller
-
-plays
-
-a
-
-spell
-
-that
-
-reads
-
-"Stun
-
-a
-
-unit."
-
-They
-
-m ay
-
-choose
-
-a
-
-unit
-
-that's
-
-already
-
-stunned,
-
-but
-
-if
-
-they
-
-do,
-
-Eclipse
-
-H erald
-
-w ill
-
-not
-
-trigger.
-
-410.1.a.2.
-
-Stunned
-
-Units
-
-lose
-
-the
-
-Stunned
-
-status
-
-at
-
-the
-
-beginning
-
-of
-
-the
-
-next
-
-Ending
-
-Step.`,
+2. Stunned Units lose the Stunned status at the beginning of the next Ending Step.`,
   },
   {
     id: `410.1.b`,
-    section: `410.1.b. A`,
-    text: `A
-
-Stunned
-
-Unit
-
-does
-
-not
-
-contribute
-
-its
-
-m ight
-
-to
-
-dam age
-
-in
-
-com bat.`,
+    section: `410.1.b. A Stunned Unit does not contribute its might to damage in combat`,
+    text: `A Stunned Unit does not contribute its might to damage in combat.`,
   },
   {
     id: `410.1.c`,
-    section: `410.1.c. A`,
-    text: `A
-
-Stunned
-
-Unit
-
-m ust
-
-still
-
-have
-
-dam age
-
-applied
-
-to
-
-it
-
-equal
-
-to,
-
-or
-
-greater
-
-than,
-
-its
-
-full
-
-m ight
-
-value
-
-to
-
-be
-
-killed.`,
+    section: `410.1.c. A Stunned Unit must still have damage applied to it equal to`,
+    text: `A Stunned Unit must still have damage applied to it equal to, or greater than, its full might value to be killed.`,
   },
   {
     id: `410.2`,
-    section: `410.2. Stunning`,
-    text: `Stunning
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `410.2. Stunning is a Limited Action`,
+    text: `Stunning is a Limited Action.`,
   },
   {
     id: `410.2.a`,
-    section: `410.2.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Stun
-
-Units
-
-w hen
-
-directed
-
-to
-
-by
-
-Gam e
-
-Effects.`,
+    section: `410.2.a. Players may only Stun Units when directed to by Game Effects`,
+    text: `Players may only Stun Units when directed to by Game Effects.`,
   },
   {
     id: `411`,
     section: `411. Reveal`,
-    text: `Reveal
-
-Reveal
-
-for
-
-more
-
-information.`,
+    text: `Reveal`,
   },
   {
     id: `411.1`,
-    section: `411.1. Revealing`,
-    text: `Revealing
-
-is
-
-the
-
-act
-
-of
-
-presenting
-
-a
-
-card
-
-to
-
-all
-
-players
-
-from
-
-a
-
-zone
-
-that
-
-one
-
-or
-
-m ore
-
-players
-
-do
-
-not
-
-have
-
-access
-
-to
-
-the
-
-inform ation
-
-of.`,
+    section: `411.1. Revealing is the act of presenting a card to all players from a zone that one or more players do not have access to the information of`,
+    text: `Revealing is the act of presenting a card to all players from a zone that one or more players do not have access to the information of.`,
   },
   {
     id: `411.1.a`,
-    section: `411.1.a. Revealed`,
-    text: `Revealed
+    section: `411.1.a. Revealed is a temporary state and is not a zone`,
+    text: `Revealed is a temporary state and is not a zone.
 
-is
+1. Other cards, including the card being revealed, can reference the act of being Revealed.
 
-a
-
-tem porary
-
-state
-
-and
-
-is
-
-not
-
-a
-
-zone.
-
-411.1.a.1.
-
-O ther
-
-cards,
-
-including
-
-the
-
-card
-
-being
-
-revealed,
-
-can
-
-reference
-
-the
-
-act
-
-of
-
-being
-
-Revealed.
-
-411.1.a.2.
-
-Cards
-
-rem ain
-
-in
-
-the
-
-zone
-
-they
-
-are
-
-being
-
-Revealed
-
-from .
-
-Example:
-
-If
-
-a
-
-card
-
-is
-
-being
-
-Revealed
-
-from
-
-the
-
-top
-
-of
-
-a
-
-player's
-
-Main
-
-Deck ,
-
-it
-
-is
-
-still
-
-the
-
-top
-
-card
-
-of
-
-that
-
-player's
-
-Main
-
-Deck.`,
+2. Cards remain in the zone they are being Revealed from. Example: If a card is being Revealed from the top of a player's Main Deck, it is still the top card of that player's Main Deck.`,
   },
   {
     id: `411.1.b`,
-    section: `411.1.b. Unless`,
-    text: `Unless
-
-otherw ise
-
-described,
-
-Revealed
-
-cards
-
-do
-
-nothing
-
-else
-
-beyond
-
-becom e
-
-tem porarily
-
-know n
-
-inform ation
-
-to
-
-all
-
-players.`,
+    section: `411.1.b. Unless otherwise described`,
+    text: `Unless otherwise described, Revealed cards do nothing else beyond become temporarily known information to all players.`,
   },
   {
     id: `411.2`,
-    section: `411.2. Revealing`,
-    text: `Revealing
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `411.2. Revealing is a Limited Action`,
+    text: `Revealing is a Limited Action.`,
   },
   {
     id: `411.2.a`,
-    section: `411.2.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Reveal
-
-cards
-
-from
-
-Private
-
-or
-
-Secret
-
-zones
-
-w hen
-
-instructed
-
-to
-
-do
-
-so
-
-by
-
-Gam e
-
-Effects.`,
+    section: `411.2.a. Players may only Reveal cards from Private or Secret zones when instructed to do so by Game Effects`,
+    text: `Players may only Reveal cards from Private or Secret zones when instructed to do so by Game Effects.`,
   },
   {
     id: `411.2.b`,
-    section: `411.2.b. D uring`,
-    text: `D uring
-
-the
-
-course
-
-of
-
-a
-
-gam e
-
-of
-
-Riftbound ,
-
-a
-
-player
-
-m ay
-
-choose
-
-to
-
-show
-
-Private
-
-inform ation
-
-to
-
-one
-
-or
-
-m ore
-
-other
-
-players.
-
-This
-
-does
-
-not
-
-count
-
-as
-
-revealing
-
-and
-
-does
-
-not
-
-trigger
-
-any
-
-effects
-
-that
-
-trigger
-
-w hen
-
-cards
-
-are
-
-revealed.`,
+    section: `411.2.b. During the course of a game of Riftbound`,
+    text: `During the course of a game of Riftbound, a player may choose to show Private information to one or more other players. This does not count as revealing and does not trigger any effects that trigger when cards are revealed.`,
   },
   {
     id: `411.3`,
-    section: `411.3. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"Reveal
-
-cards
-
-from
-
-[zone]."
-
-Example:
-
-"Reveal
-
-2
-
-cards
-
-from
-
-the
-
-top
-
-of
-
-your
-
-M ain
-
-D eck"
-
-w ould
-
-be
-
-executed
-
-by
-
-taking
-
-the
-
-tw o
-
-cards
-
-from
-
-the
-
-top
-
-of
-
-your
-
-M ain
-
-D eck,
-
-and
-
-then
-
-presenting
-
-them
-
-to
-
-all
-
-players
-
-to
-
-clearly
-
-read
-
-and
-
-understand
-
-at
-
-the
-
-table.
-
-Then,
-
-w hen
-
-all
-
-players
-
-have
-
-had
-
-a
-
-chance
-
-to
-
-understand
-
-the
-
-revealed
-
-inform ation,
-
-return
-
-them
-
-to
-
-the
-
-top
-
-of
-
-the
-
-deck
-
-in
-
-the
-
-sam e
-
-order.`,
+    section: `411.3. This action is formatted as "Reveal cards from [zone]`,
+    text: `This action is formatted as "Reveal cards from [zone]." Example: "Reveal 2 cards from the top of your Main Deck" would be executed by taking the two cards from the top of your Main Deck, and then presenting them to all players to clearly read and understand at the table. Then, when all players have had a chance to understand the revealed information, return them to the top of the deck in the same order.`,
   },
   {
     id: `411.4`,
-    section: `411.4. Gam e`,
-    text: `Gam e
-
-Effects
-
-can
-
-m anipulate
-
-or
-
-m odify
-
-the
-
-cards
-
-Revealed
-
-w hile
-
-they
-
-are
-
-Revealed`,
+    section: `411.4. Game Effects can manipulate or modify the cards Revealed while they are Revealed`,
+    text: `Game Effects can manipulate or modify the cards Revealed while they are Revealed`,
   },
   {
     id: `411.4.a`,
-    section: `411.4.a. W hile`,
-    text: `W hile
-
-cards
-
-are
-
-Revealed ,
-
-those
-
-cards
-
-can
-
-be
-
-further
-
-m anipulated,
-
-or
-
-accessed.
-
-They
-
-can
-
-even
-
-have
-
-their
-
-destination
-
-m odiﬁed
-
-for
-
-w hen
-
-the
-
-Reveal
-
-ends.
-
-Example:
-
-"Reveal
-
-2
-
-cards
-
-from
-
-the
-
-top
-
-of
-
-your
-
-M ain
-
-D eck.
-
-Put
-
-one
-
-into
-
-your
-
-hand
-
-and
-
-Recycle
-
-the
-
-other"
-
-w ould
-
-be
-
-executed
-
-by
-
-taking
-
-the
-
-top
-
-tw o
-
-cards
-
-from
-
-your
-
-M ain
-
-D eck
-
-to
-
-the
-
-table,
-
-and
-
-once
-
-every
-
-player
-
-present
-
-has
-
-had
-
-a
-
-chance
-
-to
-
-understand
-
-them
-
-you
-
-w ould
-
-m ake
-
-the
-
-selection
-
-of
-
-one
-
-of
-
-them
-
-to
-
-add
-
-to
-
-your
-
-hand.
-
-The
-
-one
-
-you
-
-did
-
-not
-
-select
-
-w ould
-
-then
-
-be
-
-Recycled
-
-to
-
-the
-
-bottom
-
-of
-
-the
-
-Main
-
-Deck.`,
+    section: `411.4.a. While cards are Revealed`,
+    text: `While cards are Revealed, those cards can be further manipulated, or accessed. They can even have their destination modified for when the Reveal ends. Example: "Reveal 2 cards from the top of your Main Deck. Put one into your hand and Recycle the other" would be executed by taking the top two cards from your Main Deck to the table, and once every player present has had a chance to understand them you would make the selection of one of them to add to your hand. The one you did not select would then be Recycled to the bottom of the Main Deck.`,
+  },
+  {
+    id: `412`,
+    section: `412. Counter`,
+    text: `Counter`,
   },
   {
     id: `412.1`,
-    section: `412.1. Countering`,
-    text: `Countering
-
-is
-
-the
-
-act
-
-of
-
-negating
-
-the
-
-execution,
-
-activation,
-
-or
-
-otherw ise
-
-playing
-
-of
-
-a
-
-card
-
-by
-
-a
-
-player.`,
+    section: `412.1. Countering is the act of negating the execution`,
+    text: `Countering is the act of negating the execution, activation, or otherwise playing of a card by a player.`,
   },
   {
     id: `412.1.a`,
-    section: `412.1.a. A`,
-    text: `A
-
-card
-
-that
-
-is
-
-Countered
-
-does
-
-nothing
-
-and
-
-is
-
-then
-
-placed
-
-in
-
-the
-
-Trash.`,
+    section: `412.1.a. A card that is Countered does nothing and is then placed in the Trash`,
+    text: `A card that is Countered does nothing and is then placed in the Trash.`,
   },
   {
     id: `412.1.b`,
-    section: `412.1.b. A`,
-    text: `A
-
-card
-
-that
-
-is
-
-Countered
-
-is
-
-not
-
-considered
-
-to
-
-have
-
-been
-
-played.`,
+    section: `412.1.b. A card that is Countered is not considered to have been played`,
+    text: `A card that is Countered is not considered to have been played.`,
   },
   {
     id: `412.1.c`,
-    section: `412.1.c. Countering`,
-    text: `Countering
+    section: `412.1.c. Countering does not refund any costs paid to play a card`,
+    text: `Countering does not refund any costs paid to play a card.
 
-does
-
-not
-
-refund
-
-any
-
-costs
-
-paid
-
-to
-
-play
-
-a
-
-card.
-
-412.1.c.1.
-
-This
-
-includes
-
-additional
-
-costs.`,
+1. This includes additional costs.`,
   },
   {
     id: `412.2`,
-    section: `412.2. Countering`,
-    text: `Countering
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `412.2. Countering is a Limited Action`,
+    text: `Countering is a Limited Action.`,
   },
   {
     id: `412.2.a`,
-    section: `412.2.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Counter
-
-cards
-
-w hen
-
-directed
-
-to
-
-by
-
-Gam e
-
-Effects.`,
+    section: `412.2.a. Players may only Counter cards when directed to by Game Effects`,
+    text: `Players may only Counter cards when directed to by Game Effects.`,
   },
   {
     id: `412.3`,
-    section: `412.3. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-" Counter
-
-[a
-
-card
-
-or
-
-ability
-
-on
-
-the
-
-chain]."`,
+    section: `412.3. This action is formatted as "Counter [a card or ability on the chain]`,
+    text: `This action is formatted as "Counter [a card or ability on the chain]."`,
   },
   {
     id: `413`,
@@ -42895,401 +4966,40 @@ chain]."`,
   },
   {
     id: `413.1`,
-    section: `413.1. Bufﬁng`,
-    text: `Bufﬁng
-
-is
-
-the
-
-action
-
-of
-
-placing
-
-a
-
-Buff
-
-counter
-
-on
-
-a
-
-Unit .
-
-See
-
-rule`,
-  },
-  {
-    id: `701`,
-    section: `701. Buffs`,
-    text: `Buffs
-
-for
-
-more
-
-information.`,
+    section: `413.1. Buffing is the action of placing a Buff counter on a Unit`,
+    text: `Buffing is the action of placing a Buff counter on a Unit. See rule 701. Buffs for more information.`,
   },
   {
     id: `413.1.a`,
-    section: `413.1.a. A`,
-    text: `A
-
-Buff
-
-is
-
-also
-
-an
-
-object.`,
+    section: `413.1.a. A Buff is also an object`,
+    text: `A Buff is also an object.`,
   },
   {
     id: `413.1.b`,
-    section: `413.1.b. To`,
-    text: `To
+    section: `413.1.b. To Buff a unit`,
+    text: `To Buff a unit, place a Buff Counter on it if it does not have one already
 
-Buff
-
-a
-
-unit,
-
-place
-
-a
-
-Buff
-
-Counter
-
-on
-
-it
-
-if
-
-it
-
-does
-
-not
-
-have
-
-one
-
-already
-
-413.1.b.1.
-
-If
-
-the
-
-unit
-
-already
-
-has
-
-a
-
-Buff
-
-Counter
-
-on
-
-it,
-
-it
-
-does
-
-not
-
-get
-
-another
-
-one.`,
+1. If the unit already has a Buff Counter on it, it does not get another one.`,
   },
   {
     id: `413.1.c`,
-    section: `413.1.c. Units`,
-    text: `Units
-
-w ith
-
-Buff
-
-Counters
-
-can
-
-still
-
-be
-
-chosen
-
-for
-
-actions
-
-that
-
-Buff
-
-units,
-
-but
-
-w ill
-
-not
-
-be
-
-Buffed
-
-as
-
-part
-
-of
-
-the
-
-execution.
-
-Example:
-
-A
-
-spell
-
-reads
-
-"Buff
-
-a
-
-unit.
-
-Then,
-
-if
-
-it
-
-w as
-
-buffed
-
-this
-
-w ay,
-
-draw
-
-a
-
-card."
-
-It
-
-w ill
-
-place
-
-a
-
-buff
-
-counter
-
-on
-
-a
-
-unit
-
-that
-
-has
-
-no
-
-buff
-
-counter,
-
-and
-
-then
-
-its
-
-controller
-
-w ill
-
-draw
-
-a
-
-card.
-
-H ow ever,
-
-if
-
-the
-
-player
-
-chooses
-
-a
-
-unit
-
-w ith
-
-a
-
-buff
-
-counter
-
-on
-
-it
-
-already,
-
-then
-
-the
-
-card
-
-w ill
-
-not
-
-be
-
-draw n.`,
+    section: `413.1.c. Units with Buff Counters can still be chosen for actions that Buff units`,
+    text: `Units with Buff Counters can still be chosen for actions that Buff units, but will not be Buffed as part of the execution. Example: A spell reads "Buff a unit. Then, if it was buffed this way, draw a card." It will place a buff counter on a unit that has no buff counter, and then its controller will draw a card. However, if the player chooses a unit with a buff counter on it already, then the card will not be drawn.`,
   },
   {
     id: `413.2`,
-    section: `413.2. Bufﬁng`,
-    text: `Bufﬁng
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `413.2. Buffing is a Limited Action`,
+    text: `Buffing is a Limited Action.`,
   },
   {
     id: `413.2.a`,
-    section: `413.2.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Buff
-
-units
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `413.2.a. Players may only Buff units when Game Effects direct them to do so`,
+    text: `Players may only Buff units when Game Effects direct them to do so.`,
   },
   {
     id: `413.3`,
-    section: `413.3. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-" Buff
-
-[one
-
-or
-
-m ore
-
-units]."
-
-e.g.,
-
-"Buff
-
-a
-
-unit."
-
-e.g.,
-
-"Buff
-
-a
-
-friendly
-
-unit."
-
-e.g.,
-
-"Buff
-
-tw o
-
-friendly
-
-units
-
-at
-
-the
-
-sam e
-
-battleﬁeld."`,
+    section: `413.3. This action is formatted as "Buff [one or more units]`,
+    text: `This action is formatted as "Buff [one or more units]." e.g., "Buff a unit." e.g., "Buff a friendly unit." e.g., "Buff two friendly units at the same battlefield."`,
   },
   {
     id: `414`,
@@ -43298,7705 +5008,743 @@ battleﬁeld."`,
   },
   {
     id: `414.1`,
-    section: `414.1. Banishing`,
-    text: `Banishing
-
-is
-
-the
-
-action
-
-of
-
-placing
-
-a
-
-card
-
-from
-
-any
-
-zone
-
-to
-
-Banishm ent.
-
-See`,
+    section: `414.1. Banishing is the action of placing a card from any zone to Banishment`,
+    text: `Banishing is the action of placing a card from any zone to Banishment. See 107.5. Banishment for more information.`,
   },
   {
     id: `414.2`,
-    section: `414.2. W hen`,
-    text: `W hen
-
-a
-
-card
-
-is
-
-Banished
-
-it
-
-is
-
-placed
-
-directly
-
-into
-
-the
-
-Banishm ent
-
-zone
-
-from
-
-its
-
-origin.`,
+    section: `414.2. When a card is Banished it is placed directly into the Banishment zone from its origin`,
+    text: `When a card is Banished it is placed directly into the Banishment zone from its origin.`,
   },
   {
     id: `414.2.a`,
-    section: `414.2.a. Banish`,
-    text: `Banish
-
-is
-
-not
-
-a
-
-subset
-
-of
-
-Kill.`,
+    section: `414.2.a. Banish is not a subset of Kill`,
+    text: `Banish is not a subset of Kill.`,
   },
   {
     id: `414.2.b`,
-    section: `414.2.b. Banish`,
-    text: `Banish
-
-is
-
-not
-
-a
-
-subset
-
-of
-
-Discard.`,
+    section: `414.2.b. Banish is not a subset of Discard`,
+    text: `Banish is not a subset of Discard.`,
   },
   {
     id: `414.3`,
-    section: `414.3. Cards`,
-    text: `Cards
-
-and
-
-effects
-
-can
-
-refer
-
-to
-
-cards
-
-that
-
-w ere
-
-banished
-
-by
-
-the
-
-same
-
-object.`,
+    section: `414.3. Cards and effects can refer to cards that were banished by the same object`,
+    text: `Cards and effects can refer to cards that were banished by the same object.`,
   },
   {
     id: `414.3.a`,
-    section: `414.3.a. Separate`,
-    text: `Separate
-
-instances
-
-of
-
-an
-
-object
-
-or
-
-effect
-
-banishing
-
-cards
-
-do
-
-not
-
-reference
-
-other
-
-banished
-
-cards
-
-by
-
-objects
-
-of
-
-the
-
-sam e
-
-nam e
-
-or
-
-effects
-
-originating
-
-from
-
-cards
-
-of
-
-the
-
-sam e
-
-nam e.
-
-Example:
-
-A
-
-spell
-
-reads
-
-"Banish
-
-the
-
-top
-
-card
-
-of
-
-your
-
-M ain
-
-D eck.
-
-W hen
-
-you
-
-conquer
-
-this
-
-turn,
-
-draw
-
-it."
-
-This
-
-card
-
-effect
-
-allow s
-
-you
-
-to
-
-draw
-
-the
-
-banished
-
-card
-
-from
-
-banishm ent
-
-if
-
-a
-
-condition
-
-is
-
-m et.
-
-If
-
-m ore
-
-than
-
-one
-
-of
-
-these
-
-effects
-
-is
-
-played,
-
-each
-
-one
-
-triggers
-
-separately.
-
-Each
-
-card
-
-w ill
-
-be
-
-draw n
-
-separately.
-
-If
-
-the
-
-turn
-
-player
-
-passes
-
-the
-
-turn
-
-w ithout
-
-playing
-
-the
-
-card,
-
-the
-
-card
-
-rem ains
-
-in
-
-banishm ent
-
-indeﬁnitely.
-
-If
-
-the
-
-sam e
-
-player
-
-plays
-
-another
-
-copy
-
-of
-
-the
-
-sam e
-
-spell,
-
-banishes
-
-another
-
-card,
-
-and
-
-satisﬁes
-
-its
-
-condition,
-
-they
-
-could
-
-play
-
-the
-
-new
-
-banished
-
-card,
-
-but
-
-not
-
-the
-
-original
-
-banished
-
-card.`,
+    section: `414.3.a. Separate instances of an object or effect banishing cards do not reference other banished cards by objects of the same name or effects originating from cards of the same name`,
+    text: `Separate instances of an object or effect banishing cards do not reference other banished cards by objects of the same name or effects originating from cards of the same name. Example: A spell reads "Banish the top card of your Main Deck. When you conquer this turn, draw it." This card effect allows you to draw the banished card from banishment if a condition is met. If more than one of these effects is played, each one triggers separately. Each card will be drawn separately. If the turn player passes the turn without playing the card, the card remains in banishment indefinitely. If the same player plays another copy of the same spell, banishes another card, and satisfies its condition, they could play the new banished card, but not the original banished card.`,
   },
   {
     id: `414.4`,
-    section: `414.4. Banishing`,
-    text: `Banishing
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `414.4. Banishing is a Limited Action`,
+    text: `Banishing is a Limited Action.`,
   },
   {
     id: `414.4.a`,
-    section: `414.4.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Banish
-
-cards
-
-or
-
-perm anents
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `414.4.a. Players may only Banish cards or permanents when Game Effects direct them to do so`,
+    text: `Players may only Banish cards or permanents when Game Effects direct them to do so.`,
   },
   {
     id: `414.5`,
-    section: `414.5. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"Banish
-
-[one
-
-or
-
-m ore
-
-perm anents
-
-or
-
-cards]."
-
-e.g.,
-
-"Banish
-
-a
-
-card
-
-from
-
-your
-
-hand."
-
-e.g.,
-
-"Banish
-
-2
-
-cards
-
-from
-
-your
-
-trash."
-
-e.g.,
-
-"Look
-
-at
-
-the
-
-top
-
-2
-
-cards
-
-of
-
-your
-
-M ain
-
-D eck.
-
-D raw
-
-one
-
-of
-
-them
-
-and
-
-banish
-
-the
-
-other."`,
+    section: `414.5. This action is formatted as "Banish [one or more permanents or cards]`,
+    text: `This action is formatted as "Banish [one or more permanents or cards]." e.g., "Banish a card from your hand." e.g., "Banish 2 cards from your trash." e.g., "Look at the top 2 cards of your Main Deck. Draw one of them and banish the other."`,
+  },
+  {
+    id: `415`,
+    section: `415. Kill`,
+    text: `Kill`,
   },
   {
     id: `415.1`,
-    section: `415.1. Killing`,
-    text: `Killing
-
-is
-
-the
-
-action
-
-of
-
-a
-
-Perm anent
-
-going
-
-to
-
-the
-
-trash
-
-from
-
-the
-
-board.`,
+    section: `415.1. Killing is the action of a Permanent going to the trash from the board`,
+    text: `Killing is the action of a Permanent going to the trash from the board.`,
   },
   {
     id: `415.1.a`,
-    section: `415.1.a. This`,
-    text: `This
+    section: `415.1.a. This can be Active or Passive`,
+    text: `This can be Active or Passive.
 
-can
+1. Active Kill is when the action is taken when instructed by a game effect or as a cost for a card or ability.
 
-be
-
-Active
-
-or
-
-Passive.
-
-415.1.a.1.
-
-Active
-
-Kill
-
-is
-
-w hen
-
-the
-
-action
-
-is
-
-taken
-
-w hen
-
-instructed
-
-by
-
-a
-
-gam e
-
-effect
-
-or
-
-as
-
-a
-
-cost
-
-for
-
-a
-
-card
-
-or
-
-ability.
-
-415.1.a.2.
-
-Passive
-
-Kill
-
-is
-
-w hen
-
-the
-
-action
-
-is
-
-taken
-
-as
-
-a
-
-result
-
-of
-
-Lethal
-
-Dam age
-
-or
-
-as
-
-a
-
-consequence
-
-for
-
-any
-
-other
-
-state.`,
+2. Passive Kill is when the action is taken as a result of Lethal Damage or as a consequence for any other state.`,
   },
   {
     id: `415.2`,
-    section: `415.2. W hen`,
-    text: `W hen
-
-a
-
-perm anent
-
-is
-
-killed
-
-it
-
-is
-
-placed
-
-directly
-
-in
-
-the
-
-trash
-
-from
-
-its
-
-place
-
-of
-
-origin.`,
+    section: `415.2. When a permanent is killed it is placed directly in the trash from its place of origin`,
+    text: `When a permanent is killed it is placed directly in the trash from its place of origin.`,
   },
   {
     id: `415.2.a`,
-    section: `415.2.a. It`,
-    text: `It
-
-is
-
-only
-
-considered
-
-Killed
-
-if
-
-its
-
-origin
-
-w as
-
-any
-
-zone
-
-on
-
-the
-
-board.`,
+    section: `415.2.a. It is only considered Killed if its origin was any zone on the board`,
+    text: `It is only considered Killed if its origin was any zone on the board.`,
   },
   {
     id: `415.2.b`,
-    section: `415.2.b. This`,
-    text: `This
-
-is
-
-not
-
-a
-
-subset
-
-of
-
-Move.`,
+    section: `415.2.b. This is not a subset of Move`,
+    text: `This is not a subset of Move.`,
   },
   {
     id: `415.3`,
-    section: `415.3. Killing`,
-    text: `Killing
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `415.3. Killing is a Limited Action`,
+    text: `Killing is a Limited Action.`,
   },
   {
     id: `415.3.a`,
-    section: `415.3.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Kill
-
-units
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `415.3.a. Players may only Kill units when Game Effects direct them to do so`,
+    text: `Players may only Kill units when Game Effects direct them to do so.`,
   },
   {
     id: `415.4`,
-    section: `415.4. Killing`,
-    text: `Killing
-
-can
-
-also
-
-be
-
-the
-
-result
-
-of
-
-resolving
-
-a
-
-Cleanup.`,
+    section: `415.4. Killing can also be the result of resolving a Cleanup`,
+    text: `Killing can also be the result of resolving a Cleanup.`,
   },
   {
     id: `415.5`,
-    section: `415.5. Killing`,
-    text: `Killing
-
-can
-
-be
-
-attributed
-
-to
-
-one
-
-or
-
-m ore
-
-Gam e
-
-Objects.`,
+    section: `415.5. Killing can be attributed to one or more Game Objects`,
+    text: `Killing can be attributed to one or more Game Objects.`,
   },
   {
     id: `415.5.a`,
-    section: `415.5.a. The`,
-    text: `The
-
-Killed
-
-Unit
-
-or
-
-Gear
-
-is
-
-said
-
-to
-
-be
-
-Killed
-
-by
-
-that
-
-Gam e
-
-Object.`,
+    section: `415.5.a. The Killed Unit or Gear is said to be Killed by that Game Object`,
+    text: `The Killed Unit or Gear is said to be Killed by that Game Object.`,
   },
   {
     id: `415.5.b`,
-    section: `415.5.b. A`,
-    text: `A
-
-spell
-
-or
-
-ability
-
-that
-
-contains
-
-a
-
-Kill
-
-instruction
-
-is
-
-responsible
-
-for
-
-Killing
-
-the
-
-Unit
-
-or
-
-Gear.`,
+    section: `415.5.b. A spell or ability that contains a Kill instruction is responsible for Killing the Unit or Gear`,
+    text: `A spell or ability that contains a Kill instruction is responsible for Killing the Unit or Gear.`,
   },
   {
     id: `415.5.c`,
-    section: `415.5.c. W hen`,
-    text: `W hen
-
-one
-
-or
-
-m ore
-
-Units
-
-is
-
-killed
-
-due
-
-to
-
-a
-
-Cleanup ,
-
-the
-
-spell
-
-or
-
-ability
-
-that
-
-resolved
-
-im m ediately
-
-prior
-
-to
-
-that
-
-Cleanup
-
-that
-
-applied
-
-dam age
-
-to
-
-the
-
-Unit
-
-or
-
-Units
-
-is
-
-responsible
-
-for
-
-that
-
-Kill
-
-action.`,
+    section: `415.5.c. When one or more Units is killed due to a Cleanup`,
+    text: `When one or more Units is killed due to a Cleanup, the spell or ability that resolved immediately prior to that Cleanup that applied damage to the Unit or Units is responsible for that Kill action.`,
   },
   {
     id: `415.5.d`,
-    section: `415.5.d. Abilities`,
-    text: `Abilities
-
-originating
-
-from
-
-Gam e
-
-Objects
-
-that
-
-are
-
-responsible
-
-for
-
-Kill
-
-Actions
-
-are
-
-responsible
-
-in
-
-addition
-
-to
-
-the
-
-Gam e
-
-Object
-
-that
-
-created
-
-them .
-
-Example:
-
-Falling
-
-Star
-
-is
-
-a
-
-spell
-
-that
-
-says
-
-“D o
-
-this
-
-tw ice:
-
-D eal
-
-3
-
-to
-
-a
-
-unit.”
-
-Im m ortal
-
-Phoenix
-
-is
-
-a
-
-unit
-
-that
-
-says
-
-“W hen
-
-you
-
-kill
-
-a
-
-unit
-
-w ith
-
-a
-
-spell,
-
-you
-
-m ay
-
-pay
-
-[1][C]
-
-to
-
-play
-
-m e
-
-from
-
-your
-
-trash.”
-
-A
-
-player
-
-plays
-
-Falling
-
-Star
-
-w hile
-
-Im m ortal
-
-Phoenix
-
-is
-
-in
-
-their
-
-trash.
-
-The
-
-“do
-
-this”
-
-phrasing
-
-on
-
-Falling
-
-Star
-
-m eans
-
-that
-
-it
-
-has
-
-a
-
-reﬂexive
-
-triggered
-
-ability,
-
-w hich
-
-places
-
-tw o
-
-triggered
-
-abilities
-
-on
-
-the
-
-chain.
-
-As
-
-each
-
-of
-
-those
-
-triggered
-
-abilities
-
-resolve,
-
-it
-
-deals
-
-dam age
-
-to
-
-the
-
-unit
-
-chosen
-
-for
-
-that
-
-ability.
-
-If
-
-one
-
-of
-
-these
-
-abilities
-
-deals
-
-lethal
-
-dam age
-
-to
-
-a
-
-unit,
-
-both
-
-Falling
-
-Star
-
-and
-
-its
-
-ability
-
-are
-
-considered
-
-sources
-
-of
-
-the
-
-dam age,
-
-and
-
-so
-
-both
-
-Falling
-
-Star
-
-and
-
-its
-
-ability
-
-are
-
-responsible
-
-for
-
-killing
-
-the
-
-unit.
-
-This
-
-m eans
-
-that
-
-Falling
-
-Star’s
-
-controller
-
-killed
-
-a
-
-unit
-
-w ith
-
-a
-
-spell,
-
-so
-
-Im m ortal
-
-Phoenix’s
-
-ability
-
-w ill
-
-trigger.`,
+    section: `415.5.d. Abilities originating from Game Objects that are responsible for Kill Actions are responsible in addition to the Game Object that created them`,
+    text: `Abilities originating from Game Objects that are responsible for Kill Actions are responsible in addition to the Game Object that created them. Example: Falling Star is a spell that says “Do this twice: Deal 3 to a unit.” Immortal Phoenix is a unit that says “When you kill a unit with a spell, you may pay [1][C] to play me from your trash.” A player plays Falling Star while Immortal Phoenix is in their trash. The “do this” phrasing on Falling Star means that it has a reflexive triggered ability, which places two triggered abilities on the chain. As each of those triggered abilities resolve, it deals damage to the unit chosen for that ability. If one of these abilities deals lethal damage to a unit, both Falling Star and its ability are considered sources of the damage, and so both Falling Star and its ability are responsible for killing the unit. This means that Falling Star’s controller killed a unit with a spell, so Immortal Phoenix’s ability will trigger.`,
   },
   {
     id: `415.6`,
-    section: `415.6. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"Kill
-
-[one
-
-or
-
-m ore
-
-perm anents]."
-
-e.g.,
-
-"Kill
-
-an
-
-enem y
-
-unit."
-
-e.g.,
-
-"Kill
-
-this,
-
-[2]:
-
-D raw
-
-1."
-
-e.g.,
-
-"Kill
-
-all
-
-gear."`,
+    section: `415.6. This action is formatted as "Kill [one or more permanents]`,
+    text: `This action is formatted as "Kill [one or more permanents]." e.g., "Kill an enemy unit." e.g., "Kill this, [2]: Draw 1." e.g., "Kill all gear."`,
+  },
+  {
+    id: `416`,
+    section: `416. Add`,
+    text: `Add`,
   },
   {
     id: `416.1`,
-    section: `416.1. Adding`,
-    text: `Adding
-
-is
-
-the
-
-action
-
-of
-
-putting
-
-resources
-
-into
-
-a
-
-player's
-
-Rune
-
-Pool.`,
+    section: `416.1. Adding is the action of putting resources into a player's Rune Pool`,
+    text: `Adding is the action of putting resources into a player's Rune Pool.`,
   },
   {
     id: `416.2`,
-    section: `416.2. Spells,`,
-    text: `Spells,
-
-triggered
-
-abilities,
-
-and
-
-activated
-
-abilities
-
-that
-
-Add
-
-resources
-
-ﬁnalize
-
-im m ediately.`,
+    section: `416.2. Spells`,
+    text: `Spells, triggered abilities, and activated abilities that Add resources finalize immediately.`,
   },
   {
     id: `416.2.a`,
-    section: `416.2.a. Priority`,
-    text: `Priority
-
-and
-
-Focus
-
-w ill
-
-not
-
-pass
-
-from
-
-Add
-
-abilities
-
-being
-
-ﬁnalized,
-
-and
-
-w ill
-
-resolve
-
-before
-
-any
-
-other
-
-outstanding
-
-item s
-
-on
-
-the
-
-chain
-
-are
-
-ﬁnalized.`,
+    section: `416.2.a. Priority and Focus will not pass from Add abilities being finalized`,
+    text: `Priority and Focus will not pass from Add abilities being finalized, and will resolve before any other outstanding items on the chain are finalized.`,
   },
   {
     id: `416.3`,
-    section: `416.3. Activated`,
-    text: `Activated
-
-abilities
-
-that
-
-Add
-
-resources
-
-and
-
-have
-
-the
-
-Reaction
-
-tag
-
-can
-
-be
-
-activated
-
-during
-
-the
-
-playing
-
-or
-
-resolution
-
-of
-
-other
-
-spells
-
-and
-
-abilities,
-
-any
-
-tim e
-
-that
-
-those
-
-spells
-
-or
-
-abilities
-
-require
-
-that
-
-resources
-
-be
-
-paid.
-
-Example:
-
-A
-
-player
-
-can
-
-add
-
-Energy
-
-and
-
-Pow er
-
-through
-
-any
-
-m eans
-
-before
-
-initiating
-
-the
-
-process
-
-of
-
-playing
-
-a
-
-spell.
-
-After
-
-initiating
-
-that
-
-process,
-
-in
-
-the
-
-Pay
-
-Costs
-
-step,
-
-they
-
-m ay
-
-activate
-
-Add
-
-Reactions
-
-to
-
-add
-
-Energy
-
-or
-
-Pow er
-
-to
-
-pay
-
-costs.`,
+    section: `416.3. Activated abilities that Add resources and have the Reaction tag can be activated during the playing or resolution of other spells and abilities`,
+    text: `Activated abilities that Add resources and have the Reaction tag can be activated during the playing or resolution of other spells and abilities, any time that those spells or abilities require that resources be paid. Example: A player can add Energy and Power through any means before initiating the process of playing a spell. After initiating that process, in the Pay Costs step, they may activate Add Reactions to add Energy or Power to pay costs.`,
   },
   {
     id: `416.4`,
-    section: `416.4. Adding`,
-    text: `Adding
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `416.4. Adding is a Limited Action`,
+    text: `Adding is a Limited Action.`,
   },
   {
     id: `416.4.a`,
-    section: `416.4.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-Add
-
-resources
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `416.4.a. Players may only Add resources when Game Effects direct them to do so`,
+    text: `Players may only Add resources when Game Effects direct them to do so.`,
   },
   {
     id: `416.5`,
-    section: `416.5. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"Add
-
-[one
-
-or
-
-m ore
-
-resources]."
-
-e.g.,
-
-"Add
-
-[2]."
-
-m eans
-
-"Add
-
-2
-
-Energy."
-
-e.g.,
-
-"[E]:
-
-Add
-
-[Y]."
-
-m eans
-
-"Add
-
-1
-
-Pow er
-
-of
-
-the
-
-O rder
-
-dom ain."
-
-e.g.,
-
-"Add
-
-[1][G]."
-
-m eans
-
-"Add
-
-1
-
-Energy
-
-and
-
-1
-
-Pow er
-
-of
-
-the
-
-Calm
-
-dom ain."`,
+    section: `416.5. This action is formatted as "Add [one or more resources]`,
+    text: `This action is formatted as "Add [one or more resources]." e.g., "Add [2]." means "Add 2 Energy." e.g., "[E]: Add [Y]." means "Add 1 Power of the Order domain." e.g., "Add [1][G]." means "Add 1 Energy and 1 Power of the Calm domain."`,
+  },
+  {
+    id: `417`,
+    section: `417. Channel`,
+    text: `Channel`,
   },
   {
     id: `417.1`,
-    section: `417.1. Channeling`,
-    text: `Channeling
-
-is
-
-the
-
-action
-
-of
-
-taking
-
-one
-
-or
-
-m ore
-
-Runes
-
-from
-
-the
-
-top
-
-of
-
-a
-
-player's
-
-Rune
-
-Deck
-
-and
-
-putting
-
-them
-
-on
-
-the
-
-board.`,
+    section: `417.1. Channeling is the action of taking one or more Runes from the top of a player's Rune Deck and putting them on the board`,
+    text: `Channeling is the action of taking one or more Runes from the top of a player's Rune Deck and putting them on the board.`,
   },
   {
     id: `417.2`,
-    section: `417.2. The`,
-    text: `The
-
-Gam e
-
-Effect
-
-that
-
-instructs
-
-a
-
-player
-
-to
-
-channel
-
-1
-
-or
-
-m ore
-
-runes
-
-m ay
-
-specify
-
-the
-
-conditions
-
-or
-
-circum stances
-
-under
-
-w hich
-
-those
-
-runes
-
-enter
-
-the
-
-board.
-
-Example:
-
-A
-
-spell
-
-reads
-
-"Channel
-
-1
-
-rune
-
-exhausted."
-
-As
-
-that
-
-spell
-
-resolves,
-
-its
-
-controller
-
-puts
-
-the
-
-top
-
-rune
-
-of
-
-their
-
-rune
-
-deck
-
-onto
-
-the
-
-board
-
-and
-
-that
-
-rune
-
-enters
-
-the
-
-board
-
-exhausted
-
-rather
-
-than
-
-ready.`,
+    section: `417.2. The Game Effect that instructs a player to channel 1 or more runes may specify the conditions or circumstances under which those runes enter the board`,
+    text: `The Game Effect that instructs a player to channel 1 or more runes may specify the conditions or circumstances under which those runes enter the board. Example: A spell reads "Channel 1 rune exhausted." As that spell resolves, its controller puts the top rune of their rune deck onto the board and that rune enters the board exhausted rather than ready.`,
   },
   {
     id: `417.3`,
-    section: `417.3. Channeling`,
-    text: `Channeling
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `417.3. Channeling is a Limited Action`,
+    text: `Channeling is a Limited Action.`,
   },
   {
     id: `417.3.a`,
-    section: `417.3.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-channel
-
-runes
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `417.3.a. Players may only channel runes when Game Effects direct them to do so`,
+    text: `Players may only channel runes when Game Effects direct them to do so.`,
   },
   {
     id: `417.4`,
-    section: `417.4. This`,
-    text: `This
-
-action
-
-is
-
-form atted
-
-as
-
-"Channel
-
-X
-
-rune(s),"
-
-optionally
-
-follow ed
-
-by
-
-conditions
-
-or
-
-stipulations.
-
-e.g.,
-
-"Channel
-
-1
-
-rune."
-
-e.g.,
-
-"W hen
-
-you
-
-play
-
-m e,
-
-channel
-
-1
-
-rune
-
-exhausted."
-
-e.g.,
-
-"Channel
-
-2
-
-runes
-
-exhausted.
-
-If
-
-you
-
-couldn't
-
-channel
-
-2
-
-runes
-
-this
-
-w ay,
-
-draw
-
-1."`,
+    section: `417.4. This action is formatted as "Channel X rune(s)`,
+    text: `This action is formatted as "Channel X rune(s)," optionally followed by conditions or stipulations. e.g., "Channel 1 rune." e.g., "When you play me, channel 1 rune exhausted." e.g., "Channel 2 runes exhausted. If you couldn't channel 2 runes this way, draw 1."`,
+  },
+  {
+    id: `418`,
+    section: `418. Burn Out`,
+    text: `Burn Out`,
   },
   {
     id: `418.1`,
-    section: `418.1. Burning`,
-    text: `Burning
-
-Out
-
-is
-
-an
-
-action
-
-a
-
-player
-
-m ust
-
-perform
-
-if
-
-they
-
-attem pt
-
-to
-
-m ove
-
-one
-
-or
-
-m ore
-
-cards
-
-from
-
-their
-
-Main
-
-Deck
-
-to
-
-any
-
-other
-
-zone
-
-in
-
-excess
-
-of
-
-the
-
-num ber
-
-of
-
-cards
-
-rem aining
-
-in
-
-their
-
-Main
-
-Deck:`,
+    section: `418.1. Burning Out is an action a player must perform if they attempt to move one or more cards from their Main Deck to any other zone in excess of the number of cards remaining in their Main Deck:`,
+    text: `Burning Out is an action a player must perform if they attempt to move one or more cards from their Main Deck to any other zone in excess of the number of cards remaining in their Main Deck:`,
   },
   {
     id: `418.1.a`,
-    section: `418.1.a. If`,
-    text: `If
-
-a
-
-player
-
-m ust
-
-Draw
-
-cards
-
-in
-
-excess
-
-to
-
-the
-
-num ber
-
-of
-
-cards
-
-in
-
-their
-
-deck,
-
-they
-
-w ill
-
-Draw
-
-as
-
-m any
-
-as
-
-possible,
-
-perform
-
-this
-
-action,
-
-then
-
-Draw
-
-the
-
-rem aining
-
-am ount
-
-instructed.`,
+    section: `418.1.a. If a player must Draw cards in excess to the number of cards in their deck`,
+    text: `If a player must Draw cards in excess to the number of cards in their deck, they will Draw as many as possible, perform this action, then Draw the remaining amount instructed.`,
   },
   {
     id: `418.1.b`,
-    section: `418.1.b. If`,
-    text: `If
-
-a
-
-player
-
-m ust
-
-put
-
-one
-
-or
-
-m ore
-
-cards
-
-from
-
-their
-
-Main
-
-Deck
-
-in
-
-any
-
-other
-
-zone,
-
-such
-
-as
-
-the
-
-Trash ,
-
-in
-
-excess
-
-of
-
-the
-
-num ber
-
-of
-
-cards
-
-in
-
-their
-
-deck
-
-they
-
-w ill
-
-do
-
-so
-
-as
-
-m uch
-
-as
-
-possible,
-
-perform
-
-this
-
-action,
-
-and
-
-then
-
-com plete
-
-the
-
-rem aining
-
-num ber
-
-required
-
-by
-
-the
-
-instruction.`,
+    section: `418.1.b. If a player must put one or more cards from their Main Deck in any other zone`,
+    text: `If a player must put one or more cards from their Main Deck in any other zone, such as the Trash, in excess of the number of cards in their deck they will do so as much as possible, perform this action, and then complete the remaining number required by the instruction.`,
   },
   {
     id: `418.1.c`,
-    section: `418.1.c. If`,
-    text: `If
+    section: `418.1.c. If an instruction directs a player to look at or reveal cards in excess to the number of cards in a player’s Main Deck`,
+    text: `If an instruction directs a player to look at or reveal cards in excess to the number of cards in a player’s Main Deck, that player looks at or Reveals as many as possible, but does not Burn Out, then proceeds with the rest of the instruction.
 
-an
-
-instruction
-
-directs
-
-a
-
-player
-
-to
-
-look
-
-at
-
-or
-
-reveal
-
-cards
-
-in
-
-excess
-
-to
-
-the
-
-num ber
-
-of
-
-cards
-
-in
-
-a
-
-player’s
-
-Main
-
-Deck ,
-
-that
-
-player
-
-looks
-
-at
-
-or
-
-Reveals
-
-as
-
-m any
-
-as
-
-possible,
-
-but
-
-does
-
-not
-
-Burn
-
-Out,
-
-then
-
-proceeds
-
-w ith
-
-the
-
-rest
-
-of
-
-the
-
-instruction.
-
-418.1.c.1.
-
-If
-
-there
-
-are
-
-insufﬁcient
-
-cards
-
-am ong
-
-the
-
-looked
-
-at
-
-or
-
-revealed
-
-cards
-
-to
-
-perform
-
-subsequent
-
-actions
-
-to
-
-the
-
-revealed
-
-or
-
-looked
-
-at
-
-cards,
-
-any
-
-further
-
-instructions
-
-are
-
-ignored.
-
-This
-
-does
-
-not
-
-cause
-
-a
-
-Burn
-
-Out ,
-
-even
-
-if
-
-those
-
-instructions
-
-w ould
-
-cause
-
-those
-
-cards
-
-to
-
-change
-
-zones.
-
-Reminder:
-
-Cards
-
-are
-
-considered
-
-in
-
-the
-
-zone
-
-of
-
-origin
-
-w hile
-
-being
-
-looked
-
-at
-
-or
-
-revealed,
-
-in
-
-this
-
-case
-
-the
-
-Main
-
-Deck .`,
+1. If there are insufficient cards among the looked at or revealed cards to perform subsequent actions to the revealed or looked at cards, any further instructions are ignored. This does not cause a Burn Out, even if those instructions would cause those cards to change zones. Reminder: Cards are considered in the zone of origin while being looked at or revealed, in this case the Main Deck.`,
   },
   {
     id: `418.2`,
-    section: `418.2. To`,
-    text: `To
-
-Burn
-
-Out ,
-
-a
-
-player
-
-does
-
-the
-
-follow ing
-
-in
-
-sequence:`,
+    section: `418.2. To Burn Out`,
+    text: `To Burn Out, a player does the following in sequence:`,
   },
   {
     id: `418.2.a`,
-    section: `418.2.a. Perform s`,
-    text: `Perform s
-
-as
-
-m uch
-
-of
-
-the
-
-prescribed
-
-action
-
-as
-
-possible.`,
+    section: `418.2.a. Performs as much of the prescribed action as possible`,
+    text: `Performs as much of the prescribed action as possible.`,
   },
   {
     id: `418.2.b`,
-    section: `418.2.b. Recycles`,
-    text: `Recycles
-
-their
-
-trash
-
-into
-
-their
-
-M ain
-
-D eck.
-
-Reminder:
-
-W hen
-
-m ultiple
-
-cards
-
-are
-
-Recycled
-
-to
-
-the
-
-Main
-
-Deck
-
-at
-
-the
-
-sam e
-
-tim e,
-
-those
-
-cards
-
-m ust
-
-be
-
-random ized`,
+    section: `418.2.b. Recycles their trash into their Main Deck`,
+    text: `Recycles their trash into their Main Deck. Reminder: When multiple cards are Recycled to the Main Deck at the same time, those cards must be randomized`,
   },
   {
     id: `418.2.c`,
-    section: `418.2.c. Chooses`,
-    text: `Chooses
-
-an
-
-opponent
-
-to
-
-gain
-
-1
-
-point.`,
+    section: `418.2.c. Chooses an opponent to gain 1 point`,
+    text: `Chooses an opponent to gain 1 point.`,
   },
   {
     id: `418.2.d`,
-    section: `418.2.d. Com pletes`,
-    text: `Com pletes
-
-the
-
-rem ainder
-
-of
-
-the
-
-action
-
-that
-
-caused
-
-them
-
-to
-
-burn
-
-out.
-
-Example:
-
-A
-
-player
-
-attem pts
-
-to
-
-draw
-
-1
-
-during
-
-their
-
-D raw
-
-Phase
-
-w hile
-
-their
-
-M ain
-
-D eck
-
-is
-
-em pty.
-
-That
-
-player
-
-instead
-
-recycles
-
-their
-
-trash
-
-into
-
-their
-
-M ain
-
-D eck,
-
-random izing
-
-it
-
-as
-
-norm al,
-
-then
-
-chooses
-
-an
-
-opponent
-
-to
-
-gain
-
-1
-
-point,
-
-and
-
-then
-
-draw s
-
-1.`,
+    section: `418.2.d. Completes the remainder of the action that caused them to burn out`,
+    text: `Completes the remainder of the action that caused them to burn out. Example: A player attempts to draw 1 during their Draw Phase while their Main Deck is empty. That player instead recycles their trash into their Main Deck, randomizing it as normal, then chooses an opponent to gain 1 point, and then draws 1.`,
   },
   {
     id: `418.3`,
-    section: `418.3. A`,
-    text: `A
-
-player's
-
-M ain
-
-D eck
-
-m ay
-
-rem ain
-
-em pty
-
-as
-
-they
-
-Burn
-
-Out ,
-
-usually
-
-because
-
-their
-
-trash
-
-is
-
-also
-
-em pty.
-
-W hen
-
-they
-
-attem pt
-
-to
-
-perform
-
-the
-
-original
-
-action
-
-again,
-
-it
-
-w ill
-
-cause
-
-another
-
-Burn
-
-Out .`,
+    section: `418.3. A player's Main Deck may remain empty as they Burn Out`,
+    text: `A player's Main Deck may remain empty as they Burn Out, usually because their trash is also empty. When they attempt to perform the original action again, it will cause another Burn Out.`,
   },
   {
     id: `418.3.a`,
-    section: `418.3.a. Unless`,
-    text: `Unless
-
-som e
-
-effect
-
-intervenes,
-
-this
-
-w ill
-
-result
-
-in
-
-them
-
-burning
-
-out
-
-repeatedly,
-
-giving
-
-1
-
-point
-
-to
-
-an
-
-opponent
-
-each
-
-tim e,
-
-until
-
-an
-
-opponent
-
-passes
-
-the
-
-Victory
-
-Score
-
-and
-
-w ins
-
-the
-
-gam e.`,
+    section: `418.3.a. Unless some effect intervenes`,
+    text: `Unless some effect intervenes, this will result in them burning out repeatedly, giving 1 point to an opponent each time, until an opponent passes the Victory Score and wins the game.`,
   },
   {
     id: `418.4`,
-    section: `418.4. Burning`,
-    text: `Burning
-
-Out
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `418.4. Burning Out is a Limited Action`,
+    text: `Burning Out is a Limited Action.`,
   },
   {
     id: `418.4.a`,
-    section: `418.4.a. Players`,
-    text: `Players
-
-m ay
-
-only
-
-burn
-
-out
-
-w hen
-
-Gam e
-
-Effects
-
-direct
-
-them
-
-to
-
-do
-
-so.`,
+    section: `418.4.a. Players may only burn out when Game Effects direct them to do so`,
+    text: `Players may only burn out when Game Effects direct them to do so.`,
   },
   {
     id: `418.5`,
-    section: `418.5. Burning`,
-    text: `Burning
-
-Out
-
-is
-
-a
-
-Replacem ent
-
-Effect.
-
-See
-
-rule`,
+    section: `418.5. Burning Out is a Replacement Effect`,
+    text: `Burning Out is a Replacement Effect. See rule 364. Replacement Effects for more information.`,
   },
   {
     id: `419`,
-    section: `419. Movem ent`,
-    text: `Movem ent`,
+    section: `419. Movement`,
+    text: `Movement`,
   },
   {
     id: `420`,
-    section: `420. Moving`,
-    text: `Moving
-
-is
-
-a
-
-Lim ited
-
-Action.`,
+    section: `420. Moving is a Limited Action`,
+    text: `Moving is a Limited Action.`,
   },
   {
     id: `420.1`,
-    section: `420.1. A`,
-    text: `A
-
-Perm anent
-
-changing
-
-its
-
-position
-
-from
-
-any
-
-space
-
-on
-
-the
-
-Board
-
-to
-
-another
-
-space
-
-on
-
-the
-
-Board
-
-is
-
-a
-
-Move ,
-
-unless
-
-it
-
-is
-
-caused
-
-by
-
-a
-
-corrective
-
-Recall .
-
-See
-
-rule`,
+    section: `420.1. A Permanent changing its position from any space on the Board to another space on the Board is a Move`,
+    text: `A Permanent changing its position from any space on the Board to another space on the Board is a Move, unless it is caused by a corrective Recall. See rule 407. Move for more information.`,
   },
   {
     id: `420.2`,
-    section: `420.2. A`,
-    text: `A
-
-card
-
-changing
-
-gam e
-
-zones
-
-does
-
-not
-
-in
-
-itself
-
-constitute
-
-a
-
-Move.`,
+    section: `420.2. A card changing game zones does not in itself constitute a Move`,
+    text: `A card changing game zones does not in itself constitute a Move.`,
   },
   {
     id: `420.3`,
-    section: `420.3. Moving`,
-    text: `Moving
-
-is
-
-instantaneous.`,
+    section: `420.3. Moving is instantaneous`,
+    text: `Moving is instantaneous.`,
   },
   {
     id: `420.3.a`,
-    section: `420.3.a. There`,
-    text: `There
-
-is
-
-no
-
-state
-
-for
-
-Perm anents
-
-betw een
-
-locations.`,
+    section: `420.3.a. There is no state for Permanents between locations`,
+    text: `There is no state for Permanents between locations.`,
   },
   {
     id: `420.3.b`,
-    section: `420.3.b. Perm anents`,
-    text: `Perm anents
-
-are
-
-either
-
-at
-
-their
-
-Origin
-
-before
-
-Moving
-
-or
-
-their
-
-Destination
-
-after
-
-Moving.`,
+    section: `420.3.b. Permanents are either at their Origin before Moving or their Destination after Moving`,
+    text: `Permanents are either at their Origin before Moving or their Destination after Moving.`,
   },
   {
     id: `420.3.c`,
-    section: `420.3.c. Moving`,
-    text: `Moving
-
-does
-
-not
-
-use
-
-the
-
-Chain ,
-
-nor
-
-is
-
-it
-
-able
-
-to
-
-be
-
-Reacted
-
-to.`,
+    section: `420.3.c. Moving does not use the Chain`,
+    text: `Moving does not use the Chain, nor is it able to be Reacted to.`,
   },
   {
     id: `421`,
-    section: `421. Moving`,
-    text: `Moving
-
-is
-
-deﬁned
-
-by
-
-the
-
-Origin
-
-and
-
-Destination
-
-of
-
-the
-
-Perm anent
-
-that
-
-is
-
-changing
-
-locations.`,
+    section: `421. Moving is defined by the Origin and Destination of the Permanent that is changing locations`,
+    text: `Moving is defined by the Origin and Destination of the Permanent that is changing locations.`,
   },
   {
     id: `421.1`,
-    section: `421.1. The`,
-    text: `The
-
-Origin
-
-is
-
-w here
-
-the
-
-Perm anent
-
-is
-
-starting
-
-from .`,
+    section: `421.1. The Origin is where the Permanent is starting from`,
+    text: `The Origin is where the Permanent is starting from.`,
   },
   {
     id: `421.2`,
-    section: `421.2. The`,
-    text: `The
-
-Destination
-
-is
-
-w here
-
-the
-
-Perm anent
-
-is
-
-going
-
-to.`,
+    section: `421.2. The Destination is where the Permanent is going to`,
+    text: `The Destination is where the Permanent is going to.`,
   },
   {
     id: `421.2.a`,
-    section: `421.2.a. In`,
-    text: `In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-m ore
-
-than
-
-tw o
-
-players,
-
-Battleﬁelds
-
-w ith
-
-Staged
-
-Com bats
-
-or
-
-Com bats
-
-in
-
-Progress
-
-are
-
-Invalid
-
-Destinations
-
-for
-
-Moves
-
-of
-
-all
-
-kinds
-
-( Standard
-
-Moves
-
-or
-
-otherw ise)
-
-by
-
-Units
-
-controlled
-
-by
-
-Players
-
-w ho
-
-don't
-
-already
-
-have
-
-perm anents
-
-at
-
-that
-
-Battleﬁeld .
-
-for
-
-more
-
-information
-
-on
-
-Invalid
-
-Destinations.`,
+    section: `421.2.a. In Modes of Play with more than two players`,
+    text: `In Modes of Play with more than two players, Battlefields with Staged Combats or Combats in Progress are Invalid Destinations for Moves of all kinds (Standard Moves or otherwise) by Units controlled by Players who don't already have permanents at that Battlefield.`,
   },
   {
     id: `421.2.b`,
-    section: `421.2.b. If`,
-    text: `If
-
-an
-
-action
-
-w ould
-
-require
-
-a
-
-Move
-
-that
-
-w ould
-
-cause
-
-a
-
-Unit
-
-to
-
-becom e
-
-present
-
-in
-
-a
-
-Location
-
-w here
-
-it
-
-cannot
-
-m ove
-
-for
-
-any
-
-reason,
-
-such
-
-as
-
-a
-
-Battleﬁeld
-
-w ith
-
-tw o
-
-players
-
-that
-
-are
-
-not
-
-the
-
-controller
-
-of
-
-the
-
-Unit
-
-perform ing
-
-this
-
-Move
-
-action
-
-are
-
-in
-
-a
-
-Com bat
-
-or
-
-such
-
-a
-
-Com bat
-
-is
-
-Staged ,
-
-it
-
-instead
-
-Recalls.
-
-See
-
-rule`,
+    section: `421.2.b. If an action would require a Move that would cause a Unit to become present in a Location where it cannot move for any reason`,
+    text: `If an action would require a Move that would cause a Unit to become present in a Location where it cannot move for any reason, such as a Battlefield with two players that are not the controller of the Unit performing this Move action are in a Combat or such a Combat is Staged, it instead Recalls. See rule 428. Recalls for more information.`,
   },
   {
     id: `421.3`,
-    section: `421.3. Units`,
-    text: `Units
-
-are
-
-the
-
-only
-
-Perm anents
-
-that
-
-can
-
-Move.`,
+    section: `421.3. Units are the only Permanents that can Move`,
+    text: `Units are the only Permanents that can Move.`,
   },
   {
     id: `422`,
-    section: `422. Players`,
-    text: `Players
-
-m ay
-
-choose
-
-to
-
-m ove
-
-their
-
-Units
-
-w ith
-
-the
-
-Standard
-
-Move.
-
-See
-
-rule`,
+    section: `422. Players may choose to move their Units with the Standard Move`,
+    text: `Players may choose to move their Units with the Standard Move. See rule 140. for more information on the Standard Move.`,
   },
   {
     id: `423`,
-    section: `423. Spells ,`,
-    text: `Spells ,
-
-Abilities ,
-
-or
-
-other
-
-effects
-
-m ay
-
-cause
-
-a
-
-Move
-
-to
-
-occur.`,
+    section: `423. Spells`,
+    text: `Spells, Abilities, or other effects may cause a Move to occur.`,
   },
   {
     id: `423.1`,
-    section: `423.1. The`,
-    text: `The
-
-source
-
-of
-
-the
-
-Move
-
-w ill
-
-provide
-
-details
-
-on
-
-any
-
-restrictions
-
-on
-
-legality
-
-for
-
-Destination.`,
+    section: `423.1. The source of the Move will provide details on any restrictions on legality for Destination`,
+    text: `The source of the Move will provide details on any restrictions on legality for Destination.`,
   },
   {
     id: `423.2`,
-    section: `423.2. Units`,
-    text: `Units
-
-cannot
-
-Move
-
-to
-
-a
-
-Battleﬁeld
-
-that
-
-already
-
-has
-
-units
-
-from
-
-2
-
-other
-
-players
-
-present
-
-by
-
-any
-
-m eans.`,
+    section: `423.2. Units cannot Move to a Battlefield that already has units from 2 other players present by any means`,
+    text: `Units cannot Move to a Battlefield that already has units from 2 other players present by any means.`,
   },
   {
     id: `424`,
-    section: `424. The`,
-    text: `The
-
-Destination
-
-becom es
-
-Contested
-
-if
-
-it
-
-is
-
-a
-
-Battleﬁeld
-
-not
-
-controlled
-
-by
-
-the
-
-controller
-
-of
-
-the
-
-Unit
-
-or
-
-Units
-
-that
-
-m oved.`,
+    section: `424. The Destination becomes Contested if it is a Battlefield not controlled by the controller of the Unit or Units that moved`,
+    text: `The Destination becomes Contested if it is a Battlefield not controlled by the controller of the Unit or Units that moved.`,
   },
   {
     id: `425`,
-    section: `425. Units`,
-    text: `Units
-
-m ay
-
-cause
-
-a
-
-Showdown
-
-w ithout
-
-a
-
-Com bat
-
-w hen
-
-they
-
-Move.`,
+    section: `425. Units may cause a Showdown without a Combat when they Move`,
+    text: `Units may cause a Showdown without a Combat when they Move.`,
   },
   {
     id: `425.1`,
-    section: `425.1. A`,
-    text: `A
-
-Showdown
-
-is
-
-opened
-
-w hen
-
-a
-
-Move
-
-causes
-
-a
-
-Battleﬁeld
-
-to
-
-becom e
-
-Contested
-
-w hile
-
-it
-
-has
-
-no
-
-Units
-
-present
-
-from
-
-any
-
-player
-
-other
-
-than
-
-those
-
-that
-
-just
-
-m oved.`,
+    section: `425.1. A Showdown is opened when a Move causes a Battlefield to become Contested while it has no Units present from any player other than those that just moved`,
+    text: `A Showdown is opened when a Move causes a Battlefield to become Contested while it has no Units present from any player other than those that just moved.`,
   },
   {
     id: `426`,
-    section: `426. Units`,
-    text: `Units
-
-m ay
-
-cause
-
-Com bat
-
-w hen
-
-they
-
-Move.`,
+    section: `426. Units may cause Combat when they Move`,
+    text: `Units may cause Combat when they Move.`,
   },
   {
     id: `426.1`,
-    section: `426.1. A`,
-    text: `A
-
-Com bat
-
-is
-
-triggered
-
-w hen
-
-a
-
-Move
-
-causes
-
-a
-
-Battleﬁeld
-
-to
-
-becom e
-
-Contested
-
-and
-
-Units
-
-controlled
-
-by
-
-opposing
-
-players.
-
-See
-
-rule`,
+    section: `426.1. A Combat is triggered when a Move causes a Battlefield to become Contested and Units controlled by opposing players`,
+    text: `A Combat is triggered when a Move causes a Battlefield to become Contested and Units controlled by opposing players. See rule 433. Combat for more information.`,
   },
   {
     id: `427`,
-    section: `427. W hen`,
-    text: `W hen
-
-a
-
-Move
-
-action
-
-is
-
-com plete,
-
-perform
-
-a
-
-Cleanup.`,
+    section: `427. When a Move action is complete`,
+    text: `When a Move action is complete, perform a Cleanup.`,
+  },
+  {
+    id: `428`,
+    section: `428. Recalls`,
+    text: `Recalls`,
   },
   {
     id: `429`,
-    section: `429. A`,
-    text: `A
-
-Recall
-
-is
-
-w hen
-
-a
-
-Perm anent
-
-is
-
-relocated
-
-from
-
-anyw here
-
-to
-
-its
-
-Base
-
-w ithout
-
-it
-
-being
-
-a
-
-Move.`,
+    section: `429. A Recall is when a Permanent is relocated from anywhere to its Base without it being a Move`,
+    text: `A Recall is when a Permanent is relocated from anywhere to its Base without it being a Move.`,
   },
   {
     id: `430`,
-    section: `430. Recalls`,
-    text: `Recalls
-
-are
-
-not
-
-Moves.`,
+    section: `430. Recalls are not Moves`,
+    text: `Recalls are not Moves.`,
   },
   {
     id: `430.1`,
-    section: `430.1. They`,
-    text: `They
-
-do
-
-not
-
-cause
-
-Triggered
-
-Abilities
-
-to
-
-trigger
-
-that
-
-are
-
-triggered
-
-by
-
-Move
-
-actions.`,
+    section: `430.1. They do not cause Triggered Abilities to trigger that are triggered by Move actions`,
+    text: `They do not cause Triggered Abilities to trigger that are triggered by Move actions.`,
   },
   {
     id: `430.2`,
-    section: `430.2. A`,
-    text: `A
-
-Recall
-
-causes
-
-a
-
-Perm anent
-
-to
-
-change
-
-locations.`,
+    section: `430.2. A Recall causes a Permanent to change locations`,
+    text: `A Recall causes a Permanent to change locations.`,
   },
   {
     id: `430.3`,
-    section: `430.3. A`,
-    text: `A
-
-Recall
-
-cannot
-
-be
-
-prevented
-
-by
-
-actions
-
-and
-
-Gam e
-
-Effects
-
-that
-
-restrict
-
-or
-
-block
-
-Movem ent.`,
+    section: `430.3. A Recall cannot be prevented by actions and Game Effects that restrict or block Movement`,
+    text: `A Recall cannot be prevented by actions and Game Effects that restrict or block Movement.`,
   },
   {
     id: `431`,
-    section: `431. Gear`,
-    text: `Gear
-
-can
-
-be
-
-Recalled.`,
+    section: `431. Gear can be Recalled`,
+    text: `Gear can be Recalled.`,
   },
   {
     id: `431.1`,
-    section: `431.1. W hen`,
-    text: `W hen
-
-Gear
-
-is
-
-created
-
-or
-
-played
-
-at
-
-a
-
-battleﬁeld,
-
-or
-
-is
-
-at
-
-a
-
-battleﬁeld
-
-for
-
-any
-
-other
-
-reason,
-
-it
-
-is
-
-Recalled
-
-to
-
-its
-
-controller's
-
-base
-
-during
-
-the
-
-next
-
-Cleanup.
-
-Example:
-
-Zhonya's
-
-H ourglass
-
-is
-
-a
-
-gear
-
-w ith
-
-the
-
-Hidden
-
-ability,
-
-w hich
-
-allow s
-
-it
-
-to
-
-be
-
-hidden
-
-at
-
-a
-
-battleﬁeld
-
-and
-
-played
-
-later
-
-to
-
-that
-
-battleﬁeld.
-
-If
-
-Zhonya's
-
-H ourglass
-
-is
-
-played
-
-from
-
-hidden,
-
-it
-
-m ust
-
-be
-
-played
-
-to
-
-that
-
-battleﬁeld.
-
-It
-
-w ill
-
-be
-
-recalled
-
-to
-
-its
-
-controller's
-
-base
-
-during
-
-the
-
-next
-
-Cleanup.`,
+    section: `431.1. When Gear is created or played at a battlefield`,
+    text: `When Gear is created or played at a battlefield, or is at a battlefield for any other reason, it is Recalled to its controller's base during the next Cleanup. Example: Zhonya's Hourglass is a gear with the Hidden ability, which allows it to be hidden at a battlefield and played later to that battlefield. If Zhonya's Hourglass is played from hidden, it must be played to that battlefield. It will be recalled to its controller's base during the next Cleanup.`,
   },
   {
     id: `432`,
-    section: `432. Recalls`,
-    text: `Recalls
-
-do
-
-not
-
-affect
-
-the
-
-state
-
-of
-
-the
-
-Perm anent
-
-being
-
-recalled.`,
+    section: `432. Recalls do not affect the state of the Permanent being recalled`,
+    text: `Recalls do not affect the state of the Permanent being recalled.`,
   },
   {
     id: `432.1`,
-    section: `432.1. Unless`,
-    text: `Unless
-
-otherw ise
-
-stated
-
-by
-
-the
-
-source
-
-of
-
-the
-
-Recall ,
-
-D am age,
-
-Exhausted
-
-Status,
-
-Buffed
-
-Status,
-
-and
-
-applied
-
-Layer
-
-alterations
-
-w ill
-
-all
-
-rem ain
-
-unaffected
-
-by
-
-a
-
-Recall .`,
+    section: `432.1. Unless otherwise stated by the source of the Recall`,
+    text: `Unless otherwise stated by the source of the Recall, Damage, Exhausted Status, Buffed Status, and applied Layer alterations will all remain unaffected by a Recall.`,
+  },
+  {
+    id: `433`,
+    section: `433. Combat`,
+    text: `Combat`,
   },
   {
     id: `434`,
-    section: `434. A`,
-    text: `A
-
-Com bat
-
-occurs
-
-w hen
-
-a
-
-Cleanup
-
-occurs,
-
-there
-
-are
-
-no
-
-item s
-
-on
-
-the
-
-Chain ,
-
-and
-
-a
-
-Battleﬁeld
-
-has
-
-Units
-
-controlled
-
-by
-
-two
-
-opposing
-
-players.`,
+    section: `434. A Combat occurs when a Cleanup occurs`,
+    text: `A Combat occurs when a Cleanup occurs, there are no items on the Chain, and a Battlefield has Units controlled by two opposing players.`,
   },
   {
     id: `435`,
-    section: `435. Com bat`,
-    text: `Com bat
-
-is
-
-considered
-
-Staged
-
-if
-
-there
-
-are
-
-units
-
-controlled
-
-by
-
-tw o
-
-opposing
-
-players
-
-at
-
-a
-
-Battleﬁeld
-
-but
-
-the
-
-Steps
-
-of
-
-Com bat
-
-have
-
-not
-
-been
-
-initiated.`,
+    section: `435. Combat is considered Staged if there are units controlled by two opposing players at a Battlefield but the Steps of Combat have not been initiated`,
+    text: `Combat is considered Staged if there are units controlled by two opposing players at a Battlefield but the Steps of Combat have not been initiated.`,
   },
   {
     id: `435.1`,
-    section: `435.1. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-Battleﬁeld
-
-has
-
-Units
-
-controlled
-
-by
-
-opposing
-
-players
-
-at
-
-it
-
-at
-
-the
-
-sam e
-
-tim e,
-
-the
-
-Turn
-
-Player
-
-decides
-
-w hich
-
-Com bat
-
-to
-
-resolve
-
-ﬁrst.`,
+    section: `435.1. If more than one Battlefield has Units controlled by opposing players at it at the same time`,
+    text: `If more than one Battlefield has Units controlled by opposing players at it at the same time, the Turn Player decides which Combat to resolve first.`,
   },
   {
     id: `435.2`,
-    section: `435.2. If`,
-    text: `If
-
-Staged
-
-Com bats
-
-stop
-
-being
-
-Staged
-
-before
-
-the
-
-Steps
-
-of
-
-Com bat
-
-are
-
-initiated,
-
-they
-
-are
-
-not
-
-resolved
-
-or
-
-executed.`,
+    section: `435.2. If Staged Combats stop being Staged before the Steps of Combat are initiated`,
+    text: `If Staged Combats stop being Staged before the Steps of Combat are initiated, they are not resolved or executed.`,
   },
   {
     id: `436`,
-    section: `436. Com bat`,
-    text: `Com bat
-
-can
-
-only
-
-occur
-
-betw een
-
-Units
-
-controlled
-
-by
-
-exactly
-
-tw o
-
-players.`,
+    section: `436. Combat can only occur between Units controlled by exactly two players`,
+    text: `Combat can only occur between Units controlled by exactly two players.`,
   },
   {
     id: `436.1`,
-    section: `436.1. In`,
-    text: `In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-m ore
-
-than
-
-tw o
-
-players,
-
-Battleﬁelds
-
-w ith
-
-Staged
-
-Com bats
-
-or
-
-Com bats
-
-in
-
-Progress
-
-are
-
-Invalid
-
-Destinations
-
-for
-
-Moves
-
-of
-
-all
-
-kinds
-
-( Standard
-
-Moves
-
-or
-
-otherw ise)
-
-by
-
-Units
-
-controlled
-
-by
-
-Players
-
-w ho
-
-don't
-
-already
-
-have
-
-perm anents
-
-at
-
-that
-
-Battleﬁeld.
-
-See
-
-rule`,
+    section: `436.1. In Modes of Play with more than two players`,
+    text: `In Modes of Play with more than two players, Battlefields with Staged Combats or Combats in Progress are Invalid Destinations for Moves of all kinds (Standard Moves or otherwise) by Units controlled by Players who don't already have permanents at that Battlefield. See rule 421.2.a. for more information on Invalid Destinations.`,
   },
   {
     id: `436.2`,
-    section: `436.2. In`,
-    text: `In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-m ore
-
-than
-
-tw o
-
-players,
-
-Battleﬁelds
-
-w ith
-
-Staged
-
-Com bats
-
-or
-
-Com bats
-
-in
-
-Progress
-
-are
-
-Invalid
-
-to
-
-be
-
-chosen
-
-as
-
-a
-
-location
-
-to
-
-play
-
-one
-
-or
-
-m ore
-
-Units
-
-by
-
-a
-
-player
-
-not
-
-involved
-
-in
-
-that
-
-Com bat
-
-by
-
-any
-
-m eans`,
+    section: `436.2. In Modes of Play with more than two players`,
+    text: `In Modes of Play with more than two players, Battlefields with Staged Combats or Combats in Progress are Invalid to be chosen as a location to play one or more Units by a player not involved in that Combat by any means`,
   },
   {
     id: `436.2.a`,
-    section: `436.2.a. If`,
-    text: `If
-
-an
-
-effect
-
-w ould
-
-require
-
-a
-
-Unit
-
-be
-
-played
-
-to
-
-a
-
-Battleﬁeld
-
-w ith
-
-a
-
-Staged
-
-Com bat
-
-or
-
-a
-
-Com bat
-
-in
-
-Progress ,
-
-w here
-
-the
-
-controller
-
-of
-
-the
-
-played
-
-unit
-
-is
-
-not
-
-a
-
-participant,
-
-instead
-
-the
-
-Unit
-
-is
-
-played
-
-to
-
-its
-
-controller's
-
-Base.`,
+    section: `436.2.a. If an effect would require a Unit be played to a Battlefield with a Staged Combat or a Combat in Progress`,
+    text: `If an effect would require a Unit be played to a Battlefield with a Staged Combat or a Combat in Progress, where the controller of the played unit is not a participant, instead the Unit is played to its controller's Base.`,
   },
   {
     id: `436.2.b`,
-    section: `436.2.b. Any`,
-    text: `Any
-
-subsequent
-
-reference
-
-to
-
-"here"
-
-in
-
-the
-
-corresponding
-
-effect
-
-is
-
-reassigned
-
-to
-
-the
-
-Controller's
-
-Base ,
-
-w here
-
-the
-
-Unit
-
-w as
-
-played.
-
-Any
-
-further
-
-effects
-
-that
-
-m ay
-
-be
-
-invalidated
-
-are
-
-invalidated
-
-as
-
-if
-
-the
-
-effect
-
-w as
-
-m istargeted.
-
-See
-
-rule`,
+    section: `436.2.b. Any subsequent reference to "here" in the corresponding effect is reassigned to the Controller's Base`,
+    text: `Any subsequent reference to "here" in the corresponding effect is reassigned to the Controller's Base, where the Unit was played. Any further effects that may be invalidated are invalidated as if the effect was mistargeted. See rule 352.5. Targeting for more information on Mistargeting.`,
   },
   {
     id: `436.3`,
-    section: `436.3. All`,
-    text: `All
-
-choices
-
-that
-
-w ould
-
-result
-
-in
-
-a
-
-Com bat
-
-occurring
-
-betw een
-
-m ore
-
-than
-
-tw o
-
-players
-
-sim ultaneously
-
-are
-
-invalid
-
-and
-
-ineligible
-
-to
-
-be
-
-com pleted.`,
+    section: `436.3. All choices that would result in a Combat occurring between more than two players simultaneously are invalid and ineligible to be completed`,
+    text: `All choices that would result in a Combat occurring between more than two players simultaneously are invalid and ineligible to be completed.`,
+  },
+  {
+    id: `437`,
+    section: `437. The Steps of Combat`,
+    text: `The Steps of Combat`,
   },
   {
     id: `438`,
-    section: `438. Step`,
-    text: `Step
-
-1:
-
-The
-
-Showdown
-
-Step`,
+    section: `438. Step 1: The Showdown Step`,
+    text: `Step 1: The Showdown Step`,
   },
   {
     id: `438.1`,
-    section: `438.1. A`,
-    text: `A
-
-Showdown
-
-opens
-
-at
-
-this
-
-tim e.`,
+    section: `438.1. A Showdown opens at this time`,
+    text: `A Showdown opens at this time.`,
   },
   {
     id: `438.1.a`,
-    section: `438.1.a. Establish`,
-    text: `Establish
+    section: `438.1.a. Establish who is Attacker and who is Defender`,
+    text: `Establish who is Attacker and who is Defender.
 
-w ho
+1. The Attacker is the player whose unit(s) applied the Contested status to the Battlefield. They gain the Attacker designation now.
 
-is
+1.a. This player gains Focus as this Showdown begins.
 
-Attacker
+2. The Defender is the player who did not apply the Contested status to the Battlefield. They gain the Defender designation now.
 
-and
+3. Units at the Contested Battlefield controlled by the Attacker gain the Attacker designation now.
 
-w ho
+3.a. If a Unit controlled by the Attacker becomes present at this Battlefield after this moment, it will gain the Attacker designation during the Cleanup phase following the action that caused it to become present
 
-is
+4. Units at the Contested Battlefield controlled by the Defender gain the Defender designation now.
 
-Defender.
-
-438.1.a.1.
-
-The
-
-Attacker
-
-is
-
-the
-
-player
-
-w hose
-
-unit(s)
-
-applied
-
-the
-
-Contested
-
-status
-
-to
-
-the
-
-Battleﬁeld.
-
-They
-
-gain
-
-the
-
-Attacker
-
-designation
-
-now .
-
-438.1.a.1.a.
-
-This
-
-player
-
-gains
-
-Focus
-
-as
-
-this
-
-Show dow n
-
-begins.
-
-438.1.a.2.
-
-The
-
-Defender
-
-is
-
-the
-
-player
-
-w ho
-
-did
-
-not
-
-apply
-
-the
-
-Contested
-
-status
-
-to
-
-the
-
-Battleﬁeld.
-
-They
-
-gain
-
-the
-
-Defender
-
-designation
-
-now .
-
-438.1.a.3.
-
-Units
-
-at
-
-the
-
-Contested
-
-Battleﬁeld
-
-controlled
-
-by
-
-the
-
-Attacker
-
-gain
-
-the
-
-Attacker
-
-designation
-
-now .
-
-438.1.a.3.a.
-
-If
-
-a
-
-Unit
-
-controlled
-
-by
-
-the
-
-Attacker
-
-becom es
-
-present
-
-at
-
-this
-
-Battleﬁeld
-
-after
-
-this
-
-m om ent,
-
-it
-
-w ill
-
-gain
-
-the
-
-Attacker
-
-designation
-
-during
-
-the
-
-Cleanup
-
-phase
-
-follow ing
-
-the
-
-action
-
-that
-
-caused
-
-it
-
-to
-
-becom e
-
-present
-
-438.1.a.4.
-
-Units
-
-at
-
-the
-
-Contested
-
-Battleﬁeld
-
-controlled
-
-by
-
-the
-
-Defender
-
-gain
-
-the
-
-Defender
-
-designation
-
-now .
-
-438.1.a.4.a.
-
-If
-
-a
-
-Unit
-
-controlled
-
-by
-
-the
-
-Defender
-
-becom es
-
-present
-
-at
-
-this
-
-Battleﬁeld
-
-after
-
-this
-
-m om ent
-
-it
-
-w ill
-
-gain
-
-the
-
-Defender
-
-designation
-
-during
-
-the
-
-Cleanup
-
-phase
-
-follow ing
-
-the
-
-action
-
-that
-
-caused
-
-it
-
-to
-
-becom e
-
-present`,
+4.a. If a Unit controlled by the Defender becomes present at this Battlefield after this moment it will gain the Defender designation during the Cleanup phase following the action that caused it to become present`,
   },
   {
     id: `438.1.b`,
-    section: `438.1.b. Finalize`,
-    text: `Finalize
+    section: `438.1.b. Finalize items on the Initial Chain if establishing Attacker and Defender has caused Triggered Abilities to become Pending`,
+    text: `Finalize items on the Initial Chain if establishing Attacker and Defender has caused Triggered Abilities to become Pending.
 
-item s
-
-on
-
-the
-
-Initial
-
-Chain
-
-if
-
-establishing
-
-Attacker
-
-and
-
-Defender
-
-has
-
-caused
-
-Triggered
-
-Abilities
-
-to
-
-becom e
-
-Pending.
-
-438.1.b.1.
-
-The
-
-Attacking
-
-player,
-
-w ho
-
-has
-
-Focus ,
-
-places
-
-Triggered
-
-Abilities
-
-on
-
-the
-
-Chain
-
-ﬁrst,
-
-follow ed
-
-by
-
-all
-
-non- Defender
-
-players
-
-in
-
-Turn
-
-Order ,
-
-follow ed
-
-by
-
-the
-
-Defending
-
-Player.`,
+1. The Attacking player, who has Focus, places Triggered Abilities on the Chain first, followed by all non-Defender players in Turn Order, followed by the Defending Player.`,
   },
   {
     id: `438.1.c`,
-    section: `438.1.c. The`,
-    text: `The
+    section: `438.1.c. The State Closes if an Initial Chain was created`,
+    text: `The State Closes if an Initial Chain was created.
 
-State
-
-Closes
-
-if
-
-an
-
-Initial
-
-Chain
-
-w as
-
-created.
-
-438.1.c.1.
-
-O therw ise
-
-the
-
-Showdown
-
-continues,
-
-w ith
-
-the
-
-State
-
-Open
-
-as
-
-norm al.`,
+1. Otherwise the Showdown continues, with the State Open as normal.`,
   },
   {
     id: `438.1.d`,
-    section: `438.1.d. Players`,
-    text: `Players
-
-proceed
-
-w ith
-
-any
-
-play
-
-on
-
-the
-
-Chain
-
-as
-
-norm al.`,
+    section: `438.1.d. Players proceed with any play on the Chain as normal`,
+    text: `Players proceed with any play on the Chain as normal.`,
   },
   {
     id: `438.1.e`,
-    section: `438.1.e. Focus`,
-    text: `Focus
-
-does
-
-not
-
-pass
-
-upon
-
-closure
-
-of
-
-the
-
-Initial
-
-Chain,
-
-if
-
-any.`,
+    section: `438.1.e. Focus does not pass upon closure of the Initial Chain`,
+    text: `Focus does not pass upon closure of the Initial Chain, if any.`,
   },
   {
     id: `439`,
-    section: `439. Step`,
-    text: `Step
-
-2:
-
-The
-
-Com bat
-
-Dam age
-
-Step`,
+    section: `439. Step 2: The Combat Damage Step`,
+    text: `Step 2: The Combat Damage Step`,
   },
   {
     id: `439.1`,
-    section: `439.1. W hen`,
-    text: `W hen
-
-the
-
-Showdown
-
-closes,
-
-Attackers
-
-and
-
-Defenders
-
-resolve
-
-Com bat
-
-Dam age
-
-at
-
-the
-
-Battleﬁeld
-
-that
-
-w as
-
-attacked,
-
-using
-
-their
-
-current
-
-Might.`,
+    section: `439.1. When the Showdown closes`,
+    text: `When the Showdown closes, Attackers and Defenders resolve Combat Damage at the Battlefield that was attacked, using their current Might.`,
   },
   {
     id: `439.1.a`,
-    section: `439.1.a. The`,
-    text: `The
+    section: `439.1.a. The Combat Damage Step only occurs if both Attacking and Defending units remain at the location`,
+    text: `The Combat Damage Step only occurs if both Attacking and Defending units remain at the location.
 
-Com bat
-
-Dam age
-
-Step
-
-only
-
-occurs
-
-if
-
-both
-
-Attacking
-
-and
-
-Defending
-
-units
-
-rem ain
-
-at
-
-the
-
-location.
-
-439.1.a.1.
-
-If
-
-neither
-
-Attacking
-
-Units
-
-nor
-
-Defending
-
-Units
-
-rem ain
-
-at
-
-this
-
-stage,
-
-the
-
-Com bat
-
-Dam age
-
-Step
-
-is
-
-skipped.`,
+1. If neither Attacking Units nor Defending Units remain at this stage, the Combat Damage Step is skipped.`,
   },
   {
     id: `439.1.b`,
-    section: `439.1.b. Sum`,
-    text: `Sum
-
-the
-
-Might
-
-of
-
-all
-
-Attacking
-
-Units.`,
+    section: `439.1.b. Sum the Might of all Attacking Units`,
+    text: `Sum the Might of all Attacking Units.`,
   },
   {
     id: `439.1.c`,
-    section: `439.1.c. Sum`,
-    text: `Sum
-
-the
-
-Might
-
-of
-
-all
-
-Defending
-
-Units.`,
+    section: `439.1.c. Sum the Might of all Defending Units`,
+    text: `Sum the Might of all Defending Units.`,
   },
   {
     id: `439.1.d`,
-    section: `439.1.d. Starting`,
-    text: `Starting
+    section: `439.1.d. Starting with the Attacker`,
+    text: `Starting with the Attacker, each player assigns an amount of damage equal to their summed Might among the other's Units.
 
-w ith
+1. Assigning Damage is not Dealing Damage.
 
-the
+1.a. When all Damage is assigned, it will be Dealt simultaneously. These actions are not synonymous.
 
-Attacker ,
+2. Abilities or effects may influence the order in which damage is assigned. Reminder: Lethal Damage is non-zero damage equaling or exceeding the Might of a Unit.
 
-each
+3. Units must have lethal damage assigned to them in full before damage is assigned to a different Unit. Example: If a player has 5 damage to distribute among four 3 Might units, they may not choose to assign 2 damage to one of the units and 1 damage to each of the remaining 3. They must assign at least 3 damage to one, and the remaining 2 to another.
 
-player
+4. Units cannot have more damage assigned to them than the minimum required to constitute lethal damage unless no further units remain to have damage assigned to them.
 
-assigns
+5. A player must obey all requirements and restrictions on damage assignment if able. Example: A player is assigning damage to the following units: a unit with Tank ("I must be assigned combat damage first."); Caitlyn, Patrolling ("I must be assigned combat damage last."); and another unit without any abilities. That player must assign combat damage first to the unit with Tank, then to the unit with no abilities, then to Caitlyn.
 
-an
+6. If multiple Units have abilities or effects that require a player to assign them damage with the same priority, that player may assign damage to those units in any order. Example: A player is assigning damage to the following units: two units with Tank ("I must be assigned combat damage first.") and one unit with no abilities. That player chooses one of the units with Tank and assigns combat damage to it. Then they must assign any remaining damage first to the other unit with Tank, then to the unit with no abilities.
 
-am ount
+7. If a Unit has one or more Abilities or effects applying to it that demand it be assigned damage in a specific way that is exclusionary, then the assigning player chooses only one of those abilities to apply when assigning damage. Example: Caitlyn, Patrolling ("I must be assigned combat damage last.") has been given the Tank ability ("I must be assigned combat damage first."). A player is assigning damage to this Caitlyn with Tank and two units with no abilities. That player can’t fulfill both of Caitlyn’s damage requirements, so they may choose to assign damage to Caitlyn first, fulfilling the Tank requirement, or last, fulfilling Caitlyn’s printed requirement. They can’t choose to apply damage to Caitlyn in between the other two units, because that wouldn’t fulfill either requirement.
 
-of
+8. If there is more than one unit in which this situation applies to, each unit is dealt with individually. The assigning player chooses which ability or effect applies, and then resolves the assignment. If this creates a situation where now more than one unit must be assigned with the same priority, those units may be assigned damage in any order as normal within that priority. Example: Two copies of Caitlyn, Patrolling ("I must be assigned combat damage last.") have been given the Tank ability ("I must be assigned combat damage first."). A player assigning damage to these two Caitlyns and one unit with no abilities could choose to fulfill both Caitlyns’ Tank requirements by assigning them both damage before the other unit.
 
-dam age
-
-equal
-
-to
-
-their
-
-sum m ed
-
-Might
-
-am ong
-
-the
-
-other's
-
-Units.
-
-439.1.d.1.
-
-Assigning
-
-Dam age
-
-is
-
-not
-
-Dealing
-
-Dam age.
-
-439.1.d.1.a.
-
-W hen
-
-all
-
-Dam age
-
-is
-
-assigned,
-
-it
-
-w ill
-
-be
-
-Dealt
-
-sim ultaneously.
-
-These
-
-actions
-
-are
-
-not
-
-synonym ous.
-
-439.1.d.2.
-
-Abilities
-
-or
-
-effects
-
-m ay
-
-inﬂuence
-
-the
-
-order
-
-in
-
-w hich
-
-dam age
-
-is
-
-assigned.
-
-Rem inder:
-
-Lethal
-
-Dam age
-
-is
-
-non-zero
-
-dam age
-
-equaling
-
-or
-
-exceeding
-
-the
-
-Might
-
-of
-
-a
-
-Unit.
-
-439.1.d.3.
-
-Units
-
-m ust
-
-have
-
-lethal
-
-dam age
-
-assigned
-
-to
-
-them
-
-in
-
-full
-
-before
-
-dam age
-
-is
-
-assigned
-
-to
-
-a
-
-different
-
-Unit.
-
-Example:
-
-If
-
-a
-
-player
-
-has
-
-5
-
-dam age
-
-to
-
-distribute
-
-am ong
-
-four
-
-3
-
-M ight
-
-units,
-
-they
-
-m ay
-
-not
-
-choose
-
-to
-
-assign
-
-2
-
-dam age
-
-to
-
-one
-
-of
-
-the
-
-units
-
-and
-
-1
-
-dam age
-
-to
-
-each
-
-of
-
-the
-
-rem aining
-
-3.
-
-They
-
-m ust
-
-assign
-
-at
-
-least
-
-3
-
-dam age
-
-to
-
-one,
-
-and
-
-the
-
-rem aining
-
-2
-
-to
-
-another.
-
-439.1.d.4.
-
-Units
-
-cannot
-
-have
-
-m ore
-
-dam age
-
-assigned
-
-to
-
-them
-
-than
-
-the
-
-m inim um
-
-required
-
-to
-
-constitute
-
-lethal
-
-dam age
-
-unless
-
-no
-
-further
-
-units
-
-rem ain
-
-to
-
-have
-
-dam age
-
-assigned
-
-to
-
-them .
-
-439.1.d.5.
-
-A
-
-player
-
-m ust
-
-obey
-
-all
-
-requirem ents
-
-and
-
-restrictions
-
-on
-
-dam age
-
-assignm ent
-
-if
-
-able.
-
-Example:
-
-A
-
-player
-
-is
-
-assigning
-
-dam age
-
-to
-
-the
-
-follow ing
-
-units:
-
-a
-
-unit
-
-w ith
-
-Tank
-
-("I
-
-m ust
-
-be
-
-assigned
-
-com bat
-
-dam age
-
-ﬁrst.");
-
-Caitlyn,
-
-Patrolling
-
-("I
-
-m ust
-
-be
-
-assigned
-
-com bat
-
-dam age
-
-last.");
-
-and
-
-another
-
-unit
-
-w ithout
-
-any
-
-abilities.
-
-That
-
-player
-
-m ust
-
-assign
-
-com bat
-
-dam age
-
-ﬁrst
-
-to
-
-the
-
-unit
-
-w ith
-
-Tank,
-
-then
-
-to
-
-the
-
-unit
-
-w ith
-
-no
-
-abilities,
-
-then
-
-to
-
-Caitlyn.
-
-439.1.d.6.
-
-If
-
-m ultiple
-
-Units
-
-have
-
-abilities
-
-or
-
-effects
-
-that
-
-require
-
-a
-
-player
-
-to
-
-assign
-
-them
-
-dam age
-
-w ith
-
-the
-
-sam e
-
-priority,
-
-that
-
-player
-
-m ay
-
-assign
-
-dam age
-
-to
-
-those
-
-units
-
-in
-
-any
-
-order.
-
-Example:
-
-A
-
-player
-
-is
-
-assigning
-
-dam age
-
-to
-
-the
-
-follow ing
-
-units:
-
-tw o
-
-units
-
-w ith
-
-Tank
-
-("I
-
-m ust
-
-be
-
-assigned
-
-com bat
-
-dam age
-
-ﬁrst.")
-
-and
-
-one
-
-unit
-
-w ith
-
-no
-
-abilities.
-
-That
-
-player
-
-chooses
-
-one
-
-of
-
-the
-
-units
-
-w ith
-
-Tank
-
-and
-
-assigns
-
-com bat
-
-dam age
-
-to
-
-it.
-
-Then
-
-they
-
-m ust
-
-assign
-
-any
-
-rem aining
-
-dam age
-
-ﬁrst
-
-to
-
-the
-
-other
-
-unit
-
-w ith
-
-Tank,
-
-then
-
-to
-
-the
-
-unit
-
-w ith
-
-no
-
-abilities.
-
-439.1.d.7.
-
-If
-
-a
-
-Unit
-
-has
-
-one
-
-or
-
-m ore
-
-Abilities
-
-or
-
-effects
-
-applying
-
-to
-
-it
-
-that
-
-dem and
-
-it
-
-be
-
-assigned
-
-dam age
-
-in
-
-a
-
-speciﬁc
-
-w ay
-
-that
-
-is
-
-exclusionary,
-
-then
-
-the
-
-assigning
-
-player
-
-chooses
-
-only
-
-one
-
-of
-
-those
-
-abilities
-
-to
-
-apply
-
-w hen
-
-assigning
-
-dam age.
-
-Example:
-
-Caitlyn,
-
-Patrolling
-
-("I
-
-m ust
-
-be
-
-assigned
-
-com bat
-
-dam age
-
-last.")
-
-has
-
-been
-
-given
-
-the
-
-Tank
-
-ability
-
-("I
-
-m ust
-
-be
-
-assigned
-
-com bat
-
-dam age
-
-ﬁrst.").
-
-A
-
-player
-
-is
-
-assigning
-
-dam age
-
-to
-
-this
-
-Caitlyn
-
-w ith
-
-Tank
-
-and
-
-tw o
-
-units
-
-w ith
-
-no
-
-abilities.
-
-That
-
-player
-
-can’t
-
-fulﬁll
-
-both
-
-of
-
-Caitlyn’s
-
-dam age
-
-requirem ents,
-
-so
-
-they
-
-m ay
-
-choose
-
-to
-
-assign
-
-dam age
-
-to
-
-Caitlyn
-
-ﬁrst,
-
-fulﬁlling
-
-the
-
-Tank
-
-requirem ent,
-
-or
-
-last,
-
-fulﬁlling
-
-Caitlyn’s
-
-printed
-
-requirem ent.
-
-They
-
-can’t
-
-choose
-
-to
-
-apply
-
-dam age
-
-to
-
-Caitlyn
-
-in
-
-betw een
-
-the
-
-other
-
-tw o
-
-units,
-
-because
-
-that
-
-w ouldn’t
-
-fulﬁll
-
-either
-
-requirem ent.
-
-439.1.d.8.
-
-If
-
-there
-
-is
-
-m ore
-
-than
-
-one
-
-unit
-
-in
-
-w hich
-
-this
-
-situation
-
-applies
-
-to,
-
-each
-
-unit
-
-is
-
-dealt
-
-w ith
-
-individually.
-
-The
-
-assigning
-
-player
-
-chooses
-
-w hich
-
-ability
-
-or
-
-effect
-
-applies,
-
-and
-
-then
-
-resolves
-
-the
-
-assignm ent.
-
-If
-
-this
-
-creates
-
-a
-
-situation
-
-w here
-
-now
-
-m ore
-
-than
-
-one
-
-unit
-
-m ust
-
-be
-
-assigned
-
-w ith
-
-the
-
-sam e
-
-priority,
-
-those
-
-units
-
-m ay
-
-be
-
-assigned
-
-dam age
-
-in
-
-any
-
-order
-
-as
-
-norm al
-
-w ithin
-
-that
-
-priority.
-
-Example:
-
-Two
-
-copies
-
-of
-
-Caitlyn,
-
-Patrolling
-
-("I
-
-must
-
-be
-
-assigned
-
-combat
-
-damage
-
-last.")
-
-have
-
-been
-
-given
-
-the
-
-Tank
-
-ability
-
-("I
-
-must
-
-be
-
-assigned
-
-combat
-
-damage
-
-ﬁrst.").
-
-A
-
-player
-
-assigning
-
-damage
-
-to
-
-these
-
-two
-
-Caitlyns
-
-and
-
-one
-
-unit
-
-with
-
-no
-
-abilities
-
-could
-
-choose
-
-to
-
-fulﬁll
-
-both
-
-Caitlyns’
-
-Tank
-
-requirements
-
-by
-
-assigning
-
-them
-
-both
-
-damage
-
-before
-
-the
-
-other
-
-unit.
-
-439.1.d.9.
-
-If
-
-a
-
-unit
-
-cannot
-
-be
-
-dealt
-
-dam age,
-
-then
-
-no
-
-am ount
-
-of
-
-dam age
-
-can
-
-be
-
-considered
-
-lethal.
-
-Such
-
-a
-
-unit
-
-is
-
-exem pt
-
-from
-
-any
-
-considerations
-
-of
-
-m andatory
-
-assignm ent.
-
-Example:
-
-Kayn,
-
-Unleashed
-
-says
-
-“If
-
-I
-
-have
-
-moved
-
-twice
-
-this
-
-turn,
-
-I
-
-don't
-
-take
-
-damage.”
-
-While
-
-Kayn
-
-can’t
-
-take
-
-damage,
-
-it
-
-is
-
-ignored
-
-for
-
-the
-
-purposes
-
-of
-
-assigning
-
-lethal
-
-damage
-
-in
-
-combat.`,
+9. If a unit cannot be dealt damage, then no amount of damage can be considered lethal. Such a unit is exempt from any considerations of mandatory assignment. Example: Kayn, Unleashed says “If I have moved twice this turn, I don't take damage.” While Kayn can’t take damage, it is ignored for the purposes of assigning lethal damage in combat.`,
   },
   {
     id: `439.1.e`,
-    section: `439.1.e. D eal`,
-    text: `D eal
-
-Dam age
-
-to
-
-each
-
-unit
-
-equal
-
-to
-
-the
-
-am ount
-
-assigned
-
-to
-
-it.`,
+    section: `439.1.e. Deal Damage to each unit equal to the amount assigned to it`,
+    text: `Deal Damage to each unit equal to the amount assigned to it.`,
   },
   {
     id: `440`,
-    section: `440. Step`,
-    text: `Step
-
-3:
-
-The
-
-Resolution
-
-Step`,
+    section: `440. Step 3: The Resolution Step`,
+    text: `Step 3: The Resolution Step`,
+  },
+  {
+    id: `440.1`,
+    section: `440.1. 1`,
+    text: `1. Perform a Combat Cleanup.`,
   },
   {
     id: `440.1.a`,
-    section: `440.1.a. Invoke`,
-    text: `Invoke
+    section: `440.1.a. Invoke a Special Cleanup`,
+    text: `Invoke a Special Cleanup.
 
-a
+1. Insert “2a. Clear all marked damage from all Units.”
 
-Special
+2. Insert “2b. Recall Attackers present at the Battlefield if Defenders are still present.” See rule 428. Recalls for more information.
 
-Cleanup.
-
-440.1.a.1.
-
-Insert
-
-“2a.
-
-Clear
-
-all
-
-m arked
-
-dam age
-
-from
-
-all
-
-Units. ”
-
-440.1.a.2.
-
-Insert
-
-“2b.
-
-Recall
-
-Attackers
-
-present
-
-at
-
-the
-
-Battleﬁeld
-
-if
-
-Defenders
-
-are
-
-still
-
-present.”
-
-See
-
-rule`,
+3. Insert “2c. Remove Attacker and Defender Designation from all Units and Players.”`,
   },
   {
     id: `440.1.b`,
-    section: `440.1.b. Clear`,
-    text: `Clear
+    section: `440.1.b. Clear the Contested status from this Battlefield`,
+    text: `Clear the Contested status from this Battlefield.
 
-the
-
-Contested
-
-status
-
-from
-
-this
-
-Battleﬁeld .
-
-440.1.b.1.
-
-Clear
-
-the
-
-Contested
-
-status
-
-regardless
-
-of
-
-the
-
-outcom e
-
-of
-
-the
-
-Com bat.`,
+1. Clear the Contested status regardless of the outcome of the Combat.`,
   },
   {
     id: `440.2`,
-    section: `440.2. If`,
-    text: `If
-
-any
-
-Units
-
-rem ain
-
-at
-
-the
-
-Battleﬁeld ,
-
-and
-
-if
-
-their
-
-controller
-
-does
-
-not
-
-already
-
-Control
-
-the
-
-Battleﬁeld ,
-
-that
-
-player
-
-Establishes
-
-Control
-
-over
-
-the
-
-Battleﬁeld. .`,
+    section: `440.2. If any Units remain at the Battlefield`,
+    text: `If any Units remain at the Battlefield, and if their controller does not already Control the Battlefield, that player Establishes Control over the Battlefield..`,
   },
   {
     id: `440.2.a`,
-    section: `440.2.a. This`,
-    text: `This
-
-results
-
-in
-
-a
-
-Conquer
-
-if
-
-that
-
-player
-
-has
-
-not
-
-yet
-
-scored
-
-that
-
-Battleﬁeld
-
-this
-
-turn.
-
-See
-
-rule`,
+    section: `440.2.a. This results in a Conquer if that player has not yet scored that Battlefield this turn`,
+    text: `This results in a Conquer if that player has not yet scored that Battlefield this turn. See rule 179. Control for more information on Control. See rule 442.1. for more information on Conquering.`,
   },
   {
     id: `440.2.b`,
-    section: `440.2.b. This`,
-    text: `This
-
-does
-
-not
-
-have
-
-to
-
-be
-
-the
-
-player
-
-that
-
-applied
-
-Contested
-
-to
-
-the
-
-Battleﬁeld.`,
+    section: `440.2.b. This does not have to be the player that applied Contested to the Battlefield`,
+    text: `This does not have to be the player that applied Contested to the Battlefield.`,
+  },
+  {
+    id: `441`,
+    section: `441. Scoring`,
+    text: `Scoring`,
   },
   {
     id: `442`,
-    section: `442. A`,
-    text: `A
-
-player
-
-Scores
-
-in
-
-one
-
-of
-
-tw o
-
-w ays:`,
+    section: `442. A player Scores in one of two ways:`,
+    text: `A player Scores in one of two ways:`,
+  },
+  {
+    id: `442.1`,
+    section: `442.1. Conquer: A player gains Control of a Battlefield they did not yet Score this turn`,
+    text: `Conquer: A player gains Control of a Battlefield they did not yet Score this turn.`,
   },
   {
     id: `442.1.a`,
-    section: `442.1.a. In`,
-    text: `In
-
-Modes
-
-of
-
-Play
-
-w ith
-
-team m ates,
-
-Battleﬁelds
-
-under
-
-the
-
-Control
-
-of
-
-a
-
-team m ate
-
-during
-
-the
-
-Beginning
-
-Phase
-
-are
-
-also
-
-disqualiﬁed
-
-from
-
-being
-
-Scored
-
-through
-
-Conquer
-
-by
-
-any
-
-m eans.`,
+    section: `442.1.a. In Modes of Play with teammates`,
+    text: `In Modes of Play with teammates, Battlefields under the Control of a teammate during the Beginning Phase are also disqualified from being Scored through Conquer by any means.`,
   },
   {
     id: `442.1.b`,
-    section: `442.1.b. A`,
-    text: `A
-
-player
-
-w ill
-
-gain
-
-control
-
-of
-
-a
-
-Battleﬁeld
-
-after
-
-establishing
-
-Control
-
-by
-
-applying
-
-Contested
-
-ﬁrst.`,
+    section: `442.1.b. A player will gain control of a Battlefield after establishing Control by applying Contested first`,
+    text: `A player will gain control of a Battlefield after establishing Control by applying Contested first.`,
   },
   {
     id: `442.2`,
-    section: `442.2. Hold:`,
-    text: `Hold:
-
-A
-
-player
-
-m aintains
-
-Control
-
-of
-
-a
-
-Battleﬁeld
-
-during
-
-their
-
-Beginning
-
-Phase.`,
+    section: `442.2. Hold: A player maintains Control of a Battlefield during their Beginning Phase`,
+    text: `Hold: A player maintains Control of a Battlefield during their Beginning Phase.`,
   },
   {
     id: `443`,
-    section: `443. A`,
-    text: `A
-
-player
-
-m ay
-
-only
-
-Score ,
-
-from
-
-either
-
-m ethod,
-
-once
-
-per
-
-Battleﬁeld
-
-per
-
-turn.`,
+    section: `443. A player may only Score`,
+    text: `A player may only Score, from either method, once per Battlefield per turn.`,
   },
   {
     id: `444`,
-    section: `444. W hen`,
-    text: `W hen
-
-a
-
-player
-
-Scores ,
-
-tw o
-
-things
-
-occur:`,
+    section: `444. When a player Scores`,
+    text: `When a player Scores, two things occur:`,
   },
   {
     id: `444.1`,
-    section: `444.1. The`,
-    text: `The
-
-player
-
-earns
-
-up
-
-to
-
-one
-
-Point ,
-
-depending
-
-on
-
-their
-
-current
-
-score.`,
+    section: `444.1. The player earns up to one Point`,
+    text: `The player earns up to one Point, depending on their current score.`,
   },
   {
     id: `444.1.a`,
-    section: `444.1.a. The`,
-    text: `The
+    section: `444.1.a. The Final Point has additional restrictions`,
+    text: `The Final Point has additional restrictions.
 
-Final
-
-Point
-
-has
-
-additional
-
-restrictions.
-
-444.1.a.1.
-
-N otably,
-
-points
-
-earned
-
-from
-
-sources
-
-that
-
-are
-
-not
-
-Conquer
-
-or
-
-Hold
-
-are
-
-not
-
-beholden
-
-to
-
-these
-
-restrictions.`,
+1. Notably, points earned from sources that are not Conquer or Hold are not beholden to these restrictions.`,
   },
   {
     id: `444.1.b`,
-    section: `444.1.b. W hen`,
-    text: `W hen
+    section: `444.1.b. When a player tries to earn a Point through a Score`,
+    text: `When a player tries to earn a Point through a Score, and their current Point Total is 1 point from the Victory Score of the Mode of Play, the following occurs:
 
-a
+1. If the player has Scored through Hold, that player scores the Final Point.
 
-player
-
-tries
-
-to
-
-earn
-
-a
-
-Point
-
-through
-
-a
-
-Score ,
-
-and
-
-their
-
-current
-
-Point
-
-Total
-
-is
-
-1
-
-point
-
-from
-
-the
-
-Victory
-
-Score
-
-of
-
-the
-
-Mode
-
-of
-
-Play ,
-
-the
-
-follow ing
-
-occurs:
-
-444.1.b.1.
-
-If
-
-the
-
-player
-
-has
-
-Scored
-
-through
-
-Hold ,
-
-that
-
-player
-
-scores
-
-the
-
-Final
-
-Point.
-
-444.1.b.2.
-
-If
-
-the
-
-player
-
-has
-
-Scored
-
-through
-
-a
-
-Conquer
-
-and
-
-has
-
-Scored
-
-every
-
-Battleﬁeld
-
-through
-
-either
-
-m ethod
-
-this
-
-turn,
-
-that
-
-player
-
-scores
-
-the
-
-Final
-
-Point .
-
-If
-
-the
-
-player
-
-has
-
-Scored
-
-through
-
-a
-
-Conquer
-
-and
-
-has
-
-not
-
-Scored
-
-every
-
-Battleﬁeld
-
-this
-
-turn,
-
-that
-
-player
-
-draw s
-
-a
-
-card.`,
+2. If the player has Scored through a Conquer and has Scored every Battlefield through either method this turn, that player scores the Final Point. If the player has Scored through a Conquer and has not Scored every Battlefield this turn, that player draws a card.`,
   },
   {
     id: `444.2`,
-    section: `444.2. Trigger`,
-    text: `Trigger
-
-Score
-
-abilities
-
-at
-
-the
-
-Battleﬁeld
-
-that
-
-Scored.`,
+    section: `444.2. Trigger Score abilities at the Battlefield that Scored`,
+    text: `Trigger Score abilities at the Battlefield that Scored.`,
   },
   {
     id: `444.2.a`,
-    section: `444.2.a. Conquer`,
-    text: `Conquer
-
-abilities
-
-trigger
-
-at
-
-a
-
-Battleﬁeld
-
-that
-
-w as
-
-Conquered.`,
+    section: `444.2.a. Conquer abilities trigger at a Battlefield that was Conquered`,
+    text: `Conquer abilities trigger at a Battlefield that was Conquered.`,
   },
   {
     id: `444.2.b`,
-    section: `444.2.b. Hold`,
-    text: `Hold
-
-abilities
-
-trigger
-
-at
-
-a
-
-Battleﬁeld
-
-that
-
-w as
-
-Held.`,
+    section: `444.2.b. Hold abilities trigger at a Battlefield that was Held`,
+    text: `Hold abilities trigger at a Battlefield that was Held.`,
   },
   {
     id: `444.2.c`,
-    section: `444.2.c. These`,
-    text: `These
-
-w ill
-
-only
-
-trigger
-
-w hen
-
-the
-
-Battleﬁeld
-
-is
-
-Scored;
-
-I.E.
-
-These
-
-cannot
-
-be
-
-triggered
-
-m ore
-
-than
-
-once
-
-per
-
-turn
-
-for
-
-a
-
-player.`,
+    section: `444.2.c. These will only trigger when the Battlefield is Scored; I`,
+    text: `These will only trigger when the Battlefield is Scored; I.E. These cannot be triggered more than once per turn for a player.`,
   },
   {
     id: `445`,
-    section: `445. W hen`,
-    text: `W hen
-
-a
-
-player
-
-accrues
-
-Points
-
-equal
-
-to
-
-the
-
-Victory
-
-Score
-
-for
-
-their
-
-Mode
-
-of
-
-Play ,
-
-they
-
-W in
-
-the
-
-Gam e
-
-im m ediately.`,
+    section: `445. When a player accrues Points equal to the Victory Score for their Mode of Play`,
+    text: `When a player accrues Points equal to the Victory Score for their Mode of Play, they Win the Game immediately.`,
   },
   {
     id: `446`,
@@ -51005,3674 +5753,481 @@ im m ediately.`,
   },
   {
     id: `447`,
-    section: `447. Layers`,
-    text: `Layers
-
-are
-
-the
-
-m echanism
-
-in
-
-w hich
-
-Gam e
-
-Effects
-
-alter
-
-the
-
-Traits,
-
-Intrinsic
-
-Abilities,
-
-or
-
-other
-
-properties
-
-of
-
-Gam e
-
-Objects.`,
+    section: `447. Layers are the mechanism in which Game Effects alter the Traits`,
+    text: `Layers are the mechanism in which Game Effects alter the Traits, Intrinsic Abilities, or other properties of Game Objects.`,
   },
   {
     id: `448`,
-    section: `448. Layers`,
-    text: `Layers
-
-are
-
-an
-
-organizational
-
-structure.`,
+    section: `448. Layers are an organizational structure`,
+    text: `Layers are an organizational structure.`,
   },
   {
     id: `448.1`,
-    section: `448.1. Layers`,
-    text: `Layers
-
-only
-
-serve
-
-to
-
-structure
-
-the
-
-application
-
-and
-
-order
-
-that
-
-Gam e
-
-Effects
-
-apply
-
-to
-
-Gam e
-
-Objects
-
-to
-
-m aintain
-
-consistency.`,
+    section: `448.1. Layers only serve to structure the application and order that Game Effects apply to Game Objects to maintain consistency`,
+    text: `Layers only serve to structure the application and order that Game Effects apply to Game Objects to maintain consistency.`,
   },
   {
     id: `449`,
-    section: `449. The`,
-    text: `The
-
-layers
-
-are
-
-applied
-
-repeatedly
-
-until
-
-all
-
-effects
-
-operating
-
-on
-
-objects
-
-have
-
-been
-
-applied
-
-once
-
-and
-
-no
-
-changes
-
-have
-
-been
-
-processed.`,
+    section: `449. The layers are applied repeatedly until all effects operating on objects have been applied once and no changes have been processed`,
+    text: `The layers are applied repeatedly until all effects operating on objects have been applied once and no changes have been processed.`,
   },
   {
     id: `449.1`,
-    section: `449.1. Layers`,
-    text: `Layers
-
-are
-
-applied
-
-in
-
-sequence.
-
-Each
-
-effect
-
-in
-
-them
-
-is
-
-applied
-
-as
-
-soon
-
-as
-
-able,
-
-and
-
-only
-
-a
-
-single
-
-tim e
-
-across
-
-all
-
-sequences.`,
+    section: `449.1. Layers are applied in sequence`,
+    text: `Layers are applied in sequence. Each effect in them is applied as soon as able, and only a single time across all sequences.`,
   },
   {
     id: `449.2`,
-    section: `449.2. W hen`,
-    text: `W hen
-
-a
-
-sequence
-
-of
-
-applications
-
-com pletes,
-
-recur
-
-the
-
-process,
-
-and
-
-evaluate
-
-each
-
-layer
-
-again
-
-applying
-
-any
-
-effects
-
-that
-
-m ay
-
-now
-
-be
-
-applicable.`,
+    section: `449.2. When a sequence of applications completes`,
+    text: `When a sequence of applications completes, recur the process, and evaluate each layer again applying any effects that may now be applicable.`,
   },
   {
     id: `449.3`,
-    section: `449.3. The`,
-    text: `The
-
-rem oval
-
-or
-
-disqualiﬁcation
-
-of
-
-an
-
-effect
-
-is
-
-separate
-
-from
-
-the
-
-application
-
-of
-
-the
-
-effect,
-
-but
-
-still
-
-can
-
-only
-
-be
-
-applied
-
-once.
-
-Example:
-
-Fiora,
-
-Victorious
-
-has
-
-printed
-
-M ight
-
-4
-
-and
-
-says
-
-“W hile
-
-I'm
-
-M ighty,
-
-I
-
-have
-
-D eﬂect,
-
-Ganking,
-
-and
-
-Shield.”
-
-If
-
-a
-
-player
-
-places
-
-a
-
-buff
-
-on
-
-Fiora,
-
-her
-
-M ight
-
-is
-
-increased
-
-in
-
-the
-
-Arithm etic
-
-layer,
-
-after
-
-the
-
-layer
-
-for
-
-Ability-Altering
-
-Effects.
-
-The
-
-Ability-Altering
-
-Effect
-
-layer
-
-is
-
-then
-
-re-checked
-
-and
-
-the
-
-abilities
-
-D eﬂect,
-
-Ganking,
-
-and
-
-Shield
-
-applied.
-
-Since
-
-each
-
-effect
-
-has
-
-been
-
-applied
-
-once
-
-and
-
-there
-
-are
-
-no
-
-other
-
-effects
-
-to
-
-apply,
-
-Fiora’s
-
-characteristics
-
-are
-
-ﬁnalized
-
-as
-
-5
-
-M ight
-
-w ith
-
-D eﬂect,
-
-Ganking,
-
-and
-
-Shield.
-
-W hile
-
-a
-
-buffed
-
-Fiora,
-
-Victorious
-
-is
-
-in
-
-com bat
-
-as
-
-a
-
-defender,
-
-an
-
-additional
-
-+1
-
-M ight
-
-w ill
-
-be
-
-applied
-
-in
-
-the
-
-Arithm etic
-
-layer,
-
-giving
-
-her
-
-6
-
-M ight
-
-and
-
-the
-
-3
-
-keyw ords.
-
-Example:
-
-A
-
-buffed
-
-Fiora,
-
-Victorious
-
-is
-
-in
-
-com bat
-
-as
-
-a
-
-defender
-
-w hen
-
-her
-
-buff
-
-is
-
-rem oved.
-
-Reevaluating
-
-the
-
-layers
-
-in
-
-sequence,
-
-she
-
-no
-
-longer
-
-gains
-
-D eﬂect,
-
-Ganking,
-
-and
-
-Shield
-
-during
-
-the
-
-Ability-Altering
-
-Effect
-
-layer,
-
-so
-
-w hen
-
-the
-
-Arithm etic
-
-layer
-
-is
-
-evaluated,
-
-neither
-
-the
-
-buff
-
-(w hich
-
-is
-
-gone)
-
-nor
-
-Shield
-
-(w hich
-
-she
-
-no
-
-longer
-
-has)
-
-apply.
-
-She
-
-goes
-
-directly
-
-from
-
-6
-
-M ight
-
-w ith
-
-three
-
-keyw ords
-
-to
-
-4
-
-M ight
-
-w ith
-
-no
-
-keyw ords..`,
+    section: `449.3. The removal or disqualification of an effect is separate from the application of the effect`,
+    text: `The removal or disqualification of an effect is separate from the application of the effect, but still can only be applied once. Example: Fiora, Victorious has printed Might 4 and says “While I'm Mighty, I have Deflect, Ganking, and Shield.” If a player places a buff on Fiora, her Might is increased in the Arithmetic layer, after the layer for Ability-Altering Effects. The Ability-Altering Effect layer is then re-checked and the abilities Deflect, Ganking, and Shield applied. Since each effect has been applied once and there are no other effects to apply, Fiora’s characteristics are finalized as 5 Might with Deflect, Ganking, and Shield. While a buffed Fiora, Victorious is in combat as a defender, an additional +1 Might will be applied in the Arithmetic layer, giving her 6 Might and the 3 keywords. Example: A buffed Fiora, Victorious is in combat as a defender when her buff is removed. Reevaluating the layers in sequence, she no longer gains Deflect, Ganking, and Shield during the Ability-Altering Effect layer, so when the Arithmetic layer is evaluated, neither the buff (which is gone) nor Shield (which she no longer has) apply. She goes directly from 6 Might with three keywords to 4 Might with no keywords..`,
   },
   {
     id: `450`,
-    section: `450. Layers`,
-    text: `Layers
-
-are
-
-applied
-
-in
-
-the
-
-follow ing
-
-order:`,
+    section: `450. Layers are applied in the following order:`,
+    text: `Layers are applied in the following order:`,
   },
   {
     id: `450.1`,
-    section: `450.1. 1.`,
-    text: `1.
-
-Trait-Altering
-
-Effects`,
+    section: `450.1. 1`,
+    text: `1. Trait-Altering Effects`,
   },
   {
     id: `450.1.a`,
-    section: `450.1.a. This`,
-    text: `This
+    section: `450.1.a. This layer deals with effects that grant`,
+    text: `This layer deals with effects that grant, remove, or replace inherent traits of Game Objects. Name Super Type Type Tags Controller Cost Domain
 
-layer
-
-deals
-
-w ith
-
-effects
-
-that
-
-grant,
-
-rem ove,
-
-or
-
-replace
-
-inherent
-
-traits
-
-of
-
-Gam e
-
-Objects.
-
-N am e
-
-Super
-
-Type
-
-Type
-
-Tags
-
-Controller
-
-Cost
-
-D om ain
-
-450.1.a.1.
-
-Assignm ent
-
-of
-
-M ight
-
-is
-
-dealt
-
-w ith
-
-in
-
-this
-
-layer.
-
-Example:
-
-A
-
-spell
-
-reads
-
-"A
-
-unit's
-
-M ight
-
-becom es
-
-4
-
-this
-
-turn."
-
-The
-
-unit's
-
-M ight
-
-is
-
-set
-
-to
-
-4
-
-in
-
-this
-
-layer.`,
+1. Assignment of Might is dealt with in this layer. Example: A spell reads "A unit's Might becomes 4 this turn." The unit's Might is set to 4 in this layer.`,
   },
   {
     id: `450.1.b`,
-    section: `450.1.b. O ne`,
-    text: `O ne
+    section: `450.1.b. One Game Object becoming a copy of another`,
+    text: `One Game Object becoming a copy of another.
 
-Gam e
-
-Object
-
-becom ing
-
-a
-
-copy
-
-of
-
-another.
-
-450.1.b.1.
-
-All
-
-Traits,
-
-including
-
-the
-
-Rules
-
-Text,
-
-replace
-
-or
-
-are
-
-added
-
-to
-
-those
-
-of
-
-the
-
-original
-
-Gam e
-
-Object
-
-as
-
-speciﬁed
-
-by
-
-the
-
-Gam e
-
-Effect
-
-directing
-
-the
-
-Copy.
-
-This
-
-is
-
-applied
-
-in
-
-this
-
-layer.`,
+1. All Traits, including the Rules Text, replace or are added to those of the original Game Object as specified by the Game Effect directing the Copy. This is applied in this layer.`,
   },
   {
     id: `450.1.c`,
-    section: `450.1.c. Effects`,
-    text: `Effects
-
-for
-
-this
-
-layer
-
-can
-
-be
-
-identiﬁed
-
-by
-
-the
-
-phrase
-
-"becom e(s)",
-
-"give,"
-
-"is,"
-
-or
-
-"are"
-
-in
-
-the
-
-text.
-
-Example:
-
-A
-
-perm anent
-
-has
-
-the
-
-ability
-
-"O ther
-
-friendly
-
-units
-
-are
-
-Yordles."
-
-O ther
-
-friendly
-
-units
-
-gain
-
-the
-
-Yordle
-
-tag
-
-in
-
-this
-
-layer.`,
+    section: `450.1.c. Effects for this layer can be identified by the phrase "become(s)"`,
+    text: `Effects for this layer can be identified by the phrase "become(s)", "give," "is," or "are" in the text. Example: A permanent has the ability "Other friendly units are Yordles." Other friendly units gain the Yordle tag in this layer.`,
   },
   {
     id: `450.2`,
-    section: `450.2. 2.`,
-    text: `2.
-
-Ability-Altering
-
-Effects`,
+    section: `450.2. 2`,
+    text: `2. Ability-Altering Effects`,
   },
   {
     id: `450.2.a`,
-    section: `450.2.a. This`,
-    text: `This
-
-layer
-
-deals
-
-w ith
-
-effects
-
-that
-
-grant,
-
-rem ove,
-
-or
-
-replace
-
-the
-
-abilities
-
-or
-
-rules
-
-text
-
-of
-
-Gam e
-
-Objects .
-
-Keyw ords
-
-Passive
-
-Abilitie
-
-Appending
-
-rules
-
-text
-
-Rem oving
-
-rules
-
-text
-
-D uplicating
-
-Rules
-
-Text
-
-from
-
-one
-
-Gam e
-
-Object
-
-to
-
-another`,
+    section: `450.2.a. This layer deals with effects that grant`,
+    text: `This layer deals with effects that grant, remove, or replace the abilities or rules text of Game Objects. Keywords Passive Abilitie Appending rules text Removing rules text Duplicating Rules Text from one Game Object to another`,
   },
   {
     id: `450.2.b`,
-    section: `450.2.b. Effects`,
-    text: `Effects
-
-for
-
-this
-
-layer
-
-can
-
-be
-
-identiﬁed
-
-by
-
-the
-
-phrase
-
-"becom e(s),"
-
-"give,"
-
-"lose(s),"
-
-"have,"
-
-"has,"
-
-"is,"
-
-or
-
-"are"
-
-in
-
-the
-
-text.
-
-Example:
-
-A
-
-perm anent
-
-has
-
-the
-
-ability
-
-"O ther
-
-friendly
-
-units
-
-have
-
-[Vision]."
-
-O ther
-
-friendly
-
-units
-
-gain
-
-the
-
-Vision
-
-keyw ord
-
-in
-
-this
-
-layer.`,
+    section: `450.2.b. Effects for this layer can be identified by the phrase "become(s)`,
+    text: `Effects for this layer can be identified by the phrase "become(s)," "give," "lose(s)," "have," "has," "is," or "are" in the text. Example: A permanent has the ability "Other friendly units have [Vision]." Other friendly units gain the Vision keyword in this layer.`,
   },
   {
     id: `450.3`,
-    section: `450.3. 3.`,
-    text: `3.
-
-Arithm etic`,
+    section: `450.3. 3`,
+    text: `3. Arithmetic`,
   },
   {
     id: `450.3.a`,
-    section: `450.3.a. This`,
-    text: `This
-
-layer
-
-deals
-
-w ith
-
-the
-
-m athem atics
-
-of
-
-increasing
-
-and
-
-decreasing
-
-the
-
-num eric
-
-values
-
-of
-
-the
-
-traits
-
-of
-
-Gam e
-
-Objects.
-
-M ight
-
-Energy
-
-Cost
-
-Pow er
-
-Cost`,
+    section: `450.3.a. This layer deals with the mathematics of increasing and decreasing the numeric values of the traits of Game Objects`,
+    text: `This layer deals with the mathematics of increasing and decreasing the numeric values of the traits of Game Objects. Might Energy Cost Power Cost`,
   },
   {
     id: `450.3.b`,
-    section: `450.3.b. W hen`,
-    text: `W hen
-
-an
-
-arithm etic
-
-effect
-
-has
-
-a
-
-lim itation
-
-that
-
-applies,
-
-it
-
-is
-
-lim ited
-
-at
-
-the
-
-tim e
-
-of
-
-its
-
-application,
-
-and
-
-is
-
-“rem em bered”
-
-at
-
-that
-
-lim ited
-
-level
-
-for
-
-the
-
-duration
-
-of
-
-its
-
-effect.
-
-This
-
-process
-
-is
-
-called
-
-“snapshotting.”
-
-Example:
-
-If
-
-an
-
-effect
-
-gives
-
-a
-
-unit
-
-“-4
-
-[M ]
-
-to
-
-a
-
-m in
-
-of
-
-1
-
-until
-
-end
-
-of
-
-turn”
-
-choosing
-
-a
-
-unit
-
-w ith
-
-2
-
-[M ],
-
-then
-
-the
-
-effect
-
-w ill
-
-generate
-
--1
-
-[M ]
-
-until
-
-end
-
-of
-
-turn.`,
+    section: `450.3.b. When an arithmetic effect has a limitation that applies`,
+    text: `When an arithmetic effect has a limitation that applies, it is limited at the time of its application, and is “remembered” at that limited level for the duration of its effect. This process is called “snapshotting.” Example: If an effect gives a unit “-4 [M] to a min of 1 until end of turn” choosing a unit with 2 [M], then the effect will generate -1 [M] until end of turn.`,
   },
   {
     id: `450.3.c`,
-    section: `450.3.c. This`,
-    text: `This
-
-layer
-
-applies
-
-arithm etic
-
-in
-
-the
-
-follow ing
-
-w ay.
-
-450.3.c.1.
-
-1.
-
-Increases
-
-450.3.d.1.
-
-Positive
-
-values,
-
-or
-
-increases,
-
-to
-
-M ight
-
-are
-
-applied
-
-ﬁrst.
-
-450.3.e.1.
-
-If
-
-there
-
-is
-
-a
-
-restriction
-
-or
-
-lim itation
-
-to
-
-this
-
-increase,
-
-the
-
-lim itation
-
-is
-
-“snapshotted”
-
-for
-
-the
-
-duration
-
-of
-
-the
-
-effect.
-
-450.3.e.2.
-
-2.
-
-D ecreases
-
-450.3.f.0.a.
-
-N egative
-
-values,
-
-or
-
-decreases,
-
-to
-
-M ight
-
-are
-
-applied
-
-last.
-
-450.3.g.1.
-
-If
-
-there
-
-is
-
-a
-
-restriction
-
-or
-
-lim itation
-
-to
-
-this
-
-decrease,
-
-the
-
-lim itation
-
-is
-
-snapshotted
-
-for
-
-the
-
-duration
-
-of
-
-the
-
-effect.`,
+    section: `450.3.c. This layer applies arithmetic in the following way`,
+    text: `This layer applies arithmetic in the following way.
+
+1. 1. Increases`,
+  },
+  {
+    id: `450.3.d`,
+    section: `450.3.d. 1`,
+    text: `1. Positive values, or increases, to Might are applied first.`,
+  },
+  {
+    id: `450.3.e`,
+    section: `450.3.e. 1`,
+    text: `1. If there is a restriction or limitation to this increase, the limitation is “snapshotted” for the duration of the effect.
+
+2. 2. Decreases`,
+  },
+  {
+    id: `450.3.f`,
+    section: `450.3.f. 0`,
+    text: `0.a. Negative values, or decreases, to Might are applied last.`,
+  },
+  {
+    id: `450.3.g`,
+    section: `450.3.g. 1`,
+    text: `1. If there is a restriction or limitation to this decrease, the limitation is snapshotted for the duration of the effect.`,
   },
   {
     id: `451`,
-    section: `451. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-effect
-
-applies
-
-to
-
-the
-
-sam e
-
-Gam e
-
-Object
-
-in
-
-the
-
-Sam e
-
-Layer ,
-
-or
-
-to
-
-each
-
-other
-
-in
-
-the
-
-sam e
-
-layer,
-
-then
-
-both
-
-effects
-
-w ill
-
-apply
-
-but
-
-their
-
-order
-
-m ay
-
-be
-
-determ ined
-
-by
-
-Dependency.`,
+    section: `451. If more than one effect applies to the same Game Object in the Same Layer`,
+    text: `If more than one effect applies to the same Game Object in the Same Layer, or to each other in the same layer, then both effects will apply but their order may be determined by Dependency.`,
   },
   {
     id: `451.1`,
-    section: `451.1. A`,
-    text: `A
-
-Dependency
-
-is
-
-established
-
-if:`,
+    section: `451.1. A Dependency is established if:`,
+    text: `A Dependency is established if:`,
   },
   {
     id: `451.1.a`,
-    section: `451.1.a. Applying`,
-    text: `Applying
-
-one
-
-of
-
-the
-
-effects
-
-alters
-
-the
-
-existence
-
-of
-
-the
-
-other;
-
-or`,
+    section: `451.1.a. Applying one of the effects alters the existence of the other; or`,
+    text: `Applying one of the effects alters the existence of the other; or`,
   },
   {
     id: `451.1.b`,
-    section: `451.1.b. Applying`,
-    text: `Applying
-
-one
-
-of
-
-the
-
-effects
-
-alters
-
-the
-
-num ber
-
-of
-
-objects
-
-the
-
-other
-
-effect
-
-can
-
-inﬂuence`,
+    section: `451.1.b. Applying one of the effects alters the number of objects the other effect can influence`,
+    text: `Applying one of the effects alters the number of objects the other effect can influence`,
   },
   {
     id: `451.1.c`,
-    section: `451.1.c. Applying`,
-    text: `Applying
-
-one
-
-of
-
-the
-
-effects
-
-alters
-
-the
-
-outcom e
-
-w hen
-
-applying
-
-the
-
-other
-
-non-
-
-determ inistically`,
+    section: `451.1.c. Applying one of the effects alters the outcome when applying the other nondeterministically`,
+    text: `Applying one of the effects alters the outcome when applying the other nondeterministically`,
   },
   {
     id: `452`,
-    section: `452. To`,
-    text: `To
-
-determ ine
-
-w hich
-
-effect
-
-Depends
-
-on
-
-another,
-
-determ ine
-
-w hich
-
-of
-
-the
-
-prior
-
-criteria
-
-applies,
-
-and
-
-then
-
-also
-
-w hich
-
-effect’s
-
-evaluation
-
-is
-
-altered
-
-by
-
-the
-
-sequence
-
-of
-
-applications.
-
-That
-
-effect
-
-is
-
-said
-
-to
-
-Depend
-
-on
-
-the
-
-other.`,
+    section: `452. To determine which effect Depends on another`,
+    text: `To determine which effect Depends on another, determine which of the prior criteria applies, and then also which effect’s evaluation is altered by the sequence of applications. That effect is said to Depend on the other.`,
   },
   {
     id: `452.1`,
-    section: `452.1. To`,
-    text: `To
-
-resolve
-
-a
-
-dependency,
-
-the
-
-effects
-
-w ithin
-
-the
-
-sam e
-
-layer
-
-that
-
-created
-
-the
-
-dependency
-
-m ust
-
-be
-
-applied
-
-such
-
-that:
-
-1.
-
-Identify
-
-w hich
-
-effect
-
-Depends
-
-on
-
-the
-
-other
-
-w ithin
-
-the
-
-Layer.
-
-2.
-
-Apply
-
-the
-
-effect
-
-that
-
-is
-
-depended
-
-on
-
-ﬁrst.
-
-3.
-
-Im m ediately
-
-apply
-
-the
-
-effect
-
-that
-
-D epends
-
-on
-
-the
-
-ﬁrst
-
-effect
-
-next.`,
+    section: `452.1. To resolve a dependency`,
+    text: `To resolve a dependency, the effects within the same layer that created the dependency must be applied such that: 1. Identify which effect Depends on the other within the Layer. 2. Apply the effect that is depended on first. 3. Immediately apply the effect that Depends on the first effect next.`,
   },
   {
     id: `453`,
-    section: `453. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-effect
-
-applies
-
-in
-
-the
-
-sam e
-
-layer
-
-but
-
-no
-
-dependency
-
-is
-
-established,
-
-then
-
-Tim estam p
-
-order
-
-is
-
-applied
-
-to
-
-the
-
-effects.`,
+    section: `453. If more than one effect applies in the same layer but no dependency is established`,
+    text: `If more than one effect applies in the same layer but no dependency is established, then Timestamp order is applied to the effects.`,
   },
   {
     id: `453.1`,
-    section: `453.1. The`,
-    text: `The
-
-ﬁrst
-
-effect
-
-to
-
-have
-
-been
-
-played
-
-is
-
-applied
-
-ﬁrst,
-
-and
-
-the
-
-new est
-
-effect
-
-is
-
-applied
-
-last
-
-w ithin
-
-the
-
-sam e
-
-Layer.`,
+    section: `453.1. The first effect to have been played is applied first`,
+    text: `The first effect to have been played is applied first, and the newest effect is applied last within the same Layer.`,
+  },
+  {
+    id: `454`,
+    section: `454. Modes of Play`,
+    text: `Modes of Play`,
   },
   {
     id: `455`,
-    section: `455. There`,
-    text: `There
-
-are
-
-m ultiple
-
-m ethods
-
-of
-
-playing
-
-Riftbound.`,
+    section: `455. There are multiple methods of playing Riftbound`,
+    text: `There are multiple methods of playing Riftbound.`,
   },
   {
     id: `456`,
-    section: `456. A`,
-    text: `A
-
-Mode
-
-of
-
-Play
-
-m ust
-
-deﬁne
-
-several
-
-variables
-
-for
-
-the
-
-gam e.`,
+    section: `456. A Mode of Play must define several variables for the game`,
+    text: `A Mode of Play must define several variables for the game.`,
   },
   {
     id: `456.1`,
-    section: `456.1. Num ber`,
-    text: `Num ber
-
-of
-
-Players :
-
-H ow
-
-m any
-
-people
-
-are
-
-playing
-
-the
-
-gam e.`,
+    section: `456.1. Number of Players: How many people are playing the game`,
+    text: `Number of Players: How many people are playing the game.`,
   },
   {
     id: `456.2`,
-    section: `456.2. Form ation`,
-    text: `Form ation
-
-of
-
-Players :
-
-H ow
-
-the
-
-players
-
-are
-
-organized
-
-w hile
-
-playing.`,
+    section: `456.2. Formation of Players: How the players are organized while playing`,
+    text: `Formation of Players: How the players are organized while playing.`,
   },
   {
     id: `456.2.a`,
-    section: `456.2.a. This`,
-    text: `This
-
-deﬁnes
-
-if
-
-a
-
-player
-
-is
-
-alone
-
-or
-
-on
-
-a
-
-team .`,
+    section: `456.2.a. This defines if a player is alone or on a team`,
+    text: `This defines if a player is alone or on a team.`,
   },
   {
     id: `456.2.b`,
-    section: `456.2.b. This`,
-    text: `This
-
-deﬁnes
-
-the
-
-num ber
-
-of
-
-opponents.`,
+    section: `456.2.b. This defines the number of opponents`,
+    text: `This defines the number of opponents.`,
   },
   {
     id: `456.3`,
-    section: `456.3. Victory`,
-    text: `Victory
-
-Score:
-
-The
-
-point
-
-total
-
-a
-
-player
-
-or
-
-team
-
-m ust
-
-reach
-
-to
-
-w in.`,
+    section: `456.3. Victory Score: The point total a player or team must reach to win`,
+    text: `Victory Score: The point total a player or team must reach to win.`,
   },
   {
     id: `456.3.a`,
-    section: `456.3.a. Victory`,
-    text: `Victory
-
-Scores
-
-can
-
-be
-
-any
-
-positive
-
-num ber.`,
+    section: `456.3.a. Victory Scores can be any positive number`,
+    text: `Victory Scores can be any positive number.`,
   },
   {
     id: `456.4`,
-    section: `456.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-D eterm ines
-
-how
-
-m any
-
-Battleﬁelds
-
-are
-
-in
-
-play,
-
-contributed
-
-by
-
-players,
-
-during
-
-play.`,
+    section: `456.4. Battlefield Count: Determines how many Battlefields are in play`,
+    text: `Battlefield Count: Determines how many Battlefields are in play, contributed by players, during play.`,
   },
   {
     id: `456.4.a`,
-    section: `456.4.a. This`,
-    text: `This
-
-m ay
-
-inﬂuence
-
-deck
-
-building
-
-requirem ents
-
-in
-
-com petitive
-
-settings.`,
+    section: `456.4.a. This may influence deck building requirements in competitive settings`,
+    text: `This may influence deck building requirements in competitive settings.`,
   },
   {
     id: `456.4.b`,
-    section: `456.4.b. This`,
-    text: `This
-
-m ay
-
-involve
-
-utilizing
-
-less
-
-Battleﬁelds
-
-than
-
-there
-
-are
-
-players.`,
+    section: `456.4.b. This may involve utilizing less Battlefields than there are players`,
+    text: `This may involve utilizing less Battlefields than there are players.`,
   },
   {
     id: `456.5`,
-    section: `456.5. Setup:`,
-    text: `Setup:
-
-Any
-
-changes
-
-to
-
-initial
-
-setup
-
-required
-
-for
-
-this
-
-m ode.`,
+    section: `456.5. Setup: Any changes to initial setup required for this mode`,
+    text: `Setup: Any changes to initial setup required for this mode.`,
   },
   {
     id: `456.6`,
-    section: `456.6. Form at:`,
-    text: `Form at:
-
-Conditions
-
-to
-
-w in
-
-or
-
-additional
-
-rules
-
-added
-
-over
-
-play.`,
+    section: `456.6. Format: Conditions to win or additional rules added over play`,
+    text: `Format: Conditions to win or additional rules added over play.`,
   },
   {
     id: `456.7`,
-    section: `456.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-Adjustm ents
-
-to
-
-each
-
-player's
-
-ﬁrst
-
-turn.`,
+    section: `456.7. First Turn Process: Adjustments to each player's first turn`,
+    text: `First Turn Process: Adjustments to each player's first turn.`,
   },
   {
     id: `456.8`,
-    section: `456.8. Unique`,
-    text: `Unique
-
-Rules`,
+    section: `456.8. Unique Rules`,
+    text: `Unique Rules`,
   },
   {
     id: `456.8.a`,
-    section: `456.8.a. If`,
-    text: `If
-
-any,
-
-they
-
-w ill
-
-be
-
-appended
-
-here.`,
+    section: `456.8.a. If any`,
+    text: `If any, they will be appended here.`,
   },
   {
     id: `457`,
-    section: `457. Sanctioned`,
-    text: `Sanctioned
-
-M odes`,
+    section: `457. Sanctioned Modes`,
+    text: `Sanctioned Modes`,
   },
   {
     id: `458`,
-    section: `458. 1v1`,
-    text: `1v1
-
-(D uel)`,
+    section: `458. 1v1 (Duel)`,
+    text: `1v1 (Duel)`,
   },
   {
     id: `458.1`,
-    section: `458.1. 2`,
-    text: `2
-
-Players`,
+    section: `458.1. 2 Players`,
+    text: `2 Players`,
   },
   {
     id: `458.2`,
-    section: `458.2. 1v1`,
-    text: `1v1
-
-1
-
-opponent
-
-each
-
-N o
-
-team s`,
+    section: `458.2. 1v1 1 opponent each No teams`,
+    text: `1v1 1 opponent each No teams`,
   },
   {
     id: `458.3`,
-    section: `458.3. Victory`,
-    text: `Victory
-
-Score:
-
-8`,
+    section: `458.3. Victory Score: 8`,
+    text: `Victory Score: 8`,
   },
   {
     id: `458.4`,
-    section: `458.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-2`,
+    section: `458.4. Battlefield Count: 2`,
+    text: `Battlefield Count: 2`,
   },
   {
     id: `458.4.a`,
-    section: `458.4.a. Each`,
-    text: `Each
-
-player
-
-provides
-
-three
-
-(3)
-
-Battleﬁelds ,
-
-included
-
-in
-
-their
-
-deck
-
-during
-
-deck
-
-building.
-
-O nly
-
-1
-
-w ill
-
-be
-
-used,
-
-chosen
-
-during
-
-setup.`,
+    section: `458.4.a. Each player provides three (3) Battlefields`,
+    text: `Each player provides three (3) Battlefields, included in their deck during deck building. Only 1 will be used, chosen during setup.`,
   },
   {
     id: `458.5`,
-    section: `458.5. Setup:`,
-    text: `Setup:
-
-Each
-
-player
-
-random ly
-
-selects
-
-one
-
-(1)
-
-of
-
-their
-
-three
-
-(3)
-
-Battleﬁelds .
-
-The
-
-other
-
-tw o
-
-are
-
-rem oved
-
-and
-
-w ill
-
-not
-
-be
-
-used
-
-for
-
-this
-
-gam e.
-
-The
-
-selected
-
-Battleﬁelds
-
-are
-
-placed
-
-in
-
-the
-
-Battleﬁeld
-
-Zone.`,
+    section: `458.5. Setup: Each player randomly selects one (1) of their three (3) Battlefields`,
+    text: `Setup: Each player randomly selects one (1) of their three (3) Battlefields. The other two are removed and will not be used for this game. The selected Battlefields are placed in the Battlefield Zone.`,
   },
   {
     id: `458.6`,
-    section: `458.6. Form at:`,
-    text: `Form at:
-
-Best
-
-of
-
-1.
-
-The
-
-ﬁrst
-
-player
-
-to
-
-reach
-
-the
-
-Victory
-
-Score
-
-in
-
-Points
-
-w ins
-
-the
-
-Match.`,
+    section: `458.6. Format: Best of 1`,
+    text: `Format: Best of 1. The first player to reach the Victory Score in Points wins the Match.`,
   },
   {
     id: `458.7`,
-    section: `458.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-The
-
-player
-
-going
-
-second
-
-channels
-
-an
-
-extra
-
-Rune
-
-from
-
-their
-
-Rune
-
-D eck
-
-during
-
-their
-
-ﬁrst
-
-Channel
-
-Phase
-
-of
-
-the
-
-gam e.`,
+    section: `458.7. First Turn Process: The player going second channels an extra Rune from their Rune Deck during their first Channel Phase of the game`,
+    text: `First Turn Process: The player going second channels an extra Rune from their Rune Deck during their first Channel Phase of the game.`,
   },
   {
     id: `459`,
-    section: `459. 1v1`,
-    text: `1v1
-
-(M atch)`,
+    section: `459. 1v1 (Match)`,
+    text: `1v1 (Match)`,
   },
   {
     id: `459.1`,
-    section: `459.1. 2`,
-    text: `2
-
-Players`,
+    section: `459.1. 2 Players`,
+    text: `2 Players`,
   },
   {
     id: `459.2`,
-    section: `459.2. 1v1`,
-    text: `1v1
-
-1
-
-opponent
-
-each
-
-N o
-
-team s`,
+    section: `459.2. 1v1 1 opponent each No teams`,
+    text: `1v1 1 opponent each No teams`,
   },
   {
     id: `459.3`,
-    section: `459.3. Victory`,
-    text: `Victory
-
-Score:
-
-8`,
+    section: `459.3. Victory Score: 8`,
+    text: `Victory Score: 8`,
   },
   {
     id: `459.4`,
-    section: `459.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-2`,
+    section: `459.4. Battlefield Count: 2`,
+    text: `Battlefield Count: 2`,
   },
   {
     id: `459.4.a`,
-    section: `459.4.a. Each`,
-    text: `Each
-
-player
-
-provides
-
-three
-
-(3)
-
-Battleﬁelds ,
-
-included
-
-in
-
-their
-
-deck
-
-during
-
-deck
-
-building.
-
-O nly
-
-1
-
-w ill
-
-be
-
-used,
-
-chosen
-
-during
-
-setup.`,
+    section: `459.4.a. Each player provides three (3) Battlefields`,
+    text: `Each player provides three (3) Battlefields, included in their deck during deck building. Only 1 will be used, chosen during setup.`,
   },
   {
     id: `459.5`,
-    section: `459.5. Setup:`,
-    text: `Setup:
-
-Each
-
-player
-
-selects
-
-one
-
-(1)
-
-of
-
-their
-
-three
-
-(3)
-
-Battleﬁelds .
-
-The
-
-other
-
-tw o
-
-are
-
-set
-
-aside
-
-and
-
-w ill
-
-not
-
-be
-
-used
-
-for
-
-this
-
-round
-
-of
-
-play.
-
-The
-
-selected
-
-Battleﬁelds
-
-are
-
-placed
-
-in
-
-the
-
-Battleﬁeld
-
-Zone .
-
-After
-
-this
-
-gam e,
-
-the
-
-Battleﬁelds
-
-that
-
-w ere
-
-used
-
-are
-
-to
-
-be
-
-rem oved
-
-and
-
-not
-
-selected
-
-again
-
-for
-
-this
-
-Match .
-
-O ne
-
-of
-
-the
-
-rem aining
-
-Battleﬁelds
-
-that
-
-w ere
-
-set
-
-aside
-
-m ust
-
-be
-
-chosen
-
-instead.`,
+    section: `459.5. Setup: Each player selects one (1) of their three (3) Battlefields`,
+    text: `Setup: Each player selects one (1) of their three (3) Battlefields. The other two are set aside and will not be used for this round of play. The selected Battlefields are placed in the Battlefield Zone. After this game, the Battlefields that were used are to be removed and not selected again for this Match. One of the remaining Battlefields that were set aside must be chosen instead.`,
   },
   {
     id: `459.6`,
-    section: `459.6. Form at:`,
-    text: `Form at:
-
-Best
-
-of
-
-3.
-
-The
-
-ﬁrst
-
-player
-
-to
-
-reach
-
-the
-
-Victory
-
-Score
-
-in
-
-Points
-
-w ins
-
-the
-
-gam e.
-
-The
-
-w inner
-
-of
-
-that
-
-gam e
-
-earns
-
-One
-
-Set
-
-Point.
-
-Players
-
-then
-
-reset
-
-the
-
-gam e
-
-state,
-
-rem ove
-
-the
-
-Battleﬁelds
-
-in
-
-play
-
-from
-
-the
-
-gam e,
-
-choose
-
-new
-
-Battleﬁelds
-
-from
-
-those
-
-set
-
-aside,
-
-and
-
-play
-
-again.
-
-The
-
-ﬁrst
-
-player
-
-to
-
-earn
-
-Two
-
-Set
-
-Points
-
-w ins.`,
+    section: `459.6. Format: Best of 3`,
+    text: `Format: Best of 3. The first player to reach the Victory Score in Points wins the game. The winner of that game earns One Set Point. Players then reset the game state, remove the Battlefields in play from the game, choose new Battlefields from those set aside, and play again. The first player to earn Two Set Points wins.`,
   },
   {
     id: `459.7`,
-    section: `459.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-The
-
-player
-
-going
-
-second
-
-channels
-
-an
-
-extra
-
-Rune
-
-from
-
-their
-
-Rune
-
-D eck
-
-during
-
-their
-
-ﬁrst
-
-Channel
-
-Phase
-
-of
-
-the
-
-gam e.`,
+    section: `459.7. First Turn Process: The player going second channels an extra Rune from their Rune Deck during their first Channel Phase of the game`,
+    text: `First Turn Process: The player going second channels an extra Rune from their Rune Deck during their first Channel Phase of the game.`,
   },
   {
     id: `460`,
-    section: `460. FFA3`,
-    text: `FFA3
-
-(Skirm ish)`,
+    section: `460. FFA3 (Skirmish)`,
+    text: `FFA3 (Skirmish)`,
   },
   {
     id: `460.1`,
-    section: `460.1. 3`,
-    text: `3
-
-Players`,
+    section: `460.1. 3 Players`,
+    text: `3 Players`,
   },
   {
     id: `460.2`,
-    section: `460.2. FFA`,
-    text: `FFA
-
-2
-
-opponents
-
-each
-
-N o
-
-team s`,
+    section: `460.2. FFA 2 opponents each No teams`,
+    text: `FFA 2 opponents each No teams`,
   },
   {
     id: `460.3`,
-    section: `460.3. Victory`,
-    text: `Victory
-
-Score:
-
-8`,
+    section: `460.3. Victory Score: 8`,
+    text: `Victory Score: 8`,
   },
   {
     id: `460.4`,
-    section: `460.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-3`,
+    section: `460.4. Battlefield Count: 3`,
+    text: `Battlefield Count: 3`,
   },
   {
     id: `460.4.a`,
-    section: `460.4.a. Each`,
-    text: `Each
-
-player
-
-provides
-
-three
-
-(3)
-
-Battleﬁelds,
-
-included
-
-in
-
-their
-
-deck
-
-during
-
-deck
-
-building.
-
-O nly
-
-1
-
-w ill
-
-be
-
-used,
-
-chosen
-
-during
-
-setup.`,
+    section: `460.4.a. Each player provides three (3) Battlefields`,
+    text: `Each player provides three (3) Battlefields, included in their deck during deck building. Only 1 will be used, chosen during setup.`,
   },
   {
     id: `460.5`,
-    section: `460.5. Setup:`,
-    text: `Setup:
-
-Each
-
-player
-
-random ly
-
-selects
-
-one
-
-(1)
-
-of
-
-their
-
-three
-
-(3)
-
-Battleﬁelds .
-
-The
-
-other
-
-tw o
-
-are
-
-discarded
-
-and
-
-w ill
-
-not
-
-be
-
-used
-
-for
-
-this
-
-gam e.
-
-The
-
-selected
-
-Battleﬁelds
-
-are
-
-placed
-
-betw een
-
-the
-
-three
-
-Players
-
-before
-
-play
-
-and
-
-w ill
-
-be
-
-used
-
-for
-
-this
-
-gam e.`,
+    section: `460.5. Setup: Each player randomly selects one (1) of their three (3) Battlefields`,
+    text: `Setup: Each player randomly selects one (1) of their three (3) Battlefields. The other two are discarded and will not be used for this game. The selected Battlefields are placed between the three Players before play and will be used for this game.`,
   },
   {
     id: `460.6`,
-    section: `460.6. Form at:`,
-    text: `Form at:
-
-Best
-
-of
-
-1.
-
-The
-
-ﬁrst
-
-player
-
-to
-
-reach
-
-the
-
-Victory
-
-Score
-
-in
-
-Points
-
-w ins
-
-the
-
-Match.`,
+    section: `460.6. Format: Best of 1`,
+    text: `Format: Best of 1. The first player to reach the Victory Score in Points wins the Match.`,
   },
   {
     id: `460.7`,
-    section: `460.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-The
-
-player
-
-going
-
-ﬁrst
-
-does
-
-not
-
-draw
-
-a
-
-card
-
-during
-
-their
-
-ﬁrst
-
-Draw
-
-Phase
-
-of
-
-the
-
-gam e.
-
-The
-
-player
-
-going
-
-last
-
-channels
-
-an
-
-extra
-
-Rune
-
-from
-
-their
-
-Rune
-
-D eck
-
-during
-
-their
-
-ﬁrst
-
-Channel
-
-Phase
-
-of
-
-the
-
-gam e.`,
+    section: `460.7. First Turn Process: The player going first does not draw a card during their first Draw Phase of the game`,
+    text: `First Turn Process: The player going first does not draw a card during their first Draw Phase of the game. The player going last channels an extra Rune from their Rune Deck during their first Channel Phase of the game.`,
   },
   {
     id: `461`,
-    section: `461. FFA4`,
-    text: `FFA4
-
-(W ar)`,
+    section: `461. FFA4 (War)`,
+    text: `FFA4 (War)`,
   },
   {
     id: `461.1`,
-    section: `461.1. 4`,
-    text: `4
-
-Players`,
+    section: `461.1. 4 Players`,
+    text: `4 Players`,
   },
   {
     id: `461.2`,
-    section: `461.2. FFA`,
-    text: `FFA
-
-3
-
-opponents
-
-each
-
-N o
-
-team s`,
+    section: `461.2. FFA 3 opponents each No teams`,
+    text: `FFA 3 opponents each No teams`,
   },
   {
     id: `461.3`,
-    section: `461.3. Victory`,
-    text: `Victory
-
-Score:
-
-8`,
+    section: `461.3. Victory Score: 8`,
+    text: `Victory Score: 8`,
   },
   {
     id: `461.4`,
-    section: `461.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-3`,
+    section: `461.4. Battlefield Count: 3`,
+    text: `Battlefield Count: 3`,
   },
   {
     id: `461.4.a`,
-    section: `461.4.a. Each`,
-    text: `Each
-
-player
-
-provides
-
-three
-
-(3)
-
-Battleﬁelds ,
-
-included
-
-in
-
-their
-
-deck
-
-during
-
-deck
-
-building.`,
+    section: `461.4.a. Each player provides three (3) Battlefields`,
+    text: `Each player provides three (3) Battlefields, included in their deck during deck building.`,
   },
   {
     id: `461.4.b`,
-    section: `461.4.b. The`,
-    text: `The
-
-player
-
-w ho
-
-is
-
-taking
-
-the
-
-ﬁrst
-
-turn
-
-rem oves
-
-their
-
-Battleﬁelds.
-
-They
-
-w ill
-
-not
-
-be
-
-used.`,
+    section: `461.4.b. The player who is taking the first turn removes their Battlefields`,
+    text: `The player who is taking the first turn removes their Battlefields. They will not be used.`,
   },
   {
     id: `461.5`,
-    section: `461.5. Setup:`,
-    text: `Setup:
-
-Each
-
-player
-
-w ho
-
-is
-
-not
-
-going
-
-ﬁrst
-
-random ly
-
-selects
-
-one
-
-(1)
-
-of
-
-their
-
-three
-
-(3)
-
-Battleﬁelds .
-
-The
-
-other
-
-tw o
-
-are
-
-rem oved
-
-and
-
-w ill
-
-not
-
-be
-
-used
-
-for
-
-this
-
-gam e.
-
-The
-
-selected
-
-Battleﬁelds
-
-are
-
-placed
-
-betw een
-
-the
-
-players
-
-before
-
-play
-
-and
-
-w ill
-
-be
-
-used
-
-for
-
-this
-
-gam e.`,
+    section: `461.5. Setup: Each player who is not going first randomly selects one (1) of their three (3) Battlefields`,
+    text: `Setup: Each player who is not going first randomly selects one (1) of their three (3) Battlefields. The other two are removed and will not be used for this game. The selected Battlefields are placed between the players before play and will be used for this game.`,
   },
   {
     id: `461.6`,
-    section: `461.6. Form at:`,
-    text: `Form at:
-
-Best
-
-of
-
-1.
-
-The
-
-ﬁrst
-
-player
-
-to
-
-reach
-
-the
-
-Victory
-
-Score
-
-in
-
-Points
-
-w ins
-
-the
-
-Match.`,
+    section: `461.6. Format: Best of 1`,
+    text: `Format: Best of 1. The first player to reach the Victory Score in Points wins the Match.`,
   },
   {
     id: `461.7`,
-    section: `461.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-The
-
-player
-
-going
-
-ﬁrst
-
-does
-
-not
-
-draw
-
-a
-
-card
-
-during
-
-their
-
-ﬁrst
-
-Draw
-
-Phase
-
-of
-
-the
-
-gam e.
-
-The
-
-player
-
-going
-
-last
-
-channels
-
-an
-
-extra
-
-Rune
-
-from
-
-their
-
-Rune
-
-D eck
-
-during
-
-their
-
-ﬁrst
-
-Channel
-
-Phase
-
-of
-
-the
-
-gam e.`,
+    section: `461.7. First Turn Process: The player going first does not draw a card during their first Draw Phase of the game`,
+    text: `First Turn Process: The player going first does not draw a card during their first Draw Phase of the game. The player going last channels an extra Rune from their Rune Deck during their first Channel Phase of the game.`,
   },
   {
     id: `462`,
-    section: `462. 2v2`,
-    text: `2v2
-
-(M agm a
-
-Cham ber)`,
+    section: `462. 2v2 (Magma Chamber)`,
+    text: `2v2 (Magma Chamber)`,
   },
   {
     id: `462.1`,
-    section: `462.1. 4`,
-    text: `4
-
-Players`,
+    section: `462.1. 4 Players`,
+    text: `4 Players`,
   },
   {
     id: `462.2`,
-    section: `462.2. 2v2`,
-    text: `2v2
-
-2
-
-opponents
-
-each
-
-1
-
-team m ate`,
+    section: `462.2. 2v2 2 opponents each 1 teammate`,
+    text: `2v2 2 opponents each 1 teammate`,
   },
   {
     id: `462.3`,
-    section: `462.3. Victory`,
-    text: `Victory
-
-Score:
-
-11`,
+    section: `462.3. Victory Score: 11`,
+    text: `Victory Score: 11`,
   },
   {
     id: `462.4`,
-    section: `462.4. Battleﬁeld`,
-    text: `Battleﬁeld
-
-Count:
-
-3`,
+    section: `462.4. Battlefield Count: 3`,
+    text: `Battlefield Count: 3`,
   },
   {
     id: `462.4.a`,
-    section: `462.4.a. Each`,
-    text: `Each
-
-player
-
-provides
-
-one
-
-(1)
-
-Battleﬁeld ,
-
-included
-
-in
-
-their
-
-deck
-
-during
-
-deck
-
-building.`,
+    section: `462.4.a. Each player provides one (1) Battlefield`,
+    text: `Each player provides one (1) Battlefield, included in their deck during deck building.`,
   },
   {
     id: `462.4.b`,
-    section: `462.4.b. The`,
-    text: `The
-
-player
-
-w ho
-
-is
-
-taking
-
-the
-
-ﬁrst
-
-turn
-
-rem oves
-
-their
-
-Battleﬁelds.
-
-They
-
-w ill
-
-not
-
-be
-
-used.`,
+    section: `462.4.b. The player who is taking the first turn removes their Battlefields`,
+    text: `The player who is taking the first turn removes their Battlefields. They will not be used.`,
   },
   {
     id: `462.5`,
@@ -54681,873 +6236,99 @@ used.`,
   },
   {
     id: `462.5.a`,
-    section: `462.5.a. Each`,
-    text: `Each
-
-player
-
-w ho
-
-is
-
-not
-
-going
-
-ﬁrst
-
-random ly
-
-selects
-
-one
-
-(1)
-
-of
-
-their
-
-three
-
-(3)
-
-Battleﬁelds .
-
-The
-
-other
-
-tw o
-
-are
-
-rem oved
-
-and
-
-w ill
-
-not
-
-be
-
-used
-
-for
-
-this
-
-gam e.
-
-The
-
-selected
-
-Battleﬁelds
-
-are
-
-placed
-
-betw een
-
-the
-
-players
-
-before
-
-play
-
-and
-
-w ill
-
-be
-
-used
-
-for
-
-this
-
-gam e.`,
+    section: `462.5.a. Each player who is not going first randomly selects one (1) of their three (3) Battlefields`,
+    text: `Each player who is not going first randomly selects one (1) of their three (3) Battlefields. The other two are removed and will not be used for this game. The selected Battlefields are placed between the players before play and will be used for this game.`,
   },
   {
     id: `462.5.b`,
-    section: `462.5.b. Turn`,
-    text: `Turn
+    section: `462.5.b. Turn order alternates teams`,
+    text: `Turn order alternates teams.
 
-order
+1. The first player will be followed by an opponent, then the first player's teammate, then the first opponent's teammate, and so on.
 
-alternates
+2. If allies are sitting across from each other, turn order proceeds clockwise as normal.
 
-team s.
-
-462.5.b.1.
-
-The
-
-ﬁrst
-
-player
-
-w ill
-
-be
-
-follow ed
-
-by
-
-an
-
-opponent,
-
-then
-
-the
-
-ﬁrst
-
-player's
-
-team m ate,
-
-then
-
-the
-
-ﬁrst
-
-opponent's
-
-team m ate,
-
-and
-
-so
-
-on.
-
-462.5.b.2.
-
-If
-
-allies
-
-are
-
-sitting
-
-across
-
-from
-
-each
-
-other,
-
-turn
-
-order
-
-proceeds
-
-clockw ise
-
-as
-
-norm al.
-
-462.5.b.3.
-
-If
-
-allies
-
-are
-
-sitting
-
-next
-
-to
-
-each
-
-other,
-
-turn
-
-order
-
-is
-
-passed
-
-across
-
-the
-
-table.`,
+3. If allies are sitting next to each other, turn order is passed across the table.`,
   },
   {
     id: `462.6`,
-    section: `462.6. Form at:`,
-    text: `Form at:
-
-Best
-
-of
-
-1.
-
-The
-
-ﬁrst
-
-team
-
-to
-
-reach
-
-the
-
-Victory
-
-Score
-
-in
-
-Points
-
-w ins
-
-the
-
-Match.`,
+    section: `462.6. Format: Best of 1`,
+    text: `Format: Best of 1. The first team to reach the Victory Score in Points wins the Match.`,
   },
   {
     id: `462.6.a`,
-    section: `462.6.a. Team m ates`,
-    text: `Team m ates
+    section: `462.6.a. Teammates win or lose together`,
+    text: `Teammates win or lose together.
 
-w in
+1. If one player Concedes, then the entire team loses.
 
-or
+2. If one player Loses, then the entire team loses.
 
-lose
-
-together.
-
-462.6.a.1.
-
-If
-
-one
-
-player
-
-Concedes ,
-
-then
-
-the
-
-entire
-
-team
-
-loses.
-
-462.6.a.2.
-
-If
-
-one
-
-player
-
-Loses,
-
-then
-
-the
-
-entire
-
-team
-
-loses.
-
-462.6.a.3.
-
-If
-
-one
-
-player
-
-W ins ,
-
-then
-
-the
-
-entire
-
-team
-
-w ins.`,
+3. If one player Wins, then the entire team wins.`,
   },
   {
     id: `462.7`,
-    section: `462.7. First`,
-    text: `First
-
-Turn
-
-Process:
-
-The
-
-player
-
-going
-
-ﬁrst
-
-does
-
-not
-
-draw
-
-a
-
-card
-
-during
-
-their
-
-ﬁrst
-
-Draw
-
-Phase
-
-of
-
-the
-
-gam e.
-
-The
-
-player
-
-going
-
-last
-
-channels
-
-an
-
-extra
-
-Rune
-
-from
-
-their
-
-Rune
-
-D eck
-
-during
-
-their
-
-ﬁrst
-
-Channel
-
-Phase
-
-of
-
-the
-
-gam e.`,
+    section: `462.7. First Turn Process: The player going first does not draw a card during their first Draw Phase of the game`,
+    text: `First Turn Process: The player going first does not draw a card during their first Draw Phase of the game. The player going last channels an extra Rune from their Rune Deck during their first Channel Phase of the game.`,
   },
   {
     id: `462.8`,
-    section: `462.8. Unique`,
-    text: `Unique
-
-Rules`,
+    section: `462.8. Unique Rules`,
+    text: `Unique Rules`,
   },
   {
     id: `462.8.a`,
-    section: `462.8.a. Players`,
-    text: `Players
-
-m ay
-
-play
-
-spells
-
-during
-
-their
-
-Team m ate's
-
-Turn.`,
+    section: `462.8.a. Players may play spells during their Teammate's Turn`,
+    text: `Players may play spells during their Teammate's Turn.`,
   },
   {
     id: `462.8.b`,
-    section: `462.8.b. Battleﬁelds`,
-    text: `Battleﬁelds
-
-controlled
-
-during
-
-the
-
-Beginning
-
-Phase
-
-of
-
-a
-
-player's
-
-turn
-
-by
-
-that
-
-player's
-
-team m ate
-
-are
-
-disqualiﬁed
-
-from
-
-being
-
-scored
-
-by
-
-that
-
-Team ,
-
-that
-
-turn.
-
-Example:
-
-A
-
-player
-
-m ay
-
-not
-
-induce
-
-their
-
-partner
-
-to
-
-retreat,
-
-and
-
-then
-
-conquer
-
-a
-
-Battleﬁeld
-
-their
-
-team m ate
-
-w as
-
-controlling.`,
+    section: `462.8.b. Battlefields controlled during the Beginning Phase of a player's turn by that player's teammate are disqualified from being scored by that Team`,
+    text: `Battlefields controlled during the Beginning Phase of a player's turn by that player's teammate are disqualified from being scored by that Team, that turn. Example: A player may not induce their partner to retreat, and then conquer a Battlefield their teammate was controlling.`,
   },
   {
     id: `462.8.c`,
-    section: `462.8.c. Control`,
-    text: `Control
+    section: `462.8.c. Control is not shared`,
+    text: `Control is not shared.
 
-is
+1. Players may not Hide cards at Battlefields controlled by their Teammate.
 
-not
-
-shared.
-
-462.8.c.1.
-
-Players
-
-m ay
-
-not
-
-Hide
-
-cards
-
-at
-
-Battleﬁelds
-
-controlled
-
-by
-
-their
-
-Team m ate.
-
-462.8.c.2.
-
-Players
-
-m ay
-
-not
-
-issue
-
-Standard
-
-Movem ent
-
-to
-
-their
-
-Team m ate's
-
-Units.`,
+2. Players may not issue Standard Movement to their Teammate's Units.`,
   },
   {
     id: `462.8.d`,
-    section: `462.8.d. Friendly`,
-    text: `Friendly
-
-describes
-
-controlled
-
-Gam e
-
-Objects
-
-by
-
-a
-
-player
-
-or
-
-their
-
-Team m ate.
-
-Example:
-
-"W hen
-
-I
-
-am
-
-played,
-
-ready
-
-a
-
-friendly
-
-unit "
-
-could
-
-target
-
-a
-
-player's
-
-ow n
-
-Units
-
-or
-
-their
-
-team m ate's
-
-Units.`,
+    section: `462.8.d. Friendly describes controlled Game Objects by a player or their Teammate`,
+    text: `Friendly describes controlled Game Objects by a player or their Teammate. Example: "When I am played, ready a friendly unit" could target a player's own Units or their teammate's Units.`,
   },
   {
     id: `462.8.e`,
-    section: `462.8.e. H ands`,
-    text: `H ands
+    section: `462.8.e. Hands are still Private Information`,
+    text: `Hands are still Private Information.
 
-are
+1. Players are not restricted in what they say to their Teammate, however.
 
-still
+1.a. Feel free to openly communicate, honestly or cryptically.
 
-Private
-
-Inform ation.
-
-462.8.e.1.
-
-Players
-
-are
-
-not
-
-restricted
-
-in
-
-w hat
-
-they
-
-say
-
-to
-
-their
-
-Team m ate,
-
-how ever.
-
-462.8.e.1.a.
-
-Feel
-
-free
-
-to
-
-openly
-
-com m unicate,
-
-honestly
-
-or
-
-cryptically.
-
-462.8.e.1.b.
-
-Revealing
-
-Cards
-
-is
-
-still
-
-a
-
-gam e
-
-action
-
-and
-
-cannot
-
-be
-
-done
-
-unless
-
-instructed.
-
-See
-
-rule`,
+1.b. Revealing Cards is still a game action and cannot be done unless instructed. See rule 411. Reveal for more information.`,
   },
   {
     id: `462.8.f`,
-    section: `462.8.f. The`,
-    text: `The
+    section: `462.8.f. The Final Point has an adjustment to the criteria when scoring`,
+    text: `The Final Point has an adjustment to the criteria when scoring.
 
-Final
+1. When scoring the Final Point from Conquer, a player must Score each Battlefield in the same turn, excepting any that were occupied by their ally during that turn’s Beginning Phase.
 
-Point
-
-has
-
-an
-
-adjustm ent
-
-to
-
-the
-
-criteria
-
-w hen
-
-scoring.
-
-462.8.f.1.
-
-W hen
-
-scoring
-
-the
-
-Final
-
-Point
-
-from
-
-Conquer ,
-
-a
-
-player
-
-m ust
-
-Score
-
-each
-
-Battleﬁeld
-
-in
-
-the
-
-sam e
-
-turn,
-
-excepting
-
-any
-
-that
-
-w ere
-
-occupied
-
-by
-
-their
-
-ally
-
-during
-
-that
-
-turn’s
-
-Beginning
-
-Phase .
-
-462.8.f.2.
-
-N o
-
-other
-
-changes
-
-to
-
-Final
-
-Point
-
-restrictions.`,
+2. No other changes to Final Point restrictions.`,
   },
   {
     id: `462.8.g`,
-    section: `462.8.g. Team m ates`,
-    text: `Team m ates
-
-m ay
-
-not
-
-utilize
-
-the
-
-sam e
-
-Cham pion
-
-Legend .`,
+    section: `462.8.g. Teammates may not utilize the same Champion Legend`,
+    text: `Teammates may not utilize the same Champion Legend.`,
   },
   {
     id: `462.8.h`,
-    section: `462.8.h. Team m ates`,
-    text: `Team m ates
-
-m ay
-
-not
-
-utilize
-
-the
-
-sam e
-
-Battleﬁelds .`,
+    section: `462.8.h. Teammates may not utilize the same Battlefields`,
+    text: `Teammates may not utilize the same Battlefields.`,
   },
   {
     id: `649`,
@@ -55556,1237 +6337,172 @@ Battleﬁelds .`,
   },
   {
     id: `650`,
-    section: `650. A`,
-    text: `A
-
-player
-
-m ay
-
-concede
-
-at
-
-any
-
-tim e.`,
+    section: `650. A player may concede at any time`,
+    text: `A player may concede at any time.`,
   },
   {
     id: `651`,
-    section: `651. W hen`,
-    text: `W hen
-
-a
-
-player
-
-concedes,
-
-they
-
-are
-
-rem oved
-
-from
-
-the
-
-gam e
-
-in
-
-progress.`,
+    section: `651. When a player concedes`,
+    text: `When a player concedes, they are removed from the game in progress.`,
   },
   {
     id: `651.1`,
-    section: `651.1. If`,
-    text: `If
-
-only
-
-one
-
-other
-
-player
-
-is
-
-rem aining
-
-after
-
-a
-
-player
-
-has
-
-conceded,
-
-the
-
-player
-
-rem aining
-
-W ins.`,
+    section: `651.1. If only one other player is remaining after a player has conceded`,
+    text: `If only one other player is remaining after a player has conceded, the player remaining Wins.`,
   },
   {
     id: `651.2`,
-    section: `651.2. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-player
-
-rem ains
-
-after
-
-a
-
-concession,
-
-follow
-
-the
-
-steps
-
-for
-
-the
-
-Rem oval
-
-of
-
-a
-
-Player.`,
+    section: `651.2. If more than one player remains after a concession`,
+    text: `If more than one player remains after a concession, follow the steps for the Removal of a Player.`,
   },
   {
     id: `651.3`,
-    section: `651.3. Rem oval`,
-    text: `Rem oval
-
-of
-
-a
-
-player
-
-involves
-
-them
-
-no
-
-longer
-
-being
-
-able
-
-to
-
-m ake
-
-choices
-
-or
-
-otherw ise
-
-inﬂuence
-
-the
-
-gam e.`,
+    section: `651.3. Removal of a player involves them no longer being able to make choices or otherwise influence the game`,
+    text: `Removal of a player involves them no longer being able to make choices or otherwise influence the game.`,
   },
   {
     id: `651.4`,
-    section: `651.4. If`,
-    text: `If
-
-the
-
-player
-
-has
-
-Team m ates
-
-due
-
-to
-
-the
-
-Mode
-
-of
-
-Play ,
-
-that
-
-player’s
-
-Team m ates
-
-also
-
-lose
-
-and
-
-are
-
-rem oved
-
-from
-
-the
-
-gam e.`,
+    section: `651.4. If the player has Teammates due to the Mode of Play`,
+    text: `If the player has Teammates due to the Mode of Play, that player’s Teammates also lose and are removed from the game.`,
   },
   {
     id: `652`,
-    section: `652. If`,
-    text: `If
-
-the
-
-gam e
-
-continues,
-
-follow
-
-these
-
-steps
-
-for
-
-Rem oval
-
-of
-
-a
-
-Player.`,
+    section: `652. If the game continues`,
+    text: `If the game continues, follow these steps for Removal of a Player.`,
   },
   {
     id: `652.1`,
-    section: `652.1. Banish`,
-    text: `Banish
-
-all
-
-perm anents
-
-and
-
-runes
-
-they
-
-currently
-
-control
-
-and
-
-all
-
-perm anents
-
-and
-
-runes
-
-they
-
-ow n.`,
+    section: `652.1. Banish all permanents and runes they currently control and all permanents and runes they own`,
+    text: `Banish all permanents and runes they currently control and all permanents and runes they own.`,
   },
   {
     id: `652.2`,
-    section: `652.2. Rem ove`,
-    text: `Rem ove
-
-the
-
-Battleﬁeld
-
-they
-
-contributed
-
-to
-
-the
-
-gam e
-
-if
-
-it
-
-is
-
-in
-
-use.`,
+    section: `652.2. Remove the Battlefield they contributed to the game if it is in use`,
+    text: `Remove the Battlefield they contributed to the game if it is in use.`,
   },
   {
     id: `652.2.a`,
-    section: `652.2.a. If`,
-    text: `If
-
-it
-
-w as
-
-in
-
-use,
-
-replace
-
-it
-
-w ith
-
-a
-
-token
-
-battleﬁeld
-
-w ith
-
-no
-
-abilities.`,
+    section: `652.2.a. If it was in use`,
+    text: `If it was in use, replace it with a token battlefield with no abilities.`,
   },
   {
     id: `652.2.b`,
-    section: `652.2.b. Any`,
-    text: `Any
-
-units
-
-or
-
-hidden
-
-cards
-
-there
-
-do
-
-not
-
-m ove
-
-and
-
-are
-
-otherw ise
-
-unaffected
-
-by
-
-this
-
-process.`,
+    section: `652.2.b. Any units or hidden cards there do not move and are otherwise unaffected by this process`,
+    text: `Any units or hidden cards there do not move and are otherwise unaffected by this process.`,
   },
   {
     id: `652.2.c`,
-    section: `652.2.c. If`,
-    text: `If
-
-the
-
-rem oved
-
-battleﬁeld
-
-w as
-
-applying
-
-any
-
-continuous
-
-effects,
-
-those
-
-continuous
-
-effects
-
-im m ediately
-
-cease,
-
-w hich
-
-m ay
-
-cause
-
-changes
-
-in
-
-the
-
-characteristics
-
-of
-
-units
-
-or
-
-hidden
-
-cards
-
-there.
-
-Example:
-
-A
-
-battleﬁeld
-
-reads
-
-"Units
-
-here
-
-have
-
-+1
-
-[M ]."
-
-If
-
-that
-
-battleﬁeld's
-
-ow ner
-
-concedes
-
-and
-
-the
-
-battleﬁeld
-
-is
-
-rem oved
-
-from
-
-the
-
-gam e
-
-as
-
-a
-
-result,
-
-units
-
-there
-
-im m ediately
-
-cease
-
-to
-
-get
-
-+1
-
-[M ].`,
+    section: `652.2.c. If the removed battlefield was applying any continuous effects`,
+    text: `If the removed battlefield was applying any continuous effects, those continuous effects immediately cease, which may cause changes in the characteristics of units or hidden cards there. Example: A battlefield reads "Units here have +1 [M]." If that battlefield's owner concedes and the battlefield is removed from the game as a result, units there immediately cease to get +1 [M].`,
   },
   {
     id: `652.3`,
-    section: `652.3. Rem ove`,
-    text: `Rem ove
-
-all
-
-cards
-
-they
-
-ow n
-
-from
-
-the
-
-gam e.`,
+    section: `652.3. Remove all cards they own from the game`,
+    text: `Remove all cards they own from the game.`,
   },
   {
     id: `652.4`,
-    section: `652.4. Counter`,
-    text: `Counter
-
-all
-
-spells
-
-and
-
-abilities
-
-of
-
-all
-
-types
-
-controlled
-
-by
-
-the
-
-player
-
-that
-
-has
-
-conceded.`,
+    section: `652.4. Counter all spells and abilities of all types controlled by the player that has conceded`,
+    text: `Counter all spells and abilities of all types controlled by the player that has conceded.`,
   },
   {
     id: `652.5`,
-    section: `652.5. Proceed`,
-    text: `Proceed
-
-w ith
-
-the
-
-gam e.`,
+    section: `652.5. Proceed with the game`,
+    text: `Proceed with the game.`,
   },
   {
     id: `652.5.a`,
     section: `652.5.a. Turn`,
     text: `Turn
 
-652.5.a.1.
-
-If
-
-the
-
-rem oved
-
-player
-
-w as
-
-the
-
-Turn
-
-Player ,
-
-play
-
-proceeds
-
-in
-
-Turn
-
-Order
-
-to
-
-the
-
-next
-
-available
-
-player
-
-in
-
-order.`,
+1. If the removed player was the Turn Player, play proceeds in Turn Order to the next available player in order.`,
   },
   {
     id: `652.5.b`,
     section: `652.5.b. Focus`,
     text: `Focus
 
-652.5.b.1.
+1. If the removed player had Focus in a Showdown, the next Player in order receives Focus.
 
-If
-
-the
-
-rem oved
-
-player
-
-had
-
-Focus
-
-in
-
-a
-
-Showdown ,
-
-the
-
-next
-
-Player
-
-in
-
-order
-
-receives
-
-Focus .
-
-652.5.b.2.
-
-If
-
-the
-
-player
-
-being
-
-rem oved
-
-creates
-
-a
-
-state
-
-w here
-
-all
-
-Players
-
-have
-
-Passed
-
-their
-
-Focus ,
-
-the
-
-Showdown
-
-ends
-
-and
-
-play
-
-proceeds
-
-as
-
-necessary,
-
-E.G.
-
-Com bat
-
-is
-
-resolved
-
-or
-
-a
-
-Cleanup
-
-is
-
-com pleted.`,
+2. If the player being removed creates a state where all Players have Passed their Focus, the Showdown ends and play proceeds as necessary, E.G. Combat is resolved or a Cleanup is completed.`,
   },
   {
     id: `652.5.c`,
     section: `652.5.c. Priority`,
     text: `Priority
 
-652.5.c.1.
+1. If the removed player had Priority during a Chain, the next Player in order receives Priority.
 
-If
-
-the
-
-rem oved
-
-player
-
-had
-
-Priority
-
-during
-
-a
-
-Chain ,
-
-the
-
-next
-
-Player
-
-in
-
-order
-
-receives
-
-Priority .
-
-652.5.c.2.
-
-If
-
-the
-
-player
-
-being
-
-rem oved
-
-creates
-
-a
-
-state
-
-w here
-
-all
-
-Players
-
-have
-
-passed
-
-Priority ,
-
-then
-
-the
-
-m ost
-
-recent
-
-spell
-
-or
-
-ability
-
-on
-
-the
-
-Chain
-
-w ill
-
-resolve
-
-w ith
-
-Priority
-
-being
-
-re-established
-
-as
-
-appropriate
-
-for
-
-the
-
-state
-
-after
-
-the
-
-resolution
-
-of
-
-that
-
-spell
-
-or
-
-ability.`,
+2. If the player being removed creates a state where all Players have passed Priority, then the most recent spell or ability on the Chain will resolve with Priority being re-established as appropriate for the state after the resolution of that spell or ability.`,
   },
   {
     id: `700`,
-    section: `700. Additional`,
-    text: `Additional
-
-Rules`,
+    section: `700. Additional Rules`,
+    text: `Additional Rules`,
+  },
+  {
+    id: `701`,
+    section: `701. Buffs`,
+    text: `Buffs`,
   },
   {
     id: `702`,
-    section: `702. Buffs`,
-    text: `Buffs
-
-are
-
-objects
-
-placed
-
-on
-
-Units.`,
+    section: `702. Buffs are objects placed on Units`,
+    text: `Buffs are objects placed on Units.`,
   },
   {
     id: `702.1`,
-    section: `702.1. Buffs`,
-    text: `Buffs
-
-can
-
-be
-
-tracked
-
-w ith
-
-a
-
-buff
-
-rem inder
-
-card
-
-from
-
-a
-
-Riftbound
-
-booster
-
-pack
-
-or
-
-w ith
-
-any
-
-spare
-
-object
-
-in
-
-your
-
-surroundings.`,
+    section: `702.1. Buffs can be tracked with a buff reminder card from a Riftbound booster pack or with any spare object in your surroundings`,
+    text: `Buffs can be tracked with a buff reminder card from a Riftbound booster pack or with any spare object in your surroundings.`,
   },
   {
     id: `702.2`,
-    section: `702.2. Buffs`,
-    text: `Buffs
-
-can
-
-be
-
-added
-
-or
-
-spent.`,
+    section: `702.2. Buffs can be added or spent`,
+    text: `Buffs can be added or spent.`,
   },
   {
     id: `702.2.a`,
-    section: `702.2.a. To`,
-    text: `To
-
-Buff
-
-a
-
-Unit ,
-
-a
-
-player
-
-chooses
-
-a
-
-Unit
-
-and
-
-then
-
-places
-
-a
-
-buff
-
-on
-
-it.
-
-That
-
-Unit
-
-is
-
-Buffed
-
-for
-
-as
-
-long
-
-as
-
-the
-
-buff
-
-rem ains
-
-on
-
-it.`,
+    section: `702.2.a. To Buff a Unit`,
+    text: `To Buff a Unit, a player chooses a Unit and then places a buff on it. That Unit is Buffed for as long as the buff remains on it.`,
   },
   {
     id: `702.2.b`,
-    section: `702.2.b. Spending`,
-    text: `Spending
+    section: `702.2.b. Spending a Buff removes a single Buff counter from a Unit`,
+    text: `Spending a Buff removes a single Buff counter from a Unit.
 
-a
+1. A buff cannot be spent from a Unit that does not have a buff.
 
-Buff
-
-rem oves
-
-a
-
-single
-
-Buff
-
-counter
-
-from
-
-a
-
-Unit .
-
-702.2.b.1.
-
-A
-
-buff
-
-cannot
-
-be
-
-spent
-
-from
-
-a
-
-Unit
-
-that
-
-does
-
-not
-
-have
-
-a
-
-buff.
-
-702.2.b.2.
-
-A
-
-player
-
-can
-
-only
-
-spend
-
-buffs
-
-on
-
-units
-
-they
-
-control.`,
+2. A player can only spend buffs on units they control.`,
   },
   {
     id: `702.3`,
-    section: `702.3. There`,
-    text: `There
-
-can
-
-only
-
-be
-
-one
-
-Buff
-
-on
-
-a
-
-Unit
-
-at
-
-a
-
-tim e.`,
+    section: `702.3. There can only be one Buff on a Unit at a time`,
+    text: `There can only be one Buff on a Unit at a time.`,
   },
   {
     id: `702.3.a`,
-    section: `702.3.a. If`,
-    text: `If
-
-a
-
-Buff
-
-is
-
-added,
-
-or
-
-instructed
-
-to
-
-be
-
-added,
-
-on
-
-a
-
-Unit
-
-that
-
-already
-
-has
-
-a
-
-Buff ,
-
-it
-
-is
-
-not
-
-placed
-
-instead.`,
+    section: `702.3.a. If a Buff is added`,
+    text: `If a Buff is added, or instructed to be added, on a Unit that already has a Buff, it is not placed instead.`,
   },
   {
     id: `703`,
-    section: `703. Each`,
-    text: `Each
-
-Buff
-
-individually
-
-contributes
-
-+1
-
-Might
-
-to
-
-a
-
-Unit.`,
+    section: `703. Each Buff individually contributes +1 Might to a Unit`,
+    text: `Each Buff individually contributes +1 Might to a Unit.`,
   },
   {
     id: `704`,
-    section: `704. Buffs`,
-    text: `Buffs
-
-are
-
-Gam e
-
-Objects
-
-and
-
-m ay
-
-be
-
-referenced,
-
-counted,
-
-or
-
-targeted
-
-by
-
-other
-
-effects
-
-as
-
-speciﬁed.`,
+    section: `704. Buffs are Game Objects and may be referenced`,
+    text: `Buffs are Game Objects and may be referenced, counted, or targeted by other effects as specified.`,
   },
   {
     id: `705`,
-    section: `705. If`,
-    text: `If
-
-a
-
-Unit
-
-leaves
-
-play,
-
-rem ove
-
-all
-
-Buffs
-
-from
-
-it.`,
+    section: `705. If a Unit leaves play`,
+    text: `If a Unit leaves play, remove all Buffs from it.`,
   },
   {
     id: `705.1`,
-    section: `705.1. Cham pions`,
-    text: `Cham pions
-
-do
-
-not
-
-retain
-
-Buffs
-
-in
-
-the
-
-Cham pion
-
-Zone,
-
-even
-
-if
-
-they
-
-return
-
-there
-
-som ehow .`,
+    section: `705.1. Champions do not retain Buffs in the Champion Zone`,
+    text: `Champions do not retain Buffs in the Champion Zone, even if they return there somehow.`,
   },
   {
     id: `706`,
@@ -56795,1961 +6511,192 @@ som ehow .`,
   },
   {
     id: `707`,
-    section: `707. Mighty`,
-    text: `Mighty
-
-is
-
-a
-
-description
-
-that
-
-applies
-
-to
-
-som e
-
-units.
-
-O ther
-
-gam e
-
-effects
-
-can
-
-check
-
-w hether
-
-a
-
-unit
-
-is
-
-Mighty.`,
+    section: `707. Mighty is a description that applies to some units`,
+    text: `Mighty is a description that applies to some units. Other game effects can check whether a unit is Mighty.`,
   },
   {
     id: `708`,
-    section: `708. A`,
-    text: `A
-
-Unit
-
-"is
-
-M ighty"
-
-as
-
-long
-
-as
-
-its
-
-M ight
-
-is
-
-5
-
-or
-
-greater.`,
+    section: `708. A Unit "is Mighty" as long as its Might is 5 or greater`,
+    text: `A Unit "is Mighty" as long as its Might is 5 or greater.`,
   },
   {
     id: `709`,
-    section: `709. A`,
-    text: `A
-
-Unit
-
-"becom es
-
-M ighty"
-
-at
-
-the
-
-m om ent
-
-its
-
-M ight
-
-changes
-
-from
-
-being
-
-less
-
-than
-
-5
-
-to
-
-being
-
-5
-
-or
-
-greater.
-
-Example:
-
-A
-
-Unit
-
-w ith
-
-M ight
-
-4
-
-that
-
-gets
-
-+1
-
-[M ]
-
-becom es
-
-Mighty .
-
-Example:
-
-A
-
-Unit
-
-w ith
-
-M ight
-
-5
-
-that
-
-gets
-
-+1
-
-[M ]
-
-does
-
-not
-
-becom e
-
-Mighty ,
-
-because
-
-it
-
-w as
-
-already
-
-Mighty.`,
+    section: `709. A Unit "becomes Mighty" at the moment its Might changes from being less than 5 to being 5 or greater`,
+    text: `A Unit "becomes Mighty" at the moment its Might changes from being less than 5 to being 5 or greater. Example: A Unit with Might 4 that gets +1 [M] becomes Mighty. Example: A Unit with Might 5 that gets +1 [M] does not become Mighty, because it was already Mighty.`,
   },
   {
     id: `710`,
-    section: `710. Units`,
-    text: `Units
-
-on
-
-the
-
-board
-
-are
-
-evaluated
-
-according
-
-to
-
-their
-
-current
-
-M ight.
-
-Example:
-
-A
-
-unit
-
-w ith
-
-a
-
-base
-
-M ight
-
-of
-
-3
-
-is
-
-targeted
-
-by
-
-a
-
-spell
-
-that
-
-reads
-
-"A
-
-unit
-
-gets
-
-+3
-
-[M ]
-
-this
-
-turn."
-
-As
-
-that
-
-spell
-
-resolves,
-
-its
-
-M ight
-
-changes
-
-from
-
-3
-
-to
-
-6,
-
-and
-
-it
-
-becom es
-
-Mighty .
-
-W hen
-
-that
-
-effect
-
-expires
-
-at
-
-the
-
-end
-
-of
-
-the
-
-turn,
-
-it
-
-w ill
-
-no
-
-longer
-
-be
-
-Mighty.`,
+    section: `710. Units on the board are evaluated according to their current Might`,
+    text: `Units on the board are evaluated according to their current Might. Example: A unit with a base Might of 3 is targeted by a spell that reads "A unit gets +3 [M] this turn." As that spell resolves, its Might changes from 3 to 6, and it becomes Mighty. When that effect expires at the end of the turn, it will no longer be Mighty.`,
   },
   {
     id: `711`,
-    section: `711. Units`,
-    text: `Units
-
-in
-
-Non-Board
-
-Zones
-
-are
-
-evaluated
-
-according
-
-to
-
-their
-
-inherent
-
-M ight.
-
-Example:
-
-A
-
-unit
-
-in
-
-the
-
-trash
-
-is
-
-Mighty
-
-if
-
-its
-
-printed
-
-M ight
-
-is
-
-5
-
-or
-
-greater.
-
-It
-
-doesn't
-
-m atter
-
-if
-
-there
-
-w ere
-
-effects
-
-raising
-
-or
-
-low ering
-
-its
-
-m ight
-
-w hile
-
-it
-
-w as
-
-on
-
-the
-
-board.`,
+    section: `711. Units in Non-Board Zones are evaluated according to their inherent Might`,
+    text: `Units in Non-Board Zones are evaluated according to their inherent Might. Example: A unit in the trash is Mighty if its printed Might is 5 or greater. It doesn't matter if there were effects raising or lowering its might while it was on the board.`,
+  },
+  {
+    id: `712`,
+    section: `712. Bonus Damage`,
+    text: `Bonus Damage`,
   },
   {
     id: `713`,
-    section: `713. Bonus`,
-    text: `Bonus
-
-Dam age
-
-is
-
-an
-
-intrinsic
-
-property
-
-that
-
-can
-
-be
-
-granted
-
-to
-
-Deal
-
-actions
-
-that
-
-inﬂuence
-
-the
-
-am ount
-
-of
-
-Dam age
-
-that
-
-the
-
-action
-
-is
-
-distributing.`,
+    section: `713. Bonus Damage is an intrinsic property that can be granted to Deal actions that influence the amount of Damage that the action is distributing`,
+    text: `Bonus Damage is an intrinsic property that can be granted to Deal actions that influence the amount of Damage that the action is distributing.`,
   },
   {
     id: `714`,
-    section: `714. If`,
-    text: `If
-
-m ore
-
-than
-
-one
-
-instance
-
-of
-
-Bonus
-
-Dam age
-
-is
-
-applied
-
-or
-
-granted
-
-to
-
-a
-
-Deal
-
-action,
-
-all
-
-instances
-
-are
-
-sum m ed
-
-and
-
-applied
-
-once.`,
+    section: `714. If more than one instance of Bonus Damage is applied or granted to a Deal action`,
+    text: `If more than one instance of Bonus Damage is applied or granted to a Deal action, all instances are summed and applied once.`,
   },
   {
     id: `714.1`,
-    section: `714.1. Bonus`,
-    text: `Bonus
-
-D am age
-
-can
-
-only
-
-be
-
-a
-
-positive
-
-value,
-
-and
-
-can
-
-only
-
-increase
-
-the
-
-am ount
-
-of
-
-Dam age
-
-being
-
-distributed.`,
+    section: `714.1. Bonus Damage can only be a positive value`,
+    text: `Bonus Damage can only be a positive value, and can only increase the amount of Damage being distributed.`,
   },
   {
     id: `714.2`,
-    section: `714.2. If,`,
-    text: `If,
-
-for
-
-any
-
-reason,
-
-Bonus
-
-Dam age
-
-w ould
-
-be
-
-a
-
-negative
-
-num ber,
-
-then
-
-no
-
-Bonus
-
-Dam age
-
-is
-
-applied
-
-to
-
-the
-
-action.`,
+    section: `714.2. If`,
+    text: `If, for any reason, Bonus Damage would be a negative number, then no Bonus Damage is applied to the action.`,
   },
   {
     id: `715`,
-    section: `715. Bonus`,
-    text: `Bonus
-
-D am age
-
-applies
-
-to
-
-the
-
-total
-
-dam age
-
-Dealt
-
-by
-
-one
-
-instance
-
-of
-
-the
-
-action.`,
+    section: `715. Bonus Damage applies to the total damage Dealt by one instance of the action`,
+    text: `Bonus Damage applies to the total damage Dealt by one instance of the action.`,
   },
   {
     id: `715.1`,
-    section: `715.1. If`,
-    text: `If
-
-the
-
-Deal
-
-action
-
-has
-
-a
-
-single
-
-target,
-
-the
-
-am ount
-
-of
-
-Dam age
-
-to
-
-that
-
-target
-
-w ill
-
-be
-
-increased
-
-by
-
-the
-
-Bonus
-
-Dam age
-
-granted
-
-to
-
-it.`,
+    section: `715.1. If the Deal action has a single target`,
+    text: `If the Deal action has a single target, the amount of Damage to that target will be increased by the Bonus Damage granted to it.`,
   },
   {
     id: `715.2`,
-    section: `715.2. If`,
-    text: `If
-
-the
-
-Deal
-
-action
-
-has
-
-m ultiple
-
-targets,
-
-the
-
-am ount
-
-of
-
-Dam age
-
-dealt
-
-to
-
-each
-
-target
-
-is
-
-increased
-
-by
-
-Bonus
-
-Dam age
-
-individually
-
-and
-
-separately.
-
-Example:
-
-Singularity
-
-is
-
-a
-
-spell
-
-that
-
-says
-
-“D eal
-
-6
-
-to
-
-each
-
-of
-
-up
-
-to
-
-tw o
-
-units.”
-
-A
-
-player
-
-plays
-
-Singularity
-
-w hile
-
-they
-
-also
-
-control
-
-Annie,
-
-Fiery,
-
-a
-
-unit
-
-that
-
-says
-
-“Your
-
-spells
-
-and
-
-abilities
-
-deal
-
-1
-
-Bonus
-
-D am age.”
-
-Singularity
-
-deals
-
-1
-
-Bonus
-
-D am age
-
-to
-
-both
-
-of
-
-its
-
-targets,
-
-dealing
-
-7
-
-to
-
-each.`,
+    section: `715.2. If the Deal action has multiple targets`,
+    text: `If the Deal action has multiple targets, the amount of Damage dealt to each target is increased by Bonus Damage individually and separately. Example: Singularity is a spell that says “Deal 6 to each of up to two units.” A player plays Singularity while they also control Annie, Fiery, a unit that says “Your spells and abilities deal 1 Bonus Damage.” Singularity deals 1 Bonus Damage to both of its targets, dealing 7 to each.`,
   },
   {
     id: `715.3`,
-    section: `715.3. If`,
-    text: `If
-
-the
-
-Deal
-
-action
-
-Splits
-
-dam age,
-
-then
-
-the
-
-Bonus
-
-Dam age
-
-applies
-
-to
-
-the
-
-am ount
-
-of
-
-Dam age
-
-that
-
-w ill
-
-be
-
-Split .
-
-This
-
-can
-
-alter
-
-the
-
-num ber
-
-of
-
-targets
-
-eligible
-
-to
-
-be
-
-chosen.
-
-Example:
-
-Volibear,
-
-Furious
-
-is
-
-a
-
-unit
-
-that
-
-says
-
-in
-
-part
-
-“W hen
-
-I
-
-attack,
-
-deal
-
-5
-
-dam age
-
-split
-
-am ong
-
-any
-
-num ber
-
-of
-
-enem y
-
-units
-
-here.”
-
-A
-
-player
-
-attacks
-
-w ith
-
-Volibear,
-
-Furious
-
-w hile
-
-they
-
-also
-
-control
-
-Annie,
-
-Fiery,
-
-a
-
-unit
-
-that
-
-says
-
-“Your
-
-spells
-
-and
-
-abilities
-
-deal
-
-1
-
-Bonus
-
-D am age.”
-
-Volibear,
-
-Furious
-
-now
-
-deals
-
-6
-
-dam age
-
-split
-
-am ong
-
-any
-
-num ber
-
-of
-
-enem y
-
-units
-
-at
-
-its
-
-location,
-
-and
-
-can
-
-choose
-
-to
-
-split
-
-that
-
-dam age
-
-am ong
-
-up
-
-to
-
-6
-
-units
-
-rather
-
-than
-
-the
-
-usual
-
-5.`,
+    section: `715.3. If the Deal action Splits damage`,
+    text: `If the Deal action Splits damage, then the Bonus Damage applies to the amount of Damage that will be Split. This can alter the number of targets eligible to be chosen. Example: Volibear, Furious is a unit that says in part “When I attack, deal 5 damage split among any number of enemy units here.” A player attacks with Volibear, Furious while they also control Annie, Fiery, a unit that says “Your spells and abilities deal 1 Bonus Damage.” Volibear, Furious now deals 6 damage split among any number of enemy units at its location, and can choose to split that damage among up to 6 units rather than the usual 5.`,
+  },
+  {
+    id: `716`,
+    section: `716. Keywords`,
+    text: `Keywords`,
   },
   {
     id: `717`,
-    section: `717. A`,
-    text: `A
-
-Keyword
-
-is
-
-a
-
-speciﬁc
-
-term
-
-that
-
-appears
-
-on
-
-Cards
-
-that
-
-acts
-
-as
-
-a
-
-shorthand
-
-for
-
-a
-
-speciﬁc
-
-gam e
-
-effect,
-
-or
-
-ability
-
-of
-
-any
-
-variety.`,
+    section: `717. A Keyword is a specific term that appears on Cards that acts as a shorthand for a specific game effect`,
+    text: `A Keyword is a specific term that appears on Cards that acts as a shorthand for a specific game effect, or ability of any variety.`,
   },
   {
     id: `717.1`,
-    section: `717.1. A`,
-    text: `A
-
-Keyword
-
-can
-
-be
-
-an
-
-ability.`,
+    section: `717.1. A Keyword can be an ability`,
+    text: `A Keyword can be an ability.`,
   },
   {
     id: `717.2`,
-    section: `717.2. Keywords`,
-    text: `Keywords
-
-can
-
-be
-
-identiﬁed
-
-by
-
-having
-
-a
-
-colored
-
-highlight
-
-behind
-
-them .`,
+    section: `717.2. Keywords can be identified by having a colored highlight behind them`,
+    text: `Keywords can be identified by having a colored highlight behind them.`,
   },
   {
     id: `717.2.a`,
-    section: `717.2.a. The`,
-    text: `The
-
-color
-
-of
-
-the
-
-highlight
-
-has
-
-no
-
-effect
-
-on
-
-gam eplay.`,
+    section: `717.2.a. The color of the highlight has no effect on gameplay`,
+    text: `The color of the highlight has no effect on gameplay.`,
   },
   {
     id: `717.3`,
-    section: `717.3. Keywords`,
-    text: `Keywords
-
-can
-
-be
-
-referenced
-
-or
-
-speciﬁed
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `717.3. Keywords can be referenced or specified by other Game Effects`,
+    text: `Keywords can be referenced or specified by other Game Effects.`,
   },
   {
     id: `717.3.a`,
-    section: `717.3.a. O ther`,
-    text: `O ther
+    section: `717.3.a. Other effects may grant Keywords`,
+    text: `Other effects may grant Keywords.
 
-effects
+1. The definition and rules of the specific Keyword will determine the behavior if a Keyword is granted while it is already present.
 
-m ay
+2. The effect that granted the Keyword will specify the duration for which it is granted.
 
-grant
-
-Keywords.
-
-717.3.a.1.
-
-The
-
-deﬁnition
-
-and
-
-rules
-
-of
-
-the
-
-speciﬁc
-
-Keyword
-
-w ill
-
-determ ine
-
-the
-
-behavior
-
-if
-
-a
-
-Keyword
-
-is
-
-granted
-
-w hile
-
-it
-
-is
-
-already
-
-present.
-
-717.3.a.2.
-
-The
-
-effect
-
-that
-
-granted
-
-the
-
-Keyword
-
-w ill
-
-specify
-
-the
-
-duration
-
-for
-
-w hich
-
-it
-
-is
-
-granted.
-
-717.3.a.3.
-
-If
-
-an
-
-effect
-
-that
-
-grants
-
-a
-
-Keyword
-
-does
-
-not
-
-specify
-
-a
-
-duration,
-
-the
-
-duration
-
-is
-
-as
-
-long
-
-as
-
-that
-
-Gam e
-
-Object
-
-rem ains
-
-on
-
-the
-
-Board
-
-or
-
-in
-
-its
-
-current
-
-Non-Board
-
-Zone.`,
+3. If an effect that grants a Keyword does not specify a duration, the duration is as long as that Game Object remains on the Board or in its current Non-Board Zone.`,
   },
   {
     id: `717.3.b`,
-    section: `717.3.b. O ther`,
-    text: `O ther
+    section: `717.3.b. Other effects may remove Keywords`,
+    text: `Other effects may remove Keywords.
 
-effects
+1. The effect that removed the Keyword will specify the duration it is removed.
 
-m ay
-
-rem ove
-
-Keywords.
-
-717.3.b.1.
-
-The
-
-effect
-
-that
-
-rem oved
-
-the
-
-Keyword
-
-w ill
-
-specify
-
-the
-
-duration
-
-it
-
-is
-
-rem oved.
-
-717.3.b.2.
-
-If
-
-an
-
-effect
-
-that
-
-rem oves
-
-a
-
-Keyword
-
-does
-
-not
-
-specify
-
-a
-
-duration,
-
-the
-
-duration
-
-is
-
-as
-
-long
-
-as
-
-that
-
-Gam e
-
-Object
-
-rem ains
-
-on
-
-the
-
-Board
-
-or
-
-in
-
-its
-
-current
-
-Non-Board
-
-Zone.`,
+2. If an effect that removes a Keyword does not specify a duration, the duration is as long as that Game Object remains on the Board or in its current Non-Board Zone.`,
   },
   {
     id: `718`,
-    section: `718. A`,
-    text: `A
-
-card
-
-can
-
-have
-
-any
-
-num ber
-
-of
-
-Keywords.`,
+    section: `718. A card can have any number of Keywords`,
+    text: `A card can have any number of Keywords.`,
   },
   {
     id: `719`,
-    section: `719. Sim ilar`,
-    text: `Sim ilar
-
-to
-
-other
-
-rules
-
-text,
-
-execute
-
-any
-
-effects
-
-of
-
-Keywords
-
-in
-
-the
-
-order
-
-listed
-
-w hen
-
-reading
-
-the
-
-card
-
-from
-
-top
-
-to
-
-bottom
-
-of
-
-the
-
-rules
-
-text.`,
+    section: `719. Similar to other rules text`,
+    text: `Similar to other rules text, execute any effects of Keywords in the order listed when reading the card from top to bottom of the rules text.`,
   },
   {
     id: `720`,
-    section: `720. Keyw ord`,
-    text: `Keyw ord
-
-Glossary`,
+    section: `720. Keyword Glossary`,
+    text: `Keyword Glossary`,
+  },
+  {
+    id: `721`,
+    section: `721. Accelerate`,
+    text: `Accelerate`,
   },
   {
     id: `721.1`,
-    section: `721.1. Accelerate`,
-    text: `Accelerate
-
-is
-
-a
-
-Unit
-
-ability.`,
+    section: `721.1. Accelerate is a Unit ability`,
+    text: `Accelerate is a Unit ability.`,
   },
   {
     id: `721.1.a`,
-    section: `721.1.a. Accelerate`,
-    text: `Accelerate
+    section: `721.1.a. Accelerate is functionally short for "As you play me`,
+    text: `Accelerate is functionally short for "As you play me, you may pay [1] and 1 Power as an additional cost. If you do, I enter ready."
 
-is
+1. If the unit has a single domain, the Power portion of the Accelerate cost can be paid only with a Power that matches the domain of the unit.
 
-functionally
-
-short
-
-for
-
-"As
-
-you
-
-play
-
-m e,
-
-you
-
-m ay
-
-pay
-
-[1]
-
-and
-
-1
-
-Pow er
-
-as
-
-an
-
-additional
-
-cost.
-
-If
-
-you
-
-do,
-
-I
-
-enter
-
-ready."
-
-721.1.a.1.
-
-If
-
-the
-
-unit
-
-has
-
-a
-
-single
-
-dom ain,
-
-the
-
-Pow er
-
-portion
-
-of
-
-the
-
-Accelerate
-
-cost
-
-can
-
-be
-
-paid
-
-only
-
-w ith
-
-a
-
-Pow er
-
-that
-
-m atches
-
-the
-
-dom ain
-
-of
-
-the
-
-unit.
-
-721.1.a.2.
-
-If
-
-the
-
-unit
-
-has
-
-no
-
-dom ain
-
-or
-
-m ore
-
-than
-
-one
-
-dom ain,
-
-the
-
-Pow er
-
-portion
-
-of
-
-the
-
-Accelerate
-
-cost
-
-can
-
-be
-
-paid
-
-w ith
-
-[A]
-
-(a
-
-Pow er
-
-of
-
-any
-
-dom ain).`,
+2. If the unit has no domain or more than one domain, the Power portion of the Accelerate cost can be paid with [A] (a Power of any domain).`,
   },
   {
     id: `721.2`,
-    section: `721.2. Accelerate`,
-    text: `Accelerate
-
-is
-
-an
-
-Optional
-
-Additional
-
-Cost
-
-to
-
-be
-
-paid
-
-as
-
-a
-
-player
-
-plays
-
-the
-
-unit
-
-w ith
-
-the
-
-ability.`,
+    section: `721.2. Accelerate is an Optional Additional Cost to be paid as a player plays the unit with the ability`,
+    text: `Accelerate is an Optional Additional Cost to be paid as a player plays the unit with the ability.`,
   },
   {
     id: `721.2.a`,
-    section: `721.2.a. Accelerate`,
-    text: `Accelerate
-
-costs
-
-cannot
-
-be
-
-paid
-
-w hile
-
-the
-
-unit
-
-is
-
-on
-
-the
-
-board,
-
-only
-
-as
-
-part
-
-of
-
-the
-
-steps
-
-of
-
-playing
-
-a
-
-card.`,
+    section: `721.2.a. Accelerate costs cannot be paid while the unit is on the board`,
+    text: `Accelerate costs cannot be paid while the unit is on the board, only as part of the steps of playing a card.`,
   },
   {
     id: `721.3`,
-    section: `721.3. Accelerate`,
-    text: `Accelerate
-
-has
-
-no
-
-function
-
-w hile
-
-on
-
-the
-
-board.`,
+    section: `721.3. Accelerate has no function while on the board`,
+    text: `Accelerate has no function while on the board.`,
   },
   {
     id: `721.4`,
-    section: `721.4. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-Accelerate
-
-are
-
-redundant.`,
+    section: `721.4. Multiple instances of Accelerate are redundant`,
+    text: `Multiple instances of Accelerate are redundant.`,
   },
   {
     id: `721.5`,
-    section: `721.5. Accelerate,`,
-    text: `Accelerate,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-unit
-
-has
-
-Accelerate,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-Unit
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `721.5. Accelerate`,
+    text: `Accelerate, and whether or not a unit has Accelerate, is a characteristic of the Unit and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `721.6`,
-    section: `721.6. Accelerate`,
-    text: `Accelerate
-
-inﬂuences
-
-the
-
-state
-
-of
-
-the
-
-unit
-
-entering
-
-the
-
-Board.
-
-It
-
-does
-
-not
-
-enter
-
-exhausted
-
-and
-
-then
-
-becom e
-
-ready.`,
+    section: `721.6. Accelerate influences the state of the unit entering the Board`,
+    text: `Accelerate influences the state of the unit entering the Board. It does not enter exhausted and then become ready.`,
   },
   {
     id: `721.6.a`,
-    section: `721.6.a. Accelerate`,
-    text: `Accelerate
-
-w ill
-
-not
-
-interact
-
-w ith,
-
-or
-
-trigger,
-
-abilities
-
-that
-
-are
-
-affected
-
-by
-
-units
-
-becom ing
-
-ready.`,
+    section: `721.6.a. Accelerate will not interact with`,
+    text: `Accelerate will not interact with, or trigger, abilities that are affected by units becoming ready.`,
   },
   {
     id: `722`,
@@ -58758,517 +6705,57 @@ ready.`,
   },
   {
     id: `722.1`,
-    section: `722.1. Action`,
-    text: `Action
-
-is
-
-a
-
-Perm issive
-
-keyw ord.`,
+    section: `722.1. Action is a Permissive keyword`,
+    text: `Action is a Permissive keyword.`,
   },
   {
     id: `722.1.a`,
-    section: `722.1.a. It`,
-    text: `It
-
-can
-
-be
-
-present
-
-on
-
-Spells ,
-
-Units ,
-
-Rune
-
-Abilities,
-
-Legend
-
-Abilities
-
-or
-
-Perm anent
-
-Abilities.`,
+    section: `722.1.a. It can be present on Spells`,
+    text: `It can be present on Spells, Units, Rune Abilities, Legend Abilities or Permanent Abilities.`,
   },
   {
     id: `722.1.b`,
-    section: `722.1.b. Action`,
-    text: `Action
-
-grants
-
-the
-
-corresponding
-
-card
-
-or
-
-effect
-
-perm ission
-
-to
-
-be
-
-played
-
-or
-
-activated
-
-during
-
-Showdowns,
-
-even
-
-w hen
-
-it
-
-is
-
-not
-
-the
-
-Controlling
-
-player's
-
-turn.`,
+    section: `722.1.b. Action grants the corresponding card or effect permission to be played or activated during Showdowns`,
+    text: `Action grants the corresponding card or effect permission to be played or activated during Showdowns, even when it is not the Controlling player's turn.`,
   },
   {
     id: `722.1.c`,
-    section: `722.1.c. Action`,
-    text: `Action
+    section: `722.1.c. Action is functionally short for the following:`,
+    text: `Action is functionally short for the following:
 
-is
+1. On Spells and Units: "This can be played during showdowns on any player's turn."
 
-functionally
-
-short
-
-for
-
-the
-
-follow ing:
-
-722.1.c.1.
-
-O n
-
-Spells
-
-and
-
-Units:
-
-"This
-
-can
-
-be
-
-played
-
-during
-
-show dow ns
-
-on
-
-any
-
-player's
-
-turn."
-
-722.1.c.2.
-
-O n
-
-Rune,
-
-Legend,
-
-or
-
-Perm anent
-
-Abilities:
-
-"This
-
-can
-
-be
-
-activated
-
-during
-
-show dow ns
-
-on
-
-any
-
-player's
-
-turn."`,
+2. On Rune, Legend, or Permanent Abilities: "This can be activated during showdowns on any player's turn."`,
   },
   {
     id: `722.2`,
-    section: `722.2. The`,
-    text: `The
-
-card
-
-or
-
-effect
-
-w ith
-
-this
-
-keyw ord
-
-is
-
-not
-
-restricted
-
-to
-
-show dow ns.
-
-This
-
-perm ission
-
-is
-
-inclusive
-
-of
-
-all
-
-other
-
-tim ings
-
-and
-
-options
-
-available
-
-to
-
-the
-
-ability
-
-as
-
-w ritten
-
-or
-
-by
-
-default.`,
+    section: `722.2. The card or effect with this keyword is not restricted to showdowns`,
+    text: `The card or effect with this keyword is not restricted to showdowns. This permission is inclusive of all other timings and options available to the ability as written or by default.`,
   },
   {
     id: `722.3`,
-    section: `722.3. Action`,
-    text: `Action
-
-does
-
-not
-
-alter
-
-the
-
-function
-
-of
-
-any
-
-instruction
-
-of
-
-the
-
-corresponding
-
-card
-
-or
-
-effect
-
-it
-
-is
-
-on.
-
-It
-
-is
-
-only
-
-perm ission.
-
-Example:
-
-Playing
-
-a
-
-Unit
-
-w ith
-
-Action
-
-still
-
-has
-
-the
-
-inherent
-
-restrictions
-
-of
-
-playing
-
-Units
-
-w ithout
-
-Action.
-
-It
-
-can
-
-only
-
-be
-
-played
-
-to
-
-the
-
-controlling
-
-player's
-
-base
-
-or
-
-a
-
-battleﬁeld
-
-they
-
-control.`,
+    section: `722.3. Action does not alter the function of any instruction of the corresponding card or effect it is on`,
+    text: `Action does not alter the function of any instruction of the corresponding card or effect it is on. It is only permission. Example: Playing a Unit with Action still has the inherent restrictions of playing Units without Action. It can only be played to the controlling player's base or a battlefield they control.`,
   },
   {
     id: `722.4`,
-    section: `722.4. Action`,
-    text: `Action
-
-is
-
-a
-
-referenceable
-
-characteristic.`,
+    section: `722.4. Action is a referenceable characteristic`,
+    text: `Action is a referenceable characteristic.`,
   },
   {
     id: `722.4.a`,
-    section: `722.4.a. W hether`,
-    text: `W hether
-
-or
-
-not
-
-a
-
-Gam e
-
-Object
-
-has
-
-Action
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Gam e
-
-Object
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `722.4.a. Whether or not a Game Object has Action is a characteristic of that Game Object and may be checked or referenced by other Game Effects`,
+    text: `Whether or not a Game Object has Action is a characteristic of that Game Object and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `722.4.b`,
-    section: `722.4.b. W hether`,
-    text: `W hether
-
-or
-
-not
-
-a
-
-Spell
-
-has
-
-Action
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Spell
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `722.4.b. Whether or not a Spell has Action is a characteristic of that Spell and may be checked or referenced by other Game Effects`,
+    text: `Whether or not a Spell has Action is a characteristic of that Spell and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `722.4.c`,
-    section: `722.4.c. W hether`,
-    text: `W hether
-
-or
-
-not
-
-an
-
-Ability
-
-has
-
-Action
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Ability
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `722.4.c. Whether or not an Ability has Action is a characteristic of that Ability and may be checked or referenced by other Game Effects`,
+    text: `Whether or not an Ability has Action is a characteristic of that Ability and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `723`,
@@ -59277,352 +6764,46 @@ Effects.`,
   },
   {
     id: `723.1`,
-    section: `723.1. Assault`,
-    text: `Assault
-
-is
-
-a
-
-Passive
-
-Ability
-
-keyw ord.`,
+    section: `723.1. Assault is a Passive Ability keyword`,
+    text: `Assault is a Passive Ability keyword.`,
   },
   {
     id: `723.1.a`,
-    section: `723.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Units.`,
+    section: `723.1.a. It is present on Units`,
+    text: `It is present on Units.`,
   },
   {
     id: `723.1.b`,
-    section: `723.1.b. Assault`,
-    text: `Assault
+    section: `723.1.b. Assault is formatted as "Assault [X]"`,
+    text: `Assault is formatted as "Assault [X]".
 
-is
+1. The X is referenced in the functional text of the ability.
 
-form atted
+2. The X is referred to as the Assault Value.
 
-as
-
-"Assault
-
-[X]".
-
-723.1.b.1.
-
-The
-
-X
-
-is
-
-referenced
-
-in
-
-the
-
-functional
-
-text
-
-of
-
-the
-
-ability.
-
-723.1.b.2.
-
-The
-
-X
-
-is
-
-referred
-
-to
-
-as
-
-the
-
-Assault
-
-Value.
-
-723.1.b.3.
-
-If
-
-X
-
-is
-
-om itted,
-
-it
-
-is
-
-presum ed
-
-to
-
-be
-
-1.`,
+3. If X is omitted, it is presumed to be 1.`,
   },
   {
     id: `723.1.c`,
-    section: `723.1.c. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"W hile
-
-I
-
-am
-
-an
-
-attacker,
-
-I
-
-have
-
-+X
-
-[M ]."`,
+    section: `723.1.c. It is functionally short for "While I am an attacker`,
+    text: `It is functionally short for "While I am an attacker, I have +X [M]."`,
   },
   {
     id: `723.1.d`,
-    section: `723.1.d. Being`,
-    text: `Being
+    section: `723.1.d. Being an attacker means the Unit has gained the Attacker designation during Combat`,
+    text: `Being an attacker means the Unit has gained the Attacker designation during Combat. See rule 433. Combat for more information.
 
-an
-
-attacker
-
-m eans
-
-the
-
-Unit
-
-has
-
-gained
-
-the
-
-Attacker
-
-designation
-
-during
-
-Com bat.
-
-See
-
-rule`,
+1. Assault remains in effect as long as the Unit maintains the Attacker designation.`,
   },
   {
     id: `723.2`,
-    section: `723.2. If`,
-    text: `If
-
-a
-
-Unit
-
-has
-
-Assault
-
-or
-
-has
-
-been
-
-granted
-
-Assault
-
-and
-
-is
-
-granted
-
-Assault
-
-by
-
-an
-
-additional
-
-source,
-
-the
-
-Assault
-
-Value
-
-of
-
-all
-
-granted
-
-Assault
-
-keyw ords
-
-is
-
-sum m ed.
-
-Example:
-
-Petty
-
-O fﬁcer
-
-has
-
-Assault.
-
-It
-
-is
-
-chosen
-
-as
-
-the
-
-target
-
-of
-
-Cleave,
-
-w hich
-
-says
-
-"Give
-
-a
-
-unit
-
-[Assault
-
-3]
-
-this
-
-turn."
-
-After
-
-Cleave
-
-resolves,
-
-Petty
-
-O fﬁcer
-
-has
-
-Assault
-
-4
-
-this
-
-turn.`,
+    section: `723.2. If a Unit has Assault or has been granted Assault and is granted Assault by an additional source`,
+    text: `If a Unit has Assault or has been granted Assault and is granted Assault by an additional source, the Assault Value of all granted Assault keywords is summed. Example: Petty Officer has Assault. It is chosen as the target of Cleave, which says "Give a unit [Assault 3] this turn." After Cleave resolves, Petty Officer has Assault 4 this turn.`,
   },
   {
     id: `723.3`,
-    section: `723.3. Assault,`,
-    text: `Assault,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-unit
-
-has
-
-Assault,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-Unit
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `723.3. Assault`,
+    text: `Assault, and whether or not a unit has Assault, is a characteristic of the Unit and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `724`,
@@ -59631,1748 +6812,215 @@ Effects.`,
   },
   {
     id: `724.1`,
-    section: `724.1. D eathknell`,
-    text: `D eathknell
-
-is
-
-a
-
-Triggered
-
-Ability
-
-keyw ord.`,
+    section: `724.1. Deathknell is a Triggered Ability keyword`,
+    text: `Deathknell is a Triggered Ability keyword.`,
   },
   {
     id: `724.1.a`,
-    section: `724.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Perm anents.`,
+    section: `724.1.a. It is present on Permanents`,
+    text: `It is present on Permanents.`,
   },
   {
     id: `724.1.b`,
-    section: `724.1.b. It`,
-    text: `It
+    section: `724.1.b. It is formatted as "Deathknell — [Effect]"`,
+    text: `It is formatted as "Deathknell — [Effect]".
 
-is
-
-form atted
-
-as
-
-"D eathknell
-
-—
-
-[Effect]".
-
-724.1.b.1.
-
-[Effect]
-
-is
-
-the
-
-rules
-
-text
-
-for
-
-the
-
-speciﬁc
-
-instance
-
-of
-
-D eathknell.
-
-This
-
-is
-
-referred
-
-to
-
-as
-
-the
-
-D eathknell
-
-effect.`,
+1. [Effect] is the rules text for the specific instance of Deathknell. This is referred to as the Deathknell effect.`,
   },
   {
     id: `724.1.c`,
-    section: `724.1.c. It`,
-    text: `It
+    section: `724.1.c. It is functionally short for "When I die`,
+    text: `It is functionally short for "When I die, [Effect]."
 
-is
-
-functionally
-
-short
-
-for
-
-"W hen
-
-I
-
-die,
-
-[Effect]."
-
-724.1.c.1.
-
-[Effect]
-
-is
-
-the
-
-rules
-
-text
-
-of
-
-the
-
-D eathknell
-
-effect.`,
+1. [Effect] is the rules text of the Deathknell effect.`,
   },
   {
     id: `724.1.d`,
-    section: `724.1.d. The`,
-    text: `The
+    section: `724.1.d. The Trigger for this effect is the Permanent being Killed and sent to the Trash`,
+    text: `The Trigger for this effect is the Permanent being Killed and sent to the Trash.
 
-Trigger
-
-for
-
-this
-
-effect
-
-is
-
-the
-
-Perm anent
-
-being
-
-Killed
-
-and
-
-sent
-
-to
-
-the
-
-Trash.
-
-724.1.d.1.
-
-If
-
-the
-
-Perm anent
-
-w ith
-
-the
-
-effect
-
-is
-
-not
-
-sent
-
-to
-
-the
-
-Trash ,
-
-for
-
-exam ple
-
-because
-
-its
-
-"killed"
-
-event
-
-w as
-
-replaced
-
-w ith
-
-a
-
-recall,
-
-the
-
-D eathknell
-
-w ill
-
-not
-
-occur.`,
+1. If the Permanent with the effect is not sent to the Trash, for example because its "killed" event was replaced with a recall, the Deathknell will not occur.`,
   },
   {
     id: `724.2`,
-    section: `724.2. Each`,
-    text: `Each
-
-instance
-
-of
-
-D eathknell
-
-a
-
-Perm anent
-
-m ay
-
-have
-
-w ill
-
-trigger
-
-separately.`,
+    section: `724.2. Each instance of Deathknell a Permanent may have will trigger separately`,
+    text: `Each instance of Deathknell a Permanent may have will trigger separately.`,
   },
   {
     id: `724.2.a`,
-    section: `724.2.a. The`,
-    text: `The
-
-controller
-
-w ill
-
-choose
-
-the
-
-order
-
-to
-
-add
-
-these
-
-Triggers
-
-to
-
-the
-
-chain.`,
+    section: `724.2.a. The controller will choose the order to add these Triggers to the chain`,
+    text: `The controller will choose the order to add these Triggers to the chain.`,
   },
   {
     id: `724.3`,
-    section: `724.3. D eathknell,`,
-    text: `D eathknell,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-perm anent
-
-has
-
-D eathknell,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-perm anent
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `724.3. Deathknell`,
+    text: `Deathknell, and whether or not a permanent has Deathknell, is a characteristic of the permanent and may be checked or referenced by other Game Effects.`,
+  },
+  {
+    id: `725`,
+    section: `725. Deflect`,
+    text: `Deflect`,
   },
   {
     id: `725.1`,
-    section: `725.1. D eﬂect`,
-    text: `D eﬂect
-
-is
-
-a
-
-Passive
-
-Ability
-
-keyw ord.`,
+    section: `725.1. Deflect is a Passive Ability keyword`,
+    text: `Deflect is a Passive Ability keyword.`,
   },
   {
     id: `725.1.a`,
-    section: `725.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Perm anents.`,
+    section: `725.1.a. It is present on Permanents`,
+    text: `It is present on Permanents.`,
   },
   {
     id: `725.1.b`,
-    section: `725.1.b. It`,
-    text: `It
+    section: `725.1.b. It is formatted as "Deflect [X]"`,
+    text: `It is formatted as "Deflect [X]".
 
-is
+1. The X is referenced in the functional text of the ability.
 
-form atted
+2. The X is referred to as the Deflect Value.
 
-as
-
-"D eﬂect
-
-[X]".
-
-725.1.b.1.
-
-The
-
-X
-
-is
-
-referenced
-
-in
-
-the
-
-functional
-
-text
-
-of
-
-the
-
-ability.
-
-725.1.b.2.
-
-The
-
-X
-
-is
-
-referred
-
-to
-
-as
-
-the
-
-D eﬂect
-
-Value.
-
-725.1.b.3.
-
-If
-
-X
-
-is
-
-om itted,
-
-it
-
-is
-
-presum ed
-
-to
-
-be
-
-1.`,
+3. If X is omitted, it is presumed to be 1.`,
   },
   {
     id: `725.1.c`,
-    section: `725.1.c. It`,
-    text: `It
+    section: `725.1.c. It is functionally short for "Spells and abilities an opponent controls that choose me cost an amount of Power equal to [Deflect Value] more to play as an additional cost`,
+    text: `It is functionally short for "Spells and abilities an opponent controls that choose me cost an amount of Power equal to [Deflect Value] more to play as an additional cost."
 
-is
-
-functionally
-
-short
-
-for
-
-"Spells
-
-and
-
-abilities
-
-an
-
-opponent
-
-controls
-
-that
-
-choose
-
-m e
-
-cost
-
-an
-
-am ount
-
-of
-
-Pow er
-
-equal
-
-to
-
-[D eﬂect
-
-Value]
-
-m ore
-
-to
-
-play
-
-as
-
-an
-
-additional
-
-cost."
-
-725.1.c.1.
-
-The
-
-Pow er
-
-used
-
-to
-
-pay
-
-this
-
-cost
-
-m ay
-
-alw ays
-
-be
-
-of
-
-any
-
-D om ain.
-
-Example:
-
-A
-
-Fury
-
-spell
-
-targets
-
-an
-
-O rder
-
-unit
-
-w ith
-
-D eﬂect.
-
-The
-
-Pow er
-
-used
-
-to
-
-pay
-
-the
-
-D eﬂect
-
-cost
-
-can
-
-be
-
-any
-
-D om ain;
-
-it
-
-does
-
-not
-
-need
-
-to
-
-m atch
-
-the
-
-D om ain
-
-of
-
-the
-
-spell
-
-or
-
-the
-
-target.`,
+1. The Power used to pay this cost may always be of any Domain. Example: A Fury spell targets an Order unit with Deflect. The Power used to pay the Deflect cost can be any Domain; it does not need to match the Domain of the spell or the target.`,
   },
   {
     id: `725.1.d`,
-    section: `725.1.d. It`,
-    text: `It
-
-is
-
-an
-
-effect
-
-that
-
-im poses
-
-a
-
-M andatory
-
-Additional
-
-Cost
-
-on
-
-Spells
-
-and
-
-Abilities
-
-that
-
-choose
-
-the
-
-perm anent
-
-that
-
-has
-
-this
-
-ability.
-
-See
-
-rule`,
+    section: `725.1.d. It is an effect that imposes a Mandatory Additional Cost on Spells and Abilities that choose the permanent that has this ability`,
+    text: `It is an effect that imposes a Mandatory Additional Cost on Spells and Abilities that choose the permanent that has this ability. See rule 346. Playing Cards for more information.`,
   },
   {
     id: `725.2`,
-    section: `725.2. If`,
-    text: `If
-
-a
-
-Unit
-
-has
-
-D eﬂect,
-
-or
-
-has
-
-been
-
-granted
-
-D eﬂect,
-
-and
-
-is
-
-granted
-
-D eﬂect
-
-by
-
-an
-
-additional
-
-source,
-
-the
-
-D eﬂect
-
-Value
-
-of
-
-all
-
-granted
-
-D eﬂect
-
-keyw ords
-
-is
-
-sum m ed.`,
+    section: `725.2. If a Unit has Deflect`,
+    text: `If a Unit has Deflect, or has been granted Deflect, and is granted Deflect by an additional source, the Deflect Value of all granted Deflect keywords is summed.`,
   },
   {
     id: `725.3`,
-    section: `725.3. D eﬂect,`,
-    text: `D eﬂect,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-perm anent
-
-has
-
-D eﬂect,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-perm anent
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `725.3. Deflect`,
+    text: `Deflect, and whether or not a permanent has Deflect, is a characteristic of the permanent and may be checked or referenced by other Game Effects.`,
+  },
+  {
+    id: `726`,
+    section: `726. Ganking`,
+    text: `Ganking`,
   },
   {
     id: `726.1`,
-    section: `726.1. Ganking`,
-    text: `Ganking
-
-is
-
-a
-
-Passive
-
-Ability
-
-keyw ord.`,
+    section: `726.1. Ganking is a Passive Ability keyword`,
+    text: `Ganking is a Passive Ability keyword.`,
   },
   {
     id: `726.1.a`,
-    section: `726.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Units.`,
+    section: `726.1.a. It is present on Units`,
+    text: `It is present on Units.`,
   },
   {
     id: `726.1.b`,
-    section: `726.1.b. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"I
-
-m ay
-
-m ove
-
-to
-
-a
-
-battleﬁeld
-
-from
-
-another
-
-battleﬁeld."`,
+    section: `726.1.b. It is functionally short for "I may move to a battlefield from another battlefield`,
+    text: `It is functionally short for "I may move to a battlefield from another battlefield."`,
   },
   {
     id: `726.1.c`,
-    section: `726.1.c. It`,
-    text: `It
+    section: `726.1.c. It is a passive ability that adds permissions to the Unit's Standard Move`,
+    text: `It is a passive ability that adds permissions to the Unit's Standard Move.
 
-is
+1. It does not restrict or remove options from the Unit's Standard Move.
 
-a
+2. It does not have an activation cost.
 
-passive
-
-ability
-
-that
-
-adds
-
-perm issions
-
-to
-
-the
-
-Unit's
-
-Standard
-
-M ove.
-
-726.1.c.1.
-
-It
-
-does
-
-not
-
-restrict
-
-or
-
-rem ove
-
-options
-
-from
-
-the
-
-Unit's
-
-Standard
-
-M ove.
-
-726.1.c.2.
-
-It
-
-does
-
-not
-
-have
-
-an
-
-activation
-
-cost.
-
-726.1.c.3.
-
-It
-
-does
-
-not
-
-give
-
-additional
-
-abilities
-
-or
-
-activations
-
-of
-
-M ovem ent,
-
-only
-
-new
-
-options
-
-for
-
-the
-
-Standard
-
-M ove.`,
+3. It does not give additional abilities or activations of Movement, only new options for the Standard Move.`,
   },
   {
     id: `726.2`,
-    section: `726.2. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-Ganking
-
-are
-
-redundant.`,
+    section: `726.2. Multiple instances of Ganking are redundant`,
+    text: `Multiple instances of Ganking are redundant.`,
   },
   {
     id: `726.3`,
-    section: `726.3. Ganking,`,
-    text: `Ganking,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-unit
-
-has
-
-Ganking,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-Unit
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `726.3. Ganking`,
+    text: `Ganking, and whether or not a unit has Ganking, is a characteristic of the Unit and may be checked or referenced by other Game Effects.`,
+  },
+  {
+    id: `727`,
+    section: `727. Hidden`,
+    text: `Hidden`,
   },
   {
     id: `727.1`,
-    section: `727.1. H idden`,
-    text: `H idden
-
-is
-
-a
-
-keyw ord
-
-that
-
-acts
-
-as
-
-a
-
-prerequisite
-
-to
-
-perform
-
-the
-
-Hide
-
-D iscretionary
-
-Action.`,
+    section: `727.1. Hidden is a keyword that acts as a prerequisite to perform the Hide Discretionary Action`,
+    text: `Hidden is a keyword that acts as a prerequisite to perform the Hide Discretionary Action.`,
   },
   {
     id: `727.1.a`,
-    section: `727.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Spells,
-
-Units,
-
-and
-
-Gear.`,
+    section: `727.1.a. It is present on Spells`,
+    text: `It is present on Spells, Units, and Gear.`,
   },
   {
     id: `727.1.b`,
-    section: `727.1.b. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"W hile
-
-this
-
-card
-
-is
-
-in
-
-your
-
-hand
-
-or
-
-in
-
-the
-
-Cham pion
-
-Zone
-
-on
-
-your
-
-turn
-
-during
-
-an
-
-O pen
-
-State,
-
-you
-
-m ay
-
-pay
-
-[A]
-
-to
-
-hide
-
-this
-
-facedow n
-
-at
-
-a
-
-battleﬁeld
-
-you
-
-control
-
-that
-
-doesn't
-
-already
-
-have
-
-a
-
-facedow n
-
-card
-
-hidden
-
-there
-
-for
-
-as
-
-long
-
-as
-
-you
-
-control
-
-that
-
-battleﬁeld.
-
-Beginning
-
-on
-
-the
-
-next
-
-turn,
-
-this
-
-gains
-
-[Reaction]
-
-and
-
-you
-
-m ay
-
-play
-
-this,
-
-ignoring
-
-its
-
-base
-
-cost."`,
+    section: `727.1.b. It is functionally short for "While this card is in your hand or in the Champion Zone on your turn during an Open State`,
+    text: `It is functionally short for "While this card is in your hand or in the Champion Zone on your turn during an Open State, you may pay [A] to hide this facedown at a battlefield you control that doesn't already have a facedown card hidden there for as long as you control that battlefield. Beginning on the next turn, this gains [Reaction] and you may play this, ignoring its base cost."`,
   },
   {
     id: `727.1.c`,
-    section: `727.1.c. It`,
-    text: `It
+    section: `727.1.c. It allows the player to take the Discretionary Action Hide`,
+    text: `It allows the player to take the Discretionary Action Hide.
 
-allow s
+1. Hide is not a subset of Play.
 
-the
+2. Hiding a card does not open a chain.
 
-player
-
-to
-
-take
-
-the
-
-D iscretionary
-
-Action
-
-Hide .
-
-727.1.c.1.
-
-H ide
-
-is
-
-not
-
-a
-
-subset
-
-of
-
-Play .
-
-727.1.c.2.
-
-H iding
-
-a
-
-card
-
-does
-
-not
-
-open
-
-a
-
-chain.
-
-727.1.c.3.
-
-Playing
-
-a
-
-card
-
-from
-
-facedow n
-
-(or
-
-"from
-
-H idden")
-
-does
-
-open
-
-a
-
-chain.`,
+3. Playing a card from facedown (or "from Hidden") does open a chain.`,
   },
   {
     id: `727.1.d`,
-    section: `727.1.d. Som e`,
-    text: `Som e
+    section: `727.1.d. Some choices made while playing a card from Hidden are restricted to the battlefield where it was hidden`,
+    text: `Some choices made while playing a card from Hidden are restricted to the battlefield where it was hidden. A card cannot be played from Hidden if it is a spell with no valid targets under these restrictions. See rule 352.5. Targeting for more information.
 
-choices
+1. A hidden unit must be played to that battlefield.
 
-m ade
+2. If a hidden spell or a play effect of a hidden permanent chooses any targets, those targets must be chosen from among options at that battlefield, unless the ability explicitly restricts targeting in a way that makes this impossible. Example: Blastcone Fae is a unit with Hidden and “When you play me, give a unit -2 [M] this turn, to a minimum of 1 [M].” Because this is a play effect, its target must be chosen from among units at the same battlefield if Blastcone Fae was played from Hidden. Example: Tideturner is a unit with Hidden and “When you play me, you may choose a unit you control at another location. Move me to its location and it to my original location.” Because its play ability has a targeting restriction that can never be fulfilled by a unit at its battlefield, its target may be chosen freely from among the available options.
 
-w hile
-
-playing
-
-a
-
-card
-
-from
-
-H idden
-
-are
-
-restricted
-
-to
-
-the
-
-battleﬁeld
-
-w here
-
-it
-
-w as
-
-hidden.
-
-A
-
-card
-
-cannot
-
-be
-
-played
-
-from
-
-H idden
-
-if
-
-it
-
-is
-
-a
-
-spell
-
-w ith
-
-no
-
-valid
-
-targets
-
-under
-
-these
-
-restrictions.
-
-See
-
-rule`,
+3. If a hidden spell or a play effect of a hidden permanent causes you to play a unit, you must choose to play that unit at that battlefield.`,
   },
   {
     id: `727.2`,
-    section: `727.2. Abilities`,
-    text: `Abilities
-
-and
-
-instructions
-
-of
-
-hidden
-
-cards
-
-other
-
-than
-
-the
-
-choices
-
-listed
-
-above
-
-function
-
-as
-
-norm al.
-
-Example:
-
-Stand
-
-United
-
-is
-
-a
-
-spell
-
-that
-
-has
-
-H idden
-
-and
-
-says
-
-“Buff
-
-a
-
-friendly
-
-unit.
-
-Buffs
-
-give
-
-an
-
-additional
-
-+1
-
-m ight
-
-to
-
-friendly
-
-units
-
-this
-
-turn.”
-
-If
-
-it’s
-
-played
-
-from
-
-H idden,
-
-the
-
-ﬁrst
-
-part
-
-of
-
-its
-
-ability
-
-m ust
-
-choose
-
-a
-
-friendly
-
-unit
-
-at
-
-the
-
-sam e
-
-battleﬁeld,
-
-but
-
-the
-
-second
-
-part
-
-of
-
-its
-
-ability
-
-affects
-
-all
-
-friendly
-
-units
-
-w ith
-
-buffs,
-
-no
-
-m atter
-
-w here
-
-they
-
-are.`,
+    section: `727.2. Abilities and instructions of hidden cards other than the choices listed above function as normal`,
+    text: `Abilities and instructions of hidden cards other than the choices listed above function as normal. Example: Stand United is a spell that has Hidden and says “Buff a friendly unit. Buffs give an additional +1 might to friendly units this turn.” If it’s played from Hidden, the first part of its ability must choose a friendly unit at the same battlefield, but the second part of its ability affects all friendly units with buffs, no matter where they are.`,
   },
   {
     id: `727.3`,
-    section: `727.3. Instead`,
-    text: `Instead
-
-of
-
-being
-
-hidden,
-
-a
-
-card
-
-w ith
-
-H idden
-
-m ay
-
-be
-
-played
-
-for
-
-its
-
-cost
-
-as
-
-norm al,
-
-at
-
-its
-
-norm al
-
-tim ing
-
-w ith
-
-no
-
-restrictions
-
-on
-
-targeting.`,
+    section: `727.3. Instead of being hidden`,
+    text: `Instead of being hidden, a card with Hidden may be played for its cost as normal, at its normal timing with no restrictions on targeting.`,
   },
   {
     id: `727.4`,
-    section: `727.4. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-H idden
-
-are
-
-redundant.`,
+    section: `727.4. Multiple instances of Hidden are redundant`,
+    text: `Multiple instances of Hidden are redundant.`,
   },
   {
     id: `727.5`,
-    section: `727.5. H idden,`,
-    text: `H idden,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-card
-
-has
-
-H idden,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-card
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `727.5. Hidden`,
+    text: `Hidden, and whether or not a card has Hidden, is a characteristic of the card and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `727.5.a`,
-    section: `727.5.a. This`,
-    text: `This
-
-is
-
-independent
-
-of
-
-the
-
-state
-
-of
-
-being
-
-facedow n.`,
+    section: `727.5.a. This is independent of the state of being facedown`,
+    text: `This is independent of the state of being facedown.`,
   },
   {
     id: `727.6`,
-    section: `727.6. A`,
-    text: `A
-
-card
-
-that
-
-is
-
-Hidden
-
-gains
-
-Reaction
-
-w hile
-
-facedow n,
-
-and
-
-m ay
-
-be
-
-played
-
-any
-
-tim e
-
-a
-
-card
-
-w ith
-
-Reaction
-
-m ay
-
-be
-
-played
-
-as
-
-a
-
-result.`,
+    section: `727.6. A card that is Hidden gains Reaction while facedown`,
+    text: `A card that is Hidden gains Reaction while facedown, and may be played any time a card with Reaction may be played as a result.`,
   },
   {
     id: `727.6.a`,
-    section: `727.6.a. The`,
-    text: `The
-
-property
-
-is
-
-granted
-
-to
-
-the
-
-card
-
-in
-
-its
-
-facedow n
-
-state,
-
-and
-
-is
-
-not
-
-publicly
-
-know n.`,
+    section: `727.6.a. The property is granted to the card in its facedown state`,
+    text: `The property is granted to the card in its facedown state, and is not publicly known.`,
   },
   {
     id: `728`,
@@ -61381,423 +7029,41 @@ know n.`,
   },
   {
     id: `728.1`,
-    section: `728.1. Legion`,
-    text: `Legion
-
-is
-
-a
-
-Conditional
-
-Keyword.`,
+    section: `728.1. Legion is a Conditional Keyword`,
+    text: `Legion is a Conditional Keyword.`,
   },
   {
     id: `728.1.a`,
-    section: `728.1.a. It`,
-    text: `It
-
-can
-
-be
-
-present
-
-on
-
-Spells,
-
-Units,
-
-Rune
-
-Abilities,
-
-Legend
-
-Abilities
-
-and
-
-Perm anent
-
-Abilities.`,
+    section: `728.1.a. It can be present on Spells`,
+    text: `It can be present on Spells, Units, Rune Abilities, Legend Abilities and Permanent Abilities.`,
   },
   {
     id: `728.1.b`,
-    section: `728.1.b. It`,
-    text: `It
-
-is
-
-form atted
-
-as
-
-"Legion
-
-—
-
-[Text]".`,
+    section: `728.1.b. It is formatted as "Legion — [Text]"`,
+    text: `It is formatted as "Legion — [Text]".`,
   },
   {
     id: `728.1.c`,
-    section: `728.1.c. Starting`,
-    text: `Starting
+    section: `728.1.c. Starting from the Keyword to the end of the clause`,
+    text: `Starting from the Keyword to the end of the clause, the entire statement is the Legion Ability.
 
-from
+1. On spells and on play effects of permanents, it is functionally short for “If you have played another Main Deck card before this one already this turn, apply [Text].”
 
-the
+2. On other abilities and instructions, it is functionally short for “If you have played a Main Deck card this turn, apply [Text].”
 
-Keyw ord
+3. This is called the Legion condition.
 
-to
-
-the
-
-end
-
-of
-
-the
-
-clause,
-
-the
-
-entire
-
-statem ent
-
-is
-
-the
-
-Legion
-
-Ability.
-
-728.1.c.1.
-
-O n
-
-spells
-
-and
-
-on
-
-play
-
-effects
-
-of
-
-perm anents,
-
-it
-
-is
-
-functionally
-
-short
-
-for
-
-“If
-
-you
-
-have
-
-played
-
-another
-
-M ain
-
-D eck
-
-card
-
-before
-
-this
-
-one
-
-already
-
-this
-
-turn,
-
-apply
-
-[Text].”
-
-728.1.c.2.
-
-O n
-
-other
-
-abilities
-
-and
-
-instructions,
-
-it
-
-is
-
-functionally
-
-short
-
-for
-
-“If
-
-you
-
-have
-
-played
-
-a
-
-M ain
-
-D eck
-
-card
-
-this
-
-turn,
-
-apply
-
-[Text].”
-
-728.1.c.3.
-
-This
-
-is
-
-called
-
-the
-
-Legion
-
-condition.
-
-728.1.c.4.
-
-Legion's
-
-conditional
-
-can
-
-apply
-
-to
-
-passive
-
-abilities,
-
-activated
-
-abilities,
-
-spell
-
-instructions,
-
-or
-
-even
-
-abilities
-
-active
-
-in
-
-zones
-
-outside
-
-of
-
-the
-
-board.`,
+4. Legion's conditional can apply to passive abilities, activated abilities, spell instructions, or even abilities active in zones outside of the board.`,
   },
   {
     id: `728.2`,
-    section: `728.2. All`,
-    text: `All
-
-instances
-
-of
-
-Legion
-
-on
-
-cards
-
-a
-
-player
-
-controls
-
-are
-
-satisﬁed
-
-by
-
-that
-
-player
-
-playing
-
-a
-
-single
-
-card.
-
-Example:
-
-O ne
-
-card
-
-has
-
-three
-
-different
-
-Legion
-
-Abilities.
-
-The
-
-Legion
-
-Text
-
-of
-
-all
-
-three
-
-abilities
-
-apply
-
-as
-
-long
-
-as
-
-one
-
-card
-
-has
-
-been
-
-played
-
-by
-
-the
-
-card's
-
-controller
-
-earlier
-
-in
-
-the
-
-sam e
-
-turn.`,
+    section: `728.2. All instances of Legion on cards a player controls are satisfied by that player playing a single card`,
+    text: `All instances of Legion on cards a player controls are satisfied by that player playing a single card. Example: One card has three different Legion Abilities. The Legion Text of all three abilities apply as long as one card has been played by the card's controller earlier in the same turn.`,
   },
   {
     id: `728.3`,
-    section: `728.3. Legion,`,
-    text: `Legion,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-card
-
-has
-
-Legion,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-card
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `728.3. Legion`,
+    text: `Legion, and whether or not a card has Legion, is a characteristic of the card and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `729`,
@@ -61806,536 +7072,64 @@ Effects.`,
   },
   {
     id: `729.1`,
-    section: `729.1. Reaction`,
-    text: `Reaction
-
-is
-
-a
-
-Perm issive
-
-keyw ord.`,
+    section: `729.1. Reaction is a Permissive keyword`,
+    text: `Reaction is a Permissive keyword.`,
   },
   {
     id: `729.1.a`,
-    section: `729.1.a. It`,
-    text: `It
-
-can
-
-be
-
-present
-
-on
-
-Spells,
-
-Units,
-
-Rune
-
-Abilities,
-
-Legend
-
-Abilities
-
-and
-
-Perm anent
-
-Abilities.`,
+    section: `729.1.a. It can be present on Spells`,
+    text: `It can be present on Spells, Units, Rune Abilities, Legend Abilities and Permanent Abilities.`,
   },
   {
     id: `729.1.b`,
-    section: `729.1.b. Reaction`,
-    text: `Reaction
-
-grants
-
-the
-
-corresponding
-
-card
-
-or
-
-effect
-
-all
-
-abilities
-
-and
-
-perm issions
-
-of
-
-Action.`,
+    section: `729.1.b. Reaction grants the corresponding card or effect all abilities and permissions of Action`,
+    text: `Reaction grants the corresponding card or effect all abilities and permissions of Action.`,
   },
   {
     id: `729.1.c`,
-    section: `729.1.c. Reaction ,`,
-    text: `Reaction ,
+    section: `729.1.c. Reaction`,
+    text: `Reaction, additionally, is functionally short for the following:
 
-additionally,
+1. On Spells: "This can be played during Closed States on any player's turn."
 
-is
+2. On Units: "This can be played during Closed States on any player's turn."
 
-functionally
-
-short
-
-for
-
-the
-
-follow ing:
-
-729.1.c.1.
-
-O n
-
-Spells:
-
-"This
-
-can
-
-be
-
-played
-
-during
-
-Closed
-
-States
-
-on
-
-any
-
-player's
-
-turn."
-
-729.1.c.2.
-
-O n
-
-Units:
-
-"This
-
-can
-
-be
-
-played
-
-during
-
-Closed
-
-States
-
-on
-
-any
-
-player's
-
-turn."
-
-729.1.c.3.
-
-O n
-
-Rune,
-
-Legend,
-
-or
-
-Perm anent
-
-Abilities:
-
-"This
-
-can
-
-be
-
-activated
-
-during
-
-Closed
-
-States
-
-on
-
-any
-
-player's
-
-turn."`,
+3. On Rune, Legend, or Permanent Abilities: "This can be activated during Closed States on any player's turn."`,
   },
   {
     id: `729.2`,
-    section: `729.2. The`,
-    text: `The
-
-corresponding
-
-card
-
-or
-
-effect
-
-w ith
-
-this
-
-keyw ord
-
-is
-
-not
-
-restricted
-
-to
-
-Closed
-
-States
-
-or
-
-Showdowns .
-
-This
-
-perm ission
-
-is
-
-inclusive
-
-of
-
-all
-
-other
-
-tim ings
-
-and
-
-options
-
-available
-
-to
-
-the
-
-ability
-
-as
-
-w ritten,
-
-Action's
-
-perm issions,
-
-or
-
-by
-
-default.`,
+    section: `729.2. The corresponding card or effect with this keyword is not restricted to Closed States or Showdowns`,
+    text: `The corresponding card or effect with this keyword is not restricted to Closed States or Showdowns. This permission is inclusive of all other timings and options available to the ability as written, Action's permissions, or by default.`,
   },
   {
     id: `729.3`,
-    section: `729.3. Reaction`,
-    text: `Reaction
-
-does
-
-not
-
-alter
-
-the
-
-function
-
-of
-
-any
-
-instruction
-
-of
-
-the
-
-Card,
-
-Rune,
-
-or
-
-Effect
-
-it
-
-is
-
-on.
-
-It
-
-is
-
-only
-
-Perm ission.`,
+    section: `729.3. Reaction does not alter the function of any instruction of the Card`,
+    text: `Reaction does not alter the function of any instruction of the Card, Rune, or Effect it is on. It is only Permission.`,
   },
   {
     id: `729.3.a`,
-    section: `729.3.a. Playing`,
-    text: `Playing
-
-Units
-
-w ith
-
-Reaction
-
-still
-
-has
-
-the
-
-inherent
-
-restrictions
-
-of
-
-playing
-
-Units
-
-w ithout
-
-Reaction.
-
-It
-
-can
-
-only
-
-be
-
-played
-
-to
-
-the
-
-controlling
-
-player's
-
-base
-
-or
-
-a
-
-battleﬁeld
-
-they
-
-control.`,
+    section: `729.3.a. Playing Units with Reaction still has the inherent restrictions of playing Units without Reaction`,
+    text: `Playing Units with Reaction still has the inherent restrictions of playing Units without Reaction. It can only be played to the controlling player's base or a battlefield they control.`,
   },
   {
     id: `729.4`,
-    section: `729.4. Reaction`,
-    text: `Reaction
-
-is
-
-a
-
-referencable
-
-characteristic.`,
+    section: `729.4. Reaction is a referencable characteristic`,
+    text: `Reaction is a referencable characteristic.`,
   },
   {
     id: `729.4.a`,
-    section: `729.4.a. W hether`,
-    text: `W hether
-
-or
-
-not
-
-a
-
-Gam e
-
-Object
-
-has
-
-Reaction
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Gam e
-
-Object
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `729.4.a. Whether or not a Game Object has Reaction is a characteristic of that Game Object and may be checked or referenced by other Game Effects`,
+    text: `Whether or not a Game Object has Reaction is a characteristic of that Game Object and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `729.4.b`,
-    section: `729.4.b. W hether`,
-    text: `W hether
-
-or
-
-not
-
-a
-
-Spell
-
-has
-
-Reaction
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Spell
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `729.4.b. Whether or not a Spell has Reaction is a characteristic of that Spell and may be checked or referenced by other Game Effects`,
+    text: `Whether or not a Spell has Reaction is a characteristic of that Spell and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `729.4.c`,
-    section: `729.4.c. W hether`,
-    text: `W hether
-
-or
-
-not
-
-an
-
-Ability
-
-has
-
-Reaction
-
-is
-
-a
-
-characteristic
-
-of
-
-that
-
-Ability
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `729.4.c. Whether or not an Ability has Reaction is a characteristic of that Ability and may be checked or referenced by other Game Effects`,
+    text: `Whether or not an Ability has Reaction is a characteristic of that Ability and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `730`,
@@ -62344,356 +7138,46 @@ Effects.`,
   },
   {
     id: `730.1`,
-    section: `730.1. Shield`,
-    text: `Shield
-
-is
-
-a
-
-Passive
-
-Ability
-
-keyw ord.`,
+    section: `730.1. Shield is a Passive Ability keyword`,
+    text: `Shield is a Passive Ability keyword.`,
   },
   {
     id: `730.1.a`,
-    section: `730.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Units.`,
+    section: `730.1.a. It is present on Units`,
+    text: `It is present on Units.`,
   },
   {
     id: `730.1.b`,
-    section: `730.1.b. Shield`,
-    text: `Shield
+    section: `730.1.b. Shield is formatted as "Shield [X]"`,
+    text: `Shield is formatted as "Shield [X]".
 
-is
+1. The X is referenced in the functional text of the ability.
 
-form atted
+2. The X is referred to as the Shield Value.
 
-as
-
-"Shield
-
-[X]".
-
-730.1.b.1.
-
-The
-
-X
-
-is
-
-referenced
-
-in
-
-the
-
-functional
-
-text
-
-of
-
-the
-
-ability.
-
-730.1.b.2.
-
-The
-
-X
-
-is
-
-referred
-
-to
-
-as
-
-the
-
-Shield
-
-Value.
-
-730.1.b.3.
-
-If
-
-X
-
-is
-
-om itted,
-
-it
-
-is
-
-presum ed
-
-to
-
-be
-
-1.`,
+3. If X is omitted, it is presumed to be 1.`,
   },
   {
     id: `730.1.c`,
-    section: `730.1.c. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"W hile
-
-I
-
-am
-
-a
-
-defender,
-
-I
-
-have
-
-+X
-
-[M ]."`,
+    section: `730.1.c. It is functionally short for "While I am a defender`,
+    text: `It is functionally short for "While I am a defender, I have +X [M]."`,
   },
   {
     id: `730.1.d`,
-    section: `730.1.d. Being`,
-    text: `Being
+    section: `730.1.d. Being a defender means the Unit has gained the Defender designation during Combat`,
+    text: `Being a defender means the Unit has gained the Defender designation during Combat. See rule 433. Combat for more information.
 
-a
-
-defender
-
-m eans
-
-the
-
-Unit
-
-has
-
-gained
-
-the
-
-D efender
-
-designation
-
-during
-
-Com bat.
-
-See
-
-rule`,
+1. Shield remains in effect as long as the Unit maintains the Defender designation.`,
   },
   {
     id: `730.2`,
-    section: `730.2. If`,
-    text: `If
-
-a
-
-Unit
-
-has
-
-Shield,
-
-or
-
-has
-
-been
-
-granted
-
-Shield,
-
-and
-
-is
-
-granted
-
-Shield
-
-by
-
-an
-
-additional
-
-source,
-
-the
-
-Shield
-
-Value
-
-of
-
-all
-
-granted
-
-Shield
-
-keyw ords
-
-is
-
-sum m ed.
-
-Example:
-
-Stalw art
-
-Poro
-
-has
-
-Shield.
-
-It
-
-is
-
-chosen
-
-as
-
-the
-
-target
-
-of
-
-Block,
-
-w hich
-
-says
-
-"Give
-
-a
-
-unit
-
-[Shield
-
-3]
-
-and
-
-[Tank]
-
-this
-
-turn."
-
-After
-
-Block
-
-resolves,
-
-Stalw art
-
-Poro
-
-has
-
-Shield
-
-4
-
-this
-
-turn.`,
+    section: `730.2. If a Unit has Shield`,
+    text: `If a Unit has Shield, or has been granted Shield, and is granted Shield by an additional source, the Shield Value of all granted Shield keywords is summed. Example: Stalwart Poro has Shield. It is chosen as the target of Block, which says "Give a unit [Shield 3] and [Tank] this turn." After Block resolves, Stalwart Poro has Shield 4 this turn.`,
   },
   {
     id: `730.3`,
-    section: `730.3. Shield,`,
-    text: `Shield,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-unit
-
-has
-
-Shield,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-Unit
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `730.3. Shield`,
+    text: `Shield, and whether or not a unit has Shield, is a characteristic of the Unit and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `731`,
@@ -62702,469 +7186,72 @@ Effects.`,
   },
   {
     id: `731.1`,
-    section: `731.1. Tank`,
-    text: `Tank
-
-is
-
-a
-
-Passive
-
-Ability
-
-keyw ord.`,
+    section: `731.1. Tank is a Passive Ability keyword`,
+    text: `Tank is a Passive Ability keyword.`,
   },
   {
     id: `731.1.a`,
-    section: `731.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Units.`,
+    section: `731.1.a. It is present on Units`,
+    text: `It is present on Units.`,
   },
   {
     id: `731.1.b`,
-    section: `731.1.b. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"I
-
-m ust
-
-be
-
-assigned
-
-lethal
-
-dam age
-
-before
-
-any
-
-other
-
-unit
-
-w ith
-
-the
-
-sam e
-
-controller
-
-as
-
-m e
-
-that
-
-does
-
-not
-
-have
-
-[Tank]
-
-during
-
-com bat
-
-resolution."`,
+    section: `731.1.b. It is functionally short for "I must be assigned lethal damage before any other unit with the same controller as me that does not have [Tank] during combat resolution`,
+    text: `It is functionally short for "I must be assigned lethal damage before any other unit with the same controller as me that does not have [Tank] during combat resolution."`,
   },
   {
     id: `731.1.c`,
-    section: `731.1.c. It`,
-    text: `It
+    section: `731.1.c. It alters how players can elect to assign combat damage during combat`,
+    text: `It alters how players can elect to assign combat damage during combat.
 
-alters
+1. Players must still assign lethal damage to a unit before moving to the next when assigning their damage.
 
-how
-
-players
-
-can
-
-elect
-
-to
-
-assign
-
-com bat
-
-dam age
-
-during
-
-com bat.
-
-731.1.c.1.
-
-Players
-
-m ust
-
-still
-
-assign
-
-lethal
-
-dam age
-
-to
-
-a
-
-unit
-
-before
-
-m oving
-
-to
-
-the
-
-next
-
-w hen
-
-assigning
-
-their
-
-dam age.
-
-731.1.c.2.
-
-If
-
-m ore
-
-than
-
-one
-
-unit
-
-w ith
-
-Tank
-
-is
-
-present
-
-w ith
-
-the
-
-sam e
-
-controller
-
-in
-
-Com bat,
-
-dam age
-
-m ay
-
-be
-
-assigned
-
-to
-
-any
-
-of
-
-them .
-
-Units
-
-w ithout
-
-Tank
-
-are
-
-invalid
-
-assignm ents
-
-until
-
-all
-
-units
-
-w ith
-
-Tank
-
-have
-
-lethal
-
-dam age
-
-assigned
-
-to
-
-them .`,
+2. If more than one unit with Tank is present with the same controller in Combat, damage may be assigned to any of them. Units without Tank are invalid assignments until all units with Tank have lethal damage assigned to them.`,
   },
   {
     id: `731.2`,
-    section: `731.2. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-Tank
-
-are
-
-redundant.`,
+    section: `731.2. Multiple instances of Tank are redundant`,
+    text: `Multiple instances of Tank are redundant.`,
   },
   {
     id: `731.3`,
-    section: `731.3. Tank,`,
-    text: `Tank,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-unit
-
-has
-
-Tank,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-Unit
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `731.3. Tank`,
+    text: `Tank, and whether or not a unit has Tank, is a characteristic of the Unit and may be checked or referenced by other Game Effects.`,
+  },
+  {
+    id: `732`,
+    section: `732. Temporary`,
+    text: `Temporary`,
   },
   {
     id: `732.1`,
-    section: `732.1. Tem porary`,
-    text: `Tem porary
-
-is
-
-a
-
-Triggered
-
-Ability
-
-keyw ord.`,
+    section: `732.1. Temporary is a Triggered Ability keyword`,
+    text: `Temporary is a Triggered Ability keyword.`,
   },
   {
     id: `732.1.a`,
-    section: `732.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Perm anents.`,
+    section: `732.1.a. It is present on Permanents`,
+    text: `It is present on Permanents.`,
   },
   {
     id: `732.1.b`,
-    section: `732.1.b. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"At
-
-the
-
-start
-
-of
-
-this
-
-perm anent's
-
-controller's
-
-Beginning
-
-Phase,
-
-before
-
-scoring,
-
-kill
-
-this."`,
+    section: `732.1.b. It is functionally short for "At the start of this permanent's controller's Beginning Phase`,
+    text: `It is functionally short for "At the start of this permanent's controller's Beginning Phase, before scoring, kill this."`,
   },
   {
     id: `732.1.c`,
-    section: `732.1.c. The`,
-    text: `The
-
-Trigger
-
-Condition
-
-is
-
-the
-
-controller
-
-of
-
-the
-
-perm anent's
-
-Beginning
-
-Phase
-
-occurring.`,
+    section: `732.1.c. The Trigger Condition is the controller of the permanent's Beginning Phase occurring`,
+    text: `The Trigger Condition is the controller of the permanent's Beginning Phase occurring.`,
   },
   {
     id: `732.2`,
-    section: `732.2. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-Tem porary
-
-are
-
-redundant.`,
+    section: `732.2. Multiple instances of Temporary are redundant`,
+    text: `Multiple instances of Temporary are redundant.`,
   },
   {
     id: `732.3`,
-    section: `732.3. Tem porary,`,
-    text: `Tem porary,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-perm anent
-
-has
-
-Tem porary,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-perm anent
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `732.3. Temporary`,
+    text: `Temporary, and whether or not a permanent has Temporary, is a characteristic of the permanent and may be checked or referenced by other Game Effects.`,
   },
   {
     id: `733`,
@@ -63173,254 +7260,42 @@ Effects.`,
   },
   {
     id: `733.1`,
-    section: `733.1. Vision`,
-    text: `Vision
-
-is
-
-a
-
-Triggered
-
-Ability
-
-keyw ord.`,
+    section: `733.1. Vision is a Triggered Ability keyword`,
+    text: `Vision is a Triggered Ability keyword.`,
   },
   {
     id: `733.1.a`,
-    section: `733.1.a. It`,
-    text: `It
-
-is
-
-present
-
-on
-
-Perm anents.`,
+    section: `733.1.a. It is present on Permanents`,
+    text: `It is present on Permanents.`,
   },
   {
     id: `733.1.b`,
-    section: `733.1.b. It`,
-    text: `It
-
-is
-
-functionally
-
-short
-
-for
-
-"W hen
-
-this
-
-is
-
-played,
-
-look
-
-at
-
-the
-
-top
-
-card
-
-of
-
-your
-
-M ain
-
-D eck.
-
-You
-
-m ay
-
-recycle
-
-it."`,
+    section: `733.1.b. It is functionally short for "When this is played`,
+    text: `It is functionally short for "When this is played, look at the top card of your Main Deck. You may recycle it."`,
   },
   {
     id: `733.1.c`,
-    section: `733.1.c. The`,
-    text: `The
-
-trigger
-
-is
-
-the
-
-perm anent
-
-entering
-
-the
-
-Board.`,
+    section: `733.1.c. The trigger is the permanent entering the Board`,
+    text: `The trigger is the permanent entering the Board.`,
   },
   {
     id: `733.2`,
-    section: `733.2. M ultiple`,
-    text: `M ultiple
-
-instances
-
-of
-
-Vision
-
-trigger
-
-separately.`,
+    section: `733.2. Multiple instances of Vision trigger separately`,
+    text: `Multiple instances of Vision trigger separately.`,
   },
   {
     id: `733.2.a`,
-    section: `733.2.a. The`,
-    text: `The
-
-player
-
-m ay
-
-choose
-
-to
-
-recycle
-
-or
-
-not
-
-recycle
-
-for
-
-each
-
-instance
-
-of
-
-Vision
-
-separately.`,
+    section: `733.2.a. The player may choose to recycle or not recycle for each instance of Vision separately`,
+    text: `The player may choose to recycle or not recycle for each instance of Vision separately.`,
   },
   {
     id: `733.2.b`,
-    section: `733.2.b. If`,
-    text: `If
-
-the
-
-player
-
-does
-
-not
-
-recycle
-
-the
-
-top
-
-card
-
-and
-
-nothing
-
-else
-
-happens
-
-in
-
-betw een
-
-the
-
-triggers
-
-resolving,
-
-each
-
-instance
-
-of
-
-Vision
-
-w ill
-
-see
-
-the
-
-sam e
-
-card.`,
+    section: `733.2.b. If the player does not recycle the top card and nothing else happens in between the triggers resolving`,
+    text: `If the player does not recycle the top card and nothing else happens in between the triggers resolving, each instance of Vision will see the same card.`,
   },
   {
     id: `733.3`,
-    section: `733.3. Vision,`,
-    text: `Vision,
-
-and
-
-w hether
-
-or
-
-not
-
-a
-
-perm anent
-
-has
-
-Vision,
-
-is
-
-a
-
-characteristic
-
-of
-
-the
-
-perm anent
-
-and
-
-m ay
-
-be
-
-checked
-
-or
-
-referenced
-
-by
-
-other
-
-Gam e
-
-Effects.`,
+    section: `733.3. Vision`,
+    text: `Vision, and whether or not a permanent has Vision, is a characteristic of the permanent and may be checked or referenced by other Game Effects.`,
   },
 ];

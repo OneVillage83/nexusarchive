@@ -1,14 +1,98 @@
 // src/app/rules/page.tsx
 import { rulesIndex } from "@/data/rules-index";
 
+// Each entry is whatever shape was generated in src/data/rules-index.ts
+// (id: string, section: string, text: string)
+type RuleEntry = (typeof rulesIndex)[number];
+
 type RulesPageProps = {
   // In Next 16, searchParams is a Promise in server components
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-// Each entry is whatever shape was generated in src/data/rules-index.ts
-// (id: string, section: string, text: string)
-type RuleEntry = (typeof rulesIndex)[number];
+// ---------- Index helpers ----------
+
+// Fast lookup by rule id
+const rulesById = new Map<string, RuleEntry>(
+  rulesIndex.map((r) => [r.id, r])
+);
+
+// Compare rule ids like "000", "001", "053.1", "103.1.b"
+function compareRuleId(a: string, b: string): number {
+  const aParts = a.split(".");
+  const bParts = b.split(".");
+
+  const len = Math.max(aParts.length, bParts.length);
+  for (let i = 0; i < len; i++) {
+    const aSeg = aParts[i] ?? "";
+    const bSeg = bParts[i] ?? "";
+
+    const aNum = /^\d+$/.test(aSeg) ? parseInt(aSeg, 10) : null;
+    const bNum = /^\d+$/.test(bSeg) ? parseInt(bSeg, 10) : null;
+
+    if (aNum !== null && bNum !== null) {
+      if (aNum !== bNum) return aNum - bNum;
+    } else if (aNum !== null) {
+      return -1;
+    } else if (bNum !== null) {
+      return 1;
+    } else {
+      if (aSeg < bSeg) return -1;
+      if (aSeg > bSeg) return 1;
+    }
+  }
+
+  return 0;
+}
+
+type SectionGroup = {
+  sectionId: string; // e.g. "103"
+  sectionLabel: string; // e.g. "103. Deck Construction"
+  headerText?: string; // optional text from the section rule itself
+  rules: RuleEntry[]; // matching subrules in that section
+};
+
+// Take raw matches and group them under their top-level section (first 3 digits)
+function groupRulesBySection(matches: RuleEntry[]): SectionGroup[] {
+  const groupsMap = new Map<string, SectionGroup>();
+
+  for (const rule of matches) {
+    const sectionId = rule.id.split(".")[0]; // "000", "103", etc.
+
+    let group = groupsMap.get(sectionId);
+    if (!group) {
+      const sectionRule = rulesById.get(sectionId);
+      group = {
+        sectionId,
+        sectionLabel: sectionRule?.section ?? `${sectionId}.`,
+        headerText: sectionRule?.text ?? "",
+        rules: [],
+      };
+      groupsMap.set(sectionId, group);
+    }
+
+    // Don't add the section header rule itself as a subrule;
+    // we’ll show its text separately.
+    if (rule.id !== group.sectionId) {
+      group.rules.push(rule);
+    }
+  }
+
+  // Sort subrules within each section numerically
+  for (const g of groupsMap.values()) {
+    g.rules.sort((a, b) => compareRuleId(a.id, b.id));
+  }
+
+  // Preserve the order in which sections first appeared in matches
+  const ordered: SectionGroup[] = [];
+  for (const rule of matches) {
+    const sid = rule.id.split(".")[0];
+    const g = groupsMap.get(sid);
+    if (g && !ordered.includes(g)) ordered.push(g);
+  }
+
+  return ordered;
+}
 
 // ---------- Search helpers ----------
 
@@ -62,11 +146,26 @@ function getScoringTerms(query: string): string[] {
   return contentTerms.length > 0 ? contentTerms : all;
 }
 
+function fixBrokenWords(text: string): string {
+  let s = text;
+
+  // Join patterns like "W henever" or "w hat"
+  // Single-letter word that is NOT a/A/I followed by a 2+ letter word.
+  s = s.replace(/\b([b-hj-zB-HJ-Z])\s+([a-z]{2,})\b/g, "$1$2");
+
+  // Fix some known bad splits from the PDF
+  s = s.replace(/\bfundam entally\b/gi, "fundamentally");
+  s = s.replace(/\bDom ain\b/gi, "Domain");
+  s = s.replace(/\bIdent ity\b/gi, "Identity");
+
+  // You can keep adding special-cases here as you see them.
+  return s;
+}
+
 // Clean up the raw PDF text so it reads like normal paragraphs
 function formatRuleText(raw: string): string {
-  // Nuke all weird whitespace/newlines into single spaces.
-  // We can always add fancier paragraph logic later if needed.
-  return raw.replace(/\s+/g, " ").trim();
+  const collapsed = raw.replace(/\s+/g, " ").trim();
+  return fixBrokenWords(collapsed);
 }
 
 function searchRules(query: string): RuleEntry[] {
@@ -246,38 +345,56 @@ function SearchResults({
   googleSearchUrl,
   siteSearchUrl,
 }: SearchResultsProps) {
-  const hasMatches = ruleMatches.length > 0;
+  const sectionGroups = groupRulesBySection(ruleMatches);
+  const hasMatches = sectionGroups.length > 0;
 
   return (
     <div className="space-y-4 rounded-2xl border border-white/35 bg-black/60 p-4 text-left text-amber-50 shadow-[0_0_26px_rgba(0,0,0,0.75)]">
       {/* Internal matches */}
-      <div>
-        <div className="text-xs font-semibold uppercase tracking-wide text-amber-200">
-          Potential matches from Core Rules
-        </div>
-        {hasMatches ? (
-          <ul className="mt-2 space-y-2 text-sm">
-            {ruleMatches.map((rule) => (
-              <li
-                key={rule.section}
-                className="rounded-xl bg-black/55 px-3 py-2 text-xs"
-              >
-                <div className="text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
-                  {rule.section}
-                </div>
+      {hasMatches ? (
+        <div className="mt-2 space-y-3 text-sm">
+          {sectionGroups.map((group) => (
+            <div
+              key={group.sectionId}
+              className="rounded-xl bg-black/55 px-3 py-2 text-xs"
+            >
+              {/* Section heading: e.g. 103. Deck Construction */}
+              <div className="text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
+                {group.sectionLabel}
+              </div>
+
+              {/* Optional intro text from the section header rule */}
+              {group.headerText && (
                 <div className="mt-1 text-[11px] text-amber-100/90 whitespace-pre-line">
-                  {formatRuleText(rule.text)}
+                  {formatRuleText(group.headerText)}
                 </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-xs text-amber-100/90">
-            No quick matches in the rules index for &ldquo;{query}&rdquo; yet.
-            Try fewer words, or check the full documents below.
-          </p>
-        )}
-      </div>
+              )}
+
+              {/* Matching sub-rules inside this section, in rule order */}
+              {group.rules.length > 0 && (
+                <ul className="mt-2 space-y-1">
+                  {group.rules.map((rule) => (
+                    <li
+                      key={rule.id}
+                      className="text-[11px] text-amber-100/90 leading-snug"
+                    >
+                      <span className="font-semibold">{rule.id}. </span>
+                      <span className="whitespace-pre-line">
+                        {formatRuleText(rule.text)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-2 text-xs text-amber-100/90">
+          No quick matches in the rules index for &ldquo;{query}&rdquo; yet. Try
+          fewer words, or check the full documents below.
+        </p>
+      )}
 
       {/* External guidance */}
       <div className="pt-3 border-t border-white/15 space-y-2 text-sm">

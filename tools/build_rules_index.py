@@ -3,26 +3,30 @@ import textwrap
 from pathlib import Path
 from collections import OrderedDict
 
-from PyPDF2 import PdfReader  # pip install PyPDF2 if needed
-
-
-# Path to your rules PDF  (raw string to handle backslashes)
-PDF_PATH = Path(r"C:\nexusarchive\tools\Riftbound Core Rules v1.1-100125.pdf")
-
-# Where to write the TS file (relative to project root)
+# Use the TXT you just exported
+TXT_PATH = Path(r"C:\nexusarchive\tools\Riftbound Core Rules.txt")
 OUT_TS_PATH = Path("src/data/rules-index.ts")
 
-
-# Matches: 000.   051.   053.1.   103.4.c.
-RULE_HEADER_RE = re.compile(r"^\s*(\d{3}(?:\.\d+)*(?:\.[a-z])?)\.\s*$")
+# Match things like:
+# 000.
+# 101.
+# 103.2.
+# 352.8.a.
+# and also allow text after the number on the same line:
+# 101. Deck Construction
+RULE_HEADER_RE = re.compile(
+    r"^\s*(\d{3}(?:\.\d+)*(?:\.[a-z])?)\.\s*(.*)$"
+)
 
 
 def normalize_body(text: str) -> str:
     """
-    Turn a bunch of one-word-per-line text into nicer paragraphs.
+    Join wrapped lines into paragraphs.
 
-    - Joins non-empty lines into sentences separated by spaces.
-    - Keeps blank lines as paragraph breaks.
+    The TXT export still has one sentence broken across multiple lines,
+    so we:
+      - treat blank lines as paragraph breaks
+      - join non-blank lines with spaces
     """
     paragraphs = []
     current = []
@@ -39,64 +43,63 @@ def normalize_body(text: str) -> str:
     if current:
         paragraphs.append(" ".join(current))
 
-    # Join paragraphs with a blank line between
     return "\n\n".join(paragraphs).strip()
 
 
-def extract_pdf_text(pdf_path: Path) -> str:
-    reader = PdfReader(str(pdf_path))
-    chunks = []
-    for page in reader.pages:
-        t = page.extract_text() or ""
-        chunks.append(t)
-    return "\n".join(chunks)
+def extract_txt_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
 
 
 def build_section_label(rule_id: str, body: str) -> str:
     """
-    Try to build a human-friendly section label like:
-      "000. Golden and Silver Rules"
-    by taking the first few words of the rule body.
+    Build a human-friendly section label like:
+      "103. To play Riftbound"
+    using the first line of the rule's body, trimmed at the first comma/period.
     """
-    words = []
-    for line in body.splitlines():
-        line = line.strip()
-        if not line:
-            # stop at first blank line *after* we've collected some words
-            if words:
-                break
-            else:
-                continue
-        for w in line.split():
-            words.append(w)
-            if len(words) >= 8:  # cap title to ~8 words
-                break
-        if len(words) >= 8:
-            break
-
-    title = " ".join(words)
-    if title:
-        return f"{rule_id}. {title}"
-    else:
+    body = (body or "").strip()
+    if not body:
         return f"{rule_id}."
 
+    # First non-empty line
+    first_line = ""
+    for line in body.splitlines():
+        line = line.strip()
+        if line:
+            first_line = line
+            break
+
+    if not first_line:
+        return f"{rule_id}."
+
+    # Cut at the first comma or period (whichever comes first)
+    import re
+    head = re.split(r"[.,]", first_line, maxsplit=1)[0].strip()
+
+    # Fallback: if somehow empty, just use a few words
+    if not head:
+        words = first_line.split()
+        head = " ".join(words[:6])
+
+    return f"{rule_id}. {head}"
 
 def parse_rules(raw_text: str):
     """
-    Find rule headers that look like:
-      000.
-      001.
-      053.1.
-      103.4.c.
-    and collect all following lines as that rule's body
-    until the next header.
+    Parse the flat TXT into numbered rules.
+
+    Each rule starts at a line that looks like:
+
+      101. Deck Construction
+      103.2.a. Chosen Champion
+
+    We capture the id ("101", "103.2.a") and treat the rest of that line
+    plus any following non-header lines as the rule body until the next header.
     """
     rules = []
     current_id = None
     current_lines = []
 
     for line in raw_text.splitlines():
-        line = line.rstrip()
+        line = line.rstrip("\n")
 
         m = RULE_HEADER_RE.match(line)
         if m:
@@ -113,8 +116,11 @@ def parse_rules(raw_text: str):
                     }
                 )
 
-            current_id = m.group(1)  # "000" or "053.1" or "103.4.c"
+            current_id = m.group(1)
+            inline_text = m.group(2).strip()
             current_lines = []
+            if inline_text:
+                current_lines.append(inline_text)
         else:
             if current_id is not None:
                 current_lines.append(line)
@@ -143,10 +149,8 @@ def escape_ts_string(s: str) -> str:
 
 def merge_rules_by_id(rules):
     """
-    Merge multiple segments with the same rule id into a single rule.
-
-    - Keeps the first section label we saw.
-    - Appends any new text that isn't already in the rule body.
+    Keep your existing merging behavior in case any ids are split
+    across pages (they probably aren’t in the TXT, but it's harmless).
     """
     merged = OrderedDict()
 
@@ -170,7 +174,7 @@ def write_ts(rules, out_path: Path):
         f.write(
             textwrap.dedent(
                 """\
-// AUTO-GENERATED from Riftbound Core Rules PDF.
+// AUTO-GENERATED from Riftbound Core Rules TXT.
 // Do not edit by hand; run tools/build_rules_index.py instead.
 
 export type RuleEntry = {
@@ -201,10 +205,10 @@ export const rulesIndex: RuleEntry[] = [
 
 
 def main():
-    if not PDF_PATH.exists():
-        raise SystemExit(f"PDF not found at {PDF_PATH}")
-    print(f"Reading PDF: {PDF_PATH} ...")
-    raw = extract_pdf_text(PDF_PATH)
+    if not TXT_PATH.exists():
+        raise SystemExit(f"TXT not found at {TXT_PATH}")
+    print(f"Reading TXT: {TXT_PATH} ...")
+    raw = extract_txt_text(TXT_PATH)
     print("Parsing rules...")
     rules = parse_rules(raw)
     print(f"Parsed {len(rules)} raw rule segments.")
