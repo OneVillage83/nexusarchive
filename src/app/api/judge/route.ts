@@ -92,18 +92,6 @@ const openai = new OpenAI({
 
 export const runtime = "nodejs";
 
-export async function POST(req: NextRequest) {
-  try {
-    const json = (await req.json()) as Partial<JudgeQuestion> | null;
-    const question = json?.question?.toString().trim();
-
-    if (!question) {
-      return NextResponse.json(
-        { error: "Missing 'question' in request body." },
-        { status: 400 }
-      );
-    }
-
     const cacheKey = normalizeQuestion(question);
 
     // 1) Cache check
