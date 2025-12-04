@@ -1,21 +1,80 @@
 // src/app/api/judge/route.ts
 
-import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-
+import { NextRequest, NextResponse } from "next/server";
 import { buildJudgeContext } from "@/lib/rules/judge-context";
 import { buildJudgeMessages } from "@/lib/rules/judge-prompt";
 import type {
   JudgeAnswer,
   JudgeQuestion,
-  JudgeRuleCitation,
-  JudgeConceptCitation,
-  JudgeGlossaryCitation,
 } from "@/lib/rules/judge-types";
 
-// --- Model selection: always use the cheapest reasonable model ---
-// As of now, gpt-4o-mini is the low-cost text model on the OpenAI API.
 const JUDGE_MODEL = "gpt-4o-mini";
+
+// Helper: only create the client when we actually get a request
+function getOpenAI() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    // For build-time / missing env: don't throw a hard error at import.
+    // We'll return a friendly 503 from the handler instead.
+    return null;
+  }
+  return new OpenAI({ apiKey });
+}
+
+export async function POST(req: NextRequest) {
+  const body = (await req.json()) as JudgeQuestion;
+  const question = body.question?.trim();
+
+  if (!question) {
+    return NextResponse.json(
+      { error: "Missing question" },
+      { status: 400 },
+    );
+  }
+
+  const openai = getOpenAI();
+  if (!openai) {
+    return NextResponse.json(
+      {
+        error:
+          "Nexus Judge is currently unavailable (missing API credentials). Please use the official rules documents instead.",
+      },
+      { status: 503 },
+    );
+  }
+
+  // Build judge context from your rules index / keywords / concepts
+  const context = buildJudgeContext(question);
+  const messages = buildJudgeMessages(question, context);
+
+  const completion = await openai.chat.completions.create({
+    model: JUDGE_MODEL,
+    messages,
+    temperature: 0.2,
+  });
+
+  const answerText = completion.choices[0]?.message?.content ?? "";
+
+  const response: JudgeAnswer = {
+    answer: answerText,
+    ruleCitations: context.rules.map((r) => ({
+      id: r.rule.id,
+      section: r.rule.section,
+    })),
+    conceptCitations: context.concepts.map((c) => ({
+      id: c.id,
+      name: c.name,
+    })),
+    glossaryCitations: context.glossary.map((g) => ({
+      id: g.id,
+      term: g.term,
+    })),
+    context,
+  };
+
+  return NextResponse.json(response);
+}
 
 // --- Simple in-memory cache for repeated questions ---
 // Note: this is per-server-instance and non-persistent. For production,

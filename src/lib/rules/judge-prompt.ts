@@ -41,7 +41,7 @@ export function buildJudgeMessages(
   const promptCtx = toPromptContext(ctx);
 
   const systemContent = [
-    "You are an official-style rules judge for the card game Riftbound.",
+    "You are an official-style rules judge for the Riot card game Riftbound.",
     "Your job is to interpret the rules strictly, using only the provided rules, concepts, and glossary.",
     "",
     "Guidelines:",
