@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
+import { kv } from "@vercel/kv";
 
 import { buildJudgeContext } from "@/lib/rules/judge-context";
 import { buildJudgeMessages } from "@/lib/rules/judge-prompt";
@@ -59,24 +60,39 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1) Cache check
-    const cacheKey = normalizeQuestion(question);
-    const cached = judgeCache.get(cacheKey);
-    if (cached) {
-      return NextResponse.json(cached);
+    // Normalized cache key (shared by memory + KV)
+    const cacheKey = `judge:${normalizeQuestion(question)}`;
+
+    // 1) In-memory cache check (fastest)
+    const memCached = judgeCache.get(cacheKey);
+    if (memCached) {
+      return NextResponse.json(memCached);
     }
 
-    // 2) Build retrieval context (rules + glossary + concepts)
+    // 2) KV cache check (shared across Vercel instances)
+    try {
+      const kvCached = (await kv.get<JudgeAnswer>(cacheKey)) || null;
+      if (kvCached) {
+        // hydrate in-memory cache for this instance
+        judgeCache.set(cacheKey, kvCached);
+        return NextResponse.json(kvCached);
+      }
+    } catch (err) {
+      // KV failure shouldn't break the judge
+      console.error("KV get error in /api/judge:", err);
+    }
+
+    // 3) Build retrieval context (rules + glossary + concepts)
     const ctx = buildJudgeContext(question, {
       maxRules: 40,
       maxConcepts: 15,
       maxGlossary: 20,
     });
 
-    // 3) Build LM prompt
+    // 4) Build LM prompt
     const messages = buildJudgeMessages({ question }, ctx);
 
-    // 4) Call LM judge (gpt-4o-mini only)
+    // 5) Call LM judge (gpt-4o-mini only)
     const completion = await openai.chat.completions.create({
       model: JUDGE_MODEL,
       messages,
@@ -86,7 +102,7 @@ export async function POST(req: NextRequest) {
     const answerText =
       completion.choices[0]?.message?.content?.toString().trim() ?? "";
 
-    // 5) Prepare structured citations
+    // 6) Prepare structured citations
     const ruleCitations: JudgeRuleCitation[] = ctx.rules.map((hit) => ({
       id: hit.rule.id,
       section: hit.rule.section,
@@ -115,8 +131,19 @@ export async function POST(req: NextRequest) {
       context: ctx,
     };
 
-    // 6) Cache
+    // 7) Cache result
+
+    // 7a) In-memory (per instance)
     judgeCache.set(cacheKey, result);
+
+    // 7b) KV (shared, 30-day TTL) – non-fatal if it fails
+    try {
+      await kv.set(cacheKey, result, {
+        ex: 60 * 60 * 24 * 30, // 30 days
+      });
+    } catch (err) {
+      console.error("KV set error in /api/judge:", err);
+    }
 
     return NextResponse.json(result);
   } catch (err: any) {
