@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     });
 
     // 3) Build LM prompt
-    const messages = buildJudgeMessages(question, ctx);
+    const messages = buildJudgeMessages({ question }, ctx);
 
     // 4) Call LM judge (gpt-4o-mini only)
     const completion = await openai.chat.completions.create({
