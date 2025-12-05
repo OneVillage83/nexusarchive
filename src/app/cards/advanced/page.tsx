@@ -22,7 +22,7 @@ const DOMAIN_RUNES = [
   { id: "Fury", label: "Fury", colorLabel: "Red", icon: "/runes/fury.png" },
   { id: "Calm", label: "Calm", colorLabel: "Green", icon: "/runes/calm.png" },
   { id: "Mind", label: "Mind", colorLabel: "Blue", icon: "/runes/mind.png" },
-  { id: "Body", label: "Body", colorLabel: "Brown", icon: "/runes/body.png" },
+  { id: "Body", label: "Body", colorLabel: "Orange", icon: "/runes/body.png" },
   { id: "Chaos", label: "Chaos", colorLabel: "Purple", icon: "/runes/chaos.png" },
   { id: "Order", label: "Order", colorLabel: "Yellow", icon: "/runes/order.png" },
 ];
