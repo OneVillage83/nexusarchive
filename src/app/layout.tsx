@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
+import { DesktopNav } from "@/components/DesktopNav";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -96,63 +98,68 @@ export default function RootLayout({
               "
             >
               <nav className="flex flex-col py-2 text-xs text-amber-50">
-                <Link href="/cards" className="px-3 py-1.5 hover:bg-white/10">
-                  Card Gallery
-                </Link>
-                <Link
-                  href="/deckbuilder"
-                  className="px-3 py-1.5 hover:bg-white/10"
-                >
-                  Deck Builder
-                </Link>
-                <Link href="/combos" className="px-3 py-1.5 hover:bg-white/10">
-                  Combo Finder
-                </Link>
-                <Link
-                  href="/decklists"
-                  className="px-3 py-1.5 hover:bg-white/10"
-                >
-                  Deck Lists
-                </Link>
-                <Link href="/rules" className="px-3 py-1.5 hover:bg-white/10">
-                  Game Rules
-                </Link>
-              </nav>
-            </div>
-          </details>
-        </div>
+  <Link href="/cards" className="px-3 py-1.5 hover:bg-white/10">
+    Card Gallery
+  </Link>
+  <Link
+    href="/deckbuilder"
+    className="px-3 py-1.5 hover:bg-white/10"
+  >
+    Deck Builder
+  </Link>
+  <Link href="/combos" className="px-3 py-1.5 hover:bg-white/10">
+    Synergy &amp; Combo Finder
+  </Link>
+  <Link
+    href="/decklists"
+    className="px-3 py-1.5 hover:bg-white/10"
+  >
+    Deck Lists
+  </Link>
+  <Link
+    href="/collection"
+    className="px-3 py-1.5 hover:bg-white/10"
+  >
+    Collection
+  </Link>
+  <Link href="/rules" className="px-3 py-1.5 hover:bg-white/10">
+    Game Rules
+  </Link>
+</nav>
+</div> 
+</details>
+</div>
 
         {/* Main page chrome (header + content + footer) */}
         <div className="flex min-h-screen flex-col">
           {/* Top nav */}
-          <header className="pt-4">
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
-              {/* Left spacer so nav lines up nicely with hero content */}
-              <div className="h-10 w-10" />
+<header className="pt-4">
+  <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
+    {/* Desktop: tools nav on the left, site links on the right */}
+    <div className="hidden md:flex flex-1 items-center justify-between">
+      {/* Tools nav (Card Gallery, Deck Builder, etc.) */}
+      <div className="flex items-center gap-4 text-xs text-amber-50/90">
+        <DesktopNav />
+      </div>
 
-              {/* Desktop nav – hidden on phones & tablets */}
-              <nav className="hidden lg:flex items-center gap-5 text-xs font-medium text-amber-50 sm:text-sm">
-                <Link
-                  href="/articles"
-                  className="transition-colors hover:text-white hover:underline underline-offset-4"
-                >
-                  Articles
-                </Link>
-                <Link
-                  href="/about"
-                  className="transition-colors hover:text-white hover:underline underline-offset-4"
-                >
-                  About / FAQ
-                </Link>
-                <Link
-                  href="/contact"
-                  className="transition-colors hover:text-white hover:underline underline-offset-4"
-                >
-                  Contact
-                </Link>
-              </nav>
-            </div>
-          </header>
+      {/* Articles / About / Contact on the right */}
+      <nav className="flex items-center gap-6 text-xs text-amber-50">
+        <Link href="/articles" className="hover:text-amber-200">
+          Articles
+        </Link>
+        <Link href="/about" className="hover:text-amber-200">
+          About / FAQ
+        </Link>
+        <Link href="/contact" className="hover:text-amber-200">
+          Contact
+        </Link>
+      </nav>
+    </div>
+
+    {/* Mobile: keep the original spacer so hero layout doesn’t shift */}
+    <div className="md:hidden h-10 w-10" />
+  </div>
+</header>
 
           {/* Page content */}
           <main className="flex-1">
@@ -182,39 +189,56 @@ export default function RootLayout({
                     Tools
                   </div>
                   <ul className="space-y-1 text-white/90">
-                    <li>
-                      <Link
-                        href="/cards"
-                        className="transition-colors hover:text-amber-200"
-                      >
-                        Card Gallery
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/deckbuilder"
-                        className="transition-colors hover:text-amber-200"
-                      >
-                        Deck Builder
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/combos"
-                        className="transition-colors hover:text-amber-200"
-                      >
-                        Combo Finder
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/decklists"
-                        className="transition-colors hover:text-amber-200"
-                      >
-                        Deck Lists
-                      </Link>
-                    </li>
-                  </ul>
+  <li>
+    <Link
+      href="/cards"
+      className="transition-colors hover:text-amber-200"
+    >
+      Card Gallery
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="/deckbuilder"
+      className="transition-colors hover:text-amber-200"
+    >
+      Deck Builder
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="/combos"
+      className="transition-colors hover:text-amber-200"
+    >
+      Synergy &amp; Combo Finder
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="/decklists"
+      className="transition-colors hover:text-amber-200"
+    >
+      Deck Lists
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="/collection"
+      className="transition-colors hover:text-amber-200"
+    >
+      Collection
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="/rules"
+      className="transition-colors hover:text-amber-200"
+    >
+      Game Rules
+    </Link>
+  </li>
+</ul>
+
                 </div>
 
                 {/* Info */}

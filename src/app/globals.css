@@ -68,3 +68,26 @@ details > summary {
 details > summary::marker {
   content: "";
 }
+
+/* 🔮 Rift portal flicker effect */
+@keyframes rift-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+    box-shadow:
+      0 0 24px rgba(0, 0, 0, 0.9),
+      0 0 16px rgba(251, 191, 36, 0.45);
+    transform: translateY(0);
+  }
+
+  20%, 24%, 55% {
+    opacity: 0.35;
+    box-shadow:
+      0 0 10px rgba(0, 0, 0, 0.6),
+      0 0 4px rgba(251, 191, 36, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.rift-flicker {
+  animation: rift-flicker 2.8s infinite;
+}

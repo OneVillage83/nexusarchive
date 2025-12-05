@@ -340,18 +340,16 @@ export default async function RulesPage({ searchParams }: RulesPageProps) {
 
   return (
     <main className="py-0">
-      <div className="mx-auto flex min-h-[calc(100vh-7rem)] max-w-3xl flex-col items-center justify-center px-4 text-center">
+      <div className="pt-14 mx-auto flex min-h-[calc(100vh-7rem)] max-w-3xl flex-col items-center justify-center px-4 text-center">
         <h1 className="sr-only">
           Riftbound Game Rules search – NexusArchive.
         </h1>
 
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-100/80">
-          Riftbound • Game Rules
-        </p>
         <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-amber-50 drop-shadow-[0_0_18px_rgba(0,0,0,0.8)]">
           Ask a rules question.
         </h2>
         <p className="mt-3 max-w-xl text-sm sm:text-base text-amber-100/90">
+          When the table argues, the Archive settles it.
           Type anything you&apos;d ask a judge – timing, layers, weird
           interactions – and we&apos;ll point you to the right Riftbound rules.
         </p>

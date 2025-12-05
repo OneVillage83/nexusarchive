@@ -154,39 +154,44 @@ export default function HomePage() {
           </div>
 
           {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
-          <div className="mt-28 sm:mt-32 lg:mt-36 hidden lg:block">
-            <div className="grid gap-4 lg:grid-cols-5">
+          <div className="mt-28 sm:mt-32 lg:mt-32 hidden lg:block">
+            <div className="grid gap-4 lg:grid-cols-6">
               <HeroTile
-                href="/cards"
-                title="Card Gallery"
-                description="Browse every Riftbound card in the archive."
-              />
+               href="/cards"
+               title="Card Gallery"
+               description="Browse every Riftbound card in the Nexus Archive."
+             />
               <HeroTile
-                href="/deckbuilder"
-                title="Deck Builder"
-                description="Plan new decks and tweak your favorite lists."
-              />
+               href="/deckbuilder"
+               title="Deck Builder"
+               description="Plan new decks and tweak your favorite lists."
+             />
               <HeroTile
-                href="/combos"
-                title="Combo Finder"
-                description="Hunt for synergies, combos, and spicy interactions."
-              />
+               href="/combos"
+               title="Synergy & Combo Finder"
+               description="Hunt for synergies, combos, and spicy interactions."
+             />
               <HeroTile
-                href="/decklists"
-                title="Deck Lists"
-                description="Curated decks, meta shells, and experiments."
-              />
+               href="/decklists"
+               title="Deck Lists"
+               description="Curated decks, meta shells, and experiments."
+             />
               <HeroTile
-                href="/rules"
-                title="Game Rules"
-                description="Quick access to core rules and references."
+               href="/collection"
+               title="Collection"
+               description="Track your real collection and see what it's worth."
+             />
+              <HeroTile
+              href="/rules"
+              title="Game Rules"
+              description="Ask the archive. Any ruling, any nuance, answered on the spot."
               />
             </div>
           </div>
         </section>
 
         {/* LATEST SECTION */}
-        <section className="mt-10 md:mt-16 lg:mt-24 space-y-4">
+        <section className="mt-10 md:mt-16 lg:mt-28 space-y-4">
           <h2 className="text-lg font-semibold text-amber-200">
             Latest from the Archive
           </h2>
@@ -303,15 +308,23 @@ function HeroTile({ href, title, description }: HeroTileProps) {
     <Link
       href={href}
       className="
-        flex flex-col justify-between rounded-2xl border border-white/35
+        flex flex-col rounded-2xl border border-white/35
         bg-black/55 px-4 py-3 text-left text-amber-50
         shadow-[0_0_22px_rgba(0,0,0,0.55)]
-        transition-transform transition-shadow hover:-translate-y-1
+        transition-transform transition-shadow
+        hover:-translate-y-1
         hover:shadow-[0_0_30px_rgba(246,191,38,0.75)]
       "
     >
-      <div className="text-base font-semibold text-amber-200">{title}</div>
-      <p className="mt-2 text-xs text-amber-100/85">{description}</p>
+      {/* Title – tightened spacing, better vertical alignment */}
+      <div className="text-base font-semibold text-amber-200 leading-tight">
+        {title}
+      </div>
+
+      {/* Description – reduced top spacing + tighter line height */}
+      <p className="mt-1.5 text-xs text-amber-100/85 leading-snug">
+        {description}
+      </p>
     </Link>
   );
 }
