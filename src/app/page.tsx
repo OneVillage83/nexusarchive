@@ -88,22 +88,22 @@ export default function HomePage() {
                   Random card
                 </button>
 
-                {/* Advanced search (soon) */}
-                <button
-                  type="button"
-                  className="
-                    inline-flex items-center gap-2 rounded-full
-                    bg-black/55 px-3 py-1.5
-                    text-[11px] font-medium text-amber-50
-                    border border-white/25
-                    shadow-[0_0_10px_rgba(0,0,0,0.6)]
-                    transition hover:bg-amber-400/90 hover:text-slate-950
-                    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
-                  "
-                >
-                  <span className="text-[11px]">🔍</span>
-                  Advanced search (soon™)
-                </button>
+                {/* Advanced search */}
+<Link
+  href="/cards/advanced"
+  className="
+    inline-flex items-center gap-2 rounded-full
+    bg-black/55 px-3 py-1.5
+    text-[11px] font-medium text-amber-50
+    border border-white/25
+    shadow-[0_0_10px_rgba(0,0,0,0.6)]
+    transition hover:bg-amber-400/90 hover:text-slate-950
+    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
+  "
+>
+  <span className="text-[11px]">🔍</span>
+  Advanced search
+</Link>
 
                 {/* NEW PATCH HIGHLIGHTS – same gold hover treatment */}
                 <Link
