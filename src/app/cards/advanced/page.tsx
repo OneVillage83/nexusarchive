@@ -37,10 +37,10 @@ export default function AdvancedCardSearchPage() {
             Advanced card search
           </h1>
           <p className="max-w-3xl text-sm text-amber-50/85">
-            Build precise filters for Riftbound cards. Every field here maps to
-            Riot&apos;s card data — name, regions, cost, stats, keywords,
-            rarity, sets, and more. Use it to find niche role-players, perfect
-            curve fillers, or the exact weird combo piece you need.
+            Tap directly into the Riftbound Nexus matrix and dial in filters like a ranked sweat. 
+            Every field hooks into real card data — name, regions, cost, stats, Domains, sets, 
+            and more — letting you surface sleeper picks, curve perfection, or that one 
+            cursed combo piece nobody respects… yet.
           </p>
         </header>
 
@@ -72,7 +72,7 @@ export default function AdvancedCardSearchPage() {
                   id="keywords"
                   name="keywords"
                   type="text"
-                  placeholder='Comma separated, e.g. "Pierce, Guard"'
+                  placeholder='Comma separated, e.g. "Poro, Champion"'
                   className={INPUT}
                 />
                 <p className="mt-1 text-[11px] text-amber-100/70">
@@ -167,7 +167,7 @@ export default function AdvancedCardSearchPage() {
                   id="rarity"
                   name="rarity"
                   type="text"
-                  placeholder='e.g. "Common", "Rare", "Mythic"'
+                  placeholder='e.g. "Common", "Rare", "Epic", "Alt Art"'
                   className={INPUT}
                 />
               </div>
@@ -330,25 +330,27 @@ export default function AdvancedCardSearchPage() {
                   id="artist"
                   name="artist"
                   type="text"
-                  placeholder='e.g. "Jane Doe"'
+                  placeholder='e.g. "SIXMOREVODKA"'
                   className={INPUT}
                 />
               </div>
 
               {/* Sort */}
-              <div>
-                <label className={LABEL} htmlFor="sort">
-                  Sort results by
-                </label>
-                <select id="sort" name="sort" className={SELECT}>
-                  <option value="name">Card name</option>
-                  <option value="cost">Cost</option>
-                  <option value="region">Region</option>
-                  <option value="type">Card type</option>
-                  <option value="set">Set / release order</option>
-                  <option value="rarity">Rarity</option>
-                </select>
-              </div>
+<div>
+  <label className={LABEL} htmlFor="sort">
+    Sort results by
+  </label>
+  <select id="sort" name="sort" className={SELECT}>
+    <option value="name">Card name</option>
+    <option value="domain">Domain</option>   {/* <-- Added here */}
+    <option value="cost">Cost</option>
+    <option value="region">Region</option>
+    <option value="type">Card type</option>
+    <option value="set">Set / release order</option>
+    <option value="rarity">Rarity</option>
+  </select>
+</div>
+
 
               {/* Sort direction */}
               <div>
