@@ -1,4 +1,3 @@
-// src/app/about/page.tsx
 import Link from "next/link";
 
 export default function AboutPage() {
@@ -25,16 +24,33 @@ export default function AboutPage() {
           </h1>
 
           <p className="max-w-2xl text-sm text-slate-200/85 sm:text-base">
-            Short answer: a fan-made Riftbound toolbox built by one very
+            NexusArchive is a fan-made Riftbound toolbox built by one very
             determined human with too many decks and not enough sleep. Think of
-            it as a Piltover lab where all the charts, card text, and wild ideas
-            are taped to the same wall.
+            it as a place where all the card text, edge cases, and “wait — does
+            this actually work?” questions finally live in the same, nicely
+            labeled drawer.
           </p>
         </section>
 
         {/* SECTIONS */}
         <section className="grid gap-6 md:grid-cols-2">
-          {/* Card 1 */}
+          {/* Card 0 – What is Riftbound? */}
+          <div className="rounded-2xl border border-violet-500/35 bg-black/60 p-5 shadow-[0_0_28px_rgba(15,23,42,0.9)]">
+            <h2 className="text-sm font-semibold text-violet-200">
+              What is Riftbound?
+            </h2>
+            <p className="mt-2 text-sm text-slate-300">
+              Riftbound is Riot Games’ strategy card game set in the League of
+              Legends universe — champions, spells, and board states colliding
+              in a tactical, turn-based brawl.
+            </p>
+            <p className="mt-2 text-xs text-slate-400">
+              NexusArchive simply tracks the cards, keywords, and evolving meta
+              so players have a clean place to explore everything.
+            </p>
+          </div>
+
+          {/* Card 1 – Official? */}
           <div className="rounded-2xl border border-sky-500/35 bg-black/60 p-5 shadow-[0_0_28px_rgba(15,23,42,0.9)]">
             <h2 className="text-sm font-semibold text-amber-200">
               Is this official?
@@ -44,54 +60,58 @@ export default function AboutPage() {
               <span className="font-semibold text-slate-50">
                 100% unofficial fan project
               </span>
-              . No secret Riot basement, no hidden balance levers, just public
-              info and a lot of spreadsheets.
+              . No secret Riot basement, no balance levers — just public info
+              and an absurd amount of time.
             </p>
             <p className="mt-2 text-xs text-slate-400">
-              NexusArchive is not endorsed by, directly affiliated with,
-              maintained, authorized, or sponsored by Riot Games, Inc. or any of
-              its mysterious council of balance wizards.
+              NexusArchive is not endorsed by, affiliated with, maintained,
+              authorized, or sponsored by Riot Games, Inc., or any of its
+              mysterious council of balance wizards.
             </p>
           </div>
 
-          {/* Card 2 */}
+          {/* Card 2 – What does it do? */}
           <div className="rounded-2xl border border-emerald-500/35 bg-black/60 p-5 shadow-[0_0_28px_rgba(15,23,42,0.9)]">
             <h2 className="text-sm font-semibold text-emerald-200">
-              So what *does* it do?
+              So what <em>does</em> it do?
             </h2>
             <p className="mt-2 text-sm text-slate-300">
-              The goal is simple:{" "}
+              The mission is simple: bring{" "}
               <span className="font-semibold text-slate-50">
-                every Riftbound card, deck, and combo in one place
-              </span>
-              —with tools that make brewing feel like tinkering in an Arcane lab
-              rather than fighting a spreadsheet boss.
+                every Riftbound card, deck, and combo
+              </span>{" "}
+              into one clean, searchable place — with tools that make brewing
+              feel creative instead of tedious.
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-300/90">
               <li>Fast search for cards, champs, and keywords</li>
-              <li>Deck builder with scores &amp; stats (coming online)</li>
+              <li>Deck builder with stats &amp; analysis (coming online)</li>
               <li>Combo explorer for “what if I just…” ideas</li>
+              <li>LM-powered rules judge for tricky interactions</li>
               <li>Articles, patch reactions, and meta notes</li>
             </ul>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3 – Who’s behind this? */}
           <div className="rounded-2xl border border-amber-400/35 bg-black/60 p-5 shadow-[0_0_28px_rgba(15,23,42,0.9)] md:col-span-2">
             <h2 className="text-sm font-semibold text-amber-200">
               Who’s behind this?
             </h2>
             <p className="mt-2 text-sm text-slate-300">
-              NexusArchive is lovingly cobbled together by a solo developer /
-              card goblin. Imagine a slightly less explosive Heimerdinger who
-              replaced lasers with TypeScript and a conspiracy board.
+              NexusArchive is built by a solo developer / card goblin — imagine
+              a slightly less explosive Heimerdinger who swapped hextech lasers
+              for TypeScript.
             </p>
             <p className="mt-2 text-sm text-slate-300">
-              If something looks broken, assume it’s either:
+              If something looks off, assume it’s either:
             </p>
             <ul className="mt-2 list-decimal space-y-1 pl-5 text-xs text-slate-300/90">
               <li>A bug</li>
               <li>A feature</li>
-              <li>A bug that has been re-branded as a feature until it’s fixed</li>
+              <li>
+                A bug that’s been temporarily promoted to a feature until it’s
+                fixed
+              </li>
             </ul>
           </div>
         </section>
@@ -106,10 +126,9 @@ export default function AboutPage() {
                 “Are you tracking my decks?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                Only if you save them. We don’t peek at your private brews,
-                judge your jank, or report you for running completely
-                unreasonable combos. Your secret tech is between you and your
-                queue.
+                Only if you save them. We don’t peek at private brews, judge
+                your jank, or report you for running dangerously cursed combos.
+                Your secret tech stays yours.
               </p>
             </div>
 
@@ -118,20 +137,17 @@ export default function AboutPage() {
                 “Will this always be free?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                That’s the plan. Core NexusArchive tools are meant to stay{" "}
+                That’s the plan. Core NexusArchive tools are meant to remain{" "}
                 <span className="font-semibold text-slate-50">
                   free forever
                 </span>
-                . No “premium card text,” no “pay to see your own decklist.” If
-                this ever costs money, it’ll be paid in{" "}
-                <span className="italic">
-                  gratitude, memes, and maybe donations
-                </span>
-                .
+                — no “premium card text,” no “pay to see your own decklist.”
               </p>
               <p className="mt-1 text-xs text-slate-400">
-                Hosting is kept alive by ads and community support. If that combo
-                stops working, we’ll fix the combo—not sneak in a lootbox.
+                If this ever costs money, it’ll be paid in{" "}
+                <span className="italic">gratitude, memes, and maybe donations</span>.
+                Hosting survives on ads and community support. If that stops
+                working, we’ll fix the system — not add lootboxes.
               </p>
             </div>
 
@@ -140,13 +156,13 @@ export default function AboutPage() {
                 “How can I give feedback or report bugs?”
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                See something cursed? Either a layout bug or a card combo that
-                should not exist? The best way is to{" "}
+                See something cursed — layout bug, card bug, or accidental
+                time-travel ruling? The best way is to{" "}
                 <Link
                   href="/contact"
                   className="text-amber-300 underline-offset-2 hover:underline"
                 >
-                  send a message through the contact lab
+                  send a message through the Contact page
                 </Link>{" "}
                 or email{" "}
                 <span className="font-semibold text-slate-50">
@@ -165,18 +181,19 @@ export default function AboutPage() {
         {/* CONTACT / LEGAL LINKS */}
         <section className="space-y-3 border-t border-white/10 pt-6 text-sm">
           <p className="text-slate-300">
-            Want to help, send feedback, or just share a spicy list? You can now{" "}
+            Want to help, send feedback, or share a spicy list? You can reach
+            the lab via the{" "}
             <Link
               href="/contact"
               className="text-amber-300 underline-offset-2 hover:underline"
             >
-              talk directly to the lab on the Contact page
-            </Link>
-            . Or email{" "}
+              Contact page
+            </Link>{" "}
+            or email{" "}
             <span className="font-semibold text-slate-50">
               info@nexusarchive.lol
-            </span>{" "}
-            if you prefer good old-fashioned scrolls… uh, emails.
+            </span>
+            .
           </p>
 
           <p className="text-xs text-slate-400">

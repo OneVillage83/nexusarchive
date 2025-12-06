@@ -1,4 +1,3 @@
-// src/app/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 
@@ -89,21 +88,21 @@ export default function HomePage() {
                 </button>
 
                 {/* Advanced search */}
-<Link
-  href="/cards/advanced"
-  className="
-    inline-flex items-center gap-2 rounded-full
-    bg-black/55 px-3 py-1.5
-    text-[11px] font-medium text-amber-50
-    border border-white/25
-    shadow-[0_0_10px_rgba(0,0,0,0.6)]
-    transition hover:bg-amber-400/90 hover:text-slate-950
-    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
-  "
->
-  <span className="text-[11px]">🔍</span>
-  Advanced search
-</Link>
+                <Link
+                  href="/cards/advanced"
+                  className="
+                    inline-flex items-center gap-2 rounded-full
+                    bg-black/55 px-3 py-1.5
+                    text-[11px] font-medium text-amber-50
+                    border border-white/25
+                    shadow-[0_0_10px_rgba(0,0,0,0.6)]
+                    transition hover:bg-amber-400/90 hover:text-slate-950
+                    hover:shadow-[0_0_22px_rgba(246,191,38,0.85)]
+                  "
+                >
+                  <span className="text-[11px]">🔍</span>
+                  Advanced search
+                </Link>
 
                 {/* NEW PATCH HIGHLIGHTS – same gold hover treatment */}
                 <Link
@@ -141,15 +140,15 @@ export default function HomePage() {
               </div>
 
               <div className="relative h-56 w-56 sm:h-64 sm:w-64 lg:h-72 lg:w-72 drop-shadow-[0_0_40px_rgba(0,0,0,0.9)]">
-               <Image
-                 src="/Logos/transparentsymbollogo.png"
-                 alt="NexusArchive symbol logo"
-                 fill
-                 sizes="(max-width: 640px) 224px, (max-width: 1024px) 256px, 288px"
-                 className="object-contain mix-blend-screen animate-dice-float"
-                 priority
-               />
-             </div>
+                <Image
+                  src="/Logos/transparentsymbollogo.png"
+                  alt="NexusArchive symbol logo"
+                  fill
+                  sizes="(max-width: 640px) 224px, (max-width: 1024px) 256px, 288px"
+                  className="object-contain mix-blend-screen animate-dice-float"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
@@ -157,34 +156,34 @@ export default function HomePage() {
           <div className="mt-28 sm:mt-32 lg:mt-32 hidden lg:block">
             <div className="grid gap-4 lg:grid-cols-6">
               <HeroTile
-               href="/cards"
-               title="Card Gallery"
-               description="Browse every Riftbound card in the Nexus Archive."
-             />
+                href="/cards"
+                title="Card Gallery"
+                description="Browse every Riftbound card in the Nexus Archive."
+              />
               <HeroTile
-               href="/deckbuilder"
-               title="Deck Builder"
-               description="Plan new decks and tweak your favorite lists."
-             />
+                href="/deckbuilder"
+                title="Deck Builder"
+                description="Plan new decks and tweak your favorite lists."
+              />
               <HeroTile
-               href="/combos"
-               title="Synergy & Combo Finder"
-               description="Hunt for synergies, combos, and spicy interactions."
-             />
+                href="/combos"
+                title="Synergy & Combo Finder"
+                description="Hunt for synergies, combos, and spicy interactions."
+              />
               <HeroTile
-               href="/decklists"
-               title="Deck Lists"
-               description="Curated decks, meta shells, and experiments."
-             />
+                href="/decklists"
+                title="Deck Lists"
+                description="Curated decks, meta shells, and experiments."
+              />
               <HeroTile
-               href="/collection"
-               title="Collection"
-               description="Track your real collection and see what it's worth."
-             />
+                href="/collection"
+                title="Collection"
+                description="Track your real collection and see what it's worth."
+              />
               <HeroTile
-              href="/rules"
-              title="Game Rules"
-              description="Ask the archive. Any ruling, any nuance, answered on the spot."
+                href="/rules"
+                title="Game Rules"
+                description="Ask the archive. Any ruling, any nuance, answered on the spot."
               />
             </div>
           </div>
@@ -196,7 +195,8 @@ export default function HomePage() {
             Latest from the Archive
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          {/* now 4 tiles, so adjust grid */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {/* Newest Cards */}
             <div className="rounded-2xl border border-white/30 bg-black/55 p-4 shadow-[0_0_25px_rgba(15,23,42,0.85)]">
               <h3 className="text-sm font-semibold text-amber-200">Newest Cards</h3>
@@ -218,7 +218,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* New Deck Lists */}
+            {/* New Deck Lists (scores removed) */}
             <div className="rounded-2xl border border-white/30 bg-black/55 p-4 shadow-[0_0_25px_rgba(15,23,42,0.85)]">
               <h3 className="text-sm font-semibold text-amber-200">New Deck Lists</h3>
               <p className="mt-1 text-xs text-amber-50/80">
@@ -235,9 +235,6 @@ export default function HomePage() {
                       Early meta shell
                     </p>
                   </div>
-                  <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] text-emerald-200">
-                    Score 82
-                  </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-3">
@@ -249,9 +246,6 @@ export default function HomePage() {
                       Experimental control build
                     </p>
                   </div>
-                  <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] text-emerald-100">
-                    Score 76
-                  </span>
                 </div>
               </div>
 
@@ -290,6 +284,30 @@ export default function HomePage() {
                 View Articles →
               </Link>
             </div>
+
+            {/* LM Rules Judge tile */}
+        <div className="rounded-2xl border border-white/30 bg-black/60 p-4 shadow-[0_0_25px_rgba(15,23,42,0.9)]">
+        <h3 className="text-sm font-semibold text-amber-200">
+        LM Rules Judge
+        </h3>
+
+        <p className="mt-1 text-xs text-amber-50/85">
+        Ask natural-language rules questions — timing, priority, digital quirks,
+        and unexpected interactions — all grounded in the Riftbound rulebook.
+        </p>
+
+         <ul className="mt-3 space-y-1 text-[11px] text-amber-50/80">
+          <li>“If a card creates temporary mana, do I lose it at the end of the round?”</li>
+          <li>“If a unit is stunned during its attack, does it still strike?”</li>
+          <li>“If I kill a unit that’s targeting something, does the ability still resolve?”</li>
+          </ul>
+           <Link
+             href="/rules"
+             className="mt-4 inline-flex text-xs font-medium text-amber-200 transition-colors hover:text-white"
+            >
+             Open Rules Judge →
+           </Link>
+           </div>
           </div>
         </section>
       </div>
