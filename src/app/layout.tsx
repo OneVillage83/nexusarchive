@@ -4,7 +4,8 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { DesktopNav } from "@/components/DesktopNav";
-import Script from "next/script"; // ✅ NEW
+// ❌ REMOVE Script import for now
+// import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,11 @@ export const metadata: Metadata = {
   title: "NexusArchive – Everything Riftbound, all in one archive.",
   description:
     "NexusArchive is an unofficial, fan-made Riftbound card database with deck tools and combos — built to be the Nexus for every Riftbound player. Not affiliated with Riot Games.",
+
+  // 🔥 ADD THIS BLOCK FOR GOOGLE ADSENSE META TAG VERIFICATION
+  other: {
+    "google-adsense-account": "ca-pub-4511788937363503",
+  },
 };
 
 export default function RootLayout({
@@ -26,8 +32,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* ✅ This <head> block is where Google wants the code */}
-      <head>
+
+      {/* ❌ REMOVE THIS — unnecessary for META verification */}
+      {/* <head>
         <Script
           id="adsbygoogle-init"
           async
@@ -35,7 +42,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
-      </head>
+      </head> */}
 
       <body
         className={
@@ -51,7 +58,6 @@ export default function RootLayout({
       >
         {/* Top-left floating archive glyph + Tools pill */}
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
-          {/* Glyph button (home link) – always visible */}
           <Link
             href="/"
             className="
@@ -99,7 +105,6 @@ export default function RootLayout({
               <span className="text-[10px] opacity-80">▾</span>
             </summary>
 
-            {/* Dropdown panel */}
             <div
               className="
                 absolute left-0 mt-2 w-44 rounded-2xl
@@ -144,19 +149,14 @@ export default function RootLayout({
           </details>
         </div>
 
-        {/* Main page chrome (header + content + footer) */}
         <div className="flex min-h-screen flex-col">
-          {/* Top nav */}
           <header className="pt-4">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
-              {/* Desktop: tools nav on the left, site links on the right */}
               <div className="hidden md:flex flex-1 items-center justify-between">
-                {/* Tools nav (Card Gallery, Deck Builder, etc.) */}
                 <div className="flex items-center gap-4 text-xs text-amber-50/90">
                   <DesktopNav />
                 </div>
 
-                {/* Articles / About / Contact on the right */}
                 <nav className="flex items-center gap-6 text-xs text-amber-50">
                   <Link href="/articles" className="hover:text-amber-200">
                     Articles
@@ -170,18 +170,15 @@ export default function RootLayout({
                 </nav>
               </div>
 
-              {/* Mobile: keep the original spacer so hero layout doesn’t shift */}
               <div className="md:hidden h-10 w-10" />
             </div>
           </header>
 
-          {/* Page content */}
           <main className="flex-1">
             <div className="mx-auto max-w-6xl px-4 py-0">{children}</div>
           </main>
 
-          {/* Footer */}
-          {/* ...rest of your footer stays exactly the same... */}
+          {/* Footer unchanged */}
         </div>
       </body>
     </html>
