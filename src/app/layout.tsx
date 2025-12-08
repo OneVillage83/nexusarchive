@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { DesktopNav } from "@/components/DesktopNav";
 import Script from "next/script";
+import { ConsentManagerButton } from "@/components/ConsentManagerButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +18,6 @@ export const metadata: Metadata = {
   title: "NexusArchive – Everything Riftbound, all in one archive.",
   description:
     "NexusArchive is an unofficial, fan-made Riftbound card database with deck tools and combos — built to be the Nexus for every Riftbound player. Not affiliated with Riot Games.",
-  // This becomes:
-  // <meta name="google-adsense-account" content="ca-pub-4511788937363503" />
   other: {
     "google-adsense-account": "ca-pub-4511788937363503",
   },
@@ -173,7 +172,7 @@ export default function RootLayout({
                 </nav>
               </div>
 
-              {/* Mobile: keep the original spacer so hero layout doesn’t shift */}
+              {/* Mobile spacer so hero layout doesn’t shift */}
               <div className="md:hidden h-10 w-10" />
             </div>
           </header>
@@ -183,7 +182,7 @@ export default function RootLayout({
             <div className="mx-auto max-w-6xl px-4 py-0">{children}</div>
           </main>
 
-          {/* Footer (restored) */}
+          {/* Footer */}
           <footer className="mt-10 border-t border-white/10 bg-black/40 backdrop-blur-sm">
             <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/80">
               <div className="grid gap-6 md:grid-cols-4">
@@ -297,6 +296,9 @@ export default function RootLayout({
                       </Link>
                     </li>
                   </ul>
+
+                  {/* Manage consent (Google CMP / TCF) */}
+                  <ConsentManagerButton />
                 </div>
               </div>
 
