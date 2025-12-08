@@ -153,7 +153,7 @@ export default function HomePage() {
           </div>
 
           {/* BOTTOM TILES – pushed further down so Latest is below the fold */}
-          <div className="mt-28 sm:mt-32 lg:mt-32 hidden lg:block">
+          <div className="mt-28 sm:mt-32 lg:mt-36 hidden lg:block">
             <div className="grid gap-4 lg:grid-cols-6">
               <HeroTile
                 href="/cards"
@@ -190,7 +190,7 @@ export default function HomePage() {
         </section>
 
         {/* LATEST SECTION */}
-        <section className="mt-10 md:mt-16 lg:mt-28 space-y-4">
+        <section className="mt-10 md:mt-16 lg:mt-34 space-y-4">
           <h2 className="text-lg font-semibold text-amber-200">
             Latest from the Archive
           </h2>
