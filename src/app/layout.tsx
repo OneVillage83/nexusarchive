@@ -4,8 +4,6 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { DesktopNav } from "@/components/DesktopNav";
-// ❌ REMOVE Script import for now
-// import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +16,8 @@ export const metadata: Metadata = {
   title: "NexusArchive – Everything Riftbound, all in one archive.",
   description:
     "NexusArchive is an unofficial, fan-made Riftbound card database with deck tools and combos — built to be the Nexus for every Riftbound player. Not affiliated with Riot Games.",
-
-  // 🔥 ADD THIS BLOCK FOR GOOGLE ADSENSE META TAG VERIFICATION
+  // 👇 This becomes:
+  // <meta name="google-adsense-account" content="ca-pub-4511788937363503" />
   other: {
     "google-adsense-account": "ca-pub-4511788937363503",
   },
@@ -32,18 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-
-      {/* ❌ REMOVE THIS — unnecessary for META verification */}
-      {/* <head>
-        <Script
-          id="adsbygoogle-init"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4511788937363503"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
-      </head> */}
-
+      {/* ⛔ NO <head> TAG HERE AT ALL */}
       <body
         className={
           inter.className +
