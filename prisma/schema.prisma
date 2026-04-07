@@ -7,8 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Game {
+  RIFTBOUND
+  ONE_PIECE
+  MAGIC_THE_GATHERING
+}
+
 model Card {
   id             Int            @id @default(autoincrement())
+  game           Game           @default(RIFTBOUND)
   name           String
   type           String
   domains        String[]
@@ -32,15 +39,20 @@ model Card {
 
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+
+  @@index([game, name])
 }
 
 model Champion {
   id        Int      @id @default(autoincrement())
+  game      Game     @default(RIFTBOUND)
   name      String
   type      String?
   imageUrl  String?
 
   cards     Card[]
+
+  @@index([game, name])
 }
 
 model CardPrice {
@@ -60,6 +72,7 @@ model CardPrice {
 
 model Deck {
   id            Int        @id @default(autoincrement())
+  game          Game       @default(RIFTBOUND)
   name          String
   description   String?
   championId    Int?
@@ -75,6 +88,8 @@ model Deck {
   updatedAt     DateTime   @updatedAt
 
   cards         DeckCard[]
+
+  @@index([game, name])
 }
 
 model DeckCard {
@@ -89,6 +104,7 @@ model DeckCard {
 
 model Combo {
   id           Int       @id @default(autoincrement())
+  game         Game      @default(RIFTBOUND)
   name         String
   description  String?
   requirements String?
@@ -96,6 +112,8 @@ model Combo {
   tags         String[]
 
   cards        ComboCard[]
+
+  @@index([game, name])
 }
 
 model ComboCard {

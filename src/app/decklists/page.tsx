@@ -1,10 +1,11 @@
 // src/app/decklists/page.tsx
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const PANEL =
   "rounded-2xl border border-white/25 bg-black/75 shadow-[0_0_40px_rgba(0,0,0,0.95)] p-4 sm:p-5";
 
-export default function DeckListsPage() {
+export function RiftboundDeckListsPage() {
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl px-4 space-y-6 sm:space-y-8">
@@ -86,7 +87,8 @@ export default function DeckListsPage() {
         {/* Back link */}
         <div className="pt-2">
           <Link
-            href="/deckbuilder"
+            href="/riftbound/deckbuilder"
+            prefetch={false}
             className="text-xs font-medium text-amber-200 hover:text-white"
           >
             ← Go to Deck Builder
@@ -95,4 +97,8 @@ export default function DeckListsPage() {
       </div>
     </main>
   );
+}
+
+export default function DeckListsPage() {
+  redirect("/riftbound/decklists");
 }

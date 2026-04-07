@@ -1,6 +1,7 @@
 // src/app/combo/page.tsx
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const PANEL =
   "rounded-2xl border border-white/25 bg-black/75 shadow-[0_0_40px_rgba(0,0,0,0.95)] p-4 sm:p-5";
@@ -53,7 +54,7 @@ const MOCK_COMBOS = [
   },
 ];
 
-export default function ComboFinderPage() {
+export function RiftboundComboFinderPage() {
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl px-4 space-y-6 sm:space-y-8">
@@ -355,7 +356,8 @@ export default function ComboFinderPage() {
         {/* Back link */}
         <div className="pt-2">
           <Link
-            href="/cards"
+            href="/riftbound/cards"
+            prefetch={false}
             className="text-xs font-medium text-amber-200 hover:text-white"
           >
             ← Back to Card Gallery
@@ -364,4 +366,8 @@ export default function ComboFinderPage() {
       </div>
     </main>
   );
+}
+
+export default function ComboFinderPage() {
+  redirect("/riftbound/combos");
 }

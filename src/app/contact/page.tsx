@@ -45,9 +45,11 @@ export default function ContactPage() {
 
       setStatus("success");
       form.reset();
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong.",
+      );
     } finally {
       // reset back to idle after a bit
       setTimeout(() => {
@@ -83,7 +85,9 @@ export default function ContactPage() {
           <p className="max-w-xl text-sm text-slate-200/85 sm:text-base">
             This is the unofficial “talk to the lab” page. Use it to report
             bugs, request features, send deck tech, or gently roast any UI that
-            looks like it was coded at 3&nbsp;AM. (Because it probably was.)
+            looks like it was coded at 3&nbsp;AM. Riftbound, One Piece, Magic,
+            or the site itself — if it broke, baffled you, or made you grin,
+            this is where the message goes.
           </p>
         </section>
 

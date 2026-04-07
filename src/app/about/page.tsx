@@ -24,29 +24,30 @@ export default function AboutPage() {
           </h1>
 
           <p className="max-w-2xl text-sm text-slate-200/85 sm:text-base">
-            NexusArchive is a fan-made Riftbound toolbox built by one very
+            NexusArchive is a fan-made multi-game TCG toolbox built by one very
             determined human with too many decks and not enough sleep. Think of
-            it as a place where all the card text, edge cases, and “wait — does
-            this actually work?” questions finally live in the same, nicely
-            labeled drawer.
+            it as the place where card text, edge cases, and “wait — does this
+            actually work?” questions finally live in the same suspiciously
+            organized drawer.
           </p>
         </section>
 
         {/* SECTIONS */}
         <section className="grid gap-6 md:grid-cols-2">
-          {/* Card 0 – What is Riftbound? */}
+          {/* Card 0 – What games live here? */}
           <div className="rounded-2xl border border-violet-500/35 bg-black/60 p-5 shadow-[0_0_28px_rgba(15,23,42,0.9)]">
             <h2 className="text-sm font-semibold text-violet-200">
-              What is Riftbound?
+              What lives in the archive now?
             </h2>
             <p className="mt-2 text-sm text-slate-300">
-              Riftbound is Riot Games’ strategy card game set in the League of
-              Legends universe — champions, spells, and board states colliding
-              in a tactical, turn-based brawl.
+              NexusArchive started as a Riftbound home base, but it now has
+              dedicated wings for <span className="font-semibold text-slate-50">Riftbound</span>,{" "}
+              <span className="font-semibold text-slate-50">One Piece TCG</span>, and{" "}
+              <span className="font-semibold text-slate-50">Magic: The Gathering</span>.
             </p>
             <p className="mt-2 text-xs text-slate-400">
-              NexusArchive simply tracks the cards, keywords, and evolving meta
-              so players have a clean place to explore everything.
+              Same archive. Same mildly dramatic writing. Different flavors of
+              cardboard trouble depending on which doorway you walk through.
             </p>
           </div>
 
@@ -60,13 +61,13 @@ export default function AboutPage() {
               <span className="font-semibold text-slate-50">
                 100% unofficial fan project
               </span>
-              . No secret Riot basement, no balance levers — just public info
-              and an absurd amount of time.
+              . No secret publisher basement, no balance levers — just public
+              info and an absurd amount of time.
             </p>
             <p className="mt-2 text-xs text-slate-400">
               NexusArchive is not endorsed by, affiliated with, maintained,
-              authorized, or sponsored by Riot Games, Inc., or any of its
-              mysterious council of balance wizards.
+              authorized, or sponsored by Riot Games, Bandai, Wizards of the
+              Coast, or any other mysterious council of balance wizards.
             </p>
           </div>
 
@@ -78,16 +79,16 @@ export default function AboutPage() {
             <p className="mt-2 text-sm text-slate-300">
               The mission is simple: bring{" "}
               <span className="font-semibold text-slate-50">
-                every Riftbound card, deck, and combo
+                cards, decks, combos, and rules references
               </span>{" "}
               into one clean, searchable place — with tools that make brewing
               feel creative instead of tedious.
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-300/90">
-              <li>Fast search for cards, champs, and keywords</li>
-              <li>Deck builder with stats &amp; analysis (coming online)</li>
-              <li>Combo explorer for “what if I just…” ideas</li>
-              <li>LM-powered rules judge for tricky interactions</li>
+              <li>Fast search for cards, mechanics, and deck ideas</li>
+              <li>Game-specific deck builders and collection pages</li>
+              <li>Combo explorers for “what if I just…” ideas</li>
+              <li>Rules tools, judges, and documentation hubs</li>
               <li>Articles, patch reactions, and meta notes</li>
             </ul>
           </div>
@@ -128,7 +129,8 @@ export default function AboutPage() {
               <p className="mt-1 text-sm text-slate-300">
                 Only if you save them. We don’t peek at private brews, judge
                 your jank, or report you for running dangerously cursed combos.
-                Your secret tech stays yours.
+                Your secret tech stays yours, even if it spans three different
+                games and at least one bad life decision.
               </p>
             </div>
 

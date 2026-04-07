@@ -3,6 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import type { GameSlug } from "@/lib/games";
+
 type Card = {
   id: number;
   name: string;
@@ -24,7 +26,11 @@ const LABEL =
 const INPUT =
   "h-10 flex-1 rounded-md border border-white/25 bg-black/60 px-3 text-sm text-amber-50 placeholder:text-amber-200/70 focus:outline-none focus:ring-2 focus:ring-emerald-400/80";
 
-export default function CardGalleryPage() {
+type CardsPageClientProps = {
+  game: GameSlug;
+};
+
+export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const searchParams = useSearchParams();
   const q = (searchParams.get("q") ?? "").trim();
 
@@ -38,15 +44,21 @@ export default function CardGalleryPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `/api/cards${q ? `?q=${encodeURIComponent(q)}` : ""}`
-        );
+        const query = new URLSearchParams();
+        query.set("game", game);
+        if (q) {
+          query.set("q", q);
+        }
+
+        const res = await fetch(`/api/cards?${query.toString()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setCards(data.cards ?? []);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error(err);
-        setError("Failed to load cards.");
+        setError(
+          err instanceof Error ? err.message : "Failed to load cards.",
+        );
         setCards([]);
       } finally {
         setLoading(false);
@@ -54,7 +66,7 @@ export default function CardGalleryPage() {
     }
 
     load();
-  }, [q]);
+  }, [game, q]);
 
   return (
     <main className="py-6 sm:py-8 lg:py-10">

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // scripts/import-riftbound-cards.js
 // Usage: node scripts/import-riftbound-cards.js
 
 require("dotenv").config();
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Game } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -121,6 +122,7 @@ function mapCardToPrisma(flatCard) {
   // If Riot later clarifies that "energy" is the actual cost, you can swap it.
 
   return {
+    game: Game.RIFTBOUND,
     name: card.name,
     type: card.type,
     domains: card.faction ? [card.faction] : [],
@@ -157,8 +159,10 @@ async function main() {
   console.log(`Total cards returned across all sets: ${flatCards.length}`);
 
   // Wipe and reseed. Later we can switch to upsert if you want migrations over time.
-  console.log("Clearing existing Card records...");
-  await prisma.card.deleteMany();
+  console.log("Clearing existing Riftbound Card records...");
+  await prisma.card.deleteMany({
+    where: { game: Game.RIFTBOUND },
+  });
 
   console.log("Inserting cards into database...");
   const chunkSize = 100;

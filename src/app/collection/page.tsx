@@ -1,5 +1,6 @@
 // src/app/collections/page.tsx
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const PANEL =
   "rounded-2xl border border-white/25 bg-black/75 shadow-[0_0_40px_rgba(0,0,0,0.95)] p-4 sm:p-5";
@@ -54,7 +55,7 @@ const MOCK_SAVED_DECKS = [
   },
 ];
 
-export default function CollectionsPage() {
+export function RiftboundCollectionsPage() {
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl px-4 space-y-6 sm:space-y-8">
@@ -263,7 +264,8 @@ export default function CollectionsPage() {
                   </p>
                 </div>
                 <Link
-                  href="/deckbuilder"
+                  href="/riftbound/deckbuilder"
+                  prefetch={false}
                   className="
                     inline-flex items-center justify-center rounded-full
                     bg-amber-400/95 px-3 py-1 text-[11px] font-semibold
@@ -372,7 +374,8 @@ export default function CollectionsPage() {
         {/* Back link */}
         <div className="pt-2">
           <Link
-            href="/"
+            href="/riftbound"
+            prefetch={false}
             className="text-xs font-medium text-amber-200 hover:text-white"
           >
             ← Back to home
@@ -381,4 +384,8 @@ export default function CollectionsPage() {
       </div>
     </main>
   );
+}
+
+export default function CollectionsPage() {
+  redirect("/riftbound/collection");
 }

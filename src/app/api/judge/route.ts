@@ -146,7 +146,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(result);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in /api/judge:", err);
 
     return NextResponse.json(
@@ -154,7 +154,9 @@ export async function POST(req: NextRequest) {
         error: "Internal error while processing judge request.",
         details:
           process.env.NODE_ENV === "development"
-            ? String(err?.message ?? err)
+            ? err instanceof Error
+              ? err.message
+              : String(err)
             : undefined,
       },
       { status: 500 }

@@ -17,35 +17,33 @@ export default function LegalPage() {
       <h2 className="text-xl font-semibold">1. Unofficial Fan Project</h2>
       <p>
         NexusArchive is a <strong>fan-made</strong>, <strong>non-commercial</strong> project
-        created for Riftbound players who love cards, combos, decks, and 
-        whatever shiny thing Riot releases next.
+        created for card game players who love decks, combos, edge cases, and
+        whatever shiny piece of cardboard is currently ruining their sleep schedule.
       </p>
       <p>
         NexusArchive is <strong>not</strong> affiliated with, endorsed by, sponsored by, 
-        or secretly operated by Riot Games. (We checked. Twice.)
+        or secretly operated by Riot Games, Bandai, Wizards of the Coast, or
+        any other publisher with a significantly larger legal department than ours.
       </p>
       <p>
-        Riftbound™, all related artwork, card designs, champions, icons, magical
-        blue sparkles, etc. are © Riot Games, Inc.
+        Game names, artwork, card designs, logos, characters, mana symbols,
+        suspiciously expensive staples, and other related assets still belong to
+        their respective rights holders. We own the jokes. Probably.
       </p>
 
       <hr className="my-6 border-slate-700" />
 
-      <h2 className="text-xl font-semibold">2. Use of Riot Assets</h2>
+      <h2 className="text-xl font-semibold">2. Use of Other People&apos;s Very Valuable Stuff</h2>
       <p>
-        This website follows Riot Games’ official guidelines located at:{" "}
-        <a
-          href="https://www.riotgames.com/en/legal"
-          target="_blank"
-          rel="noreferrer"
-        >
-          https://www.riotgames.com/en/legal
-        </a>
+        This website tries to stay inside each publisher&apos;s fan-content lane,
+        official rules pages, and public product material. When a game has a
+        published policy, we follow that policy. When it has official rules or
+        product pages, we link to those instead of pretending we invented the game.
       </p>
       <p>
-        We only use assets allowed under their “Legal Jibber Jabber” policy.
-        No secret API hacking. No ripping off their client. No datamining 
-        their game files with a pickaxe.
+        No secret API hacking. No ripping off clients. No datamining with a
+        pickaxe. No pretending the archive is official just because the buttons
+        look confident.
       </p>
 
       <hr className="my-6 border-slate-700" />
@@ -56,17 +54,18 @@ export default function LegalPage() {
       <p>You agree that you will:</p>
       <ul>
         <li>Use the site normally (i.e., like a human).</li>
-        <li>Not try to break, reverse engineer, or "yeet" the database.</li>
+        <li>Not try to break, reverse engineer, or &quot;yeet&quot; the database.</li>
         <li>Not build bots or scrapers that spam every endpoint 200 times a second.</li>
         <li>Not upload malicious code, cursed images, or malware.</li>
         <li>Be a generally decent human being.</li>
       </ul>
 
-      <h3 className="text-lg font-semibold">3.2 No Accounts (Yet)</h3>
+      <h3 className="text-lg font-semibold">3.2 Accounts (Apparently We Have Those Now)</h3>
       <p>
-        NexusArchive currently doesn’t use login accounts, passwords,
-        or any profile systems. So there’s nothing to steal… unless you count our
-        CSS, which you technically shouldn’t steal either.
+        NexusArchive now uses account login for game sections. That means we do
+        have profile access controls, and you should not share your login, abuse
+        someone else&apos;s, or do anything that makes the auth logs look like a
+        horror movie.
       </p>
 
       <h3 className="text-lg font-semibold">3.3 Decklists & User Content (Future Stuff)</h3>
@@ -76,12 +75,12 @@ export default function LegalPage() {
       </p>
       <p>
         We reserve the right to remove content that violates the above or makes
-        us go “uhhh… what?”
+        us go &ldquo;uhhh… what?&rdquo;
       </p>
 
       <h3 className="text-lg font-semibold">3.4 No Warranty (Because Software)</h3>
       <p>
-        We try our best, but this site is provided <strong>"as-is"</strong>.  
+        We try our best, but this site is provided <strong>&quot;as-is&quot;</strong>.  
         No guarantees it won’t break, display the wrong card price, 
         or summon a void creature from beyond the Rift.
       </p>
@@ -102,20 +101,23 @@ export default function LegalPage() {
 
       <h2 className="text-xl font-semibold">4. Privacy</h2>
       <p>
-        We don’t track personal data, don’t store personal profiles,
-        and don’t sell anything to third parties.
+        We keep this as light as we reasonably can. We do not sell your data to
+        third parties, and we are not in the business of turning your deck
+        experiments into ad-tech compost.
       </p>
       <p>
-        We do use basic analytics (maybe, eventually) to monitor site traffic,
-        but not who you are. You’re safe.
+        Account and contact information may be stored only as needed to let you
+        sign in, save future features, or hear back if you emailed us first.
+        We may use basic analytics to understand traffic, but not to become a
+        tiny surveillance goblin.
       </p>
 
       <hr className="my-6 border-slate-700" />
 
       <h2 className="text-xl font-semibold">5. Changes to This Page</h2>
       <p>
-        We may update this page occasionally when laws, Riot rules, or
-        cosmic winds change direction. Check back if you're curious.
+        We may update this page occasionally when laws, publisher rules, or
+        cosmic winds change direction. Check back if you&apos;re curious.
       </p>
 
       <hr className="my-6 border-slate-700" />
@@ -126,7 +128,7 @@ export default function LegalPage() {
         site owner or submit an issue on the GitHub.
       </p>
 
-      <p className="text-slate-500 mt-8">Thanks for reading. You're officially legal now. 🎉</p>
+      <p className="text-slate-500 mt-8">Thanks for reading. You&apos;re officially legal now.</p>
     </main>
   );
 }
