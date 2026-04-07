@@ -372,8 +372,9 @@ function ClerkAccountCopy() {
 
   return !userId ? (
     <p>
-      Log in before you sail, summon, or shuffle your way into a game section.
-      The gateway stays public. The fun stuff checks your badge.
+      Browse freely. Sign in when you want saved decks, collection tracking,
+      and future profile gremlins to remember which flavor of cardboard chaos
+      belongs to you.
     </p>
   ) : (
     <p>

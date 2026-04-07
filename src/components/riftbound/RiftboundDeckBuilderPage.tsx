@@ -72,7 +72,15 @@ type DeckEntry = {
   count: number;
 };
 
-export function RiftboundDeckBuilderPage() {
+type RiftboundDeckBuilderPageProps = {
+  authEnabled: boolean;
+  userId: string | null;
+};
+
+export function RiftboundDeckBuilderPage({
+  authEnabled,
+  userId,
+}: RiftboundDeckBuilderPageProps) {
   const [deckName, setDeckName] = useState("New Riftbound Deck");
   const [searchText, setSearchText] = useState("");
   const [domainFilter, setDomainFilter] = useState<string | null>(null);
@@ -183,6 +191,20 @@ export function RiftboundDeckBuilderPage() {
               exports on the right. All interactions below are wired up so we can
               plug in real data later without redesigning the UI.
             </p>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-2xl border border-amber-300/25 bg-black/45 px-4 py-3 text-xs text-amber-100/85">
+            <span className="font-semibold text-amber-200">Save behavior:</span>
+            <span className="flex-1">
+              Browsing and brewing are public. Signing in is only for saving
+              decks, syncing them to your account, and other persistence-shaped
+              nonsense.
+            </span>
+            {!userId && authEnabled ? (
+              <Link href="/sign-in" className={BUTTON_PRIMARY}>
+                Sign in to save decks
+              </Link>
+            ) : null}
           </div>
         </section>
 
@@ -488,6 +510,13 @@ export function RiftboundDeckBuilderPage() {
                   <li>Matchup & win-rate projections powered by HoldIQ-style ML</li>
                 </ul>
               </div>
+              <div className="mt-3 rounded-xl border border-white/15 bg-black/45 px-3 py-2 text-[11px] text-amber-100/75">
+                {userId
+                  ? "You are signed in, so this builder is ready for future save hooks as soon as the persistence layer finishes crawling out of the basement."
+                  : authEnabled
+                    ? "You can build decks without logging in. Signing in only matters when we turn on save-to-account and sync."
+                    : "Auth is still asleep in this environment, so save-to-account is parked until the real Clerk keys wake it up."}
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <button type="button" className={BUTTON_PRIMARY}>
                   Copy deck (coming soon)
@@ -495,6 +524,11 @@ export function RiftboundDeckBuilderPage() {
                 <button type="button" className={BUTTON_GHOST}>
                   Export to text
                 </button>
+                {!userId && authEnabled ? (
+                  <Link href="/sign-in" className={BUTTON_GHOST}>
+                    Sign in for saves
+                  </Link>
+                ) : null}
               </div>
             </div>
           </div>

@@ -349,7 +349,7 @@ function DeckBuilderPreview({
       </Panel>
       <Panel
         title="Deck list"
-        description="Saved decks will eventually tie into the signed-in user and game scope."
+        description="Builds stay browseable in public. Saving them will eventually tie into the signed-in user and game scope."
       >
         <div className="space-y-2 text-xs text-amber-50/85">
           {PREVIEW_DECKS[game].map((deck) => (
@@ -447,7 +447,7 @@ function CollectionPreview({
     <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
       <Panel
         title="Profile overview"
-        description="Clerk gives us the account. This panel becomes game-scoped collection data later."
+        description="This page stays public to browse. Sign-in only matters once this panel starts saving game-scoped collection data."
       >
         <div className="space-y-2 text-[11px] text-amber-100/80">
           <div>Total cards owned: 128</div>
@@ -583,13 +583,13 @@ function getDescription(shortName: string, variant: PlaceholderVariant): string 
     case "cards-advanced":
       return `This is where deeper filtering lives once the real ${shortName} card source is wired in.`;
     case "deckbuilder":
-      return `Build, tune, and eventually save ${shortName} decks with game-scoped account support.`;
+      return `Build and tune ${shortName} decks openly, then sign in when you want save-to-account features to kick in.`;
     case "combos":
       return `Track synergies, suspicious interactions, and the kind of lines that make the table ask for timestamps.`;
     case "decklists":
       return `Browse sample lists today, then graduate into real imported and user-published decklists later.`;
     case "collection":
-      return `Future you gets game-scoped collection tracking. Present you gets a polished preview of where that data will live.`;
+      return `Future you gets game-scoped collection tracking. Present you gets a polished public preview of where that saved data will live.`;
     case "articles":
       return `This route is ready for guides, patch notes, and highly opinionated cardboard writing once the editorial queue wakes up.`;
     case "rules":
@@ -606,13 +606,13 @@ function getDeveloperNote(shortName: string, variant: PlaceholderVariant): strin
     case "cards-advanced":
       return `These filters are scaffolding for the future real search engine. Think of them as the blueprint pinned to the wall before the actual machine starts humming.`;
     case "deckbuilder":
-      return `This builder is the first round of furniture, not the finished workshop. Real saves, imports, and exports will plug into the same shape later.`;
+      return `This builder is the first round of furniture, not the finished workshop. Public browsing stays open; real saves, imports, and exports plug in after the account wiring catches up.`;
     case "combos":
       return `The combo desk is on preview duty for now. Real interaction libraries, community submissions, and search hooks come after the route and account foundation.`;
     case "decklists":
       return `Deck lists are still in mannequin mode here. The real data model shows up in later passes once publishing and user ownership are wired cleanly.`;
     case "collection":
-      return `Collections are waiting on the signed-in data layer, but the page shape, progress widgets, and per-game ownership model are already staked out.`;
+      return `Collections are waiting on the signed-in data layer, but the public page shape, progress widgets, and per-game ownership model are already staked out.`;
     case "articles":
       return `Articles are shipping as a themed shell first, because a proper reading room beats a dead link while the content backlog catches up.`;
     case "rules":

@@ -1,6 +1,9 @@
 // src/app/collections/page.tsx
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+import { isClerkConfigured } from "@/lib/auth-config";
 
 const PANEL =
   "rounded-2xl border border-white/25 bg-black/75 shadow-[0_0_40px_rgba(0,0,0,0.95)] p-4 sm:p-5";
@@ -55,7 +58,22 @@ const MOCK_SAVED_DECKS = [
   },
 ];
 
-export function RiftboundCollectionsPage() {
+export async function RiftboundCollectionsPage() {
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
+  const profileUser = userId
+    ? {
+        ...MOCK_USER,
+        name: "Signed-in Riftbounder",
+        joinDate: "Clerk connected",
+      }
+    : authEnabled
+      ? MOCK_USER
+      : {
+          ...MOCK_USER,
+          joinDate: "Auth sleeping",
+        };
+
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl px-4 space-y-6 sm:space-y-8">
@@ -72,19 +90,38 @@ export function RiftboundCollectionsPage() {
             Collection
           </h1>
           <p className="max-w-3xl text-sm text-amber-50/85">
-            Track your real Riftbound collection, save decks from the deck
-            builder, and manage the lists you share with the community. Once
-            accounts are wired in, this page becomes your personal Nexus inside
-            NexusArchive.
+            Browse the layout now, then sign in when you want NexusArchive to
+            remember your Riftbound collection, save decks from the builder, and
+            manage the lists you share with the community.
           </p>
 
           <div className="mt-4 rounded-2xl border border-sky-200/35 bg-sky-950/60 px-4 py-3 text-xs text-sky-50/85">
             <p>
               <span className="font-semibold text-sky-100">Planned flow:</span>{" "}
-              sign in &rarr; sync or manually track owned cards &rarr; Collections
-              shows completion by domain, estimated value, saved decks, and the
-              decklists you&apos;ve published.
+              browse freely &rarr; sign in when you want persistence &rarr;
+              Collections tracks owned cards, estimated value, saved decks, and
+              the decklists you choose to publish.
             </p>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-2xl border border-amber-300/25 bg-black/45 px-4 py-3 text-xs text-amber-100/85">
+            <span className="font-semibold text-amber-200">Access rule:</span>
+            <span className="flex-1">
+              This page is public to view. Signing in only matters when you want
+              collection sync, saved decks, and account-tied progress.
+            </span>
+            {!userId && authEnabled ? (
+              <Link
+                href="/sign-in"
+                className="
+                  inline-flex items-center justify-center rounded-full bg-amber-400/95 px-3 py-1
+                  text-[11px] font-semibold text-slate-950 shadow-[0_0_18px_rgba(0,0,0,0.8)]
+                  transition hover:bg-amber-300
+                "
+              >
+                Sign in for saves
+              </Link>
+            ) : null}
           </div>
         </section>
 
@@ -98,10 +135,9 @@ export function RiftboundCollectionsPage() {
         >
           <p>
             <span className="font-semibold text-amber-200">Developer Note:</span>{" "}
-            This is Collections in scaffold mode. Once user accounts and
-            collection syncing are online, these panels will reflect the logged-in
-            player&apos;s real cards, decks saved from the builder, and any
-            decklists they choose to publish.
+            This is Collections in scaffold mode. The page is public on purpose;
+            the account layer only needs to wake up when it is time to save real
+            cards, decks, and published lists to a player profile.
           </p>
         </div>
 
@@ -117,31 +153,44 @@ export function RiftboundCollectionsPage() {
                     Profile overview
                   </h2>
                   <p className="text-[11px] text-amber-100/70">
-                    This will use the signed-in user once auth is hooked up.
+                    Viewable by anyone. Personal data wakes up once you sign in.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  className="
-                    inline-flex items-center justify-center rounded-full
-                    border border-amber-300/40 bg-black/60 px-3 py-1
-                    text-[11px] font-medium text-amber-100
-                    shadow-[0_0_14px_rgba(0,0,0,0.7)]
-                    transition hover:bg-white/5
-                  "
-                >
-                  (Future) Sign in
-                </button>
+                {!userId && authEnabled ? (
+                  <Link
+                    href="/sign-in"
+                    className="
+                      inline-flex items-center justify-center rounded-full
+                      border border-amber-300/40 bg-black/60 px-3 py-1
+                      text-[11px] font-medium text-amber-100
+                      shadow-[0_0_14px_rgba(0,0,0,0.7)]
+                      transition hover:bg-white/5
+                    "
+                  >
+                    Sign in to save
+                  </Link>
+                ) : (
+                  <span
+                    className="
+                      inline-flex items-center justify-center rounded-full
+                      border border-emerald-300/35 bg-emerald-950/35 px-3 py-1
+                      text-[11px] font-medium text-emerald-100
+                      shadow-[0_0_14px_rgba(0,0,0,0.7)]
+                    "
+                  >
+                    {userId ? "Signed in" : "Preview mode"}
+                  </span>
+                )}
               </div>
 
               <div className="grid gap-3 text-xs text-amber-50/90 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <div className={LABEL}>User</div>
-                  <div className="text-sm font-semibold text-amber-100">
-                    {MOCK_USER.name}
+                    <div className="text-sm font-semibold text-amber-100">
+                    {profileUser.name}
                   </div>
                   <div className="text-[11px] text-amber-100/70">
-                    Joined: {MOCK_USER.joinDate}
+                    Joined: {profileUser.joinDate}
                   </div>
                 </div>
 
@@ -194,7 +243,7 @@ export function RiftboundCollectionsPage() {
                 <div className="space-y-1.5">
                   <div className={LABEL}>Next steps</div>
                   <ul className="list-disc list-inside text-[11px] text-amber-100/80 space-y-0.5">
-                    <li>Hook this panel to your auth provider.</li>
+                    <li>Show the signed-in player profile when a save exists.</li>
                     <li>Load collection stats from your DB per user ID.</li>
                     <li>
                       Show &quot;sync&quot; status with the latest card / price

@@ -29,10 +29,10 @@ export default async function HomePage() {
             </h1>
 
             <p className="mt-3 text-sm text-slate-200/85 sm:text-base">
-              NexusArchive now opens with a proper gateway: log in or create an
-              account, then choose which game wing you want to explore. Same
-              mildly sleep-deprived house style. Different flavors of cardboard
-              chaos.
+              NexusArchive now opens with a proper gateway: browse any game wing
+              right away, then log in or create an account if you want the
+              archive to remember your collection, decks, and other carefully
+              curated cardboard bad decisions.
             </p>
 
             <div className="mt-5 rounded-2xl border border-white/15 bg-black/50 p-4">
@@ -44,7 +44,7 @@ export default async function HomePage() {
                 <>
                   <p className="mt-2 text-sm text-slate-300">
                     {authEnabled
-                      ? "Game sections are login-first now, so the archive knows whose decks and collection mess it is dealing with."
+                      ? "Browsing is public now. Sign in only when you want the archive to remember whose decks, collection, and future account-powered nonsense it is dealing with."
                       : "Clerk is not configured in this environment yet, so the archive is showing the new gateway without turning on the login locks just yet."}
                   </p>
                   {authEnabled ? (
@@ -119,7 +119,13 @@ export default async function HomePage() {
                   </div>
 
                   <div className="mt-6 flex items-center justify-between text-xs text-amber-100/80">
-                    <span>{authEnabled ? "Login required" : "Auth setup pending"}</span>
+                    <span>
+                      {authEnabled
+                        ? userId
+                          ? "Save-ready account"
+                          : "Public browsing"
+                        : "Auth setup pending"}
+                    </span>
                     <span className="font-semibold text-amber-200 group-hover:text-white">
                       Enter →
                     </span>
