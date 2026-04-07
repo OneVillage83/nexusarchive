@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 
 import { SiteChrome } from "@/components/SiteChrome";
+import { isClerkConfigured } from "@/lib/auth-config";
 
 import "./globals.css";
 
@@ -24,12 +25,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const authEnabled = isClerkConfigured();
+
   return (
     <html lang="en">
       <body className={inter.className + " min-h-screen antialiased"}>
-        <ClerkProvider>
-          <SiteChrome>{children}</SiteChrome>
-        </ClerkProvider>
+        {authEnabled ? (
+          <ClerkProvider>
+            <SiteChrome authEnabled>{children}</SiteChrome>
+          </ClerkProvider>
+        ) : (
+          <SiteChrome authEnabled={false}>{children}</SiteChrome>
+        )}
       </body>
     </html>
   );

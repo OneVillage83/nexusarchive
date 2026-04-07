@@ -1,4 +1,7 @@
+import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+import { isClerkConfigured } from "@/lib/auth-config";
 
 const isProtectedRoute = createRouteMatcher([
   "/riftbound(.*)",
@@ -6,11 +9,17 @@ const isProtectedRoute = createRouteMatcher([
   "/magic-the-gathering(.*)",
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
-    await auth.protect();
-  }
-});
+const authEnabled = isClerkConfigured();
+
+export default authEnabled
+  ? clerkMiddleware(async (auth, req) => {
+      if (isProtectedRoute(req)) {
+        await auth.protect();
+      }
+    })
+  : function proxy() {
+      return NextResponse.next();
+    };
 
 export const config = {
   matcher: [

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 
 import { GameHomeShowcase } from "@/components/game-pages/GameHomeShowcase";
+import { isClerkConfigured } from "@/lib/auth-config";
 import { GAMES, GAME_ORDER } from "@/lib/games";
 
 export function RiftboundHomePage() {
@@ -9,7 +10,8 @@ export function RiftboundHomePage() {
 }
 
 export default async function HomePage() {
-  const { userId } = await auth();
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
 
   return (
     <main className="py-8 sm:py-10">
@@ -41,31 +43,39 @@ export default async function HomePage() {
               {!userId ? (
                 <>
                   <p className="mt-2 text-sm text-slate-300">
-                    Game sections are login-first now, so the archive knows
-                    whose decks and collection mess it is dealing with.
+                    {authEnabled
+                      ? "Game sections are login-first now, so the archive knows whose decks and collection mess it is dealing with."
+                      : "Clerk is not configured in this environment yet, so the archive is showing the new gateway without turning on the login locks just yet."}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    <Link
-                      href="/sign-in"
-                      className="
-                        inline-flex items-center justify-center rounded-full border border-white/25
-                        bg-black/60 px-4 py-2 text-sm font-medium text-amber-50
-                        shadow-[0_0_18px_rgba(0,0,0,0.65)] transition hover:bg-white/5
-                      "
-                    >
-                      Log in
-                    </Link>
-                    <Link
-                      href="/sign-up"
-                      className="
-                        inline-flex items-center justify-center rounded-full bg-amber-400 px-4 py-2
-                        text-sm font-semibold text-slate-950 shadow-[0_0_22px_rgba(250,204,21,0.55)]
-                        transition hover:bg-amber-300
-                      "
-                    >
-                      Create account
-                    </Link>
-                  </div>
+                  {authEnabled ? (
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <Link
+                        href="/sign-in"
+                        className="
+                          inline-flex items-center justify-center rounded-full border border-white/25
+                          bg-black/60 px-4 py-2 text-sm font-medium text-amber-50
+                          shadow-[0_0_18px_rgba(0,0,0,0.65)] transition hover:bg-white/5
+                        "
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href="/sign-up"
+                        className="
+                          inline-flex items-center justify-center rounded-full bg-amber-400 px-4 py-2
+                          text-sm font-semibold text-slate-950 shadow-[0_0_22px_rgba(250,204,21,0.55)]
+                          transition hover:bg-amber-300
+                        "
+                      >
+                        Create account
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="mt-4 rounded-xl border border-amber-300/25 bg-amber-950/25 px-4 py-3 text-sm text-amber-100/85">
+                      Add your real Clerk keys in Vercel and this card will wake up
+                      immediately.
+                    </div>
+                  )}
                 </>
               ) : (
                 <p className="mt-2 text-sm text-slate-300">
@@ -109,7 +119,7 @@ export default async function HomePage() {
                   </div>
 
                   <div className="mt-6 flex items-center justify-between text-xs text-amber-100/80">
-                    <span>Login required</span>
+                    <span>{authEnabled ? "Login required" : "Auth setup pending"}</span>
                     <span className="font-semibold text-amber-200 group-hover:text-white">
                       Enter →
                     </span>

@@ -15,11 +15,11 @@ import {
 } from "@/lib/games";
 
 type SiteChromeProps = {
+  authEnabled: boolean;
   children: React.ReactNode;
 };
 
-export function SiteChrome({ children }: SiteChromeProps) {
-  const { userId } = useAuth();
+export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const pathname = usePathname();
   const activeGame = getActiveGameFromPath(pathname);
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
@@ -159,24 +159,7 @@ export function SiteChrome({ children }: SiteChromeProps) {
                 <Link href="/legal" className="hidden hover:text-amber-200 sm:inline-flex">
                   Legal
                 </Link>
-                {!userId && !isAuthPage ? (
-                  <>
-                    <Link href="/sign-in" className="hover:text-amber-200">
-                      Log in
-                    </Link>
-                    <Link
-                      href="/sign-up"
-                      className="
-                        inline-flex items-center justify-center rounded-full
-                        bg-amber-400/95 px-3 py-1.5 font-semibold text-slate-950
-                        shadow-[0_0_16px_rgba(0,0,0,0.65)] transition hover:bg-amber-300
-                      "
-                    >
-                      Create account
-                    </Link>
-                  </>
-                ) : null}
-                {userId ? <UserButton /> : null}
+                <AuthNavControls authEnabled={authEnabled} isAuthPage={isAuthPage} />
               </nav>
             </div>
           </header>
@@ -275,19 +258,7 @@ export function SiteChrome({ children }: SiteChromeProps) {
                     Account
                   </div>
                   <div className="space-y-2 text-white/90">
-                    {!userId ? (
-                      <p>
-                        Log in before you sail, summon, or shuffle your way into a
-                        game section. The gateway stays public. The fun stuff checks
-                        your badge.
-                      </p>
-                    ) : (
-                      <p>
-                        You are cleared for archive duty. Future collection sync,
-                        saved decks, and game-specific profiles will live here once
-                        the database goblins finish wiring the pipes.
-                      </p>
-                    )}
+                    <AccountCopy authEnabled={authEnabled} />
                   </div>
                 </div>
               </div>
@@ -334,5 +305,81 @@ export function SiteChrome({ children }: SiteChromeProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+function AuthNavControls({
+  authEnabled,
+  isAuthPage,
+}: {
+  authEnabled: boolean;
+  isAuthPage: boolean;
+}) {
+  if (!authEnabled) {
+    return (
+      <span className="hidden rounded-full border border-amber-300/30 bg-black/45 px-3 py-1.5 text-[11px] text-amber-100/85 sm:inline-flex">
+        Auth setup pending
+      </span>
+    );
+  }
+
+  return <ClerkNavControls isAuthPage={isAuthPage} />;
+}
+
+function AccountCopy({ authEnabled }: { authEnabled: boolean }) {
+  if (!authEnabled) {
+    return (
+      <p>
+        Clerk is not configured in this environment yet, so the archive is
+        running in a temporary “please don&apos;t explode” fallback mode until the
+        real keys are added.
+      </p>
+    );
+  }
+
+  return <ClerkAccountCopy />;
+}
+
+function ClerkNavControls({ isAuthPage }: { isAuthPage: boolean }) {
+  const { userId } = useAuth();
+
+  return (
+    <>
+      {!userId && !isAuthPage ? (
+        <>
+          <Link href="/sign-in" className="hover:text-amber-200">
+            Log in
+          </Link>
+          <Link
+            href="/sign-up"
+            className="
+              inline-flex items-center justify-center rounded-full
+              bg-amber-400/95 px-3 py-1.5 font-semibold text-slate-950
+              shadow-[0_0_16px_rgba(0,0,0,0.65)] transition hover:bg-amber-300
+            "
+          >
+            Create account
+          </Link>
+        </>
+      ) : null}
+      {userId ? <UserButton /> : null}
+    </>
+  );
+}
+
+function ClerkAccountCopy() {
+  const { userId } = useAuth();
+
+  return !userId ? (
+    <p>
+      Log in before you sail, summon, or shuffle your way into a game section.
+      The gateway stays public. The fun stuff checks your badge.
+    </p>
+  ) : (
+    <p>
+      You are cleared for archive duty. Future collection sync, saved decks,
+      and game-specific profiles will live here once the database goblins finish
+      wiring the pipes.
+    </p>
   );
 }
