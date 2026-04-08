@@ -182,7 +182,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const selectedRarities = parseMultiValueParam(searchParams.get("rarities"));
   const selectedSets = parseMultiValueParam(searchParams.get("sets"));
   const rawView = searchParams.get("view");
-  const viewMode: ViewMode = isViewMode(rawView) ? rawView : "table";
+  const viewMode: ViewMode = isViewMode(rawView) ? rawView : "visual";
 
   const [cards, setCards] = useState<CardCatalogSummary[]>([]);
   const [meta, setMeta] = useState<CardCatalogMeta | null>(null);
@@ -305,7 +305,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
   function setViewMode(nextView: ViewMode) {
     updateSearchParams((params) => {
-      if (nextView === "table") {
+      if (nextView === "visual") {
         params.delete("view");
       } else {
         params.set("view", nextView);
@@ -352,7 +352,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="text-[11px] text-amber-100/70">
-              Search query: “{q || "(none)"}” · Showing {startIndex}-{endIndex} of{" "}
+              {q ? `Search query: "${q}" · ` : ""}Showing {startIndex}-{endIndex} of{" "}
               {total} card{total === 1 ? "" : "s"}
               {loading ? " · Loading..." : ""}
               {error ? ` · ${error}` : ""}
