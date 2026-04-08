@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 
 import { DesktopNav } from "@/components/DesktopNav";
 import {
+  GAMES,
+  GAME_ORDER,
   GAME_TOOL_LINKS,
   GATEWAY_BACKGROUND,
   buildGamePath,
@@ -77,44 +79,76 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
       ) : null}
       <div className="relative z-10 min-h-screen bg-slate-950/25 backdrop-blur-[1px]">
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
-          <Link
-            href="/"
-            className="
-              group inline-flex h-10 w-10 items-center justify-center
-              rounded-full border border-sky-300/50 bg-black/30
-              shadow-[0_0_18px_rgba(0,0,0,0.7)] backdrop-blur
-              transition-all duration-200 hover:bg-sky-500/10
-            "
-          >
-            <div className="relative h-8 w-8">
-              <Image
-                src="/Logos/transparentarchivelogo.png"
-                alt="NexusArchive glyph"
-                fill
-                sizes="32px"
-                className="
-                  object-contain opacity-90 transition-all duration-200
-                  group-hover:scale-110 group-hover:opacity-100
-                  group-hover:drop-shadow-[0_0_18px_rgba(56,189,248,0.9)]
-                "
-                priority
-              />
-            </div>
-          </Link>
-
-          {activeGameConfig ? (
+          <div className="group relative">
             <Link
-              href={buildGamePath(activeGameConfig.slug)}
-              prefetch={false}
+              href="/"
               className="
-                hidden rounded-full border border-white/20 bg-black/45
-                px-3 py-1.5 text-xs font-medium text-amber-50 shadow-[0_0_16px_rgba(0,0,0,0.65)]
-                backdrop-blur md:inline-flex
+                inline-flex h-10 w-10 items-center justify-center
+                rounded-full border border-sky-300/50 bg-black/30
+                shadow-[0_0_18px_rgba(0,0,0,0.7)] backdrop-blur
+                transition-all duration-200 hover:bg-sky-500/10
               "
             >
-              {activeGameConfig.shortName}
+              <div className="relative h-8 w-8">
+                <Image
+                  src="/Logos/transparentarchivelogo.png"
+                  alt="NexusArchive glyph"
+                  fill
+                  sizes="32px"
+                  className="
+                    object-contain opacity-90 transition-all duration-200
+                    group-hover:scale-110 group-hover:opacity-100
+                    group-hover:drop-shadow-[0_0_18px_rgba(56,189,248,0.9)]
+                  "
+                  priority
+                />
+              </div>
             </Link>
-          ) : null}
+
+            <div
+              className="
+                pointer-events-none absolute left-0 top-full mt-3 w-60 rounded-2xl
+                border border-white/15 bg-black/80 p-2 opacity-0 shadow-[0_18px_40px_rgba(0,0,0,0.78)]
+                backdrop-blur-md transition-all duration-200 group-hover:pointer-events-auto
+                group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto
+                group-focus-within:translate-y-0 group-focus-within:opacity-100
+              "
+            >
+              <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-sky-100/75">
+                Game Wings
+              </div>
+              <nav className="flex flex-col gap-1">
+                {GAME_ORDER.map((slug) => {
+                  const game = GAMES[slug];
+                  const isActive = slug === activeGame;
+
+                  return (
+                    <Link
+                      key={slug}
+                      href={buildGamePath(slug)}
+                      prefetch={false}
+                      className={`
+                        flex items-center justify-between rounded-xl border px-3 py-2 text-sm
+                        transition-colors
+                        ${
+                          isActive
+                            ? "border-white/25 bg-black/75 text-amber-50"
+                            : "border-transparent bg-white/[0.03] text-white/80 hover:border-white/10 hover:bg-white/[0.08] hover:text-white"
+                        }
+                      `}
+                    >
+                      <span>{game.shortName}</span>
+                      {isActive ? (
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-amber-200/85">
+                          Here
+                        </span>
+                      ) : null}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>
 
           {activeGame ? (
             <details className="relative lg:hidden">

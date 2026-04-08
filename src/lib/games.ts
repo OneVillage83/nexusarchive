@@ -59,7 +59,7 @@ export const GAMES: Record<GameSlug, GameConfig> = {
     shortName: "Riftbound",
     gatewayDescription:
       "Champions, combos, and judge calls from the Riot-flavored wing of the archive.",
-    gatewayLogoSrc: "/Logos/RiftBound%20logo.webp",
+    gatewayLogoSrc: "/Logos/riftbound-PNG-logo.png",
     backgroundImage:
       "radial-gradient(circle at 24% 12%, rgba(250, 204, 21, 0.16), transparent 26%), linear-gradient(180deg, rgba(2, 6, 23, 0.42) 0%, rgba(2, 6, 23, 0.62) 32%, rgba(2, 6, 23, 0.82) 100%), url('/backgrounds/home-hero.png')",
     backgroundPosition: "center top",
@@ -84,7 +84,7 @@ export const GAMES: Record<GameSlug, GameConfig> = {
     shortName: "One Piece TCG",
     gatewayDescription:
       "Pirates, DON!! math, and enough cardboard adventure to make a marine nervous.",
-    gatewayLogoSrc: "/Logos/one%20piece%20logo.png",
+    gatewayLogoSrc: "/Logos/one-piece-logo-tcg.webp",
     backgroundImage:
       "linear-gradient(180deg, rgba(4, 12, 24, 0.28) 0%, rgba(4, 12, 24, 0.48) 36%, rgba(4, 12, 24, 0.72) 100%), url('/backgrounds/OnePiecebackground.png')",
     backgroundPosition: "center center",
