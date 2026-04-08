@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
+import type { GameSlug } from "@/lib/games";
 import { createSearchString } from "@/lib/search-params";
 
 import CardsPageClient from "./CardsPageClient";
@@ -10,9 +11,13 @@ type LegacyCardsPageProps = {
 };
 
 export function RiftboundCardsPage() {
+  return <GameCardsPageView game="riftbound" />;
+}
+
+export function GameCardsPageView({ game }: { game: GameSlug }) {
   return (
     <Suspense fallback={<div className="p-6 text-slate-300">Loading cards...</div>}>
-      <CardsPageClient game="riftbound" />
+      <CardsPageClient game={game} />
     </Suspense>
   );
 }

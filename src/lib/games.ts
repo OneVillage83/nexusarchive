@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export const GAME_ORDER = [
   "riftbound",
   "one-piece",
@@ -16,7 +18,17 @@ export type GameConfig = {
   name: string;
   shortName: string;
   gatewayDescription: string;
+  gatewayLogoSrc: string;
   backgroundImage: string;
+  backgroundPosition?: CSSProperties["backgroundPosition"];
+  backgroundSize?: CSSProperties["backgroundSize"];
+  backgroundAttachment?: CSSProperties["backgroundAttachment"];
+  backgroundAnimationClassName?: string;
+  backgroundTextureSrc?: string;
+  backgroundTextureOpacity?: number;
+  backgroundTextureSize?: CSSProperties["backgroundSize"];
+  backgroundTextureBlendMode?: CSSProperties["mixBlendMode"];
+  backgroundVignette?: string;
   accentColor: string;
   glowColor: string;
   footer: {
@@ -47,8 +59,12 @@ export const GAMES: Record<GameSlug, GameConfig> = {
     shortName: "Riftbound",
     gatewayDescription:
       "Champions, combos, and judge calls from the Riot-flavored wing of the archive.",
+    gatewayLogoSrc: "/Logos/RiftBound%20logo.webp",
     backgroundImage:
-      "linear-gradient(rgba(2, 6, 23, 0.72), rgba(2, 6, 23, 0.84)), url('/backgrounds/home-hero.png')",
+      "radial-gradient(circle at 24% 12%, rgba(250, 204, 21, 0.16), transparent 26%), linear-gradient(180deg, rgba(2, 6, 23, 0.42) 0%, rgba(2, 6, 23, 0.62) 32%, rgba(2, 6, 23, 0.82) 100%), url('/backgrounds/home-hero.png')",
+    backgroundPosition: "center top",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
     accentColor: "#facc15",
     glowColor: "rgba(250, 204, 21, 0.45)",
     footer: {
@@ -68,8 +84,19 @@ export const GAMES: Record<GameSlug, GameConfig> = {
     shortName: "One Piece TCG",
     gatewayDescription:
       "Pirates, DON!! math, and enough cardboard adventure to make a marine nervous.",
+    gatewayLogoSrc: "/Logos/one%20piece%20logo.png",
     backgroundImage:
-      "radial-gradient(circle at top, rgba(56, 189, 248, 0.22), transparent 30%), radial-gradient(circle at 78% 18%, rgba(239, 68, 68, 0.18), transparent 24%), linear-gradient(160deg, #06111f 0%, #0b1f38 48%, #111827 100%)",
+      "linear-gradient(180deg, rgba(4, 12, 24, 0.28) 0%, rgba(4, 12, 24, 0.48) 36%, rgba(4, 12, 24, 0.72) 100%), url('/backgrounds/OnePiecebackground.png')",
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    backgroundAttachment: "scroll",
+    backgroundAnimationClassName: "one-piece-ink-shift",
+    backgroundTextureSrc: "/textures/one-piece-paper.svg",
+    backgroundTextureOpacity: 0.05,
+    backgroundTextureSize: "320px 320px",
+    backgroundTextureBlendMode: "soft-light",
+    backgroundVignette:
+      "radial-gradient(circle at center, rgba(255,255,255,0) 60%, rgba(0,0,0,0.06) 100%)",
     accentColor: "#38bdf8",
     glowColor: "rgba(56, 189, 248, 0.42)",
     footer: {
@@ -89,8 +116,12 @@ export const GAMES: Record<GameSlug, GameConfig> = {
     shortName: "Magic: The Gathering",
     gatewayDescription:
       "Mana, stack fights, and enough cardboard history to keep the table arguing until sunrise.",
+    gatewayLogoSrc: "/Logos/Magic-The-Gathering-logo.png",
     backgroundImage:
-      "radial-gradient(circle at top, rgba(168, 85, 247, 0.24), transparent 28%), radial-gradient(circle at 78% 18%, rgba(16, 185, 129, 0.18), transparent 22%), linear-gradient(160deg, #120b1f 0%, #23123a 48%, #0f172a 100%)",
+      "radial-gradient(circle at 28% 18%, rgba(192, 132, 252, 0.18), transparent 26%), linear-gradient(180deg, rgba(10, 8, 28, 0.32) 0%, rgba(16, 11, 37, 0.56) 38%, rgba(8, 10, 24, 0.78) 100%), url('/backgrounds/Magicbackground.png')",
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    backgroundAttachment: "scroll",
     accentColor: "#c084fc",
     glowColor: "rgba(192, 132, 252, 0.4)",
     footer: {

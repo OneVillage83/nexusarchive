@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 
@@ -86,7 +87,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4">
             {GAME_ORDER.map((slug) => {
               const game = GAMES[slug];
               return (
@@ -95,40 +96,73 @@ export default async function HomePage() {
                   href={`/${slug}`}
                   prefetch={false}
                   className="
-                    group flex min-h-[260px] flex-col justify-between rounded-3xl border border-white/15
+                    group relative isolate overflow-hidden rounded-3xl border border-white/15
                     bg-black/55 p-5 shadow-[0_0_26px_rgba(0,0,0,0.65)]
                     transition-transform hover:-translate-y-1 hover:border-white/30
+                    sm:p-6
                   "
                   style={{
                     boxShadow: `0 0 28px ${game.glowColor}`,
                   }}
                 >
-                  <div>
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-slate-950/96 via-slate-950/90 to-slate-950/70"
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 w-[52%] sm:w-[48%]"
+                    aria-hidden="true"
+                  >
                     <div
-                      className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-950"
-                      style={{ backgroundColor: game.accentColor }}
-                    >
-                      {game.shortName}
+                      className="absolute inset-0"
+                      style={{
+                        background: `radial-gradient(circle at center, ${game.glowColor}, transparent 72%)`,
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-l from-transparent via-slate-950/10 to-slate-950/75" />
+                    <div className="absolute inset-y-3 right-3 left-0 sm:inset-y-4 sm:right-5">
+                      <Image
+                        src={game.gatewayLogoSrc}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 420px, (min-width: 640px) 320px, 180px"
+                        className="
+                          object-contain object-right opacity-[0.15]
+                          saturate-[1.15] transition duration-300 group-hover:scale-[1.03]
+                          group-hover:opacity-[0.24]
+                        "
+                      />
                     </div>
-                    <h2 className="mt-4 text-2xl font-semibold text-slate-50">
-                      {game.name}
-                    </h2>
-                    <p className="mt-3 text-sm text-slate-300">
-                      {game.gatewayDescription}
-                    </p>
                   </div>
 
-                  <div className="mt-6 flex items-center justify-between text-xs text-amber-100/80">
-                    <span>
-                      {authEnabled
-                        ? userId
-                          ? "Save-ready account"
-                          : "Public browsing"
-                        : "Auth setup pending"}
-                    </span>
-                    <span className="font-semibold text-amber-200 group-hover:text-white">
-                      Enter →
-                    </span>
+                  <div className="relative flex min-h-[180px] flex-col justify-between sm:min-h-[190px]">
+                    <div className="max-w-[60%] sm:max-w-[58%]">
+                      <div
+                        className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-950"
+                        style={{ backgroundColor: game.accentColor }}
+                      >
+                        {game.shortName}
+                      </div>
+                      <h2 className="mt-4 text-2xl font-semibold text-slate-50 sm:text-[2rem] sm:leading-none">
+                        {game.name}
+                      </h2>
+                      <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:text-[15px]">
+                        {game.gatewayDescription}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 flex items-center justify-between gap-4 text-xs text-amber-100/80">
+                      <span>
+                        {authEnabled
+                          ? userId
+                            ? "Save-ready account"
+                            : "Public browsing"
+                          : "Auth setup pending"}
+                      </span>
+                      <span className="font-semibold text-amber-200 group-hover:text-white">
+                        Enter →
+                      </span>
+                    </div>
                   </div>
                 </Link>
               );

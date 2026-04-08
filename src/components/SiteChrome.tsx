@@ -28,19 +28,54 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
 
   const backgroundImage =
     activeGameConfig?.backgroundImage ?? GATEWAY_BACKGROUND;
+  const backgroundPosition =
+    activeGameConfig?.backgroundPosition ?? "center top";
+  const backgroundSize = activeGameConfig?.backgroundSize ?? "cover";
+  const backgroundAttachment =
+    activeGameConfig?.backgroundAttachment ?? "fixed";
+  const backgroundAnimationClassName =
+    activeGameConfig?.backgroundAnimationClassName ?? "";
+  const backgroundTextureSrc = activeGameConfig?.backgroundTextureSrc;
+  const backgroundTextureOpacity =
+    activeGameConfig?.backgroundTextureOpacity ?? 0;
+  const backgroundTextureSize =
+    activeGameConfig?.backgroundTextureSize ?? "320px 320px";
+  const backgroundTextureBlendMode =
+    activeGameConfig?.backgroundTextureBlendMode ?? "soft-light";
+  const backgroundVignette = activeGameConfig?.backgroundVignette;
 
   return (
     <div
-      className="min-h-screen text-slate-50"
+      className={`relative min-h-screen text-slate-50 ${backgroundAnimationClassName}`.trim()}
       style={{
         backgroundImage,
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center top",
+        backgroundAttachment,
+        backgroundPosition,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundSize,
       }}
     >
-      <div className="min-h-screen bg-slate-950/25 backdrop-blur-[1px]">
+      {backgroundTextureSrc ? (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url('${backgroundTextureSrc}')`,
+            backgroundRepeat: "repeat",
+            backgroundSize: backgroundTextureSize,
+            mixBlendMode: backgroundTextureBlendMode,
+            opacity: backgroundTextureOpacity,
+          }}
+        />
+      ) : null}
+      {backgroundVignette ? (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ background: backgroundVignette }}
+        />
+      ) : null}
+      <div className="relative z-10 min-h-screen bg-slate-950/25 backdrop-blur-[1px]">
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
           <Link
             href="/"

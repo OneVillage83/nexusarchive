@@ -50,6 +50,15 @@ body {
   }
 }
 
+@keyframes onePieceInkShift-na {
+  0% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 52% 48%;
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn-na 260ms ease-out forwards;
@@ -57,6 +66,16 @@ body {
 
   .animate-dice-float {
     animation: diceFloat-na 6s ease-in-out infinite alternate;
+  }
+}
+
+.one-piece-ink-shift {
+  animation: onePieceInkShift-na 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .one-piece-ink-shift {
+    animation: none;
   }
 }
 

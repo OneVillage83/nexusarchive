@@ -133,6 +133,7 @@ type GameHomeShowcaseProps = {
 export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
   const config = getGameBySlug(game);
   const copy = HOME_COPY[game];
+  const isRiftbound = game === "riftbound";
 
   if (!config) {
     return null;
@@ -150,7 +151,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
           <div className="mt-16 grid items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] lg:gap-10">
             <div className="flex flex-col items-center text-center">
               <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-                {game === "riftbound" ? (
+                {isRiftbound ? (
                   <Image
                     src="/Logos/whiteoutlinewordmark.png"
                     alt="NexusArchive wordmark"
@@ -161,16 +162,18 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                   />
                 ) : (
                   <>
-                    <Image
-                      src="/Logos/white-horizontal-wordmark.png"
-                      alt="NexusArchive wordmark"
-                      width={620}
-                      height={82}
-                      className="block h-auto w-full max-w-2xl object-contain drop-shadow-[0_0_20px_rgba(0,0,0,0.75)]"
-                      priority
-                    />
+                    <div className="relative h-[86px] w-full max-w-[32rem] overflow-hidden sm:h-[94px]">
+                      <Image
+                        src="/Logos/white-horizontal-wordmark.png"
+                        alt="NexusArchive wordmark"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 32rem"
+                        className="object-cover object-center drop-shadow-[0_0_20px_rgba(0,0,0,0.75)]"
+                        priority
+                      />
+                    </div>
                     <div
-                      className="mt-5 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
+                      className="mt-3 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
                       style={{ boxShadow: `0 0 22px ${config.glowColor}` }}
                     >
                       {config.shortName}
@@ -178,7 +181,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                   </>
                 )}
 
-                <p className="mt-3 text-lg leading-tight text-amber-50/90 sm:text-xl md:text-2xl">
+                <p className={`${isRiftbound ? "mt-3" : "mt-2"} text-lg leading-tight text-amber-50/90 sm:text-xl md:text-2xl`}>
                   {copy.tagline}{" "}
                   <span style={{ color: config.accentColor }}>
                     {copy.highlightedTagline}
@@ -188,7 +191,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
 
               <form
                 action={buildGamePath(game, "cards")}
-                className="mt-6 w-full max-w-3xl"
+                className={`${isRiftbound ? "mt-6" : "mt-5"} w-full max-w-3xl`}
               >
                 <div
                   className="
@@ -296,7 +299,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
             </div>
           </div>
 
-          <div className="mt-28 hidden lg:block sm:mt-32 lg:mt-32">
+          <div className={`${isRiftbound ? "mt-28 sm:mt-32 lg:mt-32" : "mt-20 sm:mt-24 lg:mt-24"} hidden lg:block`}>
             <div className="grid gap-4 lg:grid-cols-6">
               <HeroTile
                 href={buildGamePath(game, "cards")}
