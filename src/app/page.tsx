@@ -15,7 +15,7 @@ export default async function HomePage() {
   const { userId } = authEnabled ? await auth() : { userId: null };
 
   return (
-    <main className="pb-4 pt-6 sm:pb-5 sm:pt-7 lg:pb-3 lg:pt-9">
+    <main className="pb-10 pt-6 sm:pb-12 sm:pt-7 lg:pb-16 lg:pt-9">
       <div className="mx-auto max-w-6xl px-4">
         <section className="grid gap-3 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-stretch">
           <div className="flex h-full flex-col justify-between rounded-3xl border border-white/20 bg-black/55 p-4 shadow-[0_0_28px_rgba(0,0,0,0.7)] sm:p-5 lg:p-4.5">

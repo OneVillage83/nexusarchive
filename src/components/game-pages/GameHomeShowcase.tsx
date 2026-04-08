@@ -21,7 +21,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
     tagline: "All the Riftbound tools you need in",
     highlightedTagline: "one spot.",
     searchPlaceholder:
-      'Search by card name, keyword, or wild idea... try "burn everything", "token swarm", or "greedy control"...',
+      'Search cards, keywords, or deck ideas... try "burn" or "tokens"...',
     helperLine:
       'Tip: Use card names, keywords, or vibes — "barrier", "burn", "token swarm", "greedy control".',
     latestLabel: "Latest from the Rift wing",
@@ -57,7 +57,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
     tagline: "Every pirate, leader, and cardboard mutiny you need in",
     highlightedTagline: "one treasure chest.",
     searchPlaceholder:
-      'Search by card name, leader, type, or deck idea... try "Straw Hat rush", "DON!! ramp", or "yellow triggers"...',
+      'Search cards, leaders, or deck ideas... try "Straw Hat" or "DON!!"...',
     helperLine:
       'Tip: Search leaders, traits, colors, or deck vibes — "Film", "Navy", "red rush", "late-game grind".',
     latestLabel: "Latest from the pirate vault",
@@ -93,7 +93,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
     tagline: "Every spell, stack fight, and cardboard argument you need in",
     highlightedTagline: "one archive.",
     searchPlaceholder:
-      'Search by card name, mechanic, or table drama... try "graveyard value", "blink engine", or "stack war"...',
+      'Search cards, mechanics, or decks... try "blink" or "graveyard"...',
     helperLine:
       'Tip: Search mechanics, colors, tribes, or play patterns — "Selesnya tokens", "artifact storm", "graveyard loops".',
     latestLabel: "Latest from the mana vault",
@@ -172,12 +172,12 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                   />
                 ) : (
                   <>
-                    <div className="relative h-[80px] w-full max-w-[32rem] overflow-hidden sm:h-[88px]">
+                    <div className="relative h-[92px] w-full max-w-[39rem] overflow-hidden sm:h-[102px]">
                       <Image
                         src="/Logos/white-horizontal-wordmark.png"
                         alt="NexusArchive wordmark"
                         fill
-                        sizes="(max-width: 640px) 100vw, 32rem"
+                        sizes="(max-width: 640px) 100vw, 39rem"
                         className="object-cover object-center drop-shadow-[0_0_20px_rgba(0,0,0,0.75)]"
                         priority
                       />
