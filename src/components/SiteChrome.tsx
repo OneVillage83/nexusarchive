@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
@@ -25,8 +26,10 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const pathname = usePathname();
   const activeGame = getActiveGameFromPath(pathname);
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
+  const [gameMenuOpen, setGameMenuOpen] = useState(false);
   const isAuthPage =
     pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
+  const isGameHomePage = activeGame ? pathname === buildGamePath(activeGame) : false;
 
   const backgroundImage =
     activeGameConfig?.backgroundImage ?? GATEWAY_BACKGROUND;
@@ -35,6 +38,8 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const backgroundSize = activeGameConfig?.backgroundSize ?? "cover";
   const backgroundAttachment =
     activeGameConfig?.backgroundAttachment ?? "fixed";
+  const contentOverlayColor =
+    activeGameConfig?.contentOverlayColor ?? "rgba(2, 6, 23, 0.25)";
   const backgroundAnimationClassName =
     activeGameConfig?.backgroundAnimationClassName ?? "";
   const backgroundTextureSrc = activeGameConfig?.backgroundTextureSrc;
@@ -77,11 +82,26 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
           style={{ background: backgroundVignette }}
         />
       ) : null}
-      <div className="relative z-10 min-h-screen bg-slate-950/25 backdrop-blur-[1px]">
+      <div
+        className="relative z-10 min-h-screen backdrop-blur-[1px]"
+        style={{ backgroundColor: contentOverlayColor }}
+      >
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
-          <div className="group relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setGameMenuOpen(true)}
+            onMouseLeave={() => setGameMenuOpen(false)}
+            onFocus={() => setGameMenuOpen(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                setGameMenuOpen(false);
+              }
+            }}
+          >
             <Link
               href="/"
+              aria-expanded={gameMenuOpen}
+              aria-haspopup="menu"
               className="
                 inline-flex h-10 w-10 items-center justify-center
                 rounded-full border border-sky-300/50 bg-black/30
@@ -106,13 +126,16 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
             </Link>
 
             <div
-              className="
-                pointer-events-none absolute left-0 top-full mt-3 w-60 rounded-2xl
-                border border-white/15 bg-black/80 p-2 opacity-0 shadow-[0_18px_40px_rgba(0,0,0,0.78)]
-                backdrop-blur-md transition-all duration-200 group-hover:pointer-events-auto
-                group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto
-                group-focus-within:translate-y-0 group-focus-within:opacity-100
-              "
+              className={`
+                absolute left-0 top-full z-20 mt-2 w-60 rounded-2xl border border-white/15
+                bg-black/80 p-2 shadow-[0_18px_40px_rgba(0,0,0,0.78)] backdrop-blur-md
+                transition-all duration-150
+                ${
+                  gameMenuOpen
+                    ? "pointer-events-auto translate-y-0 opacity-100"
+                    : "pointer-events-none -translate-y-1 opacity-0"
+                }
+              `}
             >
               <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-sky-100/75">
                 Game Wings
@@ -126,6 +149,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                     <Link
                       key={slug}
                       href={buildGamePath(slug)}
+                      onClick={() => setGameMenuOpen(false)}
                       prefetch={false}
                       className={`
                         flex items-center justify-between rounded-xl border px-3 py-2 text-sm
@@ -150,7 +174,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
             </div>
           </div>
 
-          {activeGame ? (
+          {activeGame && !isGameHomePage ? (
             <details className="relative lg:hidden">
               <summary
                 className="
@@ -198,7 +222,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
           <header className="pt-4">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4">
               <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
-                {activeGame ? (
+                {activeGame && !isGameHomePage ? (
                   <div className="min-w-0 flex-1">
                     <DesktopNav game={activeGame} />
                   </div>

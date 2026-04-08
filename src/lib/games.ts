@@ -20,6 +20,7 @@ export type GameConfig = {
   gatewayDescription: string;
   gatewayLogoSrc: string;
   backgroundImage: string;
+  contentOverlayColor?: string;
   backgroundPosition?: CSSProperties["backgroundPosition"];
   backgroundSize?: CSSProperties["backgroundSize"];
   backgroundAttachment?: CSSProperties["backgroundAttachment"];
@@ -61,7 +62,8 @@ export const GAMES: Record<GameSlug, GameConfig> = {
       "Champions, combos, and judge calls from the Riot-flavored wing of the archive.",
     gatewayLogoSrc: "/Logos/riftbound-PNG-logo.png",
     backgroundImage:
-      "radial-gradient(circle at 24% 12%, rgba(250, 204, 21, 0.16), transparent 26%), linear-gradient(180deg, rgba(2, 6, 23, 0.42) 0%, rgba(2, 6, 23, 0.62) 32%, rgba(2, 6, 23, 0.82) 100%), url('/backgrounds/home-hero.png')",
+      "radial-gradient(circle at 26% 12%, rgba(250, 204, 21, 0.18), transparent 28%), radial-gradient(circle at 72% 20%, rgba(245, 158, 11, 0.16), transparent 34%), linear-gradient(180deg, rgba(2, 6, 23, 0.08) 0%, rgba(2, 6, 23, 0.16) 34%, rgba(2, 6, 23, 0.3) 100%), url('/backgrounds/home-hero.png')",
+    contentOverlayColor: "rgba(2, 6, 23, 0.1)",
     backgroundPosition: "center top",
     backgroundSize: "cover",
     backgroundAttachment: "fixed",

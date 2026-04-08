@@ -90,6 +90,7 @@ export default async function HomePage() {
           <div className="grid gap-2.5 lg:h-full lg:grid-rows-3">
             {GAME_ORDER.map((slug) => {
               const game = GAMES[slug];
+              const isMagic = slug === "magic-the-gathering";
               return (
                 <Link
                   key={slug}
@@ -120,11 +121,11 @@ export default async function HomePage() {
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 300px, (min-width: 640px) 220px, 150px"
-                        className="
-                          object-contain object-right opacity-[0.24]
-                          brightness-[1.08] saturate-[1.1] transition duration-300
-                          group-hover:scale-[1.03] group-hover:opacity-[0.34]
-                        "
+                        className={`object-contain object-right transition duration-300 group-hover:scale-[1.03] ${
+                          isMagic
+                            ? "opacity-[0.34] brightness-[1.24] contrast-[1.08] saturate-[1.15] group-hover:opacity-[0.45]"
+                            : "opacity-[0.24] brightness-[1.08] saturate-[1.1] group-hover:opacity-[0.34]"
+                        }`}
                       />
                     </div>
                   </div>
