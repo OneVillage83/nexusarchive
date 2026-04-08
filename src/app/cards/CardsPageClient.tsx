@@ -9,10 +9,7 @@ import {
 } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import type {
-  CardCatalogMeta,
-  CardCatalogSummary,
-} from "@/lib/cards/catalog";
+import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import { buildGamePath, getGameBySlug, type GameSlug } from "@/lib/games";
 
 const PANEL =
@@ -25,7 +22,8 @@ const FILTER_BUTTON =
   "rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-xs text-amber-50 shadow-[0_0_12px_rgba(0,0,0,0.55)] transition hover:bg-white/10";
 const CHIP =
   "rounded-full border px-3 py-1 text-[11px] font-medium transition-colors";
-const PAGE_SIZE = 50;
+const DEFAULT_PAGE_SIZE = 50;
+const PAGE_SIZE_OPTIONS = [24, 50, 100] as const;
 const VIEW_MODES = ["table", "cards", "visual"] as const;
 
 type ViewMode = (typeof VIEW_MODES)[number];
@@ -40,7 +38,6 @@ type CardsResponse = {
   page: number;
   pageSize: number;
   totalPages: number;
-  meta: CardCatalogMeta;
 };
 
 function getGameBodyCopy(game: GameSlug) {
@@ -66,18 +63,6 @@ function getGameLabel(game: GameSlug) {
   }
 }
 
-function getGameNote(game: GameSlug) {
-  switch (game) {
-    case "magic-the-gathering":
-      return "This gallery is now running on imported Scryfall bulk data. Redis handles the fast search layer while the raw upstream dump gets archived separately, because paying hot-storage rates for every byte would be wildly unserious.";
-    case "one-piece":
-      return "This gallery is now running on OPTCG API imports. The search index is live, the raw snapshot gets archived separately, and the sign-in wall remains reserved for save-to-account features instead of basic browsing.";
-    case "riftbound":
-    default:
-      return "Riftbound is now running through RiftCodex's structured API, with the official Riot gallery filling the handful of missing tokens so search results stay complete without going back to brittle HTML scraping.";
-  }
-}
-
 function parseMultiValueParam(value: string | null) {
   if (!value) {
     return [];
@@ -97,6 +82,17 @@ function uniqueSorted(values: string[]) {
   return [...new Set(values.filter(Boolean))].sort((left, right) =>
     left.localeCompare(right, undefined, { sensitivity: "base" }),
   );
+}
+
+function parsePageSize(value: string | null) {
+  const parsed = Number.parseInt(value ?? String(DEFAULT_PAGE_SIZE), 10);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return DEFAULT_PAGE_SIZE;
+  }
+
+  return PAGE_SIZE_OPTIONS.includes(parsed as (typeof PAGE_SIZE_OPTIONS)[number])
+    ? parsed
+    : DEFAULT_PAGE_SIZE;
 }
 
 function createPageHref(
@@ -177,15 +173,18 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     1,
     Number.parseInt(searchParams.get("page") ?? "1", 10) || 1,
   );
+  const pageSize = parsePageSize(searchParams.get("pageSize"));
   const config = getGameBySlug(game);
   const selectedDomains = parseMultiValueParam(searchParams.get("domains"));
   const selectedRarities = parseMultiValueParam(searchParams.get("rarities"));
   const selectedSets = parseMultiValueParam(searchParams.get("sets"));
   const rawView = searchParams.get("view");
   const viewMode: ViewMode = isViewMode(rawView) ? rawView : "visual";
+  const domainParam = selectedDomains.join(",");
+  const rarityParam = selectedRarities.join(",");
+  const setParam = selectedSets.join(",");
 
   const [cards, setCards] = useState<CardCatalogSummary[]>([]);
-  const [meta, setMeta] = useState<CardCatalogMeta | null>(null);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -200,9 +199,18 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         const query = new URLSearchParams();
         query.set("game", game);
         query.set("page", String(page));
-        query.set("pageSize", String(PAGE_SIZE));
+        query.set("pageSize", String(pageSize));
         if (q) {
           query.set("q", q);
+        }
+        if (domainParam) {
+          query.set("domains", domainParam);
+        }
+        if (rarityParam) {
+          query.set("rarities", rarityParam);
+        }
+        if (setParam) {
+          query.set("sets", setParam);
         }
 
         const response = await fetch(`/api/cards?${query.toString()}`);
@@ -212,14 +220,12 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
         const data = (await response.json()) as CardsResponse;
         setCards(data.cards ?? []);
-        setMeta(data.meta ?? null);
         setTotal(data.total ?? 0);
         setTotalPages(data.totalPages ?? 0);
       } catch (err: unknown) {
         console.error(err);
         setError(err instanceof Error ? err.message : "Failed to load cards.");
         setCards([]);
-        setMeta(null);
         setTotal(0);
         setTotalPages(0);
       } finally {
@@ -228,9 +234,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     }
 
     load();
-  }, [game, page, q]);
+  }, [domainParam, game, page, pageSize, q, rarityParam, setParam]);
 
-  const startIndex = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
+  const startIndex = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const endIndex = total === 0 ? 0 : startIndex + cards.length - 1;
   const availableDomains = uniqueSorted(cards.flatMap((card) => card.domains));
   const availableRarities = uniqueSorted(
@@ -243,28 +249,6 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
       .map((card) => card.setName ?? card.setCode)
       .filter((value): value is string => Boolean(value)),
   ).slice(0, 12);
-  const filteredCards = cards.filter((card) => {
-    if (
-      selectedDomains.length > 0 &&
-      !selectedDomains.some((value) => card.domains.includes(value))
-    ) {
-      return false;
-    }
-
-    if (
-      selectedRarities.length > 0 &&
-      !selectedRarities.includes(card.rarity ?? "")
-    ) {
-      return false;
-    }
-
-    const setValue = card.setName ?? card.setCode ?? "";
-    if (selectedSets.length > 0 && !selectedSets.includes(setValue)) {
-      return false;
-    }
-
-    return true;
-  });
   const activeFilterCount =
     selectedDomains.length + selectedRarities.length + selectedSets.length;
 
@@ -280,6 +264,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     value: string,
   ) {
     updateSearchParams((params) => {
+      params.delete("page");
       const next = new Set(parseMultiValueParam(params.get(key)));
       if (next.has(value)) {
         next.delete(value);
@@ -297,6 +282,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
   function clearFilters() {
     updateSearchParams((params) => {
+      params.delete("page");
       params.delete("domains");
       params.delete("rarities");
       params.delete("sets");
@@ -309,6 +295,17 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         params.delete("view");
       } else {
         params.set("view", nextView);
+      }
+    });
+  }
+
+  function setPageSizeValue(nextPageSize: number) {
+    updateSearchParams((params) => {
+      params.delete("page");
+      if (nextPageSize === DEFAULT_PAGE_SIZE) {
+        params.delete("pageSize");
+      } else {
+        params.set("pageSize", String(nextPageSize));
       }
     });
   }
@@ -331,6 +328,21 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               <label className={LABEL} htmlFor="card-search">
                 Search cards
               </label>
+              {domainParam ? (
+                <input type="hidden" name="domains" value={domainParam} />
+              ) : null}
+              {rarityParam ? (
+                <input type="hidden" name="rarities" value={rarityParam} />
+              ) : null}
+              {setParam ? (
+                <input type="hidden" name="sets" value={setParam} />
+              ) : null}
+              {pageSize !== DEFAULT_PAGE_SIZE ? (
+                <input type="hidden" name="pageSize" value={pageSize} />
+              ) : null}
+              {viewMode !== "visual" ? (
+                <input type="hidden" name="view" value={viewMode} />
+              ) : null}
               <div className="mt-1 flex gap-2">
                 <input
                   id="card-search"
@@ -492,19 +504,31 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                   );
                 })}
               </div>
-            </div>
-          </div>
 
-          <div className="mb-3 text-[11px] text-amber-100/70">
-            Quick filters show {filteredCards.length} of {cards.length} card
-            {cards.length === 1 ? "" : "s"} on this page.
+              <label className="flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-amber-100/80 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
+                <span>Per page</span>
+                <select
+                  value={String(pageSize)}
+                  onChange={(event) =>
+                    setPageSizeValue(Number.parseInt(event.target.value, 10))
+                  }
+                  className="rounded-full border border-white/15 bg-black/60 px-2 py-1 text-[11px] text-amber-50 focus:outline-none"
+                >
+                  {PAGE_SIZE_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </div>
 
           {viewMode === "table" ? (
             <div className="overflow-hidden rounded-2xl border border-white/20 bg-black/60">
               <div className="border-b border-white/15 px-4 py-2 text-[11px] uppercase tracking-wide text-amber-100/70">
-                {filteredCards.length} visible card
-                {filteredCards.length === 1 ? "" : "s"}
+                {cards.length} card
+                {cards.length === 1 ? "" : "s"} on this page
                 {q ? ` for "${q}"` : ""}
               </div>
 
@@ -521,7 +545,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCards.map((card) => (
+                    {cards.map((card) => (
                       <tr
                         key={card.id}
                         className="border-t border-white/10 hover:bg-white/5"
@@ -560,13 +584,13 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                       </tr>
                     ))}
 
-                    {!loading && filteredCards.length === 0 && !error ? (
+                    {!loading && cards.length === 0 && !error ? (
                       <tr>
                         <td
                           colSpan={6}
                           className="px-4 py-6 text-center text-sm text-amber-100/65"
                         >
-                          No cards match the current filters on this page.
+                          No cards match the current filters.
                         </td>
                       </tr>
                     ) : null}
@@ -587,7 +611,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
             </div>
           ) : viewMode === "cards" ? (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {filteredCards.map((card) => (
+              {cards.map((card) => (
                 <article
                   key={card.id}
                   className="overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.65)]"
@@ -653,15 +677,15 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                 </article>
               ))}
 
-              {!loading && filteredCards.length === 0 && !error ? (
+              {!loading && cards.length === 0 && !error ? (
                 <div className="rounded-2xl border border-white/15 bg-black/55 px-4 py-6 text-center text-sm text-amber-100/65 md:col-span-2 xl:col-span-3">
-                  No cards match the current filters on this page.
+                  No cards match the current filters.
                 </div>
               ) : null}
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredCards.map((card) => (
+              {cards.map((card) => (
                 <article
                   key={card.id}
                   className="overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.62)]"
@@ -680,9 +704,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                 </article>
               ))}
 
-              {!loading && filteredCards.length === 0 && !error ? (
+              {!loading && cards.length === 0 && !error ? (
                 <div className="rounded-2xl border border-white/15 bg-black/55 px-4 py-6 text-center text-sm text-amber-100/65 sm:col-span-2 lg:col-span-3 xl:col-span-4">
-                  No cards match the current filters on this page.
+                  No cards match the current filters.
                 </div>
               ) : null}
             </div>
@@ -690,7 +714,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
           <div className="mt-4 flex items-center justify-between gap-3 text-xs text-amber-100/80">
             <div>
-              Page {page} of {Math.max(totalPages, 1)}
+              Page {page} of {Math.max(totalPages, 1)} · {pageSize} per page
             </div>
             <div className="flex items-center gap-2">
               {page > 1 ? (
@@ -722,26 +746,6 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
             </div>
           </div>
         </section>
-
-        <div className="rift-flicker mt-1 rounded-xl border border-amber-300/30 bg-black/55 px-4 py-3 text-[12px] text-amber-100/85 shadow-[0_0_15px_rgba(0,0,0,0.6)]">
-          <p>
-            <span className="font-semibold text-amber-200">
-              Developer Note:
-            </span>{" "}
-            {getGameNote(game)}
-          </p>
-        </div>
-
-        {meta?.notes?.length ? (
-          <section className="rounded-2xl border border-white/15 bg-black/50 px-4 py-3 text-xs text-amber-100/80">
-            <div className="font-semibold text-amber-200">Import Notes</div>
-            <ul className="mt-2 space-y-1">
-              {meta.notes.map((note) => (
-                <li key={note}>{note}</li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
 
         <div className="pt-1">
           <Link

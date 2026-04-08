@@ -24,6 +24,19 @@ type QueryCardsInput = {
   q: string;
   page: number;
   pageSize: number;
+  filters: CardQueryFilters;
+};
+
+export type CardQueryFilters = {
+  domains: string[];
+  rarities: string[];
+  sets: string[];
+};
+
+type NormalizedCardQueryFilters = {
+  domains: Set<string>;
+  rarities: Set<string>;
+  sets: Set<string>;
 };
 
 const GAME_TO_PRISMA: Record<GameSlug, Game> = {
@@ -57,6 +70,19 @@ export function parseCardPageSize(value: string | null) {
   }
 
   return Math.min(parsed, MAX_CARD_PAGE_SIZE);
+}
+
+export function parseCardFilterParam(value: string | null) {
+  if (!value) {
+    return [];
+  }
+
+  return [...new Set(
+    value
+      .split(",")
+      .map((entry) => entry.trim())
+      .filter(Boolean),
+  )];
 }
 
 async function getRedisSummaries(game: GameSlug, ids: string[]) {
@@ -93,11 +119,127 @@ function intersectIds(groups: string[][]) {
   return head.filter((id) => others.every((group) => group.has(id)));
 }
 
+function unionIds(groups: string[][]) {
+  return [...new Set(groups.flat())];
+}
+
+function normalizeSelectedValues(values: string[]) {
+  return new Set(
+    values
+      .map((value) => normalizeSearchText(value))
+      .filter(Boolean),
+  );
+}
+
+function normalizeFilters(filters: CardQueryFilters): NormalizedCardQueryFilters {
+  return {
+    domains: normalizeSelectedValues(filters.domains),
+    rarities: normalizeSelectedValues(filters.rarities),
+    sets: normalizeSelectedValues(filters.sets),
+  };
+}
+
+async function getIdsForTokens(
+  game: GameSlug,
+  tokens: string[],
+) {
+  const redis = getRedis();
+  if (!redis || tokens.length === 0) {
+    return [];
+  }
+
+  const groups = await Promise.all(
+    tokens.map(
+      async (token) =>
+        (((await redis.smembers(
+          cardCatalogTokenKey(game, token),
+        )) as string[] | null) ?? []),
+    ),
+  );
+
+  return intersectIds(groups);
+}
+
+async function getIdsForFilterValues(
+  game: GameSlug,
+  values: string[],
+) {
+  if (values.length === 0) {
+    return [];
+  }
+
+  const perValueIds = await Promise.all(
+    values.map(async (value) => {
+      const tokens = tokenizeForIndex([value]);
+      if (tokens.length === 0) {
+        return [];
+      }
+
+      return getIdsForTokens(game, tokens);
+    }),
+  );
+
+  return unionIds(perValueIds);
+}
+
+function matchesQuery(
+  card: CardCatalogSummary,
+  normalizedQuery: string,
+  queryTokens: string[],
+) {
+  if (!normalizedQuery) {
+    return true;
+  }
+
+  if (!card.searchText) {
+    return false;
+  }
+
+  return (
+    card.searchText.includes(normalizedQuery) ||
+    queryTokens.every((token) => card.searchText.includes(token))
+  );
+}
+
+function matchesFilters(
+  card: CardCatalogSummary,
+  filters: NormalizedCardQueryFilters,
+) {
+  if (
+    filters.domains.size > 0 &&
+    !card.domains.some((domain) =>
+      filters.domains.has(normalizeSearchText(domain)),
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    filters.rarities.size > 0 &&
+    !filters.rarities.has(normalizeSearchText(card.rarity ?? ""))
+  ) {
+    return false;
+  }
+
+  if (filters.sets.size > 0) {
+    const normalizedSetValues = [card.setName, card.setCode]
+      .filter((value): value is string => Boolean(value))
+      .map((value) => normalizeSearchText(value));
+
+    if (!normalizedSetValues.some((value) => filters.sets.has(value))) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 async function queryRedisCards({
   game,
   q,
   page,
   pageSize,
+  filters,
 }: QueryCardsInput): Promise<CardCatalogQueryResult | null> {
   const redis = getRedis();
   if (!redis) {
@@ -110,9 +252,16 @@ async function queryRedisCards({
   }
 
   const normalizedQuery = normalizeSearchText(q);
+  const queryTokens = normalizedQuery
+    ? tokenizeForIndex([normalizedQuery])
+    : [];
   const start = (page - 1) * pageSize;
+  const hasFilters =
+    filters.domains.length > 0 ||
+    filters.rarities.length > 0 ||
+    filters.sets.length > 0;
 
-  if (!normalizedQuery) {
+  if (!normalizedQuery && !hasFilters) {
     const ids =
       ((await redis.lrange(
         cardCatalogAllIdsKey(game),
@@ -132,8 +281,7 @@ async function queryRedisCards({
     };
   }
 
-  const tokens = tokenizeForIndex([normalizedQuery]);
-  if (tokens.length === 0) {
+  if (normalizedQuery && queryTokens.length === 0) {
     return {
       cards: [],
       total: 0,
@@ -144,28 +292,34 @@ async function queryRedisCards({
     };
   }
 
-  const groups = await Promise.all(
-    tokens.map(
-      async (token) =>
-        (((await redis.smembers(
-          cardCatalogTokenKey(game, token),
-        )) as string[] | null) ?? []),
-    ),
-  );
-  const candidateIds = intersectIds(groups);
+  const candidateGroups: string[][] = [];
+
+  if (queryTokens.length > 0) {
+    candidateGroups.push(await getIdsForTokens(game, queryTokens));
+  }
+
+  if (filters.domains.length > 0) {
+    candidateGroups.push(await getIdsForFilterValues(game, filters.domains));
+  }
+
+  if (filters.rarities.length > 0) {
+    candidateGroups.push(await getIdsForFilterValues(game, filters.rarities));
+  }
+
+  if (filters.sets.length > 0) {
+    candidateGroups.push(await getIdsForFilterValues(game, filters.sets));
+  }
+
+  const candidateIds = intersectIds(candidateGroups);
   const candidateCards = await getRedisSummaries(game, candidateIds);
+  const normalizedFilters = normalizeFilters(filters);
 
   const filteredCards = candidateCards
-    .filter((card) => {
-      if (!card.searchText) {
-        return false;
-      }
-
-      return (
-        card.searchText.includes(normalizedQuery) ||
-        tokens.every((token) => card.searchText.includes(token))
-      );
-    })
+    .filter(
+      (card) =>
+        matchesQuery(card, normalizedQuery, queryTokens) &&
+        matchesFilters(card, normalizedFilters),
+    )
     .sort((left, right) =>
       left.name.localeCompare(right.name, undefined, { sensitivity: "base" }),
     );
@@ -187,23 +341,51 @@ async function queryPrismaCards({
   q,
   page,
   pageSize,
+  filters,
 }: QueryCardsInput): Promise<CardCatalogQueryResult> {
-  const where: Prisma.CardWhereInput = q
-    ? {
-        game: GAME_TO_PRISMA[game],
-        OR: [
-          { name: { contains: q } },
-          { type: { contains: q } },
-          { rarity: { contains: q } },
-          { text: { contains: q } },
-          { flavor: { contains: q } },
-          { setCode: { contains: q } },
-          { setName: { contains: q } },
-          { collectorNo: { contains: q } },
-          { domains: { has: q } },
-        ],
-      }
-    : { game: GAME_TO_PRISMA[game] };
+  const whereClauses: Prisma.CardWhereInput[] = [
+    { game: GAME_TO_PRISMA[game] },
+  ];
+
+  if (q) {
+    whereClauses.push({
+      OR: [
+        { name: { contains: q } },
+        { type: { contains: q } },
+        { rarity: { contains: q } },
+        { text: { contains: q } },
+        { flavor: { contains: q } },
+        { setCode: { contains: q } },
+        { setName: { contains: q } },
+        { collectorNo: { contains: q } },
+        { domains: { has: q } },
+      ],
+    });
+  }
+
+  if (filters.domains.length > 0) {
+    whereClauses.push({
+      domains: { hasSome: filters.domains },
+    });
+  }
+
+  if (filters.rarities.length > 0) {
+    whereClauses.push({
+      rarity: { in: filters.rarities },
+    });
+  }
+
+  if (filters.sets.length > 0) {
+    whereClauses.push({
+      OR: filters.sets.flatMap((value) => [
+        { setName: { equals: value } },
+        { setCode: { equals: value } },
+      ]),
+    });
+  }
+
+  const where: Prisma.CardWhereInput =
+    whereClauses.length === 1 ? whereClauses[0]! : { AND: whereClauses };
 
   const [cards, total] = await Promise.all([
     prisma.card.findMany({
