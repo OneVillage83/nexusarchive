@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import {
   parseCardFilterParam,
+  parseCardSort,
   getGameFromQuery,
   parseCardPage,
   parseCardPageSize,
@@ -14,6 +15,7 @@ export async function GET(request: Request) {
   const game = getGameFromQuery(url.searchParams.get("game"));
   const page = parseCardPage(url.searchParams.get("page"));
   const pageSize = parseCardPageSize(url.searchParams.get("pageSize"));
+  const sort = parseCardSort(url.searchParams.get("sort"));
   const filters = {
     domains: parseCardFilterParam(url.searchParams.get("domains")),
     rarities: parseCardFilterParam(url.searchParams.get("rarities")),
@@ -27,6 +29,7 @@ export async function GET(request: Request) {
       page,
       pageSize,
       filters,
+      sort,
     });
 
     return NextResponse.json(result);

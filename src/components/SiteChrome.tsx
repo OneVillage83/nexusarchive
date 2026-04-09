@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
-import { DesktopNav } from "@/components/DesktopNav";
 import {
   GAMES,
   GAME_ORDER,
@@ -27,9 +26,10 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const activeGame = getActiveGameFromPath(pathname);
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
+  const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
+  const toolsMenuRef = useRef<HTMLDivElement | null>(null);
   const isAuthPage =
     pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
-  const isGameHomePage = activeGame ? pathname === buildGamePath(activeGame) : false;
 
   const backgroundImage =
     activeGameConfig?.backgroundImage ?? GATEWAY_BACKGROUND;
@@ -50,6 +50,51 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const backgroundTextureBlendMode =
     activeGameConfig?.backgroundTextureBlendMode ?? "soft-light";
   const backgroundVignette = activeGameConfig?.backgroundVignette;
+  const gamePageLinks = activeGame
+    ? [
+        {
+          href: buildGamePath(activeGame),
+          label: `${activeGameConfig?.shortName ?? "Game"} Home`,
+        },
+        ...GAME_TOOL_LINKS.map((link) => ({
+          href: buildGamePath(activeGame, link.href),
+          label: link.label,
+        })),
+        {
+          href: buildGamePath(activeGame, "articles"),
+          label: "Articles",
+        },
+      ]
+    : [];
+
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) {
+        return;
+      }
+
+      if (toolsMenuRef.current?.contains(target)) {
+        return;
+      }
+
+      setToolsMenuOpen(false);
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setToolsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   return (
     <div
@@ -173,76 +218,18 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
               </nav>
             </div>
           </div>
-
-          {activeGame && !isGameHomePage ? (
-            <details className="relative lg:hidden">
-              <summary
-                className="
-                  flex items-center gap-2 rounded-full border border-white/25
-                  bg-black/45 px-4 py-1.5 text-xs font-medium text-amber-50
-                  shadow-[0_0_14px_rgba(0,0,0,0.7)] backdrop-blur
-                  cursor-pointer select-none list-none
-                "
-              >
-                <span>Tools</span>
-                <span className="text-[10px] opacity-80">\u25be</span>
-              </summary>
-
-              <div
-                className="
-                  absolute left-0 mt-2 w-52 rounded-2xl border border-white/20
-                  bg-black/80 shadow-[0_18px_40px_rgba(0,0,0,0.85)] backdrop-blur-sm
-                "
-              >
-                <nav className="flex flex-col py-2 text-xs text-amber-50">
-                  {GAME_TOOL_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={buildGamePath(activeGame, link.href)}
-                      prefetch={false}
-                      className="px-3 py-1.5 hover:bg-white/10"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <Link
-                    href={buildGamePath(activeGame, "articles")}
-                    prefetch={false}
-                    className="px-3 py-1.5 hover:bg-white/10"
-                  >
-                    Articles
-                  </Link>
-                </nav>
-              </div>
-            </details>
-          ) : null}
         </div>
 
         <div className="flex min-h-screen flex-col">
           <header className="pt-4">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4">
-              <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
-                {activeGame && !isGameHomePage ? (
-                  <div className="min-w-0 flex-1">
-                    <DesktopNav game={activeGame} />
-                  </div>
-                ) : (
-                  <div className="min-w-0 flex-1" />
-                )}
+              <div className="hidden min-w-0 flex-1 md:flex">
+                <div className="min-w-0 flex-1" />
               </div>
 
               <div className="md:hidden h-10 w-10" />
 
               <nav className="flex items-center gap-3 text-xs text-amber-50 sm:gap-6">
-                {activeGame ? (
-                  <Link
-                    href={buildGamePath(activeGame, "articles")}
-                    prefetch={false}
-                    className="hidden hover:text-amber-200 md:inline-flex"
-                  >
-                    Articles
-                  </Link>
-                ) : null}
                 <Link href="/about" className="hover:text-amber-200">
                   About
                 </Link>
@@ -253,6 +240,65 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                   Legal
                 </Link>
                 <AuthNavControls authEnabled={authEnabled} isAuthPage={isAuthPage} />
+                {activeGame ? (
+                  <div className="relative" ref={toolsMenuRef}>
+                    <button
+                      type="button"
+                      aria-expanded={toolsMenuOpen}
+                      aria-haspopup="menu"
+                      onClick={() => setToolsMenuOpen((current) => !current)}
+                      className="
+                        inline-flex h-9 w-9 items-center justify-center rounded-full
+                        border border-white/20 bg-black/45 shadow-[0_0_16px_rgba(0,0,0,0.65)]
+                        transition hover:bg-white/10
+                      "
+                    >
+                      <span className="sr-only">Open page menu</span>
+                      <span className="flex flex-col gap-1">
+                        <span className="block h-0.5 w-4 rounded-full bg-amber-50" />
+                        <span className="block h-0.5 w-4 rounded-full bg-amber-50" />
+                        <span className="block h-0.5 w-4 rounded-full bg-amber-50" />
+                      </span>
+                    </button>
+
+                    {toolsMenuOpen ? (
+                      <div
+                        className="
+                          absolute right-0 z-30 mt-2 w-64 rounded-2xl border border-white/20
+                          bg-black/85 p-2 shadow-[0_18px_40px_rgba(0,0,0,0.85)] backdrop-blur-md
+                        "
+                      >
+                        <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-amber-100/70">
+                          Page Menu
+                        </div>
+                        <nav className="flex flex-col gap-1" aria-label="Game pages">
+                          {gamePageLinks.map((link) => {
+                            const isHomeLink = link.href === buildGamePath(activeGame);
+                            const isActive = isHomeLink
+                              ? pathname === link.href
+                              : pathname.startsWith(link.href);
+
+                            return (
+                              <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setToolsMenuOpen(false)}
+                                prefetch={false}
+                                className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${
+                                  isActive
+                                    ? "border-white/25 bg-black/75 text-amber-50"
+                                    : "border-transparent bg-white/[0.03] text-white/80 hover:border-white/10 hover:bg-white/[0.08] hover:text-white"
+                                }`}
+                              >
+                                {link.label}
+                              </Link>
+                            );
+                          })}
+                        </nav>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </nav>
             </div>
           </header>

@@ -25,6 +25,7 @@ type QueryCardsInput = {
   page: number;
   pageSize: number;
   filters: CardQueryFilters;
+  sort: CardSortKey;
 };
 
 export type CardQueryFilters = {
@@ -32,6 +33,18 @@ export type CardQueryFilters = {
   rarities: string[];
   sets: string[];
 };
+
+export const CARD_SORT_KEYS = [
+  "name-asc",
+  "name-desc",
+  "cost-asc",
+  "cost-desc",
+  "power-desc",
+  "might-desc",
+  "set-asc",
+] as const;
+
+export type CardSortKey = (typeof CARD_SORT_KEYS)[number];
 
 type NormalizedCardQueryFilters = {
   domains: Set<string>;
@@ -85,6 +98,12 @@ export function parseCardFilterParam(value: string | null) {
   )];
 }
 
+export function parseCardSort(value: string | null): CardSortKey {
+  return CARD_SORT_KEYS.includes((value ?? "") as CardSortKey)
+    ? ((value ?? "name-asc") as CardSortKey)
+    : "name-asc";
+}
+
 async function getRedisSummaries(game: GameSlug, ids: string[]) {
   const redis = getRedis();
   if (!redis || ids.length === 0) {
@@ -99,6 +118,18 @@ async function getRedisSummaries(game: GameSlug, ids: string[]) {
 
   const results = await pipeline.exec();
   return results.filter(Boolean) as CardCatalogSummary[];
+}
+
+async function getAllRedisIds(game: GameSlug) {
+  const redis = getRedis();
+  if (!redis) {
+    return [];
+  }
+
+  return (
+    ((await redis.lrange(cardCatalogAllIdsKey(game), 0, -1)) as string[] | null) ??
+    []
+  );
 }
 
 function intersectIds(groups: string[][]) {
@@ -234,12 +265,107 @@ function matchesFilters(
   return true;
 }
 
+function compareText(
+  left: string | null | undefined,
+  right: string | null | undefined,
+  direction: "asc" | "desc" = "asc",
+) {
+  const leftValue = (left ?? "").trim();
+  const rightValue = (right ?? "").trim();
+
+  if (!leftValue && !rightValue) {
+    return 0;
+  }
+
+  if (!leftValue) {
+    return 1;
+  }
+
+  if (!rightValue) {
+    return -1;
+  }
+
+  const result = leftValue.localeCompare(rightValue, undefined, {
+    sensitivity: "base",
+  });
+
+  return direction === "asc" ? result : -result;
+}
+
+function compareNullableNumber(
+  left: number | null,
+  right: number | null,
+  direction: "asc" | "desc",
+) {
+  if (left == null && right == null) {
+    return 0;
+  }
+
+  if (left == null) {
+    return 1;
+  }
+
+  if (right == null) {
+    return -1;
+  }
+
+  return direction === "asc" ? left - right : right - left;
+}
+
+function getSetLabel(card: CardCatalogSummary) {
+  return card.setName ?? card.setCode ?? "";
+}
+
+function sortCards(cards: CardCatalogSummary[], sort: CardSortKey) {
+  return [...cards].sort((left, right) => {
+    switch (sort) {
+      case "name-desc":
+        return (
+          compareText(left.name, right.name, "desc") ||
+          compareText(left.setCode, right.setCode)
+        );
+      case "cost-asc":
+        return (
+          compareNullableNumber(left.energyCost, right.energyCost, "asc") ||
+          compareText(left.name, right.name)
+        );
+      case "cost-desc":
+        return (
+          compareNullableNumber(left.energyCost, right.energyCost, "desc") ||
+          compareText(left.name, right.name)
+        );
+      case "power-desc":
+        return (
+          compareNullableNumber(left.power, right.power, "desc") ||
+          compareText(left.name, right.name)
+        );
+      case "might-desc":
+        return (
+          compareNullableNumber(left.might, right.might, "desc") ||
+          compareText(left.name, right.name)
+        );
+      case "set-asc":
+        return (
+          compareText(getSetLabel(left), getSetLabel(right), "asc") ||
+          compareText(left.name, right.name)
+        );
+      case "name-asc":
+      default:
+        return (
+          compareText(left.name, right.name, "asc") ||
+          compareText(left.setCode, right.setCode)
+        );
+    }
+  });
+}
+
 async function queryRedisCards({
   game,
   q,
   page,
   pageSize,
   filters,
+  sort,
 }: QueryCardsInput): Promise<CardCatalogQueryResult | null> {
   const redis = getRedis();
   if (!redis) {
@@ -260,8 +386,11 @@ async function queryRedisCards({
     filters.domains.length > 0 ||
     filters.rarities.length > 0 ||
     filters.sets.length > 0;
+  const canUseFastNameAsc = !normalizedQuery && !hasFilters && sort === "name-asc";
+  const canUseFastNameDesc =
+    !normalizedQuery && !hasFilters && sort === "name-desc";
 
-  if (!normalizedQuery && !hasFilters) {
+  if (canUseFastNameAsc) {
     const ids =
       ((await redis.lrange(
         cardCatalogAllIdsKey(game),
@@ -277,6 +406,41 @@ async function queryRedisCards({
       page,
       pageSize,
       totalPages: Math.max(1, Math.ceil(total / pageSize)),
+      meta,
+    };
+  }
+
+  if (canUseFastNameDesc) {
+    const total = meta.cardCount;
+    const pageStart = (page - 1) * pageSize;
+
+    if (pageStart >= total) {
+      return {
+        cards: [],
+        total,
+        page,
+        pageSize,
+        totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
+        meta,
+      };
+    }
+
+    const ascStart = Math.max(0, total - pageStart - pageSize);
+    const ascEnd = total - pageStart - 1;
+    const ids =
+      ((await redis.lrange(
+        cardCatalogAllIdsKey(game),
+        ascStart,
+        ascEnd,
+      )) as string[] | null) ?? [];
+    const cards = (await getRedisSummaries(game, ids)).reverse();
+
+    return {
+      cards,
+      total,
+      page,
+      pageSize,
+      totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
       meta,
     };
   }
@@ -310,19 +474,22 @@ async function queryRedisCards({
     candidateGroups.push(await getIdsForFilterValues(game, filters.sets));
   }
 
-  const candidateIds = intersectIds(candidateGroups);
+  const candidateIds =
+    candidateGroups.length > 0
+      ? intersectIds(candidateGroups)
+      : await getAllRedisIds(game);
   const candidateCards = await getRedisSummaries(game, candidateIds);
   const normalizedFilters = normalizeFilters(filters);
 
-  const filteredCards = candidateCards
+  const filteredCards = sortCards(
+    candidateCards
     .filter(
       (card) =>
         matchesQuery(card, normalizedQuery, queryTokens) &&
         matchesFilters(card, normalizedFilters),
-    )
-    .sort((left, right) =>
-      left.name.localeCompare(right.name, undefined, { sensitivity: "base" }),
-    );
+    ),
+    sort,
+  );
 
   const total = filteredCards.length;
 
@@ -342,6 +509,7 @@ async function queryPrismaCards({
   page,
   pageSize,
   filters,
+  sort,
 }: QueryCardsInput): Promise<CardCatalogQueryResult> {
   const whereClauses: Prisma.CardWhereInput[] = [
     { game: GAME_TO_PRISMA[game] },
@@ -387,18 +555,10 @@ async function queryPrismaCards({
   const where: Prisma.CardWhereInput =
     whereClauses.length === 1 ? whereClauses[0]! : { AND: whereClauses };
 
-  const [cards, total] = await Promise.all([
-    prisma.card.findMany({
-      where,
-      orderBy: { name: "asc" },
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    }),
-    prisma.card.count({ where }),
-  ]);
-
-  return {
-    cards: cards.map((card) => ({
+  const cards = await prisma.card.findMany({ where });
+  const total = cards.length;
+  const sortedCards = sortCards(
+    cards.map((card) => ({
       id: String(card.id),
       game,
       name: card.name,
@@ -441,6 +601,15 @@ async function queryPrismaCards({
           .join(" "),
       ),
     })),
+    sort,
+  );
+  const pagedCards = sortedCards.slice(
+    (page - 1) * pageSize,
+    (page - 1) * pageSize + pageSize,
+  );
+
+  return {
+    cards: pagedCards,
     total,
     page,
     pageSize,

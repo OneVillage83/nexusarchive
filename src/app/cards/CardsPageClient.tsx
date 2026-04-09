@@ -7,7 +7,7 @@ import {
   useSearchParams,
   type ReadonlyURLSearchParams,
 } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import { buildGamePath, getGameBySlug, type GameSlug } from "@/lib/games";
@@ -24,9 +24,39 @@ const CHIP =
   "rounded-full border px-3 py-1 text-[11px] font-medium transition-colors";
 const DEFAULT_PAGE_SIZE = 50;
 const PAGE_SIZE_OPTIONS = [24, 50, 100] as const;
-const VIEW_MODES = ["table", "cards", "visual"] as const;
+const VIEW_MODES = ["visual", "cards", "table"] as const;
+const SORT_OPTIONS = {
+  riftbound: [
+    { value: "name-asc", label: "Name (A-Z)" },
+    { value: "name-desc", label: "Name (Z-A)" },
+    { value: "cost-asc", label: "Cost (Low to High)" },
+    { value: "cost-desc", label: "Cost (High to Low)" },
+    { value: "power-desc", label: "Power (High to Low)" },
+    { value: "might-desc", label: "Might (High to Low)" },
+    { value: "set-asc", label: "Set (A-Z)" },
+  ],
+  "one-piece": [
+    { value: "name-asc", label: "Name (A-Z)" },
+    { value: "name-desc", label: "Name (Z-A)" },
+    { value: "cost-asc", label: "DON!! Cost (Low to High)" },
+    { value: "cost-desc", label: "DON!! Cost (High to Low)" },
+    { value: "power-desc", label: "Power (High to Low)" },
+    { value: "might-desc", label: "Life (High to Low)" },
+    { value: "set-asc", label: "Set (A-Z)" },
+  ],
+  "magic-the-gathering": [
+    { value: "name-asc", label: "Name (A-Z)" },
+    { value: "name-desc", label: "Name (Z-A)" },
+    { value: "cost-asc", label: "Mana Value (Low to High)" },
+    { value: "cost-desc", label: "Mana Value (High to Low)" },
+    { value: "power-desc", label: "Power (High to Low)" },
+    { value: "might-desc", label: "Toughness (High to Low)" },
+    { value: "set-asc", label: "Set (A-Z)" },
+  ],
+} as const;
 
 type ViewMode = (typeof VIEW_MODES)[number];
+type SortKey = (typeof SORT_OPTIONS)[GameSlug][number]["value"];
 
 type CardsPageClientProps = {
   game: GameSlug;
@@ -78,6 +108,12 @@ function isViewMode(value: string | null): value is ViewMode {
   return VIEW_MODES.includes((value ?? "") as ViewMode);
 }
 
+function isSortKey(value: string | null): value is SortKey {
+  return Object.values(SORT_OPTIONS)
+    .flatMap((options) => options.map((option) => option.value))
+    .includes((value ?? "") as SortKey);
+}
+
 function uniqueSorted(values: string[]) {
   return [...new Set(values.filter(Boolean))].sort((left, right) =>
     left.localeCompare(right, undefined, { sensitivity: "base" }),
@@ -93,6 +129,22 @@ function parsePageSize(value: string | null) {
   return PAGE_SIZE_OPTIONS.includes(parsed as (typeof PAGE_SIZE_OPTIONS)[number])
     ? parsed
     : DEFAULT_PAGE_SIZE;
+}
+
+function getSortOptions(game: GameSlug) {
+  return SORT_OPTIONS[game];
+}
+
+function getViewModeLabel(mode: ViewMode) {
+  switch (mode) {
+    case "visual":
+      return "Visual";
+    case "cards":
+      return "Cards";
+    case "table":
+    default:
+      return "Table";
+  }
 }
 
 function createPageHref(
@@ -179,7 +231,10 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const selectedRarities = parseMultiValueParam(searchParams.get("rarities"));
   const selectedSets = parseMultiValueParam(searchParams.get("sets"));
   const rawView = searchParams.get("view");
+  const rawSort = searchParams.get("sort");
   const viewMode: ViewMode = isViewMode(rawView) ? rawView : "visual";
+  const sortOptions = getSortOptions(game);
+  const sortValue: SortKey = isSortKey(rawSort) ? rawSort : "name-asc";
   const domainParam = selectedDomains.join(",");
   const rarityParam = selectedRarities.join(",");
   const setParam = selectedSets.join(",");
@@ -189,6 +244,8 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filtersRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -212,6 +269,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         if (setParam) {
           query.set("sets", setParam);
         }
+        if (sortValue !== "name-asc") {
+          query.set("sort", sortValue);
+        }
 
         const response = await fetch(`/api/cards?${query.toString()}`);
         if (!response.ok) {
@@ -234,7 +294,40 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     }
 
     load();
-  }, [domainParam, game, page, pageSize, q, rarityParam, setParam]);
+  }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue]);
+
+  useEffect(() => {
+    setFiltersOpen(false);
+  }, [domainParam, page, pageSize, pathname, q, rarityParam, setParam, sortValue, viewMode]);
+
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) {
+        return;
+      }
+
+      if (filtersRef.current?.contains(target)) {
+        return;
+      }
+
+      setFiltersOpen(false);
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setFiltersOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   const startIndex = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const endIndex = total === 0 ? 0 : startIndex + cards.length - 1;
@@ -299,6 +392,17 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     });
   }
 
+  function setSortValue(nextSort: SortKey) {
+    updateSearchParams((params) => {
+      params.delete("page");
+      if (nextSort === "name-asc") {
+        params.delete("sort");
+      } else {
+        params.set("sort", nextSort);
+      }
+    });
+  }
+
   function setPageSizeValue(nextPageSize: number) {
     updateSearchParams((params) => {
       params.delete("page");
@@ -340,6 +444,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               {pageSize !== DEFAULT_PAGE_SIZE ? (
                 <input type="hidden" name="pageSize" value={pageSize} />
               ) : null}
+              {sortValue !== "name-asc" ? (
+                <input type="hidden" name="sort" value={sortValue} />
+              ) : null}
               {viewMode !== "visual" ? (
                 <input type="hidden" name="view" value={viewMode} />
               ) : null}
@@ -371,115 +478,123 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <details className="group relative">
-                <summary className={`${FILTER_BUTTON} list-none cursor-pointer`}>
+              <div className="relative" ref={filtersRef}>
+                <button
+                  type="button"
+                  aria-expanded={filtersOpen}
+                  aria-haspopup="dialog"
+                  onClick={() => setFiltersOpen((current) => !current)}
+                  className={FILTER_BUTTON}
+                >
                   Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
-                </summary>
+                </button>
 
-                <div className="absolute right-0 z-20 mt-2 w-[min(92vw,24rem)] rounded-2xl border border-white/20 bg-black/90 p-4 shadow-[0_18px_40px_rgba(0,0,0,0.88)] backdrop-blur-md">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="text-xs font-semibold uppercase tracking-wide text-amber-200">
-                      Quick Filters
+                {filtersOpen ? (
+                  <div className="absolute right-0 z-20 mt-2 w-[min(92vw,24rem)] rounded-2xl border border-white/20 bg-black/90 p-4 shadow-[0_18px_40px_rgba(0,0,0,0.88)] backdrop-blur-md">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-xs font-semibold uppercase tracking-wide text-amber-200">
+                        Quick Filters
+                      </div>
+                      <button
+                        type="button"
+                        onClick={clearFilters}
+                        className="text-[11px] text-amber-100/70 hover:text-white"
+                      >
+                        Clear all
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={clearFilters}
-                      className="text-[11px] text-amber-100/70 hover:text-white"
-                    >
-                      Clear all
-                    </button>
+
+                    <div className="mt-4 space-y-4">
+                      <div>
+                        <div className={LABEL}>{getGameLabel(game)}</div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {availableDomains.length ? (
+                            availableDomains.map((value) => {
+                              const active = selectedDomains.includes(value);
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  onClick={() => toggleMultiFilter("domains", value)}
+                                  className={`${CHIP} ${
+                                    active
+                                      ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
+                                      : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
+                                  }`}
+                                >
+                                  {value}
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <p className="text-xs text-amber-100/60">
+                              No quick color/domain values on this page yet.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className={LABEL}>Rarity</div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {availableRarities.length ? (
+                            availableRarities.map((value) => {
+                              const active = selectedRarities.includes(value);
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  onClick={() => toggleMultiFilter("rarities", value)}
+                                  className={`${CHIP} ${
+                                    active
+                                      ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
+                                      : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
+                                  }`}
+                                >
+                                  {value}
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <p className="text-xs text-amber-100/60">
+                              No rarity values on this page yet.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className={LABEL}>Set</div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {availableSets.length ? (
+                            availableSets.map((value) => {
+                              const active = selectedSets.includes(value);
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  onClick={() => toggleMultiFilter("sets", value)}
+                                  className={`${CHIP} ${
+                                    active
+                                      ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
+                                      : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
+                                  }`}
+                                >
+                                  {value}
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <p className="text-xs text-amber-100/60">
+                              No set values on this page yet.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="mt-4 space-y-4">
-                    <div>
-                      <div className={LABEL}>{getGameLabel(game)}</div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {availableDomains.length ? (
-                          availableDomains.map((value) => {
-                            const active = selectedDomains.includes(value);
-                            return (
-                              <button
-                                key={value}
-                                type="button"
-                                onClick={() => toggleMultiFilter("domains", value)}
-                                className={`${CHIP} ${
-                                  active
-                                    ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
-                                    : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
-                                }`}
-                              >
-                                {value}
-                              </button>
-                            );
-                          })
-                        ) : (
-                          <p className="text-xs text-amber-100/60">
-                            No quick color/domain values on this page yet.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className={LABEL}>Rarity</div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {availableRarities.length ? (
-                          availableRarities.map((value) => {
-                            const active = selectedRarities.includes(value);
-                            return (
-                              <button
-                                key={value}
-                                type="button"
-                                onClick={() => toggleMultiFilter("rarities", value)}
-                                className={`${CHIP} ${
-                                  active
-                                    ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
-                                    : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
-                                }`}
-                              >
-                                {value}
-                              </button>
-                            );
-                          })
-                        ) : (
-                          <p className="text-xs text-amber-100/60">
-                            No rarity values on this page yet.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className={LABEL}>Set</div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {availableSets.length ? (
-                          availableSets.map((value) => {
-                            const active = selectedSets.includes(value);
-                            return (
-                              <button
-                                key={value}
-                                type="button"
-                                onClick={() => toggleMultiFilter("sets", value)}
-                                className={`${CHIP} ${
-                                  active
-                                    ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
-                                    : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
-                                }`}
-                              >
-                                {value}
-                              </button>
-                            );
-                          })
-                        ) : (
-                          <p className="text-xs text-amber-100/60">
-                            No set values on this page yet.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </details>
+                ) : null}
+              </div>
 
               <div className="inline-flex items-center rounded-full border border-white/20 bg-black/55 p-1 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
                 {VIEW_MODES.map((mode) => {
@@ -495,15 +610,26 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                           : "text-amber-50/85 hover:bg-white/10"
                       }`}
                     >
-                      {mode === "table"
-                        ? "Table"
-                        : mode === "cards"
-                          ? "Cards"
-                          : "Visual"}
+                      {getViewModeLabel(mode)}
                     </button>
                   );
                 })}
               </div>
+
+              <label className="flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-amber-100/80 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
+                <span>Sort</span>
+                <select
+                  value={sortValue}
+                  onChange={(event) => setSortValue(event.target.value as SortKey)}
+                  className="rounded-full border border-white/15 bg-black/60 px-2 py-1 text-[11px] text-amber-50 focus:outline-none"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
 
               <label className="flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-amber-100/80 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
                 <span>Per page</span>
@@ -688,16 +814,39 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               {cards.map((card) => (
                 <article
                   key={card.id}
-                  className="overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.62)]"
+                  className="group overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.62)]"
                 >
                   <div className="relative overflow-hidden rounded-2xl">
                     <CardArt card={card} className="aspect-[3/4]" />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/65 to-transparent p-3">
-                      <div className="text-sm font-semibold text-amber-50">
-                        <CardNameLink card={card} />
-                      </div>
-                      <div className="mt-1 text-[11px] text-amber-100/80">
-                        {card.type ?? "No type"} · {card.setCode ?? card.setName ?? "No set"}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div className="absolute inset-x-0 bottom-0 p-3">
+                        <div className="rounded-2xl border border-white/15 bg-black/70 p-3 shadow-[0_0_22px_rgba(0,0,0,0.72)] backdrop-blur-sm">
+                          <div className="text-sm font-semibold text-amber-50">
+                            {card.name}
+                          </div>
+                          <div className="mt-1 text-[11px] text-amber-100/80">
+                            {card.type ?? "No type"} · {card.setCode ?? card.setName ?? "No set"}
+                          </div>
+                          <div className="mt-2 flex flex-wrap gap-2 text-[10px] uppercase tracking-wide text-amber-200/85">
+                            {card.rarity ? (
+                              <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1">
+                                {card.rarity}
+                              </span>
+                            ) : null}
+                            {card.energyCost != null ? (
+                              <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1">
+                                Cost {card.energyCost}
+                              </span>
+                            ) : null}
+                            {(card.power != null ||
+                              card.might != null ||
+                              card.hp != null) ? (
+                              <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1">
+                                {formatCardStats(card)}
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
