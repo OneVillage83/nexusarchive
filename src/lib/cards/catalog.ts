@@ -28,6 +28,17 @@ export type CardCatalogSummary = {
   imageUrl: string | null;
   artist: string | null;
   marketPrice: number | null;
+  financeProductId?: string;
+  fairValue?: number | null;
+  delta24h?: number | null;
+  deltaPercent24h?: number | null;
+  liquidityScore?: number | null;
+  confidenceScore?: number | null;
+  cashNowValue?: number | null;
+  fastSellValue?: number | null;
+  maxValueValue?: number | null;
+  storeCreditValue?: number | null;
+  sourceLabel?: string;
   source: CardCatalogSource;
   externalUrl: string | null;
   searchText: string;

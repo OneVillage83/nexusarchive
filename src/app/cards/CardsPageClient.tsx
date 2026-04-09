@@ -9,6 +9,7 @@ import {
 } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { CardFinanceQuickView } from "@/components/finance/CardFinanceQuickView";
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import { buildGamePath, getGameBySlug, type GameSlug } from "@/lib/games";
 
@@ -69,6 +70,34 @@ type CardsResponse = {
   pageSize: number;
   totalPages: number;
 };
+
+function formatCurrency(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: value >= 100 ? 0 : 2,
+  }).format(value);
+}
+
+function formatPercent(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return `${value > 0 ? "+" : ""}${value.toFixed(2)}%`;
+}
+
+function formatDelta(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return `${value > 0 ? "+" : ""}${formatCurrency(value)}`;
+}
 
 function getGameBodyCopy(game: GameSlug) {
   switch (game) {
@@ -173,18 +202,7 @@ function formatCardStats(card: CardCatalogSummary) {
 }
 
 function CardNameLink({ card }: { card: CardCatalogSummary }) {
-  return card.externalUrl ? (
-    <a
-      href={card.externalUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="hover:text-amber-200"
-    >
-      {card.name}
-    </a>
-  ) : (
-    <>{card.name}</>
-  );
+  return <>{card.name}</>;
 }
 
 function CardArt({
@@ -245,6 +263,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selectedFinanceProductId, setSelectedFinanceProductId] = useState<string | null>(null);
   const filtersRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -412,6 +431,14 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         params.set("pageSize", String(nextPageSize));
       }
     });
+  }
+
+  function openFinanceQuickView(card: CardCatalogSummary) {
+    if (!card.financeProductId) {
+      return;
+    }
+
+    setSelectedFinanceProductId(card.financeProductId);
   }
 
   return (
@@ -668,6 +695,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                       <th className="px-4 py-2 text-left">Cost</th>
                       <th className="px-4 py-2 text-left">Stats</th>
                       <th className="px-4 py-2 text-left">Set</th>
+                      <th className="px-4 py-2 text-left">Finance</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -677,9 +705,13 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                         className="border-t border-white/10 hover:bg-white/5"
                       >
                         <td className="px-4 py-2 align-top">
-                          <div className="font-medium text-amber-50">
+                          <button
+                            type="button"
+                            onClick={() => openFinanceQuickView(card)}
+                            className="text-left font-medium text-amber-50 hover:text-amber-200"
+                          >
                             <CardNameLink card={card} />
-                          </div>
+                          </button>
                           {card.text ? (
                             <div className="line-clamp-2 text-xs text-amber-100/75">
                               {card.text}
@@ -707,13 +739,18 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                         <td className="px-4 py-2 align-top text-amber-50/85">
                           {card.setName ?? card.setCode ?? "—"}
                         </td>
+                        <td className="px-4 py-2 align-top text-xs text-amber-100/80">
+                          <div>Fair: {formatCurrency(card.fairValue)}</div>
+                          <div>24h: {formatDelta(card.delta24h)}</div>
+                          <div>Liquidity: {card.liquidityScore ?? "—"}</div>
+                        </td>
                       </tr>
                     ))}
 
                     {!loading && cards.length === 0 && !error ? (
                       <tr>
                         <td
-                          colSpan={6}
+                          colSpan={7}
                           className="px-4 py-6 text-center text-sm text-amber-100/65"
                         >
                           No cards match the current filters.
@@ -724,7 +761,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                     {error ? (
                       <tr>
                         <td
-                          colSpan={6}
+                          colSpan={7}
                           className="px-4 py-6 text-center text-sm text-red-300/90"
                         >
                           {error}
@@ -743,17 +780,27 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                   className="overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.65)]"
                 >
                   <div className="grid gap-4 p-4 sm:grid-cols-[120px_minmax(0,1fr)]">
-                    <CardArt
-                      card={card}
-                      className="aspect-[3/4] rounded-xl border border-white/10"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => openFinanceQuickView(card)}
+                      className="text-left"
+                    >
+                      <CardArt
+                        card={card}
+                        className="aspect-[3/4] rounded-xl border border-white/10 transition hover:border-amber-300/45"
+                      />
+                    </button>
 
                     <div className="min-w-0 space-y-2">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h2 className="text-lg font-semibold text-amber-50">
+                          <button
+                            type="button"
+                            onClick={() => openFinanceQuickView(card)}
+                            className="text-left text-lg font-semibold text-amber-50 hover:text-amber-200"
+                          >
                             <CardNameLink card={card} />
-                          </h2>
+                          </button>
                           <p className="text-sm text-amber-100/75">
                             {card.type ?? "No type label"}
                           </p>
@@ -789,6 +836,15 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                         <div>Artist: {card.artist ?? "—"}</div>
                       </div>
 
+                      <div className="rounded-2xl border border-white/15 bg-black/45 px-3 py-2 text-xs text-amber-100/80">
+                        <div className="flex flex-wrap gap-x-4 gap-y-1">
+                          <span>Market: {formatCurrency(card.marketPrice)}</span>
+                          <span>Fair: {formatCurrency(card.fairValue)}</span>
+                          <span>24h: {formatDelta(card.delta24h)}</span>
+                          <span>Liquidity: {card.liquidityScore ?? "—"}</span>
+                        </div>
+                      </div>
+
                       {card.text ? (
                         <p className="line-clamp-4 text-sm text-amber-50/85">
                           {card.text}
@@ -816,7 +872,11 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                   key={card.id}
                   className="group overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.62)]"
                 >
-                  <div className="relative overflow-hidden rounded-2xl">
+                  <button
+                    type="button"
+                    onClick={() => openFinanceQuickView(card)}
+                    className="relative block w-full overflow-hidden rounded-2xl text-left"
+                  >
                     <CardArt card={card} className="aspect-[3/4]" />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
                       <div className="absolute inset-x-0 bottom-0 p-3">
@@ -845,11 +905,21 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                                 {formatCardStats(card)}
                               </span>
                             ) : null}
+                            {card.fairValue != null ? (
+                              <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1">
+                                Fair {formatCurrency(card.fairValue)}
+                              </span>
+                            ) : null}
+                            {card.deltaPercent24h != null ? (
+                              <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1">
+                                {formatPercent(card.deltaPercent24h)}
+                              </span>
+                            ) : null}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 </article>
               ))}
 
@@ -906,6 +976,13 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
           </Link>
         </div>
       </div>
+
+      <CardFinanceQuickView
+        game={game}
+        financeProductId={selectedFinanceProductId}
+        open={Boolean(selectedFinanceProductId)}
+        onClose={() => setSelectedFinanceProductId(null)}
+      />
     </main>
   );
 }

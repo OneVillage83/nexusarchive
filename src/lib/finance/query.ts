@@ -1,0 +1,1273 @@
+import { Game as PrismaGame } from "@prisma/client";
+
+import prisma from "@/lib/db";
+import type { GameSlug } from "@/lib/games";
+import { getRedis } from "@/lib/storage/redis";
+import {
+  buildCardSearchText,
+  cardCatalogAllIdsKey,
+  cardCatalogMetaKey,
+  cardCatalogSummaryKey,
+  type CardCatalogMeta,
+  type CardCatalogSource,
+  type CardCatalogSummary,
+  compactText,
+  normalizeSearchText,
+} from "@/lib/cards/catalog";
+
+const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
+  riftbound: PrismaGame.RIFTBOUND,
+  "one-piece": PrismaGame.ONE_PIECE,
+  "magic-the-gathering": PrismaGame.MAGIC_THE_GATHERING,
+};
+
+const SAMPLE_CARD_LIMIT = 220;
+const PREVIEW_POSITION_LIMIT = 8;
+const FINANCE_HOME_TTL_SECONDS = 60 * 30;
+const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 6;
+const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
+
+export type FinanceRouteKey =
+  | "cash-now"
+  | "fast-sell"
+  | "max-value"
+  | "store-credit"
+  | "grade-first";
+
+export type FinanceSeverity = "low" | "medium" | "high";
+
+export type FinancePriceSource = {
+  key: string;
+  label: string;
+  type: "market" | "sold" | "buylist" | "reference";
+  value: number | null;
+  note: string;
+};
+
+export type FinanceRouteEstimate = {
+  key: FinanceRouteKey;
+  label: string;
+  netValue: number;
+  etaLabel: string;
+  confidenceScore: number;
+  note: string;
+};
+
+export type FinanceHistoryPoint = {
+  date: string;
+  value: number;
+};
+
+export type FinanceComp = {
+  id: string;
+  price: number;
+  soldAt: string;
+  marketplace: string;
+  condition: string;
+};
+
+export type FinanceTeaser = {
+  financeProductId: string;
+  marketPrice: number | null;
+  fairValue: number | null;
+  delta24h: number | null;
+  deltaPercent24h: number | null;
+  liquidityScore: number | null;
+  confidenceScore: number | null;
+  cashNowValue: number | null;
+  fastSellValue: number | null;
+  maxValueValue: number | null;
+  storeCreditValue: number | null;
+  sourceLabel: string;
+};
+
+export type FinanceProductSummary = FinanceTeaser & {
+  id: string;
+  game: GameSlug;
+  name: string;
+  subtitle: string;
+  imageUrl: string | null;
+  setName: string | null;
+  setCode: string | null;
+  collectorNo: string | null;
+  rarity: string | null;
+  tags: string[];
+  note: string;
+};
+
+export type FinanceProductDetail = FinanceProductSummary & {
+  source: CardCatalogSource;
+  externalUrl: string | null;
+  lowPrice: number | null;
+  soldMedian: number | null;
+  activeListingFloor: number | null;
+  buylistFloor: number | null;
+  gradeFirstValue: number | null;
+  recommendation: {
+    title: string;
+    body: string;
+  };
+  priceSources: FinancePriceSource[];
+  routeEstimates: FinanceRouteEstimate[];
+  history: FinanceHistoryPoint[];
+  recentComps: FinanceComp[];
+  alerts: string[];
+  freshnessLabel: string;
+  sourceCount: number;
+  dataQualityNote: string;
+};
+
+export type FinanceSealedSummary = {
+  id: string;
+  game: GameSlug;
+  name: string;
+  setName: string | null;
+  imageUrl: string | null;
+  currentPrice: number;
+  fairValue: number;
+  delta24h: number;
+  deltaPercent24h: number;
+  ripEv: number;
+  liquidityScore: number;
+  confidenceScore: number;
+  chaseConcentration: number;
+  recommendation: string;
+};
+
+export type FinanceSealedDetail = FinanceSealedSummary & {
+  ripVariance: number;
+  singlesEvTrend: FinanceHistoryPoint[];
+  notes: string[];
+};
+
+export type FinanceAlertFeedItem = {
+  id: string;
+  severity: FinanceSeverity;
+  title: string;
+  summary: string;
+  href: string;
+};
+
+export type FinanceIndexSummary = {
+  label: string;
+  count: number;
+};
+
+export type FinanceHomeData = {
+  status: {
+    headline: string;
+    summary: string;
+    coverageLabel: string;
+    averageLiquidity: number;
+    averageConfidence: number;
+  };
+  hottestMovers: FinanceProductSummary[];
+  biggestReversals: FinanceProductSummary[];
+  mostLiquid: FinanceProductSummary[];
+  rawVsGraded: FinanceProductSummary[];
+  buylistSpreadLeaders: FinanceProductSummary[];
+  sealedOpportunities: FinanceSealedSummary[];
+  alerts: FinanceAlertFeedItem[];
+  indexes: FinanceIndexSummary[];
+};
+
+export type FinancePreviewPosition = {
+  financeProductId: string;
+  name: string;
+  imageUrl: string | null;
+  setName: string | null;
+  quantity: number;
+  marketPrice: number;
+  fairValue: number;
+  delta24h: number;
+  deltaPercent24h: number;
+  totalValue: number;
+  averageCost: number;
+  unrealizedGain: number;
+};
+
+export type FinanceCollectionSnapshot = {
+  positions: FinancePreviewPosition[];
+  totalFairValue: number;
+  totalRealizableValue: number;
+  topMover: FinancePreviewPosition | null;
+  biggestSinker: FinancePreviewPosition | null;
+};
+
+function toCurrency(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return null;
+  }
+
+  return Math.round(value * 100) / 100;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function hashString(input: string) {
+  let hash = 0;
+
+  for (let index = 0; index < input.length; index += 1) {
+    hash = (hash * 31 + input.charCodeAt(index)) >>> 0;
+  }
+
+  return hash;
+}
+
+function slugify(value: string) {
+  return normalizeSearchText(value).replace(/\s+/g, "-");
+}
+
+function getFinanceProductId(card: Pick<CardCatalogSummary, "id">) {
+  return card.id;
+}
+
+function getSetLabel(card: Pick<CardCatalogSummary, "setName" | "setCode">) {
+  return compactText(card.setName) ?? compactText(card.setCode) ?? "Unsorted cardboard";
+}
+
+function getCardTags(card: CardCatalogSummary) {
+  return [
+    ...card.domains,
+    card.rarity ?? "",
+    card.type ?? "",
+    card.setCode ?? "",
+  ].filter(Boolean);
+}
+
+function getCoverageLabel(game: GameSlug, hasRealMarketPrice: boolean) {
+  if (game === "magic-the-gathering" && hasRealMarketPrice) {
+    return "MTG live-price mode";
+  }
+
+  if (hasRealMarketPrice) {
+    return "Market-backed preview";
+  }
+
+  return "Thin-data finance preview";
+}
+
+function getGameSourceLabel(game: GameSlug, hasRealMarketPrice: boolean) {
+  if (hasRealMarketPrice && game === "magic-the-gathering") {
+    return "Scryfall-backed market blend";
+  }
+
+  switch (game) {
+    case "one-piece":
+      return hasRealMarketPrice
+        ? "OPTCG market blend"
+        : "OPTCG reference estimate";
+    case "magic-the-gathering":
+      return hasRealMarketPrice
+        ? "Scryfall market blend"
+        : "Scryfall reference estimate";
+    case "riftbound":
+    default:
+      return hasRealMarketPrice
+        ? "RiftCodex market blend"
+        : "RiftCodex reference estimate";
+  }
+}
+
+function rarityMultiplier(game: GameSlug, rarity: string | null) {
+  const value = normalizeSearchText(rarity ?? "");
+
+  if (!value) {
+    return game === "magic-the-gathering" ? 1.15 : 1.1;
+  }
+
+  if (value.includes("mythic") || value.includes("secret") || value.includes("serialized")) {
+    return 3.4;
+  }
+
+  if (
+    value.includes("showcase") ||
+    value.includes("alt") ||
+    value.includes("parallel") ||
+    value.includes("manga")
+  ) {
+    return 2.85;
+  }
+
+  if (
+    value.includes("leader") ||
+    value.includes("champion") ||
+    value.includes("legendary") ||
+    value.includes("mythic rare")
+  ) {
+    return 2.35;
+  }
+
+  if (
+    value.includes("rare") ||
+    value.includes("super rare") ||
+    value.includes("sr") ||
+    value.includes("promo")
+  ) {
+    return 1.85;
+  }
+
+  if (value.includes("uncommon")) {
+    return 1.25;
+  }
+
+  return 1;
+}
+
+function deriveSyntheticMarketPrice(card: CardCatalogSummary) {
+  const hash = hashString(`${card.game}:${card.id}:${card.name}`);
+  const cost = card.energyCost ?? 1;
+  const statsBase =
+    (card.power ?? 0) * 0.02 +
+    (card.might ?? 0) * 0.015 +
+    (card.hp ?? 0) * 0.012;
+  const gameBase =
+    card.game === "magic-the-gathering"
+      ? 0.9
+      : card.game === "one-piece"
+        ? 1.15
+        : 1.05;
+  const rarityBase = rarityMultiplier(card.game, card.rarity);
+  const volatilitySeed = (hash % 850) / 100;
+
+  return toCurrency(
+    Math.max(
+      0.35,
+      gameBase * rarityBase * (0.85 + cost * 0.42 + statsBase) + volatilitySeed,
+    ),
+  );
+}
+
+function deriveFinanceTeaser(card: CardCatalogSummary): FinanceTeaser {
+  const hash = hashString(`${card.game}:${card.id}:${card.name}`);
+  const hasRealMarketPrice =
+    typeof card.marketPrice === "number" && Number.isFinite(card.marketPrice);
+  const marketPrice = toCurrency(card.marketPrice ?? deriveSyntheticMarketPrice(card));
+  const lowPrice = toCurrency((marketPrice ?? 0) * 0.92);
+  const buylistFloor = toCurrency((marketPrice ?? 0) * (hasRealMarketPrice ? 0.68 : 0.61));
+  const fairValue = toCurrency(
+    ((marketPrice ?? 0) * 0.56) + ((lowPrice ?? 0) * 0.24) + ((buylistFloor ?? 0) * 0.2),
+  );
+  const deltaPercent24h = toCurrency((((hash % 1701) - 850) / 100));
+  const delta24h = toCurrency(((fairValue ?? 0) * (deltaPercent24h ?? 0)) / 100);
+  const liquidityScore = Math.round(
+    clamp(
+      (hasRealMarketPrice ? 58 : 38) +
+        ((hash % 33) + 6) +
+        Math.min((marketPrice ?? 0) * 2, 18),
+      22,
+      97,
+    ),
+  );
+  const confidenceScore = Math.round(
+    clamp(
+      (hasRealMarketPrice ? 80 : 46) +
+        (card.game === "magic-the-gathering" ? 10 : 0) +
+        (hash % 11),
+      35,
+      98,
+    ),
+  );
+  const cashNowValue = toCurrency((fairValue ?? 0) * (hasRealMarketPrice ? 0.74 : 0.69));
+  const fastSellValue = toCurrency((fairValue ?? 0) * 0.84);
+  const maxValueValue = toCurrency((fairValue ?? 0) * 1.03);
+  const storeCreditValue = toCurrency((fairValue ?? 0) * 0.9);
+
+  return {
+    financeProductId: getFinanceProductId(card),
+    marketPrice,
+    fairValue,
+    delta24h,
+    deltaPercent24h,
+    liquidityScore,
+    confidenceScore,
+    cashNowValue,
+    fastSellValue,
+    maxValueValue,
+    storeCreditValue,
+    sourceLabel: getGameSourceLabel(card.game, hasRealMarketPrice),
+  };
+}
+
+function buildRouteEstimates(
+  teaser: FinanceTeaser,
+  game: GameSlug,
+): FinanceRouteEstimate[] {
+  const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
+  const gradeFirstValue = toCurrency(
+    fairValue * (game === "magic-the-gathering" ? 1.16 : 1.08),
+  ) ?? fairValue;
+
+  return [
+    {
+      key: "cash-now",
+      label: "Cash Now",
+      netValue: teaser.cashNowValue ?? fairValue * 0.7,
+      etaLabel: "Same day",
+      confidenceScore: Math.max(40, (teaser.confidenceScore ?? 50) - 6),
+      note: "Best immediate exit if you want money more than ceiling.",
+    },
+    {
+      key: "fast-sell",
+      label: "Fast Sell",
+      netValue: teaser.fastSellValue ?? fairValue * 0.84,
+      etaLabel: "2–7 days",
+      confidenceScore: teaser.confidenceScore ?? 50,
+      note: "Undercut the room a little and move cardboard before it gets cute.",
+    },
+    {
+      key: "max-value",
+      label: "Max Value Listing",
+      netValue: teaser.maxValueValue ?? fairValue,
+      etaLabel: "1–4 weeks",
+      confidenceScore: Math.max(35, (teaser.confidenceScore ?? 50) - 8),
+      note: "Highest theoretical net after fees, patience, and a little market faith.",
+    },
+    {
+      key: "store-credit",
+      label: "Store Credit",
+      netValue: teaser.storeCreditValue ?? fairValue * 0.9,
+      etaLabel: "Same day",
+      confidenceScore: Math.max(40, (teaser.confidenceScore ?? 50) - 3),
+      note: "Best if the next deck project is already whispering at you.",
+    },
+    {
+      key: "grade-first",
+      label: "Grade First",
+      netValue: gradeFirstValue,
+      etaLabel: "3–8 weeks",
+      confidenceScore: Math.max(28, (teaser.confidenceScore ?? 50) - 12),
+      note: "Only makes sense when scarcity, condition, and demand all decide to cooperate.",
+    },
+  ];
+}
+
+function buildPriceSources(
+  card: CardCatalogSummary,
+  teaser: FinanceTeaser,
+): FinancePriceSource[] {
+  const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
+  const marketPrice = teaser.marketPrice;
+  const soldMedian = toCurrency(fairValue * 1.02);
+  const listingFloor = toCurrency(fairValue * 0.96);
+  const buylistFloor = toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98);
+  const baseSources: FinancePriceSource[] = [];
+
+  if (card.game === "magic-the-gathering") {
+    baseSources.push(
+      {
+        key: "scryfall-market",
+        label: "Scryfall Market",
+        type: "market",
+        value: marketPrice,
+        note: marketPrice
+          ? "Imported from the Scryfall-backed catalog where available."
+          : "Using a reference estimate because the imported record has no direct market price.",
+      },
+      {
+        key: "ebay-sold",
+        label: "eBay Sold Median",
+        type: "sold",
+        value: soldMedian,
+        note: "Synthetic sold-comp median for the first finance pass.",
+      },
+      {
+        key: "card-kingdom",
+        label: "Card Kingdom Buylist",
+        type: "buylist",
+        value: buylistFloor,
+        note: "Modeled buylist floor until live adapter coverage lands.",
+      },
+      {
+        key: "nexus-fair",
+        label: "Nexus Fair Value",
+        type: "reference",
+        value: fairValue,
+        note: "Weighted from market, comp, and buylist signals.",
+      },
+    );
+  } else if (card.game === "one-piece") {
+    baseSources.push(
+      {
+        key: "optcg-reference",
+        label: "OPTCG Market Signal",
+        type: "market",
+        value: marketPrice,
+        note: "Thin-data reference estimate until broader marketplace adapters are wired.",
+      },
+      {
+        key: "listing-floor",
+        label: "Listing Floor",
+        type: "market",
+        value: listingFloor,
+        note: "Modeled floor from current reference pricing and volatility.",
+      },
+      {
+        key: "ebay-sold",
+        label: "eBay Sold Median",
+        type: "sold",
+        value: soldMedian,
+        note: "Synthetic comp lane for the first finance release.",
+      },
+      {
+        key: "buylist",
+        label: "Buylist Estimate",
+        type: "buylist",
+        value: buylistFloor,
+        note: "Expected fast-cash floor when you just want to turn pirates into money.",
+      },
+    );
+  } else {
+    baseSources.push(
+      {
+        key: "riftcodex-reference",
+        label: "RiftCodex Reference",
+        type: "reference",
+        value: marketPrice,
+        note: "Catalog-backed reference estimate with low-confidence market weighting.",
+      },
+      {
+        key: "listing-floor",
+        label: "Listing Floor",
+        type: "market",
+        value: listingFloor,
+        note: "Synthetic active floor while live marketplace coverage is still waking up.",
+      },
+      {
+        key: "sold-median",
+        label: "Community Sold Median",
+        type: "sold",
+        value: soldMedian,
+        note: "Modeled comp lane from the first finance pass.",
+      },
+      {
+        key: "buylist",
+        label: "Buylist Estimate",
+        type: "buylist",
+        value: buylistFloor,
+        note: "Low-confidence buylist estimate until real cash routes are connected.",
+      },
+    );
+  }
+
+  return baseSources;
+}
+
+function buildHistoryPoints(card: CardCatalogSummary, teaser: FinanceTeaser) {
+  const hash = hashString(`${card.id}:${card.name}:${card.game}`);
+  const base = teaser.fairValue ?? teaser.marketPrice ?? 1;
+  const points: FinanceHistoryPoint[] = [];
+
+  for (let index = 13; index >= 0; index -= 1) {
+    const wave = Math.sin((hash % 17) + index / 2.7) * 0.035;
+    const drift = ((hash % 9) - 4) * 0.003;
+    const value = toCurrency(base * (1 + wave + drift * (13 - index))) ?? base;
+    const date = new Date();
+    date.setDate(date.getDate() - index);
+    points.push({
+      date: date.toISOString().slice(0, 10),
+      value,
+    });
+  }
+
+  return points;
+}
+
+function buildRecentComps(card: CardCatalogSummary, teaser: FinanceTeaser) {
+  const hash = hashString(`${card.game}:${card.id}:${card.name}:comp`);
+  const base = teaser.fairValue ?? teaser.marketPrice ?? 1;
+  const marketplaces =
+    card.game === "magic-the-gathering"
+      ? ["eBay", "TCGplayer", "Card Kingdom"]
+      : card.game === "one-piece"
+        ? ["eBay", "Marketplace", "Collector sale"]
+        : ["Marketplace", "Collector sale", "Discord trade"];
+
+  return Array.from({ length: 5 }, (_, index) => {
+    const price = toCurrency(base * (0.93 + (((hash + index * 17) % 18) / 100))) ?? base;
+    const date = new Date();
+    date.setDate(date.getDate() - (index * 3 + 1));
+
+    return {
+      id: `${card.id}-comp-${index}`,
+      price,
+      soldAt: date.toISOString().slice(0, 10),
+      marketplace: marketplaces[index % marketplaces.length] ?? "Market",
+      condition:
+        index === 0 ? "Near Mint" : index % 2 === 0 ? "Lightly Played" : "Moderately Played",
+    };
+  });
+}
+
+function buildRecommendation(
+  card: CardCatalogSummary,
+  teaser: FinanceTeaser,
+  routes: FinanceRouteEstimate[],
+) {
+  const sortedRoutes = [...routes].sort((left, right) => right.netValue - left.netValue);
+  const bestRoute = sortedRoutes[0] ?? routes[0];
+  const bestRouteLabel = bestRoute?.label ?? "Hold";
+
+  if ((teaser.liquidityScore ?? 0) >= 82 && (teaser.deltaPercent24h ?? 0) < -3) {
+    return {
+      title: "Fast exit window",
+      body: `${card.name} still looks liquid, but the line is softening. If the goal is cash and not bragging rights, ${bestRouteLabel.toLowerCase()} is the sensible move.`,
+    };
+  }
+
+  if (bestRoute?.key === "grade-first" && (teaser.confidenceScore ?? 0) >= 76) {
+    return {
+      title: "Grade if condition cooperates",
+      body: `The spread says there may be real upside here, but only if the copy is clean. Treat grading like a sharp tool, not a personality trait.`,
+    };
+  }
+
+  return {
+    title: `Best route right now: ${bestRouteLabel}`,
+    body: `Current math says ${bestRouteLabel.toLowerCase()} gives the strongest mix of value and practicality for ${card.name}. You can still squeeze harder, but the archive would like to remind you that time is also a fee.`,
+  };
+}
+
+function buildAlertLines(card: CardCatalogSummary, teaser: FinanceTeaser) {
+  const alerts: string[] = [];
+
+  if ((teaser.deltaPercent24h ?? 0) >= 6) {
+    alerts.push("Momentum spike: the 24h move is hot enough to deserve a second look.");
+  }
+
+  if ((teaser.deltaPercent24h ?? 0) <= -6) {
+    alerts.push("Reversal risk: price cooled fast, so greed should maybe go touch grass.");
+  }
+
+  if ((teaser.confidenceScore ?? 100) < 55) {
+    alerts.push("Thin-data warning: this card still needs stronger marketplace coverage.");
+  }
+
+  if ((teaser.liquidityScore ?? 0) >= 85) {
+    alerts.push("Liquidity is strong: this looks easier to exit than most cardboard drama.");
+  }
+
+  if (alerts.length === 0) {
+    alerts.push("Nothing is screaming right now. This one is more steady archive hum than siren.");
+  }
+
+  return alerts;
+}
+
+function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSummary {
+  const teaser = deriveFinanceTeaser(card);
+
+  return {
+    id: getFinanceProductId(card),
+    game: card.game,
+    name: card.name,
+    subtitle: `${card.type ?? "Card"} · ${getSetLabel(card)}`,
+    imageUrl: card.imageUrl,
+    setName: card.setName,
+    setCode: card.setCode,
+    collectorNo: card.collectorNo,
+    rarity: card.rarity,
+    tags: getCardTags(card),
+    note:
+      teaser.confidenceScore != null && teaser.confidenceScore >= 75
+        ? "Market-backed enough to treat as a real signal."
+        : "Useful preview signal, but still waiting on richer market depth.",
+    ...teaser,
+  };
+}
+
+function buildFinanceProductDetail(card: CardCatalogSummary): FinanceProductDetail {
+  const teaser = deriveFinanceTeaser(card);
+  const priceSources = buildPriceSources(card, teaser);
+  const routes = buildRouteEstimates(teaser, card.game);
+  const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
+  const lowPrice = toCurrency((teaser.marketPrice ?? fairValue) * 0.92);
+  const soldMedian = toCurrency(fairValue * 1.02);
+  const activeListingFloor = toCurrency(fairValue * 0.96);
+  const buylistFloor = toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98);
+  const gradeFirstValue = toCurrency(
+    routes.find((route) => route.key === "grade-first")?.netValue ?? fairValue,
+  );
+
+  return {
+    ...buildFinanceProductSummary(card),
+    source: card.source,
+    externalUrl: card.externalUrl,
+    lowPrice,
+    soldMedian,
+    activeListingFloor,
+    buylistFloor,
+    gradeFirstValue,
+    recommendation: buildRecommendation(card, teaser, routes),
+    priceSources,
+    routeEstimates: routes,
+    history: buildHistoryPoints(card, teaser),
+    recentComps: buildRecentComps(card, teaser),
+    alerts: buildAlertLines(card, teaser),
+    freshnessLabel:
+      teaser.confidenceScore != null && teaser.confidenceScore >= 75
+        ? "Fresh enough for real browsing"
+        : "Preview-grade finance signal",
+    sourceCount: priceSources.filter((source) => source.value != null).length,
+    dataQualityNote:
+      teaser.confidenceScore != null && teaser.confidenceScore >= 75
+        ? "This product has enough signal to be directionally trustworthy."
+        : "This product is still leaning on modeled estimates and should be treated as directional only.",
+  };
+}
+
+function buildFinanceAlertFeedItem(
+  game: GameSlug,
+  product: FinanceProductSummary,
+  severity: FinanceSeverity,
+  summary: string,
+): FinanceAlertFeedItem {
+  return {
+    id: `${game}-${product.financeProductId}-${severity}`,
+    severity,
+    title: product.name,
+    summary,
+    href: `/${game}/finance/product/${encodeURIComponent(product.financeProductId)}`,
+  };
+}
+
+function uniqueBy<T>(
+  values: T[],
+  getKey: (value: T) => string,
+) {
+  const seen = new Set<string>();
+  const result: T[] = [];
+
+  for (const value of values) {
+    const key = getKey(value);
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(value);
+  }
+
+  return result;
+}
+
+async function getCachedValue<T>(
+  key: string,
+  ttlSeconds: number,
+  compute: () => Promise<T>,
+) {
+  const redis = getRedis();
+  if (!redis) {
+    return compute();
+  }
+
+  const cached = await redis.get<T>(key);
+  if (cached) {
+    return cached;
+  }
+
+  const value = await compute();
+  await redis.set(key, value, { ex: ttlSeconds });
+  return value;
+}
+
+function financeHomeCacheKey(game: GameSlug) {
+  return `finance:${game}:home`;
+}
+
+function financeProductCacheKey(game: GameSlug, financeProductId: string) {
+  return `finance:${game}:product:${financeProductId}`;
+}
+
+function financeSealedCacheKey(game: GameSlug) {
+  return `finance:${game}:sealed`;
+}
+
+function financeSealedDetailCacheKey(game: GameSlug, sealedId: string) {
+  return `finance:${game}:sealed:${sealedId}`;
+}
+
+function mapPrismaCardToCatalogSummary(
+  game: GameSlug,
+  card: {
+    id: number;
+    name: string;
+    type: string;
+    domains: string[];
+    rarity: string;
+    energyCost: number | null;
+    power: number | null;
+    might: number | null;
+    hp: number | null;
+    text: string | null;
+    flavor: string | null;
+    setCode: string | null;
+    setName: string | null;
+    collectorNo: string | null;
+    imageUrl: string | null;
+  },
+): CardCatalogSummary {
+  const summaryBase = {
+    id: String(card.id),
+    game,
+    name: card.name,
+    type: card.type,
+    domains: card.domains,
+    tags: [],
+    energyCost: card.energyCost,
+    power: card.power,
+    might: card.might,
+    hp: card.hp,
+    rarity: card.rarity,
+    text: card.text,
+    flavor: card.flavor,
+    setCode: card.setCode,
+    setName: card.setName,
+    collectorNo: card.collectorNo,
+    imageUrl: card.imageUrl,
+    artist: null,
+    marketPrice: null,
+    source:
+      game === "magic-the-gathering"
+        ? "scryfall-default-cards"
+        : game === "one-piece"
+          ? "optcgapi-all-set-cards"
+          : "riftcodex-cards",
+    externalUrl: null,
+  } satisfies Omit<CardCatalogSummary, "searchText">;
+
+  return {
+    ...summaryBase,
+    searchText: buildCardSearchText(summaryBase),
+  };
+}
+
+async function getCatalogCardById(game: GameSlug, financeProductId: string) {
+  const redis = getRedis();
+  if (redis) {
+    const summary = await redis.get<CardCatalogSummary>(
+      cardCatalogSummaryKey(game, financeProductId),
+    );
+    if (summary) {
+      return summary;
+    }
+  }
+
+  const numericId = Number.parseInt(financeProductId, 10);
+  if (!Number.isFinite(numericId)) {
+    return null;
+  }
+
+  const card = await prisma.card.findFirst({
+    where: {
+      id: numericId,
+      game: GAME_TO_PRISMA[game],
+    },
+  });
+
+  return card ? mapPrismaCardToCatalogSummary(game, card) : null;
+}
+
+async function getCatalogSampleCards(game: GameSlug, limit = SAMPLE_CARD_LIMIT) {
+  const redis = getRedis();
+  if (redis) {
+    const meta = await redis.get<CardCatalogMeta>(cardCatalogMetaKey(game));
+    const total = meta?.cardCount ?? 0;
+
+    if (total > 0) {
+      const positions =
+        total <= limit
+          ? Array.from({ length: total }, (_, index) => index)
+          : Array.from({ length: limit }, (_, index) =>
+              Math.floor((index * (total - 1)) / Math.max(limit - 1, 1)),
+            );
+      const uniquePositions = [...new Set(positions)];
+      const idPipeline = redis.pipeline();
+
+      for (const position of uniquePositions) {
+        idPipeline.lindex(cardCatalogAllIdsKey(game), position);
+      }
+
+      const sampledIds = uniqueBy(
+        ((await idPipeline.exec()).filter(Boolean) as string[]) ?? [],
+        (value) => value,
+      );
+
+      const summaryPipeline = redis.pipeline();
+      for (const id of sampledIds) {
+        summaryPipeline.get(cardCatalogSummaryKey(game, id));
+      }
+
+      const sampledCards = (await summaryPipeline.exec()).filter(Boolean) as CardCatalogSummary[];
+      if (sampledCards.length > 0) {
+        return sampledCards;
+      }
+    }
+  }
+
+  const prismaCards = await prisma.card.findMany({
+    where: {
+      game: GAME_TO_PRISMA[game],
+    },
+    orderBy: {
+      name: "asc",
+    },
+    take: limit,
+  });
+
+  return prismaCards.map((card) => mapPrismaCardToCatalogSummary(game, card));
+}
+
+function getCardsForCollectionPreview(cards: CardCatalogSummary[]) {
+  return cards
+    .filter((card) => Boolean(card.imageUrl))
+    .sort((left, right) => {
+      const leftTeaser = deriveFinanceTeaser(left);
+      const rightTeaser = deriveFinanceTeaser(right);
+
+      return (rightTeaser.fairValue ?? 0) - (leftTeaser.fairValue ?? 0);
+    })
+    .slice(0, PREVIEW_POSITION_LIMIT);
+}
+
+function buildCollectionSnapshot(cards: CardCatalogSummary[]): FinanceCollectionSnapshot {
+  const previewCards = getCardsForCollectionPreview(cards);
+  const positions = previewCards.map((card, index) => {
+    const teaser = deriveFinanceTeaser(card);
+    const quantity = (hashString(`${card.id}:${index}`) % 4) + 1;
+    const averageCost =
+      toCurrency(
+        (teaser.fairValue ?? teaser.marketPrice ?? 0) *
+          (0.82 + ((index % 5) * 0.03)),
+      ) ?? 0;
+    const totalValue =
+      toCurrency((teaser.fairValue ?? teaser.marketPrice ?? 0) * quantity) ?? 0;
+    const unrealizedGain =
+      toCurrency((teaser.fairValue ?? 0) * quantity - averageCost * quantity) ?? 0;
+
+    return {
+      financeProductId: teaser.financeProductId,
+      name: card.name,
+      imageUrl: card.imageUrl,
+      setName: card.setName ?? card.setCode,
+      quantity,
+      marketPrice: teaser.marketPrice ?? 0,
+      fairValue: teaser.fairValue ?? teaser.marketPrice ?? 0,
+      delta24h: teaser.delta24h ?? 0,
+      deltaPercent24h: teaser.deltaPercent24h ?? 0,
+      totalValue,
+      averageCost,
+      unrealizedGain,
+    };
+  });
+
+  const totalFairValue =
+    toCurrency(positions.reduce((sum, position) => sum + position.totalValue, 0)) ?? 0;
+  const totalRealizableValue = toCurrency(totalFairValue * 0.82) ?? 0;
+  const sortedByDelta = [...positions].sort(
+    (left, right) => right.deltaPercent24h - left.deltaPercent24h,
+  );
+
+  return {
+    positions,
+    totalFairValue,
+    totalRealizableValue,
+    topMover: sortedByDelta[0] ?? null,
+    biggestSinker: sortedByDelta[sortedByDelta.length - 1] ?? null,
+  };
+}
+
+function buildSealedSummaries(game: GameSlug, cards: CardCatalogSummary[]): FinanceSealedSummary[] {
+  const setMap = new Map<string, CardCatalogSummary[]>();
+
+  for (const card of cards) {
+    const setLabel = getSetLabel(card);
+    if (!setMap.has(setLabel)) {
+      setMap.set(setLabel, []);
+    }
+
+    setMap.get(setLabel)!.push(card);
+  }
+
+  const summaries = [...setMap.entries()]
+    .map(([setName, setCards], index) => {
+      const teaserCards = setCards.map((card) => deriveFinanceTeaser(card));
+      const topValues = teaserCards
+        .map((card) => card.fairValue ?? card.marketPrice ?? 0)
+        .sort((left, right) => right - left)
+        .slice(0, 12);
+      const topStack = topValues.reduce((sum, value) => sum + value, 0);
+      const hash = hashString(`${game}:${setName}:${index}`);
+      const currentPrice = toCurrency(Math.max(18, topStack * 0.18 + (hash % 24))) ?? 24;
+      const fairValue = toCurrency(currentPrice * (1.04 + ((hash % 8) / 100))) ?? currentPrice;
+      const ripEv = toCurrency(topStack * 0.42) ?? currentPrice;
+      const deltaPercent24h = toCurrency((((hash % 1401) - 700) / 100)) ?? 0;
+      const delta24h = toCurrency(fairValue * (deltaPercent24h / 100)) ?? 0;
+      const liquidityScore = Math.round(clamp(44 + (hash % 42), 26, 96));
+      const confidenceScore = Math.round(
+        clamp(
+          (game === "magic-the-gathering" ? 76 : 54) + (hash % 18),
+          45,
+          96,
+        ),
+      );
+      const chaseConcentration = Math.round(clamp(32 + (hash % 55), 18, 92));
+
+      return {
+        id: slugify(`${setName}-${game}-sealed`),
+        game,
+        name:
+          game === "magic-the-gathering"
+            ? `${setName} Booster Box`
+            : game === "one-piece"
+              ? `${setName} Booster Box`
+              : `${setName} Sealed Product`,
+        setName,
+        imageUrl: setCards.find((card) => Boolean(card.imageUrl))?.imageUrl ?? null,
+        currentPrice,
+        fairValue,
+        delta24h,
+        deltaPercent24h,
+        ripEv,
+        liquidityScore,
+        confidenceScore,
+        chaseConcentration,
+        recommendation:
+          ripEv > fairValue
+            ? "Singles EV is running hot. Rip-at-your-own-risk chaos is at least mathematically defensible."
+            : "Sealed still looks cleaner than cracking it for cardboard confetti.",
+      } satisfies FinanceSealedSummary;
+    })
+    .sort((left, right) => right.fairValue - left.fairValue)
+    .slice(0, 6);
+
+  if (summaries.length > 0) {
+    return summaries;
+  }
+
+  return [
+    {
+      id: `${game}-sealed-fallback`,
+      game,
+      name: "Finance placeholder sealed product",
+      setName: "Archive Preview",
+      imageUrl: null,
+      currentPrice: 39.99,
+      fairValue: 41.75,
+      delta24h: 0.55,
+      deltaPercent24h: 1.33,
+      ripEv: 37.2,
+      liquidityScore: 52,
+      confidenceScore: 48,
+      chaseConcentration: 44,
+      recommendation: "The page tree is ready. The deeper sealed model is still waking up.",
+    },
+  ];
+}
+
+export function decorateCardsWithFinance(cards: CardCatalogSummary[]) {
+  return cards.map((card) => ({
+    ...card,
+    ...deriveFinanceTeaser(card),
+  }));
+}
+
+export async function getFinanceHome(game: GameSlug): Promise<FinanceHomeData> {
+  return getCachedValue(financeHomeCacheKey(game), FINANCE_HOME_TTL_SECONDS, async () => {
+    const cards = await getCatalogSampleCards(game);
+    const summaries = cards.map((card) => buildFinanceProductSummary(card));
+    const movers = [...summaries].sort(
+      (left, right) => (right.deltaPercent24h ?? 0) - (left.deltaPercent24h ?? 0),
+    );
+    const reversals = [...summaries].sort(
+      (left, right) => (left.deltaPercent24h ?? 0) - (right.deltaPercent24h ?? 0),
+    );
+    const liquid = [...summaries].sort(
+      (left, right) => (right.liquidityScore ?? 0) - (left.liquidityScore ?? 0),
+    );
+    const graded = [...summaries].sort((left, right) => {
+      const leftGap = (left.maxValueValue ?? 0) - (left.fairValue ?? 0);
+      const rightGap = (right.maxValueValue ?? 0) - (right.fairValue ?? 0);
+      return rightGap - leftGap;
+    });
+    const spreads = [...summaries].sort((left, right) => {
+      const leftSpread = (left.fairValue ?? 0) - (left.cashNowValue ?? 0);
+      const rightSpread = (right.fairValue ?? 0) - (right.cashNowValue ?? 0);
+      return rightSpread - leftSpread;
+    });
+
+    const positiveCount = summaries.filter(
+      (product) => (product.deltaPercent24h ?? 0) >= 0,
+    ).length;
+    const averageLiquidity =
+      summaries.reduce((sum, product) => sum + (product.liquidityScore ?? 0), 0) /
+      Math.max(summaries.length, 1);
+    const averageConfidence =
+      summaries.reduce((sum, product) => sum + (product.confidenceScore ?? 0), 0) /
+      Math.max(summaries.length, 1);
+    const coverageLabel = getCoverageLabel(
+      game,
+      summaries.some((product) => (product.confidenceScore ?? 0) >= 80),
+    );
+    const setCounts = new Map<string, number>();
+    for (const product of summaries) {
+      const setLabel = product.setName ?? product.setCode ?? "Unknown set";
+      setCounts.set(setLabel, (setCounts.get(setLabel) ?? 0) + 1);
+    }
+
+    const alerts = uniqueBy(
+      [
+        ...movers.slice(0, 3).map((product) =>
+          buildFinanceAlertFeedItem(
+            game,
+            product,
+            "high",
+            `${product.name} is up ${formatFinancePercent(product.deltaPercent24h)} over the last day.`,
+          ),
+        ),
+        ...reversals.slice(0, 2).map((product) =>
+          buildFinanceAlertFeedItem(
+            game,
+            product,
+            "medium",
+            `${product.name} just took a ${formatFinancePercent(product.deltaPercent24h)} turn and might be offering a better entry.`,
+          ),
+        ),
+        ...summaries
+          .filter((product) => (product.confidenceScore ?? 100) < 55)
+          .slice(0, 2)
+          .map((product) =>
+            buildFinanceAlertFeedItem(
+              game,
+              product,
+              "low",
+              `${product.name} is still running on thin-data mode, so browse with your eyebrows raised.`,
+            ),
+          ),
+      ],
+      (value) => value.id,
+    ).slice(0, 6);
+
+    return {
+      status: {
+        headline: `${positiveCount}/${summaries.length} sampled products are green right now`,
+        summary:
+          game === "magic-the-gathering"
+            ? "MTG finance is running in the richest data mode first, with Scryfall-backed pricing and broader market confidence."
+            : "This finance wing is live, but still in thin-data mode while deeper market adapters wake up.",
+        coverageLabel,
+        averageLiquidity: Math.round(averageLiquidity),
+        averageConfidence: Math.round(averageConfidence),
+      },
+      hottestMovers: movers.slice(0, 6),
+      biggestReversals: reversals.slice(0, 6),
+      mostLiquid: liquid.slice(0, 6),
+      rawVsGraded: graded.slice(0, 6),
+      buylistSpreadLeaders: spreads.slice(0, 6),
+      sealedOpportunities: buildSealedSummaries(game, cards),
+      alerts,
+      indexes: [...setCounts.entries()]
+        .sort((left, right) => right[1] - left[1])
+        .slice(0, 6)
+        .map(([label, count]) => ({ label, count })),
+    };
+  });
+}
+
+export async function getFinanceProductDetail(
+  game: GameSlug,
+  financeProductId: string,
+): Promise<FinanceProductDetail | null> {
+  const normalizedId = decodeURIComponent(financeProductId);
+
+  return getCachedValue(
+    financeProductCacheKey(game, normalizedId),
+    FINANCE_PRODUCT_TTL_SECONDS,
+    async () => {
+      const card = await getCatalogCardById(game, normalizedId);
+      return card ? buildFinanceProductDetail(card) : null;
+    },
+  );
+}
+
+export async function getFinanceSealedSummaries(game: GameSlug) {
+  return getCachedValue(financeSealedCacheKey(game), FINANCE_SEALED_TTL_SECONDS, async () => {
+    const cards = await getCatalogSampleCards(game);
+    return buildSealedSummaries(game, cards);
+  });
+}
+
+export async function getFinanceSealedDetail(
+  game: GameSlug,
+  sealedId: string,
+): Promise<FinanceSealedDetail | null> {
+  const normalizedId = decodeURIComponent(sealedId);
+
+  return getCachedValue(
+    financeSealedDetailCacheKey(game, normalizedId),
+    FINANCE_SEALED_TTL_SECONDS,
+    async () => {
+      const summaries = await getFinanceSealedSummaries(game);
+      const summary = summaries.find((entry) => entry.id === normalizedId);
+      if (!summary) {
+        return null;
+      }
+
+      const history = Array.from({ length: 10 }, (_, index) => {
+        const date = new Date();
+        date.setDate(date.getDate() - (9 - index) * 3);
+        const wave = Math.sin(index / 1.9) * 0.04;
+        return {
+          date: date.toISOString().slice(0, 10),
+          value: toCurrency(summary.fairValue * (1 + wave)) ?? summary.fairValue,
+        };
+      });
+
+      return {
+        ...summary,
+        ripVariance: Math.round(clamp(summary.chaseConcentration * 0.72, 12, 88)),
+        singlesEvTrend: history,
+        notes: [
+          "Sealed EV is still sample-weighted in this first release, so treat the trend as directional rather than sacred.",
+          "Chase concentration gets meaner when a set leans too hard on one or two big hits.",
+          "Liquidity here measures how easily sealed moves relative to the singles appetite around it.",
+        ],
+      };
+    },
+  );
+}
+
+export async function getCollectionFinanceSnapshot(game: GameSlug) {
+  const cards = await getCatalogSampleCards(game, 120);
+  return buildCollectionSnapshot(cards);
+}
+
+export function formatFinanceCurrency(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: value >= 100 ? 0 : 2,
+  }).format(value);
+}
+
+export function formatFinancePercent(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return `${value > 0 ? "+" : ""}${value.toFixed(2)}%`;
+}
+
+export function formatFinanceDelta(value: number | null | undefined) {
+  if (value == null || !Number.isFinite(value)) {
+    return "—";
+  }
+
+  return `${value > 0 ? "+" : ""}${formatFinanceCurrency(value)}`;
+}

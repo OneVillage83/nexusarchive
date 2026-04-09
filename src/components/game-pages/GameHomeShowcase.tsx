@@ -44,6 +44,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
       combos: "Hunt for synergies, combos, and spicy interactions.",
       decklists: "Curated decks, meta shells, and experiments.",
       collection: "Track your real collection and see what it's worth.",
+      finance: "Follow prices, route math, movers, sealed EV, and cardboard market drama.",
       rules:
         "Ask the archive. Any ruling, any nuance, answered on the spot.",
     },
@@ -80,6 +81,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
       combos: "Track synergies, trigger setups, and suspiciously rude sequences.",
       decklists: "Browse sample crews, event shells, and ladder experiments.",
       collection: "Track your cardboard fleet without losing half your rares at sea.",
+      finance: "Watch prices, route math, and sealed pressure before the pirate market gets weird.",
       rules:
         "Keep your judge questions tidy before the table starts shouting about timing windows.",
     },
@@ -116,6 +118,7 @@ const HOME_COPY: Record<GameSlug, HomeCopy> = {
       combos: "Catalog loops, synergies, and the kind of lines judges learn to fear.",
       decklists: "Track meta lists, commander brews, and experiments with consequences.",
       collection: "Organize binders, boxes, and the pile you swore was temporary.",
+      finance: "Track mana-value greed, price movement, sealed EV, and exit routes without opening five tabs.",
       rules: "Keep stack arguments from turning into a three-act play.",
     },
     rulesPromptExamples: [
@@ -309,7 +312,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
           </div>
 
           <div className={`${lowerTileSpacingClassName} hidden lg:block`}>
-            <div className="grid gap-4 lg:grid-cols-6">
+            <div className="grid gap-4 lg:grid-cols-3 xl:grid-cols-4">
               <HeroTile
                 href={buildGamePath(game, "cards")}
                 title="Card Gallery"
@@ -334,6 +337,11 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                 href={buildGamePath(game, "collection")}
                 title="Collection"
                 description={copy.toolDescriptions.collection}
+              />
+              <HeroTile
+                href={buildGamePath(game, "finance")}
+                title="Finance"
+                description={copy.toolDescriptions.finance}
               />
               <HeroTile
                 href={buildGamePath(game, "rules")}

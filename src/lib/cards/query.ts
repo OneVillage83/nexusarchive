@@ -2,6 +2,7 @@ import type { Prisma } from "@prisma/client";
 import { Game } from "@prisma/client";
 
 import prisma from "@/lib/db";
+import { decorateCardsWithFinance } from "@/lib/finance/query";
 import type { GameSlug } from "@/lib/games";
 import { isGameSlug } from "@/lib/games";
 import { getRedis } from "@/lib/storage/redis";
@@ -401,7 +402,7 @@ async function queryRedisCards({
     const total = meta.cardCount;
 
     return {
-      cards,
+      cards: decorateCardsWithFinance(cards),
       total,
       page,
       pageSize,
@@ -436,7 +437,7 @@ async function queryRedisCards({
     const cards = (await getRedisSummaries(game, ids)).reverse();
 
     return {
-      cards,
+      cards: decorateCardsWithFinance(cards),
       total,
       page,
       pageSize,
@@ -494,7 +495,7 @@ async function queryRedisCards({
   const total = filteredCards.length;
 
   return {
-    cards: filteredCards.slice(start, start + pageSize),
+    cards: decorateCardsWithFinance(filteredCards.slice(start, start + pageSize)),
     total,
     page,
     pageSize,
@@ -609,7 +610,7 @@ async function queryPrismaCards({
   );
 
   return {
-    cards: pagedCards,
+    cards: decorateCardsWithFinance(pagedCards),
     total,
     page,
     pageSize,

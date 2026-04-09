@@ -1,5 +1,8 @@
-import { GamePlaceholderPage } from "@/components/game-pages/GamePlaceholderPage";
-import { RiftboundCollectionsPage } from "@/app/collection/page";
+import { auth } from "@clerk/nextjs/server";
+
+import { CollectionFinancePage } from "@/components/finance/CollectionFinancePage";
+import { isClerkConfigured } from "@/lib/auth-config";
+import { getCollectionFinanceSnapshot } from "@/lib/finance/query";
 import { requireGame } from "@/lib/server-game";
 
 type GameCollectionPageProps = {
@@ -10,10 +13,15 @@ export default async function GameCollectionPage({
   params,
 }: GameCollectionPageProps) {
   const game = await requireGame(params);
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
+  const snapshot = await getCollectionFinanceSnapshot(game);
 
-  if (game === "riftbound") {
-    return <RiftboundCollectionsPage />;
-  }
-
-  return <GamePlaceholderPage game={game} variant="collection" />;
+  return (
+    <CollectionFinancePage
+      game={game}
+      snapshot={snapshot}
+      signedIn={Boolean(userId)}
+    />
+  );
 }

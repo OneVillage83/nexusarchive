@@ -13,6 +13,26 @@ enum Game {
   MAGIC_THE_GATHERING
 }
 
+enum FinanceProductKind {
+  CARD
+  SEALED
+}
+
+enum FinanceMarketplaceType {
+  MARKETPLACE
+  BUYLIST
+  GRADING
+  REFERENCE
+}
+
+enum FinanceRouteType {
+  CASH_NOW
+  FAST_SELL
+  MAX_VALUE
+  STORE_CREDIT
+  GRADE_FIRST
+}
+
 model Card {
   id             Int            @id @default(autoincrement())
   game           Game           @default(RIFTBOUND)
@@ -124,4 +144,282 @@ model ComboCard {
 
   combo     Combo  @relation(fields: [comboId], references: [id])
   card      Card   @relation(fields: [cardId], references: [id])
+}
+
+model FinanceProduct {
+  id                   String                         @id @default(cuid())
+  game                 Game
+  kind                 FinanceProductKind            @default(CARD)
+  financeKey           String                        @unique
+  slug                 String
+  canonicalName        String
+  cardCatalogId        String?
+  setName              String?
+  setCode              String?
+  collectorNo          String?
+  rarity               String?
+  imageUrl             String?
+  metadata             Json?
+  aliases              FinanceProductAlias[]
+  listingSnapshots     FinanceListingSnapshot[]
+  salesComps           FinanceSalesComp[]
+  buylistOffers        FinanceBuylistOffer[]
+  metricsDaily         FinanceProductMetricDaily[]
+  routeEstimates       FinanceRouteEstimate[]
+  recommendationSnaps  FinanceRecommendationSnapshot[]
+  dataQualitySnaps     FinanceDataQualitySnapshot[]
+  alerts               FinanceAlert[]
+  watchlistItems       FinanceWatchlistItem[]
+  portfolioPositions   FinancePortfolioPosition[]
+  createdAt            DateTime                       @default(now())
+  updatedAt            DateTime                       @updatedAt
+
+  @@unique([game, slug])
+  @@index([game, canonicalName])
+}
+
+model FinanceProductAlias {
+  id         String         @id @default(cuid())
+  productId   String
+  alias       String
+  normalized  String
+  product      FinanceProduct @relation(fields: [productId], references: [id])
+
+  @@index([normalized])
+}
+
+model FinanceMarketplace {
+  id              String                  @id @default(cuid())
+  slug            String                  @unique
+  name            String
+  type            FinanceMarketplaceType
+  metadata        Json?
+  listingSnapshots FinanceListingSnapshot[]
+  salesComps      FinanceSalesComp[]
+  buylistOffers   FinanceBuylistOffer[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+}
+
+model FinanceListingSnapshot {
+  id             String             @id @default(cuid())
+  productId      String
+  marketplaceId  String
+  price          Float
+  currency       String             @default("USD")
+  condition      String?
+  quantity       Int?
+  listingUrl     String?
+  capturedAt     DateTime           @default(now())
+  product        FinanceProduct     @relation(fields: [productId], references: [id])
+  marketplace    FinanceMarketplace @relation(fields: [marketplaceId], references: [id])
+
+  @@index([productId, capturedAt])
+}
+
+model FinanceSalesComp {
+  id             String             @id @default(cuid())
+  productId      String
+  marketplaceId  String
+  price          Float
+  currency       String             @default("USD")
+  condition      String?
+  soldAt         DateTime
+  notes          String?
+  product        FinanceProduct     @relation(fields: [productId], references: [id])
+  marketplace    FinanceMarketplace @relation(fields: [marketplaceId], references: [id])
+
+  @@index([productId, soldAt])
+}
+
+model FinanceBuylistOffer {
+  id             String             @id @default(cuid())
+  productId      String
+  marketplaceId  String
+  cashValue      Float
+  creditValue    Float?
+  currency       String             @default("USD")
+  capturedAt     DateTime           @default(now())
+  notes          String?
+  product        FinanceProduct     @relation(fields: [productId], references: [id])
+  marketplace    FinanceMarketplace @relation(fields: [marketplaceId], references: [id])
+
+  @@index([productId, capturedAt])
+}
+
+model FinanceProductMetricDaily {
+  id               String         @id @default(cuid())
+  productId        String
+  day              DateTime
+  marketPrice      Float?
+  fairValue        Float?
+  delta24h         Float?
+  deltaPercent24h  Float?
+  liquidityScore   Int?
+  confidenceScore  Int?
+  product          FinanceProduct @relation(fields: [productId], references: [id])
+
+  @@unique([productId, day])
+  @@index([day])
+}
+
+model FinanceRouteEstimate {
+  id                String            @id @default(cuid())
+  productId         String
+  routeType         FinanceRouteType
+  routeName         String
+  netValue          Float
+  estimatedDays     Int?
+  feeRate           Float?
+  shippingCost      Float?
+  confidenceScore   Int?
+  asOf              DateTime          @default(now())
+  product           FinanceProduct    @relation(fields: [productId], references: [id])
+
+  @@index([productId, routeType])
+}
+
+model FinanceRecommendationSnapshot {
+  id             String         @id @default(cuid())
+  productId      String
+  title          String
+  body           String
+  persona        String?
+  score          Float?
+  createdAt      DateTime       @default(now())
+  product        FinanceProduct @relation(fields: [productId], references: [id])
+
+  @@index([productId, createdAt])
+}
+
+model FinanceDataQualitySnapshot {
+  id               String         @id @default(cuid())
+  productId        String
+  freshnessHours   Int
+  sourceCount      Int
+  confidenceScore  Int
+  notes            Json?
+  createdAt        DateTime       @default(now())
+  product          FinanceProduct @relation(fields: [productId], references: [id])
+
+  @@index([productId, createdAt])
+}
+
+model FinanceSealedProduct {
+  id             String                  @id @default(cuid())
+  game           Game
+  financeKey     String                  @unique
+  slug           String
+  name           String
+  setName        String?
+  setCode        String?
+  imageUrl       String?
+  msrp           Float?
+  currentPrice   Float?
+  metadata       Json?
+  snapshots      FinanceSealedEvSnapshot[]
+  alerts         FinanceAlert[]
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  @@unique([game, slug])
+  @@index([game, name])
+}
+
+model FinanceSealedEvSnapshot {
+  id                String               @id @default(cuid())
+  sealedProductId   String
+  capturedAt        DateTime             @default(now())
+  singlesEv         Float?
+  fairValue         Float?
+  liquidityScore    Int?
+  confidenceScore   Int?
+  notes             Json?
+  sealedProduct     FinanceSealedProduct @relation(fields: [sealedProductId], references: [id])
+
+  @@index([sealedProductId, capturedAt])
+}
+
+model FinanceAlert {
+  id               String                @id @default(cuid())
+  game             Game
+  productId        String?
+  sealedProductId  String?
+  alertType        String
+  title            String
+  summary          String
+  severity         String
+  isPublic         Boolean               @default(true)
+  createdAt        DateTime              @default(now())
+  expiresAt        DateTime?
+  product          FinanceProduct?       @relation(fields: [productId], references: [id])
+  sealedProduct    FinanceSealedProduct? @relation(fields: [sealedProductId], references: [id])
+
+  @@index([game, createdAt])
+}
+
+model FinanceWatchlist {
+  id           String               @id @default(cuid())
+  game         Game
+  clerkUserId  String
+  name         String
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  items        FinanceWatchlistItem[]
+
+  @@index([game, clerkUserId])
+}
+
+model FinanceWatchlistItem {
+  id           String           @id @default(cuid())
+  watchlistId  String
+  productId    String
+  note         String?
+  createdAt    DateTime         @default(now())
+  watchlist    FinanceWatchlist @relation(fields: [watchlistId], references: [id])
+  product      FinanceProduct   @relation(fields: [productId], references: [id])
+
+  @@unique([watchlistId, productId])
+}
+
+model FinancePortfolioPosition {
+  id              String         @id @default(cuid())
+  game            Game
+  clerkUserId     String
+  productId       String
+  quantity        Int            @default(1)
+  averageCost     Float?
+  acquiredAt      DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  product         FinanceProduct @relation(fields: [productId], references: [id])
+
+  @@index([game, clerkUserId])
+  @@unique([game, clerkUserId, productId])
+}
+
+model FinanceAlertPreference {
+  id                   String   @id @default(cuid())
+  game                 Game
+  clerkUserId          String
+  emailEnabled         Boolean  @default(true)
+  moversEnabled        Boolean  @default(true)
+  reversalsEnabled     Boolean  @default(true)
+  watchlistEnabled     Boolean  @default(true)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@unique([game, clerkUserId])
+}
+
+model FinanceCollectionSync {
+  id            String   @id @default(cuid())
+  game          Game
+  clerkUserId   String
+  source        String?
+  lastSyncedAt  DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([game, clerkUserId])
 }

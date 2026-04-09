@@ -27,6 +27,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
   const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
+  const gameMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toolsMenuRef = useRef<HTMLDivElement | null>(null);
   const isAuthPage =
     pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
@@ -67,6 +68,26 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
       ]
     : [];
 
+  function openGameMenu() {
+    if (gameMenuCloseTimeoutRef.current) {
+      clearTimeout(gameMenuCloseTimeoutRef.current);
+      gameMenuCloseTimeoutRef.current = null;
+    }
+
+    setGameMenuOpen(true);
+  }
+
+  function closeGameMenuWithDelay() {
+    if (gameMenuCloseTimeoutRef.current) {
+      clearTimeout(gameMenuCloseTimeoutRef.current);
+    }
+
+    gameMenuCloseTimeoutRef.current = setTimeout(() => {
+      setGameMenuOpen(false);
+      gameMenuCloseTimeoutRef.current = null;
+    }, 180);
+  }
+
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       const target = event.target;
@@ -93,6 +114,9 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
+      if (gameMenuCloseTimeoutRef.current) {
+        clearTimeout(gameMenuCloseTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -134,12 +158,12 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
           <div
             className="relative"
-            onMouseEnter={() => setGameMenuOpen(true)}
-            onMouseLeave={() => setGameMenuOpen(false)}
-            onFocus={() => setGameMenuOpen(true)}
+            onMouseEnter={openGameMenu}
+            onMouseLeave={closeGameMenuWithDelay}
+            onFocus={openGameMenu}
             onBlur={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                setGameMenuOpen(false);
+                closeGameMenuWithDelay();
               }
             }}
           >
@@ -171,6 +195,11 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
             </Link>
 
             <div
+              aria-hidden="true"
+              className="absolute left-0 top-full h-3 w-60"
+            />
+
+            <div
               className={`
                 absolute left-0 top-full z-20 mt-2 w-60 rounded-2xl border border-white/15
                 bg-black/80 p-2 shadow-[0_18px_40px_rgba(0,0,0,0.78)] backdrop-blur-md
@@ -194,7 +223,13 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                     <Link
                       key={slug}
                       href={buildGamePath(slug)}
-                      onClick={() => setGameMenuOpen(false)}
+                      onClick={() => {
+                        if (gameMenuCloseTimeoutRef.current) {
+                          clearTimeout(gameMenuCloseTimeoutRef.current);
+                          gameMenuCloseTimeoutRef.current = null;
+                        }
+                        setGameMenuOpen(false);
+                      }}
                       prefetch={false}
                       className={`
                         flex items-center justify-between rounded-xl border px-3 py-2 text-sm
