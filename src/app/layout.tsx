@@ -7,6 +7,11 @@ import { isClerkConfigured } from "@/lib/auth-config";
 
 import "./globals.css";
 
+const impactVerificationMeta = {
+  name: "impact-site-verification",
+  value: "d6d80d76-9c73-4d99-a345-b3d6bad1ad03",
+} as Record<string, string>;
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
@@ -29,6 +34,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta {...impactVerificationMeta} />
+      </head>
       <body className={inter.className + " min-h-screen antialiased"}>
         {authEnabled ? (
           <ClerkProvider>
