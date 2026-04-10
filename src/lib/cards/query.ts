@@ -22,9 +22,12 @@ import {
   type CardCatalogQueryResult,
   type CardCatalogSummary,
   cardCatalogAllIdsKey,
+  cardCatalogGalleryIdsKey,
+  cardCatalogGalleryImportedAtKey,
   cardCatalogMetaKey,
   cardCatalogSummaryKey,
   cardCatalogTokenKey,
+  isCatalogCardEnglish,
   normalizeSearchText,
   tokenizeForIndex,
 } from "./catalog";
@@ -85,6 +88,10 @@ const ALL_CARD_CACHE_TTL_MS = 1000 * 60 * 5;
 const allCardsCache = new Map<
   GameSlug,
   { cards: CardCatalogSummary[]; expiresAt: number }
+>();
+const groupedCardsCache = new Map<
+  string,
+  { importedAt: string; cards: CardCatalogSummary[]; expiresAt: number }
 >();
 
 export function parseCardPage(value: string | null) {
@@ -176,12 +183,151 @@ async function getAllRedisCards(game: GameSlug) {
   }
 
   const ids = await getAllRedisIds(game);
-  const cards = await getRedisSummariesInBatches(game, ids);
+  const cards = (await getRedisSummariesInBatches(game, ids)).filter(isCatalogCardEnglish);
   allCardsCache.set(game, {
     cards,
     expiresAt: Date.now() + ALL_CARD_CACHE_TTL_MS,
   });
   return cards;
+}
+
+async function getPersistedGalleryImportedAt(
+  game: GameSlug,
+  versionMode: CardVersionMode,
+) {
+  const redis = getRedis();
+  if (!redis) {
+    return null;
+  }
+
+  return (await redis.get<string>(cardCatalogGalleryImportedAtKey(game, versionMode))) ?? null;
+}
+
+async function buildAndPersistGroupedGallery(
+  game: GameSlug,
+  versionMode: CardVersionMode,
+  importedAt: string,
+) {
+  const redis = getRedis();
+  const groupedCards = sortCards(
+    groupCardsForGallery(await getAllRedisCards(game), versionMode),
+    "name-asc",
+  );
+  const cacheKey = `${game}:${versionMode}`;
+
+  groupedCardsCache.set(cacheKey, {
+    importedAt,
+    cards: groupedCards,
+    expiresAt: Date.now() + ALL_CARD_CACHE_TTL_MS,
+  });
+
+  if (!redis) {
+    return groupedCards;
+  }
+
+  const ids = groupedCards.map((card) => card.id);
+  const pipeline = redis.pipeline();
+  pipeline.del(cardCatalogGalleryIdsKey(game, versionMode));
+  if (ids.length > 0) {
+    pipeline.rpush(cardCatalogGalleryIdsKey(game, versionMode), ...ids);
+  }
+  pipeline.set(cardCatalogGalleryImportedAtKey(game, versionMode), importedAt);
+  await pipeline.exec();
+
+  return groupedCards;
+}
+
+async function getCachedGroupedCards(
+  game: GameSlug,
+  versionMode: CardVersionMode,
+  importedAt: string,
+) {
+  const cacheKey = `${game}:${versionMode}`;
+  const cached = groupedCardsCache.get(cacheKey);
+
+  if (
+    cached &&
+    cached.importedAt === importedAt &&
+    cached.expiresAt > Date.now()
+  ) {
+    return cached.cards;
+  }
+
+  const redis = getRedis();
+  if (redis) {
+    const persistedImportedAt = await getPersistedGalleryImportedAt(game, versionMode);
+    if (persistedImportedAt === importedAt) {
+      const ids =
+        ((await redis.lrange(
+          cardCatalogGalleryIdsKey(game, versionMode),
+          0,
+          -1,
+        )) as string[] | null) ?? [];
+
+      if (ids.length > 0) {
+        const cards = (await getRedisSummariesInBatches(game, ids)).filter(isCatalogCardEnglish);
+        groupedCardsCache.set(cacheKey, {
+          importedAt,
+          cards,
+          expiresAt: Date.now() + ALL_CARD_CACHE_TTL_MS,
+        });
+        return cards;
+      }
+    }
+  }
+
+  return buildAndPersistGroupedGallery(game, versionMode, importedAt);
+}
+
+async function getFastGalleryPage(
+  game: GameSlug,
+  versionMode: CardVersionMode,
+  importedAt: string,
+  page: number,
+  pageSize: number,
+  sort: "name-asc" | "name-desc",
+) {
+  const redis = getRedis();
+  if (!redis) {
+    return null;
+  }
+
+  const galleryKey = cardCatalogGalleryIdsKey(game, versionMode);
+  const persistedImportedAt = await getPersistedGalleryImportedAt(game, versionMode);
+
+  if (persistedImportedAt !== importedAt) {
+    await buildAndPersistGroupedGallery(game, versionMode, importedAt);
+  }
+
+  const total = ((await redis.llen(galleryKey)) as number | null) ?? 0;
+  const start = (page - 1) * pageSize;
+
+  if (start >= total) {
+    return {
+      cards: [],
+      total,
+      totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
+    };
+  }
+
+  let ids: string[] = [];
+
+  if (sort === "name-asc") {
+    ids =
+      ((await redis.lrange(galleryKey, start, start + pageSize - 1)) as string[] | null) ??
+      [];
+  } else {
+    const ascStart = Math.max(0, total - start - pageSize);
+    const ascEnd = total - start - 1;
+    ids =
+      (((await redis.lrange(galleryKey, ascStart, ascEnd)) as string[] | null) ?? []).reverse();
+  }
+
+  return {
+    cards: await getRedisSummaries(game, ids),
+    total,
+    totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
+  };
 }
 
 function compareRepresentativePriority(
@@ -529,6 +675,28 @@ async function queryRedisCards({
     filters.rarities.length > 0 ||
     filters.sets.length > 0;
 
+  if (!normalizedQuery && !hasFilters && (sort === "name-asc" || sort === "name-desc")) {
+    const fastPage = await getFastGalleryPage(
+      game,
+      versionMode,
+      meta.importedAt,
+      page,
+      pageSize,
+      sort,
+    );
+
+    if (fastPage) {
+      return {
+        cards: decorateCardsWithFinance(fastPage.cards.filter(isCatalogCardEnglish)),
+        total: fastPage.total,
+        page,
+        pageSize,
+        totalPages: fastPage.totalPages,
+        meta,
+      };
+    }
+  }
+
   if (normalizedQuery && queryTokens.length === 0) {
     return {
       cards: [],
@@ -542,7 +710,7 @@ async function queryRedisCards({
 
   const candidateCards =
     !normalizedQuery && !hasFilters
-      ? await getAllRedisCards(game)
+      ? await getCachedGroupedCards(game, versionMode, meta.importedAt)
       : await (async () => {
           const candidateGroups: string[][] = [];
 
@@ -567,17 +735,25 @@ async function queryRedisCards({
               ? intersectIds(candidateGroups)
               : await getAllRedisIds(game);
 
-          return getRedisSummariesInBatches(game, candidateIds);
+          return (await getRedisSummariesInBatches(game, candidateIds)).filter(
+            isCatalogCardEnglish,
+          );
         })();
   const normalizedFilters = normalizeFilters(filters);
 
-  const filteredCards = candidateCards.filter(
-    (card) =>
-      matchesQuery(card, normalizedQuery, queryTokens) &&
-      matchesFilters(card, normalizedFilters),
-  );
-  const groupedCards = groupCardsForGallery(filteredCards, versionMode);
-  const sortedCards = sortCards(groupedCards, sort);
+  const sortedCards = !normalizedQuery && !hasFilters
+    ? sortCards(candidateCards, sort)
+    : sortCards(
+        groupCardsForGallery(
+          candidateCards.filter(
+            (card) =>
+              matchesQuery(card, normalizedQuery, queryTokens) &&
+              matchesFilters(card, normalizedFilters),
+          ),
+          versionMode,
+        ),
+        sort,
+      );
 
   const total = sortedCards.length;
 
@@ -659,6 +835,7 @@ async function queryPrismaCards({
       might: card.might,
       hp: card.hp,
       rarity: card.rarity,
+      language: "en",
       text: card.text,
       flavor: card.flavor,
       setCode: card.setCode,

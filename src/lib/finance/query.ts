@@ -12,6 +12,7 @@ import {
   type CardCatalogSource,
   type CardCatalogSummary,
   compactText,
+  isCatalogCardEnglish,
   normalizeSearchText,
 } from "@/lib/cards/catalog";
 import {
@@ -1043,6 +1044,7 @@ function mapPrismaCardToCatalogSummary(
     setName: card.setName,
     collectorNo: card.collectorNo,
     imageUrl: card.imageUrl,
+    language: "en",
     artist: null,
     marketPrice: null,
     source:
@@ -1067,7 +1069,9 @@ async function getCatalogCardById(game: GameSlug, financeProductId: string) {
       cardCatalogSummaryKey(game, financeProductId),
     );
     if (summary) {
-      return summary;
+      if (isCatalogCardEnglish(summary)) {
+        return summary;
+      }
     }
   }
 
@@ -1108,7 +1112,11 @@ async function getAllCatalogCards(game: GameSlug) {
           pipeline.get(cardCatalogSummaryKey(game, id));
         }
 
-        cards.push(...((await pipeline.exec()).filter(Boolean) as CardCatalogSummary[]));
+        cards.push(
+          ...((await pipeline.exec()).filter(Boolean) as CardCatalogSummary[]).filter(
+            isCatalogCardEnglish,
+          ),
+        );
       }
 
       financeCatalogCache.set(game, {
@@ -1200,7 +1208,9 @@ async function getCatalogSampleCards(game: GameSlug, limit = SAMPLE_CARD_LIMIT) 
         summaryPipeline.get(cardCatalogSummaryKey(game, id));
       }
 
-      const sampledCards = (await summaryPipeline.exec()).filter(Boolean) as CardCatalogSummary[];
+    const sampledCards = ((await summaryPipeline.exec()).filter(Boolean) as CardCatalogSummary[]).filter(
+      isCatalogCardEnglish,
+    );
       if (sampledCards.length > 0) {
         return sampledCards;
       }

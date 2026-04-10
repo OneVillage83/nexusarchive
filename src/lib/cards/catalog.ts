@@ -18,6 +18,7 @@ export type CardCatalogSummary = {
   versionCount?: number;
   artCount?: number;
   isBaseVersion?: boolean;
+  language?: string | null;
   type: string | null;
   domains: string[];
   tags: string[];
@@ -102,6 +103,20 @@ export function cardCatalogSummaryKey(game: GameSlug, id: string) {
   return `${gamePrefix(game)}:summary:${id}`;
 }
 
+export function cardCatalogGalleryIdsKey(
+  game: GameSlug,
+  versionMode: "premium" | "base",
+) {
+  return `${gamePrefix(game)}:gallery:v2:${versionMode}:ids`;
+}
+
+export function cardCatalogGalleryImportedAtKey(
+  game: GameSlug,
+  versionMode: "premium" | "base",
+) {
+  return `${gamePrefix(game)}:gallery:v2:${versionMode}:imported-at`;
+}
+
 export function cardCatalogTokenKey(game: GameSlug, token: string) {
   return `${gamePrefix(game)}:token:${token}`;
 }
@@ -158,6 +173,7 @@ export function buildCardSearchText(
       summary.setName,
       summary.collectorNo,
       summary.artist,
+      summary.language,
       summary.energyCost != null ? String(summary.energyCost) : null,
       summary.power != null ? String(summary.power) : null,
       summary.might != null ? String(summary.might) : null,
@@ -212,4 +228,58 @@ export function compactText(value: string | null | undefined) {
 
   const compacted = value.replace(/\s+/g, " ").trim();
   return compacted || null;
+}
+
+export function getCatalogLanguage(card: Pick<CardCatalogSummary, "game" | "language" | "searchText">) {
+  const explicit = compactText(card.language)?.toLowerCase();
+  if (explicit) {
+    return explicit;
+  }
+
+  if (card.game !== "magic-the-gathering") {
+    return "en";
+  }
+
+  const tokens = new Set(
+    card.searchText
+      .split(/\s+/)
+      .map((token) => token.trim().toLowerCase())
+      .filter(Boolean),
+  );
+
+  if (tokens.has("en")) {
+    return "en";
+  }
+
+  for (const language of [
+    "ja",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ru",
+    "ko",
+    "zhs",
+    "zht",
+    "he",
+    "la",
+    "grc",
+    "ar",
+    "sa",
+    "ph",
+  ]) {
+    if (tokens.has(language)) {
+      return language;
+    }
+  }
+
+  return null;
+}
+
+export function isCatalogCardEnglish(
+  card: Pick<CardCatalogSummary, "game" | "language" | "searchText">,
+) {
+  const language = getCatalogLanguage(card);
+  return language == null || language === "en";
 }

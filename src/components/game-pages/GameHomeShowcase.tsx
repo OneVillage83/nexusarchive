@@ -138,11 +138,16 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
   const copy = HOME_COPY[game];
   const isRiftbound = game === "riftbound";
   const isOnePiece = game === "one-piece";
+  const showLogoGlow = isRiftbound;
   const lowerTileSpacingClassName = isRiftbound
     ? "mt-28 sm:mt-32 lg:mt-32"
     : game === "magic-the-gathering"
-      ? "mt-10 sm:mt-14 lg:mt-12"
-      : "mt-14 sm:mt-18 lg:mt-16";
+      ? "mt-12 sm:mt-16 lg:mt-14"
+      : "mt-16 sm:mt-20 lg:mt-18";
+  const taglineSpacingClassName = isRiftbound ? "mt-3" : "mt-1";
+  const searchSpacingClassName = isRiftbound ? "mt-6" : "mt-3";
+  const pillSpacingClassName = isRiftbound ? "mt-3" : "mt-1.5";
+  const helperSpacingClassName = isRiftbound ? "mt-2" : "mt-1";
 
   if (!config) {
     return null;
@@ -186,7 +191,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                       />
                     </div>
                     <div
-                      className="mt-2 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
+                      className="mt-0.5 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
                       style={{ boxShadow: `0 0 22px ${config.glowColor}` }}
                     >
                       {config.shortName}
@@ -194,7 +199,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                   </>
                 )}
 
-                <p className="mt-3 text-lg leading-tight text-amber-50/90 sm:text-xl md:text-2xl">
+                <p className={`${taglineSpacingClassName} text-lg leading-tight text-amber-50/90 sm:text-xl md:text-2xl`}>
                   {copy.tagline}{" "}
                   <span style={{ color: config.accentColor }}>
                     {copy.highlightedTagline}
@@ -204,7 +209,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
 
               <form
                 action={buildGamePath(game, "cards")}
-                className="mt-6 w-full max-w-3xl"
+                className={`${searchSpacingClassName} w-full max-w-3xl`}
               >
                 <div
                   className="
@@ -236,7 +241,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                 </div>
               </form>
 
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-xs">
+              <div className={`${pillSpacingClassName} flex flex-wrap items-center justify-center gap-3 text-xs`}>
                 <Link
                   href={buildGamePath(game, "cards")}
                   prefetch={false}
@@ -285,18 +290,20 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                 </Link>
               </div>
 
-              <p className="mt-2 text-center text-[11px] tracking-wide text-amber-100/80">
+              <p className={`${helperSpacingClassName} text-center text-[11px] tracking-wide text-amber-100/80`}>
                 {copy.helperLine}
               </p>
             </div>
 
             <div className="relative flex items-center justify-center">
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div
-                  className="h-64 w-64 rounded-full blur-3xl"
-                  style={{ backgroundColor: `${config.accentColor}55` }}
-                />
-              </div>
+              {showLogoGlow ? (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <div
+                    className="h-64 w-64 rounded-full blur-3xl"
+                    style={{ backgroundColor: `${config.accentColor}55` }}
+                  />
+                </div>
+              ) : null}
 
               <div className="relative h-56 w-56 drop-shadow-[0_0_40px_rgba(0,0,0,0.9)] sm:h-64 sm:w-64 lg:h-72 lg:w-72">
                 <Image

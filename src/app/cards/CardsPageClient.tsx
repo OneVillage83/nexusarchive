@@ -563,7 +563,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                 </button>
 
                 {filtersOpen ? (
-                  <div className="absolute right-0 z-20 mt-2 w-[min(92vw,24rem)] rounded-2xl border border-white/20 bg-black/90 p-4 shadow-[0_18px_40px_rgba(0,0,0,0.88)] backdrop-blur-md">
+                  <div className="absolute left-0 z-30 mt-2 max-h-[min(70vh,34rem)] w-[min(92vw,24rem)] overflow-y-auto rounded-2xl border border-white/20 bg-black/95 p-4 shadow-[0_18px_40px_rgba(0,0,0,0.88)] backdrop-blur-md">
                     <div className="flex items-center justify-between gap-3">
                       <div className="text-xs font-semibold uppercase tracking-wide text-amber-200">
                         Quick Filters

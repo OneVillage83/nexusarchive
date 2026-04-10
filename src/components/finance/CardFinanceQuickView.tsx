@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import { buildGamePath, type GameSlug } from "@/lib/games";
@@ -159,6 +159,7 @@ export function CardFinanceQuickView({
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<QuickViewTab>("overview");
   const [previewVariantId, setPreviewVariantId] = useState<string | null>(null);
+  const overlayScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!open || !financeProductId) {
@@ -216,6 +217,7 @@ export function CardFinanceQuickView({
     }
 
     document.body.style.overflow = "hidden";
+    overlayScrollRef.current?.scrollTo({ top: 0 });
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -273,7 +275,7 @@ export function CardFinanceQuickView({
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 px-4 py-6 backdrop-blur-md sm:px-6 sm:py-10">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md">
       <button
         type="button"
         aria-label="Close card detail"
@@ -281,8 +283,12 @@ export function CardFinanceQuickView({
         onClick={onClose}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <div className="rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:p-6 lg:p-7">
+      <div
+        ref={overlayScrollRef}
+        className="absolute inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6"
+      >
+        <div className="mx-auto flex min-h-full w-full max-w-6xl items-start justify-center">
+          <div className="relative z-10 flex w-full max-h-[calc(100dvh-2rem)] flex-col rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
@@ -312,12 +318,13 @@ export function CardFinanceQuickView({
             </div>
           ) : null}
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
-            <div className="space-y-4">
+            <div className="mt-6 min-h-0 overflow-y-auto pr-1">
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
+                <div className="space-y-4">
               <CardImage
                 imageUrl={selectedVariant?.imageUrl ?? data?.imageUrl ?? card?.imageUrl}
                 alt={selectedVariant?.name ?? data?.baseCardName ?? card?.name ?? "Card art"}
-                className="aspect-[3/4] w-full"
+                className="mx-auto aspect-[3/4] w-full max-w-[18rem] lg:max-w-none"
               />
 
               <div className="rounded-3xl border border-white/15 bg-black/45 px-4 py-4">
@@ -341,10 +348,10 @@ export function CardFinanceQuickView({
                   </span>
                 </div>
               </div>
-            </div>
+                </div>
 
-            <div className="min-w-0">
-              <div className="flex flex-wrap gap-2">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap gap-2">
                 {(["overview", "rulings", "synergy", "art"] as QuickViewTab[]).map((tab) => {
                   const active = activeTab === tab;
                   return (
@@ -362,9 +369,9 @@ export function CardFinanceQuickView({
                     </button>
                   );
                 })}
-              </div>
+                  </div>
 
-              <div className="mt-4 rounded-3xl border border-white/15 bg-black/45 p-4 sm:p-5">
+                  <div className="mt-4 rounded-3xl border border-white/15 bg-black/45 p-4 sm:p-5">
                 {activeTab === "overview" ? (
                   <div className="space-y-5">
                     <div>
@@ -507,9 +514,9 @@ export function CardFinanceQuickView({
                     ) : null}
                   </div>
                 ) : null}
-              </div>
+                  </div>
 
-              <div className="mt-4 flex flex-wrap gap-3">
+                  <div className="mt-4 flex flex-wrap gap-3">
                 <Link
                   href={buildGamePath(
                     game,
@@ -532,6 +539,8 @@ export function CardFinanceQuickView({
                     Open source listing ↗
                   </a>
                 ) : null}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

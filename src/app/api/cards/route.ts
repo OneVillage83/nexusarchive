@@ -35,7 +35,11 @@ export async function GET(request: Request) {
       versionMode,
     });
 
-    return NextResponse.json(result);
+    return NextResponse.json(result, {
+      headers: {
+        "Cache-Control": "public, s-maxage=120, stale-while-revalidate=900",
+      },
+    });
   } catch (error) {
     console.error("Failed to query cards:", error);
     return NextResponse.json(
