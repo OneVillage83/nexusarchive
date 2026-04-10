@@ -10,10 +10,10 @@ import type { GameSlug } from "@/lib/games";
 import { isGameSlug } from "@/lib/games";
 import { getRedis } from "@/lib/storage/redis";
 import {
+  getCardIdentityCandidates,
   getCardBaseName,
   getCardVersionLabel,
   isLikelyBaseVersion,
-  normalizeCardIdentityName,
 } from "./identity";
 
 import {
@@ -374,32 +374,141 @@ function compareRepresentativePriority(
   });
 }
 
+function pickGalleryDisplayName(variants: CardCatalogSummary[]) {
+  const byBaseName = new Map<
+    string,
+    {
+      count: number;
+      prefersNoHyphen: boolean;
+      prefersCommaLabel: boolean;
+      length: number;
+    }
+  >();
+
+  for (const variant of variants) {
+    const baseName = getCardBaseName(variant.name);
+    if (!baseName) {
+      continue;
+    }
+
+    const entry = byBaseName.get(baseName) ?? {
+      count: 0,
+      prefersNoHyphen: !baseName.includes(" - "),
+      prefersCommaLabel: baseName.includes(", "),
+      length: baseName.length,
+    };
+
+    entry.count += 1;
+    entry.prefersNoHyphen ||= !baseName.includes(" - ");
+    entry.prefersCommaLabel ||= baseName.includes(", ");
+    entry.length = Math.min(entry.length, baseName.length);
+    byBaseName.set(baseName, entry);
+  }
+
+  const winner = [...byBaseName.entries()].sort((left, right) => {
+    const [, leftMeta] = left;
+    const [, rightMeta] = right;
+
+    if (leftMeta.prefersNoHyphen !== rightMeta.prefersNoHyphen) {
+      return leftMeta.prefersNoHyphen ? -1 : 1;
+    }
+
+    if (leftMeta.prefersCommaLabel !== rightMeta.prefersCommaLabel) {
+      return leftMeta.prefersCommaLabel ? -1 : 1;
+    }
+
+    if (leftMeta.count !== rightMeta.count) {
+      return rightMeta.count - leftMeta.count;
+    }
+
+    if (leftMeta.length !== rightMeta.length) {
+      return leftMeta.length - rightMeta.length;
+    }
+
+    return left[0].localeCompare(right[0], undefined, {
+      sensitivity: "base",
+    });
+  })[0];
+
+  return winner?.[0] ?? getCardBaseName(variants[0]?.name ?? "Card");
+}
+
 function groupCardsForGallery(
   cards: CardCatalogSummary[],
   versionMode: CardVersionMode,
 ) {
-  const groups = new Map<string, CardCatalogSummary[]>();
+  const groups = new Set<{
+    candidates: Set<string>;
+    variants: CardCatalogSummary[];
+  }>();
+  const candidateToGroup = new Map<
+    string,
+    {
+      candidates: Set<string>;
+      variants: CardCatalogSummary[];
+    }
+  >();
 
   for (const card of cards) {
-    const identityKey = normalizeCardIdentityName(card.name);
-    if (!identityKey) {
+    const identityCandidates = getCardIdentityCandidates(card);
+    if (identityCandidates.length === 0) {
       continue;
     }
 
-    const existing = groups.get(identityKey);
-    if (existing) {
-      existing.push(card);
-    } else {
-      groups.set(identityKey, [card]);
+    const matchedGroups = [
+      ...new Set(
+        identityCandidates
+          .map((candidate) => candidateToGroup.get(candidate))
+          .filter(
+            (
+              group,
+            ): group is {
+              candidates: Set<string>;
+              variants: CardCatalogSummary[];
+            } => Boolean(group),
+          ),
+      ),
+    ];
+
+    const group =
+      matchedGroups[0] ??
+      (() => {
+        const nextGroup = {
+          candidates: new Set<string>(),
+          variants: [],
+        };
+        groups.add(nextGroup);
+        return nextGroup;
+      })();
+
+    if (matchedGroups.length > 1) {
+      for (const duplicateGroup of matchedGroups.slice(1)) {
+        if (duplicateGroup === group) {
+          continue;
+        }
+
+        duplicateGroup.variants.forEach((variant) => group.variants.push(variant));
+        duplicateGroup.candidates.forEach((candidate) => {
+          group.candidates.add(candidate);
+          candidateToGroup.set(candidate, group);
+        });
+        groups.delete(duplicateGroup);
+      }
     }
+
+    group.variants.push(card);
+    identityCandidates.forEach((candidate) => {
+      group.candidates.add(candidate);
+      candidateToGroup.set(candidate, group);
+    });
   }
 
-  return [...groups.entries()].map(([identityKey, variants]) => {
+  return [...groups].map(({ variants }) => {
     const representative =
       [...variants].sort((left, right) =>
         compareRepresentativePriority(left, right, versionMode),
       )[0] ?? variants[0];
-    const baseName = getCardBaseName(representative?.name ?? identityKey);
+    const baseName = pickGalleryDisplayName(variants);
     const artCount = new Set(
       variants.map((variant) => variant.imageUrl).filter(Boolean),
     ).size;

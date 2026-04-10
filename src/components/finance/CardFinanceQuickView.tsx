@@ -97,6 +97,19 @@ function getTabLabel(tab: QuickViewTab) {
   }
 }
 
+function buildFinanceProductHref(
+  game: GameSlug,
+  financeProductId: string,
+  fromGallery = true,
+) {
+  const href = buildGamePath(
+    game,
+    `finance/product/${encodeURIComponent(financeProductId)}`,
+  );
+
+  return fromGallery ? `${href}?fromGallery=1` : href;
+}
+
 function CardImage({
   imageUrl,
   alt,
@@ -445,9 +458,9 @@ export function CardFinanceQuickView({
                     {(data?.synergyCards ?? []).map((synergy) => (
                       <Link
                         key={synergy.financeProductId}
-                        href={buildGamePath(
+                        href={buildFinanceProductHref(
                           game,
-                          `finance/product/${encodeURIComponent(synergy.financeProductId)}`,
+                          synergy.financeProductId,
                         )}
                         prefetch={false}
                         className="rounded-2xl border border-white/15 bg-black/35 p-3 transition hover:border-amber-300/45 hover:bg-black/45"
@@ -518,11 +531,9 @@ export function CardFinanceQuickView({
 
                   <div className="mt-4 flex flex-wrap gap-3">
                 <Link
-                  href={buildGamePath(
+                  href={buildFinanceProductHref(
                     game,
-                    `finance/product/${encodeURIComponent(
-                      selectedVariant?.financeProductId ?? financeProductId,
-                    )}`,
+                    selectedVariant?.financeProductId ?? financeProductId,
                   )}
                   prefetch={false}
                   className="rounded-full bg-amber-400/95 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-amber-300"

@@ -144,7 +144,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
     : game === "magic-the-gathering"
       ? "mt-12 sm:mt-16 lg:mt-14"
       : "mt-16 sm:mt-20 lg:mt-18";
-  const taglineSpacingClassName = isRiftbound ? "mt-3" : "mt-1";
+  const taglineSpacingClassName = isRiftbound ? "mt-2" : "mt-1";
   const searchSpacingClassName = isRiftbound ? "mt-6" : "mt-3";
   const pillSpacingClassName = isRiftbound ? "mt-3" : "mt-1.5";
   const helperSpacingClassName = isRiftbound ? "mt-2" : "mt-1";
@@ -152,6 +152,10 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
   if (!config) {
     return null;
   }
+
+  const heroGamePillGlowColor = isRiftbound
+    ? "rgba(188, 84, 42, 0.42)"
+    : config.glowColor;
 
   return (
     <main className="py-0">
@@ -170,14 +174,22 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                 }`}
               >
                 {isRiftbound ? (
-                  <Image
-                    src="/Logos/whiteoutlinewordmark.png"
-                    alt="NexusArchive wordmark"
-                    width={760}
-                    height={85}
-                    className="block h-auto w-full object-contain drop-shadow-[0_0_20px_rgba(0,0,0,0.7)]"
-                    priority
-                  />
+                  <>
+                    <Image
+                      src="/Logos/whiteoutlinewordmark.png"
+                      alt="NexusArchive wordmark"
+                      width={760}
+                      height={85}
+                      className="block h-auto w-full object-contain drop-shadow-[0_0_20px_rgba(0,0,0,0.7)]"
+                      priority
+                    />
+                    <div
+                      className="mt-0.5 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
+                      style={{ boxShadow: `0 0 22px ${heroGamePillGlowColor}` }}
+                    >
+                      {config.shortName}
+                    </div>
+                  </>
                 ) : (
                   <>
                     <div className="relative h-[92px] w-full max-w-[39rem] overflow-hidden sm:h-[102px]">
@@ -192,7 +204,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
                     </div>
                     <div
                       className="mt-0.5 rounded-full border border-white/20 bg-black/40 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80 shadow-[0_0_18px_rgba(0,0,0,0.65)]"
-                      style={{ boxShadow: `0 0 22px ${config.glowColor}` }}
+                      style={{ boxShadow: `0 0 22px ${heroGamePillGlowColor}` }}
                     >
                       {config.shortName}
                     </div>

@@ -16,10 +16,10 @@ import {
   normalizeSearchText,
 } from "@/lib/cards/catalog";
 import {
+  cardsShareIdentity,
   getCardBaseName,
   getCardVersionLabel,
   isLikelyBaseVersion,
-  normalizeCardIdentityName,
 } from "@/lib/cards/identity";
 
 const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
@@ -695,9 +695,7 @@ function scoreSynergyPair(card: CardCatalogSummary, candidate: CardCatalogSummar
     };
   }
 
-  const sourceIdentity = normalizeCardIdentityName(card.name);
-  const candidateIdentity = normalizeCardIdentityName(candidate.name);
-  if (sourceIdentity && candidateIdentity && sourceIdentity === candidateIdentity) {
+  if (cardsShareIdentity(card, candidate)) {
     return {
       score: Number.NEGATIVE_INFINITY,
       reason: "Same card family.",
@@ -1150,10 +1148,24 @@ async function getCardVariantGroup(game: GameSlug, financeProductId: string) {
     return null;
   }
 
-  const identityKey = normalizeCardIdentityName(selected.name);
   const cards = await getAllCatalogCards(game);
-  const variants = cards
-    .filter((card) => normalizeCardIdentityName(card.name) === identityKey)
+  const variants = uniqueBy(
+    cards.filter((card) => cardsShareIdentity(selected, card)),
+    (card) =>
+      [
+        card.game,
+        compactText(card.type) ?? "",
+        normalizeSearchText(card.text ?? ""),
+        card.energyCost ?? "",
+        card.power ?? "",
+        card.might ?? "",
+        card.hp ?? "",
+        compactText(card.setCode ?? card.setName) ?? "",
+        compactText(card.collectorNo) ?? "",
+        compactText(card.rarity) ?? "",
+        compactText(card.imageUrl) ?? "",
+      ].join("::"),
+  )
     .sort((left, right) => {
       const leftTeaser = deriveFinanceTeaser(left);
       const rightTeaser = deriveFinanceTeaser(right);

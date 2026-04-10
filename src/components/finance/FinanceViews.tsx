@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
+import { FinanceProductBackButton } from "@/components/finance/FinanceProductBackButton";
 import { buildGamePath, getGameBySlug, type GameSlug } from "@/lib/games";
 import {
   formatFinanceCurrency,
@@ -333,54 +335,86 @@ export function FinanceHubView({
 export function FinanceProductView({
   game,
   detail,
+  fromGallery = false,
 }: {
   game: GameSlug;
   detail: FinanceProductDetail;
+  fromGallery?: boolean;
 }) {
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl space-y-6 px-4 sm:space-y-8">
+        <div className="flex items-center">
+          <FinanceProductBackButton game={game} fromGallery={fromGallery} />
+        </div>
+
         <section className={PANEL}>
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-3xl">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
-                {detail.sourceLabel}
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_19rem] xl:items-start">
+            <div className="min-w-0">
+              <div className="max-w-3xl">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
+                  {detail.sourceLabel}
+                </div>
+                <h1 className="mt-3 text-3xl font-semibold text-amber-50 sm:text-4xl">
+                  {detail.name}
+                </h1>
+                <p className="mt-2 text-sm text-amber-100/75">{detail.subtitle}</p>
+                <p className="mt-4 max-w-2xl text-sm text-amber-50/82">
+                  {detail.recommendation.body}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {detail.externalUrl ? (
+                    <a
+                      href={detail.externalUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full bg-amber-400/95 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-amber-300"
+                    >
+                      Open source listing ↗
+                    </a>
+                  ) : null}
+                </div>
               </div>
-              <h1 className="mt-3 text-3xl font-semibold text-amber-50 sm:text-4xl">
-                {detail.name}
-              </h1>
-              <p className="mt-2 text-sm text-amber-100/75">{detail.subtitle}</p>
-              <p className="mt-4 max-w-2xl text-sm text-amber-50/82">
-                {detail.recommendation.body}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href={buildGamePath(game, "finance")}
-                  prefetch={false}
-                  className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-amber-100 hover:bg-white/5"
-                >
-                  ← Back to finance hub
-                </Link>
-                {detail.externalUrl ? (
-                  <a
-                    href={detail.externalUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full bg-amber-400/95 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-amber-300"
-                  >
-                    Open source listing ↗
-                  </a>
-                ) : null}
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:max-w-[40rem]">
+                <MetricCard label="Market" value={formatFinanceCurrency(detail.marketPrice)} hint="Visible reference market." />
+                <MetricCard label="Fair Value" value={formatFinanceCurrency(detail.fairValue)} hint="Weighted Nexus estimate." />
+                <MetricCard label="Cash Now" value={formatFinanceCurrency(detail.cashNowValue)} hint="Immediate exit math." />
+                <MetricCard label="Liquidity" value={`${detail.liquidityScore ?? "—"}`} hint="Ease of exit." />
+                <MetricCard label="24h Move" value={formatFinanceDelta(detail.delta24h)} hint={formatFinancePercent(detail.deltaPercent24h)} />
+                <MetricCard label="Confidence" value={`${detail.confidenceScore ?? "—"}`} hint={detail.dataQualityNote} />
               </div>
             </div>
 
-            <div className="grid w-full gap-3 sm:grid-cols-2 xl:w-[27rem]">
-              <MetricCard label="Market" value={formatFinanceCurrency(detail.marketPrice)} hint="Visible reference market." />
-              <MetricCard label="Fair Value" value={formatFinanceCurrency(detail.fairValue)} hint="Weighted Nexus estimate." />
-              <MetricCard label="Cash Now" value={formatFinanceCurrency(detail.cashNowValue)} hint="Immediate exit math." />
-              <MetricCard label="Liquidity" value={`${detail.liquidityScore ?? "—"}`} hint="Ease of exit." />
-              <MetricCard label="24h Move" value={formatFinanceDelta(detail.delta24h)} hint={formatFinancePercent(detail.deltaPercent24h)} />
-              <MetricCard label="Confidence" value={`${detail.confidenceScore ?? "—"}`} hint={detail.dataQualityNote} />
+            <div className="xl:justify-self-end">
+              {detail.imageUrl ? (
+                <div className="mx-auto w-full max-w-[17rem] rounded-[1.75rem] border border-white/15 bg-black/45 p-3 shadow-[0_0_32px_rgba(0,0,0,0.7)]">
+                  <div className="relative aspect-[0.72] overflow-hidden rounded-[1.25rem] bg-black/55">
+                    <Image
+                      src={detail.imageUrl}
+                      alt={detail.name}
+                      fill
+                      sizes="(max-width: 1280px) 272px, 304px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="mt-3 rounded-2xl border border-white/10 bg-black/35 px-3 py-2.5">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
+                      Showing version
+                    </div>
+                    <div className="mt-2 text-sm font-semibold text-amber-50">
+                      {detail.selectedVariantLabel}
+                    </div>
+                    <div className="mt-1 text-xs text-amber-100/72">
+                      {detail.setName ?? detail.subtitle}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="mx-auto flex h-full min-h-[20rem] w-full max-w-[17rem] items-center justify-center rounded-[1.75rem] border border-dashed border-white/15 bg-black/35 px-6 text-center text-sm text-amber-100/70 xl:justify-self-end">
+                  This product is still waiting on a proper English card image.
+                </div>
+              )}
             </div>
           </div>
         </section>

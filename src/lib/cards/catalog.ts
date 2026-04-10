@@ -72,6 +72,7 @@ export type CardCatalogQueryResult = {
 };
 
 const CARD_CATALOG_PREFIX = "card-catalog";
+const CARD_GALLERY_CACHE_VERSION = "v4";
 const STOP_WORDS = new Set([
   "a",
   "an",
@@ -107,14 +108,14 @@ export function cardCatalogGalleryIdsKey(
   game: GameSlug,
   versionMode: "premium" | "base",
 ) {
-  return `${gamePrefix(game)}:gallery:v2:${versionMode}:ids`;
+  return `${gamePrefix(game)}:gallery:${CARD_GALLERY_CACHE_VERSION}:${versionMode}:ids`;
 }
 
 export function cardCatalogGalleryImportedAtKey(
   game: GameSlug,
   versionMode: "premium" | "base",
 ) {
-  return `${gamePrefix(game)}:gallery:v2:${versionMode}:imported-at`;
+  return `${gamePrefix(game)}:gallery:${CARD_GALLERY_CACHE_VERSION}:${versionMode}:imported-at`;
 }
 
 export function cardCatalogTokenKey(game: GameSlug, token: string) {

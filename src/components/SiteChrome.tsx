@@ -26,11 +26,16 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const activeGame = getActiveGameFromPath(pathname);
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
-  const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
+  const [toolsMenuState, setToolsMenuState] = useState(() => ({
+    open: false,
+    pathname,
+  }));
   const gameMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toolsMenuRef = useRef<HTMLDivElement | null>(null);
   const isAuthPage =
     pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
+  const isGlobalInfoPage =
+    pathname === "/about" || pathname === "/contact" || pathname === "/legal";
 
   const backgroundImage =
     activeGameConfig?.backgroundImage ?? GATEWAY_BACKGROUND;
@@ -67,6 +72,20 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         },
       ]
     : [];
+  const globalPageMenuLinks = isGlobalInfoPage
+    ? [
+        { href: "/", label: "Archive Gateway" },
+        { href: "/riftbound", label: "Riftbound" },
+        { href: "/one-piece", label: "One Piece TCG" },
+        { href: "/magic-the-gathering", label: "Magic: The Gathering" },
+        { href: "/about", label: "About / FAQ" },
+        { href: "/contact", label: "Contact" },
+        { href: "/legal", label: "Tiny little legal stuff" },
+      ]
+    : [];
+  const headerMenuLinks = activeGame ? gamePageLinks : globalPageMenuLinks;
+  const toolsMenuOpen =
+    toolsMenuState.open && toolsMenuState.pathname === pathname;
 
   function openGameMenu() {
     if (gameMenuCloseTimeoutRef.current) {
@@ -88,6 +107,30 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
     }, 180);
   }
 
+  function closeToolsMenu() {
+    setToolsMenuState((current) => {
+      if (!current.open && current.pathname === pathname) {
+        return current;
+      }
+
+      return {
+        open: false,
+        pathname,
+      };
+    });
+  }
+
+  function toggleToolsMenu() {
+    setToolsMenuState((current) => {
+      const isCurrentPath = current.pathname === pathname;
+
+      return {
+        open: isCurrentPath ? !current.open : true,
+        pathname,
+      };
+    });
+  }
+
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       const target = event.target;
@@ -99,12 +142,26 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         return;
       }
 
-      setToolsMenuOpen(false);
+      setToolsMenuState((current) =>
+        !current.open && current.pathname === pathname
+          ? current
+          : {
+              open: false,
+              pathname,
+            },
+      );
     }
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setToolsMenuOpen(false);
+        setToolsMenuState((current) =>
+          !current.open && current.pathname === pathname
+            ? current
+            : {
+                open: false,
+                pathname,
+              },
+        );
       }
     }
 
@@ -118,7 +175,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         clearTimeout(gameMenuCloseTimeoutRef.current);
       }
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div
@@ -275,13 +332,13 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                   Legal
                 </Link>
                 <AuthNavControls authEnabled={authEnabled} isAuthPage={isAuthPage} />
-                {activeGame ? (
+                {headerMenuLinks.length > 0 ? (
                   <div className="relative" ref={toolsMenuRef}>
                     <button
                       type="button"
                       aria-expanded={toolsMenuOpen}
                       aria-haspopup="menu"
-                      onClick={() => setToolsMenuOpen((current) => !current)}
+                      onClick={toggleToolsMenu}
                       className="
                         inline-flex h-9 w-9 items-center justify-center rounded-full
                         border border-white/20 bg-black/45 shadow-[0_0_16px_rgba(0,0,0,0.65)]
@@ -307,17 +364,21 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                           Page Menu
                         </div>
                         <nav className="flex flex-col gap-1" aria-label="Game pages">
-                          {gamePageLinks.map((link) => {
-                            const isHomeLink = link.href === buildGamePath(activeGame);
+                          {headerMenuLinks.map((link) => {
+                            const isHomeLink = activeGame
+                              ? link.href === buildGamePath(activeGame)
+                              : link.href === "/";
                             const isActive = isHomeLink
                               ? pathname === link.href
-                              : pathname.startsWith(link.href);
+                              : link.href === "/"
+                                ? pathname === "/"
+                                : pathname.startsWith(link.href);
 
                             return (
                               <Link
                                 key={link.href}
                                 href={link.href}
-                                onClick={() => setToolsMenuOpen(false)}
+                                onClick={closeToolsMenu}
                                 prefetch={false}
                                 className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${
                                   isActive
