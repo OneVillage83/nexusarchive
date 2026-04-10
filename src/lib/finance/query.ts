@@ -14,6 +14,12 @@ import {
   compactText,
   normalizeSearchText,
 } from "@/lib/cards/catalog";
+import {
+  getCardBaseName,
+  getCardVersionLabel,
+  isLikelyBaseVersion,
+  normalizeCardIdentityName,
+} from "@/lib/cards/identity";
 
 const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
   riftbound: PrismaGame.RIFTBOUND,
@@ -26,6 +32,12 @@ const PREVIEW_POSITION_LIMIT = 8;
 const FINANCE_HOME_TTL_SECONDS = 60 * 30;
 const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 6;
 const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
+const ALL_CATALOG_CACHE_TTL_MS = 1000 * 60 * 5;
+
+const financeCatalogCache = new Map<
+  GameSlug,
+  { cards: CardCatalogSummary[]; expiresAt: number }
+>();
 
 export type FinanceRouteKey =
   | "cash-now"
@@ -66,6 +78,34 @@ export type FinanceComp = {
   condition: string;
 };
 
+export type FinanceRulingNote = {
+  title: string;
+  body: string;
+};
+
+export type FinanceSynergyCard = {
+  financeProductId: string;
+  name: string;
+  subtitle: string;
+  imageUrl: string | null;
+  reason: string;
+  fairValue: number | null;
+};
+
+export type FinanceArtVariant = {
+  financeProductId: string;
+  name: string;
+  imageUrl: string | null;
+  versionLabel: string;
+  setName: string | null;
+  setCode: string | null;
+  rarity: string | null;
+  marketPrice: number | null;
+  fairValue: number | null;
+  isBaseVersion: boolean;
+  isSelected: boolean;
+};
+
 export type FinanceTeaser = {
   financeProductId: string;
   marketPrice: number | null;
@@ -96,6 +136,12 @@ export type FinanceProductSummary = FinanceTeaser & {
 };
 
 export type FinanceProductDetail = FinanceProductSummary & {
+  baseCardName: string;
+  selectedVariantName: string;
+  selectedVariantLabel: string;
+  artVariants: FinanceArtVariant[];
+  rulingNotes: FinanceRulingNote[];
+  synergyCards: FinanceSynergyCard[];
   source: CardCatalogSource;
   externalUrl: string | null;
   lowPrice: number | null;
@@ -340,7 +386,7 @@ function deriveSyntheticMarketPrice(card: CardCatalogSummary) {
   );
 }
 
-function deriveFinanceTeaser(card: CardCatalogSummary): FinanceTeaser {
+export function deriveFinanceTeaser(card: CardCatalogSummary): FinanceTeaser {
   const hash = hashString(`${card.game}:${card.id}:${card.name}`);
   const hasRealMarketPrice =
     typeof card.marketPrice === "number" && Number.isFinite(card.marketPrice);
@@ -601,6 +647,140 @@ function buildRecentComps(card: CardCatalogSummary, teaser: FinanceTeaser) {
   });
 }
 
+function buildRulingNotes(card: CardCatalogSummary): FinanceRulingNote[] {
+  const notes: FinanceRulingNote[] = [];
+  const rulesText = compactText(card.text) ?? "";
+  const typeLine = compactText(card.type) ?? "Card";
+  const normalizedRules = normalizeSearchText(rulesText);
+
+  notes.push({
+    title: "Read the whole instruction",
+    body: `${card.name} resolves using its full text, not the most dramatic fragment. Treat the type line "${typeLine}" and the printed text as one package before anyone starts freestyling timing claims.`,
+  });
+
+  if (normalizedRules.includes("when ") || normalizedRules.includes("whenever ")) {
+    notes.push({
+      title: "Triggered timing matters",
+      body: "This text reads like it includes a trigger condition. Check the exact event and whether the effect uses a target, because the window and legality both matter before it actually resolves.",
+    });
+  }
+
+  if (normalizedRules.includes("if ")) {
+    notes.push({
+      title: "Conditional text checks the board",
+      body: "The card text includes a condition, so make sure that condition is still true at the relevant point in resolution. The archive strongly recommends not hand-waving past the word “if.”",
+    });
+  }
+
+  if (
+    normalizedRules.includes("instead") ||
+    normalizedRules.includes("prevent") ||
+    normalizedRules.includes("replacement")
+  ) {
+    notes.push({
+      title: "Replacement-style wording",
+      body: "This card looks like it may modify an event rather than wait for it. Replacement effects usually apply at the moment the event would happen, which is a very different flavor of trouble than a delayed trigger.",
+    });
+  }
+
+  return notes.slice(0, 3);
+}
+
+function scoreSynergyPair(card: CardCatalogSummary, candidate: CardCatalogSummary) {
+  if (card.id === candidate.id) {
+    return {
+      score: Number.NEGATIVE_INFINITY,
+      reason: "Same exact card.",
+    };
+  }
+
+  const sourceIdentity = normalizeCardIdentityName(card.name);
+  const candidateIdentity = normalizeCardIdentityName(candidate.name);
+  if (sourceIdentity && candidateIdentity && sourceIdentity === candidateIdentity) {
+    return {
+      score: Number.NEGATIVE_INFINITY,
+      reason: "Same card family.",
+    };
+  }
+
+  let score = 0;
+  const reasons: string[] = [];
+
+  const sharedDomains = card.domains.filter((domain) => candidate.domains.includes(domain));
+  if (sharedDomains.length > 0) {
+    score += sharedDomains.length * 8;
+    reasons.push(`Shares ${sharedDomains.join(", ")}`);
+  }
+
+  if (card.setCode && candidate.setCode && card.setCode === candidate.setCode) {
+    score += 3;
+    reasons.push("Same set");
+  }
+
+  if (card.type && candidate.type) {
+    const cardTypeTokens = new Set(normalizeSearchText(card.type).split(" ").filter(Boolean));
+    const candidateTypeTokens = normalizeSearchText(candidate.type).split(" ").filter(Boolean);
+    const sharedTypeTokens = candidateTypeTokens.filter((token) => cardTypeTokens.has(token));
+
+    if (sharedTypeTokens.length > 0) {
+      score += sharedTypeTokens.length * 4;
+      reasons.push(`Shared type (${sharedTypeTokens[0]})`);
+    }
+  }
+
+  const cardTextTokens = new Set(
+    normalizeSearchText([card.name, card.text ?? "", card.type ?? ""].join(" "))
+      .split(" ")
+      .filter((token) => token.length > 3),
+  );
+  const candidateTokens = normalizeSearchText(
+    [candidate.name, candidate.text ?? "", candidate.type ?? ""].join(" "),
+  )
+    .split(" ")
+    .filter((token) => token.length > 3);
+  const sharedTextTokens = candidateTokens.filter((token) => cardTextTokens.has(token));
+
+  if (sharedTextTokens.length > 0) {
+    score += Math.min(sharedTextTokens.length, 3) * 2;
+    reasons.push(`Rules overlap (${sharedTextTokens[0]})`);
+  }
+
+  return {
+    score,
+    reason:
+      reasons[0] ??
+      "Looks mechanically adjacent enough that the archive would at least keep it on the same messy desk.",
+  };
+}
+
+async function buildSynergyCards(card: CardCatalogSummary): Promise<FinanceSynergyCard[]> {
+  const cards = await getAllCatalogCards(card.game);
+
+  return cards
+    .map((candidate) => {
+      const result = scoreSynergyPair(card, candidate);
+      return {
+        candidate,
+        score: result.score,
+        reason: result.reason,
+      };
+    })
+    .filter((entry) => Number.isFinite(entry.score) && entry.score > 0)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, 3)
+    .map(({ candidate, reason }) => {
+      const teaser = deriveFinanceTeaser(candidate);
+      return {
+        financeProductId: candidate.id,
+        name: getCardBaseName(candidate.name),
+        subtitle: `${candidate.type ?? "Card"} · ${getSetLabel(candidate)}`,
+        imageUrl: candidate.imageUrl,
+        reason,
+        fairValue: teaser.fairValue ?? teaser.marketPrice ?? null,
+      } satisfies FinanceSynergyCard;
+    });
+}
+
 function buildRecommendation(
   card: CardCatalogSummary,
   teaser: FinanceTeaser,
@@ -678,7 +858,7 @@ function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSum
   };
 }
 
-function buildFinanceProductDetail(card: CardCatalogSummary): FinanceProductDetail {
+async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<FinanceProductDetail> {
   const teaser = deriveFinanceTeaser(card);
   const priceSources = buildPriceSources(card, teaser);
   const routes = buildRouteEstimates(teaser, card.game);
@@ -690,9 +870,45 @@ function buildFinanceProductDetail(card: CardCatalogSummary): FinanceProductDeta
   const gradeFirstValue = toCurrency(
     routes.find((route) => route.key === "grade-first")?.netValue ?? fairValue,
   );
+  const variantGroup = await getCardVariantGroup(card.game, card.id);
+  const artVariants =
+    variantGroup?.variants.map((variant) => {
+      const variantTeaser = deriveFinanceTeaser(variant);
+      return {
+        financeProductId: variant.id,
+        name: variant.name,
+        imageUrl: variant.imageUrl,
+        versionLabel: getCardVersionLabel(variant),
+        setName: variant.setName,
+        setCode: variant.setCode,
+        rarity: variant.rarity,
+        marketPrice: variantTeaser.marketPrice,
+        fairValue: variantTeaser.fairValue,
+        isBaseVersion: isLikelyBaseVersion(variant),
+        isSelected: variant.id === card.id,
+      } satisfies FinanceArtVariant;
+    }) ?? [];
+  const baseCardName = variantGroup?.baseCardName ?? getCardBaseName(card.name);
+  const synergyCards = await buildSynergyCards(card);
+  const selectedVariantLabel = getCardVersionLabel(card);
 
   return {
-    ...buildFinanceProductSummary(card),
+    ...buildFinanceProductSummary({
+      ...card,
+      name: baseCardName,
+      baseName: baseCardName,
+      representativeName: card.name !== baseCardName ? card.name : null,
+      versionLabel: selectedVariantLabel,
+      versionCount: artVariants.length || 1,
+      artCount: artVariants.filter((variant) => Boolean(variant.imageUrl)).length || 1,
+      isBaseVersion: isLikelyBaseVersion(card),
+    }),
+    baseCardName,
+    selectedVariantName: card.name,
+    selectedVariantLabel,
+    artVariants,
+    rulingNotes: buildRulingNotes(card),
+    synergyCards,
     source: card.source,
     externalUrl: card.externalUrl,
     lowPrice,
@@ -868,6 +1084,90 @@ async function getCatalogCardById(game: GameSlug, financeProductId: string) {
   });
 
   return card ? mapPrismaCardToCatalogSummary(game, card) : null;
+}
+
+async function getAllCatalogCards(game: GameSlug) {
+  const cached = financeCatalogCache.get(game);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.cards;
+  }
+
+  const redis = getRedis();
+  if (redis) {
+    const ids =
+      ((await redis.lrange(cardCatalogAllIdsKey(game), 0, -1)) as string[] | null) ?? [];
+
+    if (ids.length > 0) {
+      const cards: CardCatalogSummary[] = [];
+
+      for (let index = 0; index < ids.length; index += 500) {
+        const batch = ids.slice(index, index + 500);
+        const pipeline = redis.pipeline();
+
+        for (const id of batch) {
+          pipeline.get(cardCatalogSummaryKey(game, id));
+        }
+
+        cards.push(...((await pipeline.exec()).filter(Boolean) as CardCatalogSummary[]));
+      }
+
+      financeCatalogCache.set(game, {
+        cards,
+        expiresAt: Date.now() + ALL_CATALOG_CACHE_TTL_MS,
+      });
+      return cards;
+    }
+  }
+
+  const prismaCards = await prisma.card.findMany({
+    where: {
+      game: GAME_TO_PRISMA[game],
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  const mapped = prismaCards.map((card) => mapPrismaCardToCatalogSummary(game, card));
+  financeCatalogCache.set(game, {
+    cards: mapped,
+    expiresAt: Date.now() + ALL_CATALOG_CACHE_TTL_MS,
+  });
+  return mapped;
+}
+
+async function getCardVariantGroup(game: GameSlug, financeProductId: string) {
+  const selected = await getCatalogCardById(game, financeProductId);
+  if (!selected) {
+    return null;
+  }
+
+  const identityKey = normalizeCardIdentityName(selected.name);
+  const cards = await getAllCatalogCards(game);
+  const variants = cards
+    .filter((card) => normalizeCardIdentityName(card.name) === identityKey)
+    .sort((left, right) => {
+      const leftTeaser = deriveFinanceTeaser(left);
+      const rightTeaser = deriveFinanceTeaser(right);
+      const valueGap =
+        (rightTeaser.fairValue ?? rightTeaser.marketPrice ?? 0) -
+        (leftTeaser.fairValue ?? leftTeaser.marketPrice ?? 0);
+
+      if (valueGap !== 0) {
+        return valueGap;
+      }
+
+      return (left.collectorNo ?? "").localeCompare(right.collectorNo ?? "", undefined, {
+        sensitivity: "base",
+        numeric: true,
+      });
+    });
+
+  return {
+    baseCardName: getCardBaseName(selected.name),
+    selected,
+    variants,
+  };
 }
 
 async function getCatalogSampleCards(game: GameSlug, limit = SAMPLE_CARD_LIMIT) {
@@ -1187,7 +1487,7 @@ export async function getFinanceProductDetail(
     FINANCE_PRODUCT_TTL_SECONDS,
     async () => {
       const card = await getCatalogCardById(game, normalizedId);
-      return card ? buildFinanceProductDetail(card) : null;
+      return card ? await buildFinanceProductDetail(card) : null;
     },
   );
 }

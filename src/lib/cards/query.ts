@@ -2,10 +2,19 @@ import type { Prisma } from "@prisma/client";
 import { Game } from "@prisma/client";
 
 import prisma from "@/lib/db";
-import { decorateCardsWithFinance } from "@/lib/finance/query";
+import {
+  decorateCardsWithFinance,
+  deriveFinanceTeaser,
+} from "@/lib/finance/query";
 import type { GameSlug } from "@/lib/games";
 import { isGameSlug } from "@/lib/games";
 import { getRedis } from "@/lib/storage/redis";
+import {
+  getCardBaseName,
+  getCardVersionLabel,
+  isLikelyBaseVersion,
+  normalizeCardIdentityName,
+} from "./identity";
 
 import {
   type CardCatalogSource,
@@ -27,6 +36,7 @@ type QueryCardsInput = {
   pageSize: number;
   filters: CardQueryFilters;
   sort: CardSortKey;
+  versionMode: CardVersionMode;
 };
 
 export type CardQueryFilters = {
@@ -45,7 +55,10 @@ export const CARD_SORT_KEYS = [
   "set-asc",
 ] as const;
 
+export const CARD_VERSION_MODES = ["premium", "base"] as const;
+
 export type CardSortKey = (typeof CARD_SORT_KEYS)[number];
+export type CardVersionMode = (typeof CARD_VERSION_MODES)[number];
 
 type NormalizedCardQueryFilters = {
   domains: Set<string>;
@@ -67,6 +80,12 @@ const PRISMA_FALLBACK_SOURCE: Record<GameSlug, CardCatalogSource> = {
 
 export const DEFAULT_CARD_PAGE_SIZE = 50;
 export const MAX_CARD_PAGE_SIZE = 100;
+const ALL_CARD_CACHE_TTL_MS = 1000 * 60 * 5;
+
+const allCardsCache = new Map<
+  GameSlug,
+  { cards: CardCatalogSummary[]; expiresAt: number }
+>();
 
 export function parseCardPage(value: string | null) {
   const parsed = Number.parseInt(value ?? "1", 10);
@@ -105,6 +124,12 @@ export function parseCardSort(value: string | null): CardSortKey {
     : "name-asc";
 }
 
+export function parseCardVersionMode(value: string | null): CardVersionMode {
+  return CARD_VERSION_MODES.includes((value ?? "") as CardVersionMode)
+    ? ((value ?? "premium") as CardVersionMode)
+    : "premium";
+}
+
 async function getRedisSummaries(game: GameSlug, ids: string[]) {
   const redis = getRedis();
   if (!redis || ids.length === 0) {
@@ -121,6 +146,17 @@ async function getRedisSummaries(game: GameSlug, ids: string[]) {
   return results.filter(Boolean) as CardCatalogSummary[];
 }
 
+async function getRedisSummariesInBatches(game: GameSlug, ids: string[]) {
+  const cards: CardCatalogSummary[] = [];
+
+  for (let index = 0; index < ids.length; index += 500) {
+    const batch = ids.slice(index, index + 500);
+    cards.push(...(await getRedisSummaries(game, batch)));
+  }
+
+  return cards;
+}
+
 async function getAllRedisIds(game: GameSlug) {
   const redis = getRedis();
   if (!redis) {
@@ -131,6 +167,110 @@ async function getAllRedisIds(game: GameSlug) {
     ((await redis.lrange(cardCatalogAllIdsKey(game), 0, -1)) as string[] | null) ??
     []
   );
+}
+
+async function getAllRedisCards(game: GameSlug) {
+  const cached = allCardsCache.get(game);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.cards;
+  }
+
+  const ids = await getAllRedisIds(game);
+  const cards = await getRedisSummariesInBatches(game, ids);
+  allCardsCache.set(game, {
+    cards,
+    expiresAt: Date.now() + ALL_CARD_CACHE_TTL_MS,
+  });
+  return cards;
+}
+
+function compareRepresentativePriority(
+  left: CardCatalogSummary,
+  right: CardCatalogSummary,
+  versionMode: CardVersionMode,
+) {
+  const leftTeaser = deriveFinanceTeaser(left);
+  const rightTeaser = deriveFinanceTeaser(right);
+  const leftBase = isLikelyBaseVersion(left);
+  const rightBase = isLikelyBaseVersion(right);
+  const leftValue = leftTeaser.fairValue ?? leftTeaser.marketPrice ?? 0;
+  const rightValue = rightTeaser.fairValue ?? rightTeaser.marketPrice ?? 0;
+
+  if (versionMode === "base" && leftBase !== rightBase) {
+    return leftBase ? -1 : 1;
+  }
+
+  if (versionMode === "premium" && leftBase !== rightBase) {
+    return leftBase ? 1 : -1;
+  }
+
+  if (versionMode === "base") {
+    if (leftValue !== rightValue) {
+      return leftValue - rightValue;
+    }
+  } else if (leftValue !== rightValue) {
+    return rightValue - leftValue;
+  }
+
+  const leftSet = (left.setName ?? left.setCode ?? "").trim();
+  const rightSet = (right.setName ?? right.setCode ?? "").trim();
+  const setComparison = leftSet.localeCompare(rightSet, undefined, {
+    sensitivity: "base",
+  });
+
+  if (setComparison !== 0) {
+    return versionMode === "base" ? setComparison : -setComparison;
+  }
+
+  return (left.collectorNo ?? "").localeCompare(right.collectorNo ?? "", undefined, {
+    sensitivity: "base",
+    numeric: true,
+  });
+}
+
+function groupCardsForGallery(
+  cards: CardCatalogSummary[],
+  versionMode: CardVersionMode,
+) {
+  const groups = new Map<string, CardCatalogSummary[]>();
+
+  for (const card of cards) {
+    const identityKey = normalizeCardIdentityName(card.name);
+    if (!identityKey) {
+      continue;
+    }
+
+    const existing = groups.get(identityKey);
+    if (existing) {
+      existing.push(card);
+    } else {
+      groups.set(identityKey, [card]);
+    }
+  }
+
+  return [...groups.entries()].map(([identityKey, variants]) => {
+    const representative =
+      [...variants].sort((left, right) =>
+        compareRepresentativePriority(left, right, versionMode),
+      )[0] ?? variants[0];
+    const baseName = getCardBaseName(representative?.name ?? identityKey);
+    const artCount = new Set(
+      variants.map((variant) => variant.imageUrl).filter(Boolean),
+    ).size;
+    const representativeName =
+      representative && representative.name !== baseName ? representative.name : null;
+
+    return {
+      ...(representative ?? variants[0]!),
+      name: baseName,
+      baseName,
+      representativeName,
+      versionLabel: representative ? getCardVersionLabel(representative) : null,
+      versionCount: variants.length,
+      artCount: Math.max(artCount, variants.length > 0 ? 1 : 0),
+      isBaseVersion: representative ? isLikelyBaseVersion(representative) : true,
+    } satisfies CardCatalogSummary;
+  });
 }
 
 function intersectIds(groups: string[][]) {
@@ -367,6 +507,7 @@ async function queryRedisCards({
   pageSize,
   filters,
   sort,
+  versionMode,
 }: QueryCardsInput): Promise<CardCatalogQueryResult | null> {
   const redis = getRedis();
   if (!redis) {
@@ -387,64 +528,6 @@ async function queryRedisCards({
     filters.domains.length > 0 ||
     filters.rarities.length > 0 ||
     filters.sets.length > 0;
-  const canUseFastNameAsc = !normalizedQuery && !hasFilters && sort === "name-asc";
-  const canUseFastNameDesc =
-    !normalizedQuery && !hasFilters && sort === "name-desc";
-
-  if (canUseFastNameAsc) {
-    const ids =
-      ((await redis.lrange(
-        cardCatalogAllIdsKey(game),
-        start,
-        start + pageSize - 1,
-      )) as string[] | null) ?? [];
-    const cards = await getRedisSummaries(game, ids);
-    const total = meta.cardCount;
-
-    return {
-      cards: decorateCardsWithFinance(cards),
-      total,
-      page,
-      pageSize,
-      totalPages: Math.max(1, Math.ceil(total / pageSize)),
-      meta,
-    };
-  }
-
-  if (canUseFastNameDesc) {
-    const total = meta.cardCount;
-    const pageStart = (page - 1) * pageSize;
-
-    if (pageStart >= total) {
-      return {
-        cards: [],
-        total,
-        page,
-        pageSize,
-        totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
-        meta,
-      };
-    }
-
-    const ascStart = Math.max(0, total - pageStart - pageSize);
-    const ascEnd = total - pageStart - 1;
-    const ids =
-      ((await redis.lrange(
-        cardCatalogAllIdsKey(game),
-        ascStart,
-        ascEnd,
-      )) as string[] | null) ?? [];
-    const cards = (await getRedisSummaries(game, ids)).reverse();
-
-    return {
-      cards: decorateCardsWithFinance(cards),
-      total,
-      page,
-      pageSize,
-      totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
-      meta,
-    };
-  }
 
   if (normalizedQuery && queryTokens.length === 0) {
     return {
@@ -457,45 +540,49 @@ async function queryRedisCards({
     };
   }
 
-  const candidateGroups: string[][] = [];
+  const candidateCards =
+    !normalizedQuery && !hasFilters
+      ? await getAllRedisCards(game)
+      : await (async () => {
+          const candidateGroups: string[][] = [];
 
-  if (queryTokens.length > 0) {
-    candidateGroups.push(await getIdsForTokens(game, queryTokens));
-  }
+          if (queryTokens.length > 0) {
+            candidateGroups.push(await getIdsForTokens(game, queryTokens));
+          }
 
-  if (filters.domains.length > 0) {
-    candidateGroups.push(await getIdsForFilterValues(game, filters.domains));
-  }
+          if (filters.domains.length > 0) {
+            candidateGroups.push(await getIdsForFilterValues(game, filters.domains));
+          }
 
-  if (filters.rarities.length > 0) {
-    candidateGroups.push(await getIdsForFilterValues(game, filters.rarities));
-  }
+          if (filters.rarities.length > 0) {
+            candidateGroups.push(await getIdsForFilterValues(game, filters.rarities));
+          }
 
-  if (filters.sets.length > 0) {
-    candidateGroups.push(await getIdsForFilterValues(game, filters.sets));
-  }
+          if (filters.sets.length > 0) {
+            candidateGroups.push(await getIdsForFilterValues(game, filters.sets));
+          }
 
-  const candidateIds =
-    candidateGroups.length > 0
-      ? intersectIds(candidateGroups)
-      : await getAllRedisIds(game);
-  const candidateCards = await getRedisSummaries(game, candidateIds);
+          const candidateIds =
+            candidateGroups.length > 0
+              ? intersectIds(candidateGroups)
+              : await getAllRedisIds(game);
+
+          return getRedisSummariesInBatches(game, candidateIds);
+        })();
   const normalizedFilters = normalizeFilters(filters);
 
-  const filteredCards = sortCards(
-    candidateCards
-    .filter(
-      (card) =>
-        matchesQuery(card, normalizedQuery, queryTokens) &&
-        matchesFilters(card, normalizedFilters),
-    ),
-    sort,
+  const filteredCards = candidateCards.filter(
+    (card) =>
+      matchesQuery(card, normalizedQuery, queryTokens) &&
+      matchesFilters(card, normalizedFilters),
   );
+  const groupedCards = groupCardsForGallery(filteredCards, versionMode);
+  const sortedCards = sortCards(groupedCards, sort);
 
-  const total = filteredCards.length;
+  const total = sortedCards.length;
 
   return {
-    cards: decorateCardsWithFinance(filteredCards.slice(start, start + pageSize)),
+    cards: decorateCardsWithFinance(sortedCards.slice(start, start + pageSize)),
     total,
     page,
     pageSize,
@@ -511,6 +598,7 @@ async function queryPrismaCards({
   pageSize,
   filters,
   sort,
+  versionMode,
 }: QueryCardsInput): Promise<CardCatalogQueryResult> {
   const whereClauses: Prisma.CardWhereInput[] = [
     { game: GAME_TO_PRISMA[game] },
@@ -558,7 +646,7 @@ async function queryPrismaCards({
 
   const cards = await prisma.card.findMany({ where });
   const total = cards.length;
-  const sortedCards = sortCards(
+  const groupedCards = groupCardsForGallery(
     cards.map((card) => ({
       id: String(card.id),
       game,
@@ -602,8 +690,9 @@ async function queryPrismaCards({
           .join(" "),
       ),
     })),
-    sort,
+    versionMode,
   );
+  const sortedCards = sortCards(groupedCards, sort);
   const pagedCards = sortedCards.slice(
     (page - 1) * pageSize,
     (page - 1) * pageSize + pageSize,

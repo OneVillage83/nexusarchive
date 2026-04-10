@@ -26,6 +26,7 @@ const CHIP =
 const DEFAULT_PAGE_SIZE = 50;
 const PAGE_SIZE_OPTIONS = [24, 50, 100] as const;
 const VIEW_MODES = ["visual", "cards", "table"] as const;
+const VERSION_MODES = ["premium", "base"] as const;
 const SORT_OPTIONS = {
   riftbound: [
     { value: "name-asc", label: "Name (A-Z)" },
@@ -58,6 +59,7 @@ const SORT_OPTIONS = {
 
 type ViewMode = (typeof VIEW_MODES)[number];
 type SortKey = (typeof SORT_OPTIONS)[GameSlug][number]["value"];
+type VersionMode = (typeof VERSION_MODES)[number];
 
 type CardsPageClientProps = {
   game: GameSlug;
@@ -143,6 +145,10 @@ function isSortKey(value: string | null): value is SortKey {
     .includes((value ?? "") as SortKey);
 }
 
+function isVersionMode(value: string | null): value is VersionMode {
+  return VERSION_MODES.includes((value ?? "") as VersionMode);
+}
+
 function uniqueSorted(values: string[]) {
   return [...new Set(values.filter(Boolean))].sort((left, right) =>
     left.localeCompare(right, undefined, { sensitivity: "base" }),
@@ -176,6 +182,10 @@ function getViewModeLabel(mode: ViewMode) {
   }
 }
 
+function getVersionModeLabel(mode: VersionMode) {
+  return mode === "base" ? "Base versions" : "Top version";
+}
+
 function createPageHref(
   pathname: string,
   searchParams: ReadonlyURLSearchParams,
@@ -199,6 +209,17 @@ function formatCardStats(card: CardCatalogSummary) {
   }
 
   return `${card.power ?? "-"} / ${card.might ?? "-"} / ${card.hp ?? "-"}`;
+}
+
+function formatVersionSummary(card: CardCatalogSummary) {
+  const versions = card.versionCount ?? 1;
+  const arts = card.artCount ?? versions;
+
+  if (versions <= 1) {
+    return "Single catalog version";
+  }
+
+  return `${versions} version${versions === 1 ? "" : "s"} · ${arts} art${arts === 1 ? "" : "s"}`;
 }
 
 function CardNameLink({ card }: { card: CardCatalogSummary }) {
@@ -250,9 +271,13 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const selectedSets = parseMultiValueParam(searchParams.get("sets"));
   const rawView = searchParams.get("view");
   const rawSort = searchParams.get("sort");
+  const rawVersionMode = searchParams.get("versionMode");
   const viewMode: ViewMode = isViewMode(rawView) ? rawView : "visual";
   const sortOptions = getSortOptions(game);
   const sortValue: SortKey = isSortKey(rawSort) ? rawSort : "name-asc";
+  const versionMode: VersionMode = isVersionMode(rawVersionMode)
+    ? rawVersionMode
+    : "premium";
   const domainParam = selectedDomains.join(",");
   const rarityParam = selectedRarities.join(",");
   const setParam = selectedSets.join(",");
@@ -263,7 +288,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [selectedFinanceProductId, setSelectedFinanceProductId] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<CardCatalogSummary | null>(null);
   const filtersRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -291,6 +316,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         if (sortValue !== "name-asc") {
           query.set("sort", sortValue);
         }
+        if (versionMode !== "premium") {
+          query.set("versionMode", versionMode);
+        }
 
         const response = await fetch(`/api/cards?${query.toString()}`);
         if (!response.ok) {
@@ -313,11 +341,11 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     }
 
     load();
-  }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue]);
+  }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue, versionMode]);
 
   useEffect(() => {
     setFiltersOpen(false);
-  }, [domainParam, page, pageSize, pathname, q, rarityParam, setParam, sortValue, viewMode]);
+  }, [domainParam, page, pageSize, pathname, q, rarityParam, setParam, sortValue, versionMode, viewMode]);
 
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
@@ -347,6 +375,10 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
       document.removeEventListener("keydown", handleEscape);
     };
   }, []);
+
+  useEffect(() => {
+    setSelectedCard(null);
+  }, [domainParam, game, page, pageSize, pathname, q, rarityParam, setParam, sortValue, versionMode]);
 
   const startIndex = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const endIndex = total === 0 ? 0 : startIndex + cards.length - 1;
@@ -422,6 +454,17 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     });
   }
 
+  function setVersionModeValue(nextVersionMode: VersionMode) {
+    updateSearchParams((params) => {
+      params.delete("page");
+      if (nextVersionMode === "premium") {
+        params.delete("versionMode");
+      } else {
+        params.set("versionMode", nextVersionMode);
+      }
+    });
+  }
+
   function setPageSizeValue(nextPageSize: number) {
     updateSearchParams((params) => {
       params.delete("page");
@@ -438,7 +481,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
       return;
     }
 
-    setSelectedFinanceProductId(card.financeProductId);
+    setSelectedCard(card);
   }
 
   return (
@@ -473,6 +516,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               ) : null}
               {sortValue !== "name-asc" ? (
                 <input type="hidden" name="sort" value={sortValue} />
+              ) : null}
+              {versionMode !== "premium" ? (
+                <input type="hidden" name="versionMode" value={versionMode} />
               ) : null}
               {viewMode !== "visual" ? (
                 <input type="hidden" name="view" value={viewMode} />
@@ -644,6 +690,23 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               </div>
 
               <label className="flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-amber-100/80 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
+                <span>Versions</span>
+                <select
+                  value={versionMode}
+                  onChange={(event) =>
+                    setVersionModeValue(event.target.value as VersionMode)
+                  }
+                  className="rounded-full border border-white/15 bg-black/60 px-2 py-1 text-[11px] text-amber-50 focus:outline-none"
+                >
+                  {VERSION_MODES.map((mode) => (
+                    <option key={mode} value={mode}>
+                      {getVersionModeLabel(mode)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-amber-100/80 shadow-[0_0_12px_rgba(0,0,0,0.55)]">
                 <span>Sort</span>
                 <select
                   value={sortValue}
@@ -717,6 +780,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                               {card.text}
                             </div>
                           ) : null}
+                          <div className="mt-1 text-[11px] text-amber-200/75">
+                            {formatVersionSummary(card)}
+                          </div>
                         </td>
                         <td className="px-4 py-2 align-top text-amber-50/85">
                           {card.type ?? "—"}
@@ -804,6 +870,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                           <p className="text-sm text-amber-100/75">
                             {card.type ?? "No type label"}
                           </p>
+                          <p className="mt-1 text-[11px] text-amber-200/80">
+                            {formatVersionSummary(card)}
+                          </p>
                         </div>
                         <span className="rounded-full border border-white/15 bg-white/[0.04] px-2 py-1 text-[10px] uppercase tracking-wide text-amber-200/85">
                           {card.rarity ?? "Unknown rarity"}
@@ -886,6 +955,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                           </div>
                           <div className="mt-1 text-[11px] text-amber-100/80">
                             {card.type ?? "No type"} · {card.setCode ?? card.setName ?? "No set"}
+                          </div>
+                          <div className="mt-1 text-[11px] text-amber-200/80">
+                            {formatVersionSummary(card)}
                           </div>
                           <div className="mt-2 flex flex-wrap gap-2 text-[10px] uppercase tracking-wide text-amber-200/85">
                             {card.rarity ? (
@@ -979,9 +1051,10 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
       <CardFinanceQuickView
         game={game}
-        financeProductId={selectedFinanceProductId}
-        open={Boolean(selectedFinanceProductId)}
-        onClose={() => setSelectedFinanceProductId(null)}
+        card={selectedCard}
+        financeProductId={selectedCard?.financeProductId ?? null}
+        open={Boolean(selectedCard)}
+        onClose={() => setSelectedCard(null)}
       />
     </main>
   );

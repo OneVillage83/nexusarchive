@@ -150,7 +150,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
 
   return (
     <main className="py-0">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-6xl px-4 xl:max-w-[78rem]">
         <h1 className="sr-only">
           NexusArchive {config.name} home. Tools, decks, rules, and cardboard
           nonsense in one place.
@@ -312,7 +312,7 @@ export function GameHomeShowcase({ game }: GameHomeShowcaseProps) {
           </div>
 
           <div className={`${lowerTileSpacingClassName} hidden lg:block`}>
-            <div className="grid gap-4 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-3 lg:grid-cols-7">
               <HeroTile
                 href={buildGamePath(game, "cards")}
                 title="Card Gallery"
@@ -477,16 +477,16 @@ function HeroTile({ href, title, description }: HeroTileProps) {
       href={href}
       prefetch={false}
       className="
-        flex flex-col rounded-2xl border border-white/35 bg-black/55
-        px-4 py-3 text-left text-amber-50 shadow-[0_0_22px_rgba(0,0,0,0.55)]
+        flex h-full flex-col rounded-2xl border border-white/35 bg-black/55
+        px-3 py-2.5 text-left text-amber-50 shadow-[0_0_22px_rgba(0,0,0,0.55)]
         transition-transform transition-shadow hover:-translate-y-1
         hover:shadow-[0_0_30px_rgba(246,191,38,0.75)]
       "
     >
-      <div className="text-base font-semibold leading-tight text-amber-200">
+      <div className="text-[13px] font-semibold leading-tight text-amber-200 xl:text-[14px]">
         {title}
       </div>
-      <p className="mt-1.5 text-xs leading-snug text-amber-100/85">
+      <p className="mt-1 text-[10px] leading-[1.32] text-amber-100/82 xl:text-[11px]">
         {description}
       </p>
     </Link>
