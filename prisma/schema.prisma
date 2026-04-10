@@ -33,6 +33,17 @@ enum FinanceRouteType {
   GRADE_FIRST
 }
 
+enum DeckVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum DeckRulesMode {
+  COMPETITIVE
+  STANDARD
+  HOUSE
+}
+
 model Card {
   id             Int            @id @default(autoincrement())
   game           Game           @default(RIFTBOUND)
@@ -93,6 +104,11 @@ model CardPrice {
 model Deck {
   id            Int        @id @default(autoincrement())
   game          Game       @default(RIFTBOUND)
+  clerkUserId   String?
+  visibility    DeckVisibility @default(PUBLIC)
+  formatKey     String     @default("competitive")
+  rulesMode     DeckRulesMode @default(STANDARD)
+  slug          String     @unique
   name          String
   description   String?
   championId    Int?
@@ -103,23 +119,45 @@ model Deck {
   scoreBudget   Int?
   scorePopular  Int?
 
-  tags          String[]
+  tags          String[]   @default([])
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
   cards         DeckCard[]
 
   @@index([game, name])
+  @@index([game, visibility, updatedAt])
+  @@index([game, clerkUserId, updatedAt])
 }
 
 model DeckCard {
-  id          Int    @id @default(autoincrement())
-  deckId      Int
-  cardId      Int
-  quantity    Int    @default(1)
+  id            Int      @id @default(autoincrement())
+  deckId        Int
+  cardId        Int?
+  familyKey     String
+  cardName      String
+  sectionKey    String
+  displayCardId String?
+  imageUrl      String?
+  typeLine      String?
+  text          String?
+  domainValues  String[] @default([])
+  cost          Int?
+  power         Int?
+  might         Int?
+  hp            Int?
+  setCode       String?
+  setName       String?
+  rarity        String?
+  versionLabel  String?
+  sortOrder     Int      @default(0)
+  quantity      Int      @default(1)
 
-  deck        Deck   @relation(fields: [deckId], references: [id])
-  card        Card   @relation(fields: [cardId], references: [id])
+  deck          Deck     @relation(fields: [deckId], references: [id])
+  card          Card?    @relation(fields: [cardId], references: [id])
+
+  @@unique([deckId, familyKey])
+  @@index([deckId, sectionKey, sortOrder])
 }
 
 model Combo {

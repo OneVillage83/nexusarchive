@@ -1,19 +1,39 @@
-import { GamePlaceholderPage } from "@/components/game-pages/GamePlaceholderPage";
-import { RiftboundDeckListsPage } from "@/app/decklists/page";
+import { auth } from "@clerk/nextjs/server";
+
+import { DeckListsPage } from "@/components/decks/DeckListsPage";
+import { isClerkConfigured } from "@/lib/auth-config";
+import { listDecks } from "@/lib/decks/query";
 import { requireGame } from "@/lib/server-game";
 
-type GameDecklistsPageProps = {
+type GameDeckListsPageProps = {
   params: Promise<{ game: string }>;
 };
 
-export default async function GameDecklistsPage({
+export default async function GameDeckListsPage({
   params,
-}: GameDecklistsPageProps) {
+}: GameDeckListsPageProps) {
   const game = await requireGame(params);
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
+  const [communityDecks, myDecks] = await Promise.all([
+    listDecks({
+      game,
+      scope: "community",
+      viewerUserId: userId,
+    }),
+    listDecks({
+      game,
+      scope: "mine",
+      viewerUserId: userId,
+    }),
+  ]);
 
-  if (game === "riftbound") {
-    return <RiftboundDeckListsPage />;
-  }
-
-  return <GamePlaceholderPage game={game} variant="decklists" />;
+  return (
+    <DeckListsPage
+      game={game}
+      signedIn={Boolean(userId)}
+      communityDecks={communityDecks}
+      myDecks={myDecks}
+    />
+  );
 }

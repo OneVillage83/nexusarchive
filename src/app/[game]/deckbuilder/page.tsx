@@ -1,19 +1,26 @@
-import { GamePlaceholderPage } from "@/components/game-pages/GamePlaceholderPage";
-import { RiftboundDeckBuilderPage } from "@/app/deckbuilder/page";
+import { auth } from "@clerk/nextjs/server";
+
+import { DeckBuilderApp } from "@/components/decks/DeckBuilderApp";
+import { isClerkConfigured } from "@/lib/auth-config";
 import { requireGame } from "@/lib/server-game";
 
 type GameDeckBuilderPageProps = {
   params: Promise<{ game: string }>;
 };
 
-export default async function GameDeckBuilderRoute({
+export default async function GameDeckBuilderPage({
   params,
 }: GameDeckBuilderPageProps) {
   const game = await requireGame(params);
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
 
-  if (game === "riftbound") {
-    return <RiftboundDeckBuilderPage />;
-  }
-
-  return <GamePlaceholderPage game={game} variant="deckbuilder" />;
+  return (
+    <DeckBuilderApp
+      game={game}
+      authEnabled={authEnabled}
+      userId={userId}
+      initialDeck={null}
+    />
+  );
 }

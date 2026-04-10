@@ -2,7 +2,25 @@ import { SignUp } from "@clerk/nextjs";
 
 import { isClerkConfigured } from "@/lib/auth-config";
 
-export default function SignUpPage() {
+type SignUpPageProps = {
+  searchParams: Promise<{
+    redirect_url?: string | string[];
+  }>;
+};
+
+function getRedirectTarget(value: string | string[] | undefined) {
+  if (Array.isArray(value)) {
+    return value[0] ?? "/";
+  }
+
+  return value || "/";
+}
+
+export default async function SignUpPage({ searchParams }: SignUpPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const redirectTarget = getRedirectTarget(resolvedSearchParams.redirect_url);
+  const signInUrl = `/sign-in?redirect_url=${encodeURIComponent(redirectTarget)}`;
+
   if (!isClerkConfigured()) {
     return (
       <main className="flex min-h-[calc(100vh-14rem)] items-center justify-center py-10">
@@ -42,8 +60,9 @@ export default function SignUpPage() {
           <SignUp
             routing="path"
             path="/sign-up"
-            signInUrl="/sign-in"
-            fallbackRedirectUrl="/"
+            signInUrl={signInUrl}
+            fallbackRedirectUrl={redirectTarget}
+            forceRedirectUrl={redirectTarget}
           />
         </div>
       </div>

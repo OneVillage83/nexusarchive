@@ -508,6 +508,9 @@ function groupCardsForGallery(
       [...variants].sort((left, right) =>
         compareRepresentativePriority(left, right, versionMode),
       )[0] ?? variants[0];
+    const familyKey =
+      getCardIdentityCandidates(representative ?? variants[0]!).sort()[0] ??
+      normalizeSearchText(getCardBaseName((representative ?? variants[0]!).name));
     const baseName = pickGalleryDisplayName(variants);
     const artCount = new Set(
       variants.map((variant) => variant.imageUrl).filter(Boolean),
@@ -517,6 +520,7 @@ function groupCardsForGallery(
 
     return {
       ...(representative ?? variants[0]!),
+      familyKey,
       name: baseName,
       baseName,
       representativeName,

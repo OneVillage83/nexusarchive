@@ -12,6 +12,7 @@ export type CardCatalogSummary = {
   id: string;
   game: GameSlug;
   name: string;
+  familyKey?: string;
   baseName?: string;
   representativeName?: string | null;
   versionLabel?: string | null;
