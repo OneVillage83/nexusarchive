@@ -11,8 +11,48 @@ import {
 } from "@/lib/decks/config";
 import type { GameSlug } from "@/lib/games";
 
-const PANEL =
-  "rounded-3xl border border-white/15 bg-black/70 shadow-[0_0_35px_rgba(0,0,0,0.78)]";
+const SURFACE =
+  "rounded-[28px] border border-white/10 bg-black/45 shadow-[0_18px_60px_rgba(0,0,0,0.42)] backdrop-blur-sm";
+
+function isLandscapeCard(entry: Pick<DeckBuilderEntry, "sectionKey" | "typeLine">) {
+  return (
+    entry.sectionKey === "battlefields" ||
+    (entry.typeLine ?? "").toLowerCase().includes("battlefield")
+  );
+}
+
+function CardThumbnail({
+  imageUrl,
+  alt,
+  landscape,
+}: {
+  imageUrl: string | null | undefined;
+  alt: string;
+  landscape: boolean;
+}) {
+  return (
+    <div
+      className={`relative shrink-0 overflow-hidden rounded-2xl border border-white/12 bg-black/55 ${
+        landscape ? "h-16 w-[104px]" : "h-[92px] w-[66px]"
+      }`}
+    >
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={alt}
+          fill
+          unoptimized
+          sizes={landscape ? "104px" : "66px"}
+          className="object-contain"
+        />
+      ) : (
+        <div className="flex h-full items-center justify-center px-2 text-center text-[10px] text-amber-50/45">
+          No art
+        </div>
+      )}
+    </div>
+  );
+}
 
 type DeckCanvasProps = {
   game: GameSlug;
@@ -24,13 +64,6 @@ type DeckCanvasProps = {
   onRemove?: (familyKey: string) => void;
   onSectionChange?: (familyKey: string, sectionKey: string) => void;
 };
-
-function isLandscapeCard(entry: DeckBuilderEntry) {
-  return (
-    entry.sectionKey === "battlefields" ||
-    (entry.typeLine ?? "").toLowerCase().includes("battlefield")
-  );
-}
 
 export function DeckCanvas({
   game,
@@ -53,178 +86,165 @@ export function DeckCanvas({
   );
 
   return (
-    <section className={`${PANEL} p-4 sm:p-5`}>
-      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+    <section className="space-y-4">
+      <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
-            Deck Canvas
+            Deck Board
           </p>
           <h2 className="mt-2 text-xl font-semibold text-amber-50">
-            Build in live columns
+            Category columns
           </h2>
-          <p className="mt-1 max-w-3xl text-sm text-amber-50/75">
-            Each section keeps its own lane, so the deck reads more like an actual
-            build surface and less like a giant receipt.
+          <p className="mt-1 text-sm text-amber-50/70">
+            Build straight on the board. Each lane owns its own cardboard mess.
           </p>
+        </div>
+        <div className="rounded-full border border-white/12 bg-black/45 px-4 py-2 text-xs text-amber-100/75">
+          {entries.reduce((sum, entry) => sum + entry.quantity, 0)} cards across{" "}
+          {sections.length} columns
         </div>
       </div>
 
       <div className="overflow-x-auto pb-2">
-        <div
-          className="grid min-w-max gap-4"
-          style={{
-            gridTemplateColumns: `repeat(${sections.length}, minmax(220px, 1fr))`,
-          }}
-        >
+        <div className="flex min-w-max gap-3 lg:gap-4">
           {sections.map((section) => {
             const cards = entriesBySection.get(section.key) ?? [];
             const totalCards = cards.reduce((sum, entry) => sum + entry.quantity, 0);
 
             return (
-              <div
+              <section
                 key={section.key}
-                className="rounded-2xl border border-white/10 bg-black/45 p-3 shadow-[0_0_20px_rgba(0,0,0,0.4)]"
+                className={`${SURFACE} w-[250px] shrink-0 p-3`}
               >
-                <div className="mb-3 flex items-start justify-between gap-2">
+                <div className="mb-3 flex items-start justify-between gap-3">
                   <div>
                     <h3 className="text-sm font-semibold text-amber-100">
                       {section.label}
                     </h3>
-                    <p className="mt-1 text-[11px] text-amber-50/60">
+                    <p className="mt-1 text-[11px] leading-5 text-amber-50/52">
                       {section.description}
                     </p>
                   </div>
-                  <div className="rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-amber-200">
+                  <span className="rounded-full border border-white/12 bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-amber-200">
                     {totalCards}
-                  </div>
+                  </span>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {cards.length === 0 ? (
-                    <div className="rounded-2xl border border-dashed border-white/15 bg-black/35 px-3 py-5 text-center text-[11px] text-amber-50/50">
-                      Empty for now. Add a card and this column wakes up.
+                    <div className="rounded-2xl border border-dashed border-white/12 bg-black/35 px-3 py-6 text-center text-[11px] text-amber-50/45">
+                      Empty column. Add something reckless.
                     </div>
                   ) : (
-                    cards.map((entry) => (
-                      <article
-                        key={entry.familyKey}
-                        className="rounded-2xl border border-white/12 bg-black/65 p-2 shadow-[0_0_16px_rgba(0,0,0,0.45)]"
-                      >
-                        <div className="flex gap-3">
-                          <div
-                            className={`relative overflow-hidden rounded-xl border border-white/10 bg-black/50 ${
-                              isLandscapeCard(entry)
-                                ? "h-24 w-32"
-                                : "h-28 w-20"
-                            }`}
-                          >
-                            {entry.imageUrl ? (
-                              <Image
-                                src={entry.imageUrl}
-                                alt={entry.cardName}
-                                fill
-                                sizes={isLandscapeCard(entry) ? "128px" : "80px"}
-                                className="object-contain"
-                              />
-                            ) : (
-                              <div className="flex h-full items-center justify-center px-2 text-center text-[10px] text-amber-50/45">
-                                No art loaded yet
-                              </div>
-                            )}
-                          </div>
+                    cards.map((entry) => {
+                      const landscape = isLandscapeCard(entry);
 
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="min-w-0">
-                                <h4 className="truncate text-sm font-semibold text-amber-50">
-                                  {entry.cardName}
-                                </h4>
-                                <p className="mt-0.5 text-[11px] text-amber-50/60">
-                                  {entry.typeLine ?? "Card"}
-                                </p>
-                              </div>
-                              <div className="rounded-full border border-white/10 bg-black/50 px-2 py-1 text-[10px] font-semibold text-amber-200">
-                                x{entry.quantity}
-                              </div>
-                            </div>
+                      return (
+                        <article
+                          key={entry.familyKey}
+                          className="rounded-2xl border border-white/12 bg-black/60 p-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)]"
+                        >
+                          <div className="flex gap-3">
+                            <CardThumbnail
+                              imageUrl={entry.imageUrl}
+                              alt={entry.cardName}
+                              landscape={landscape}
+                            />
 
-                            <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-50/75">
-                              {entry.cost != null ? (
-                                <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1 text-amber-100">
-                                  Cost {entry.cost}
-                                </span>
-                              ) : null}
-                              {entry.domainValues.slice(0, 3).map((domain) => (
-                                <span
-                                  key={domain}
-                                  className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
-                                >
-                                  {domain}
-                                </span>
-                              ))}
-                              {entry.versionLabel ? (
-                                <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                                  {entry.versionLabel}
-                                </span>
-                              ) : null}
-                            </div>
-
-                            {editable ? (
-                              <div className="mt-3 space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => onDecrement?.(entry.familyKey)}
-                                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-black/60 text-sm text-amber-50 hover:bg-white/10"
-                                  >
-                                    −
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => onIncrement?.(entry.familyKey)}
-                                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-black/60 text-sm text-amber-50 hover:bg-white/10"
-                                  >
-                                    +
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => onRemove?.(entry.familyKey)}
-                                    className="rounded-full border border-rose-300/20 bg-rose-500/10 px-2.5 py-1 text-[10px] font-semibold text-rose-100 hover:bg-rose-500/20"
-                                  >
-                                    Remove
-                                  </button>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0">
+                                  <h4 className="truncate text-sm font-semibold text-amber-50">
+                                    {entry.cardName}
+                                  </h4>
+                                  <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/58">
+                                    {entry.typeLine ?? "Card"}
+                                  </p>
                                 </div>
-                                <label className="block text-[10px] uppercase tracking-[0.22em] text-amber-200/65">
-                                  Move To
-                                  <select
-                                    value={entry.sectionKey}
-                                    onChange={(event) =>
-                                      onSectionChange?.(
-                                        entry.familyKey,
-                                        event.target.value,
-                                      )
-                                    }
-                                    className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2 py-1.5 text-[11px] text-amber-50"
-                                  >
-                                    {sections.map((sectionOption) => (
-                                      <option
-                                        key={sectionOption.key}
-                                        value={sectionOption.key}
-                                      >
-                                        {sectionOption.label}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </label>
+                                <span className="rounded-xl border border-white/12 bg-black/55 px-2 py-1 text-[10px] font-semibold text-amber-200">
+                                  x{entry.quantity}
+                                </span>
                               </div>
-                            ) : null}
+
+                              <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/72">
+                                {entry.cost != null ? (
+                                  <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">
+                                    Cost {entry.cost}
+                                  </span>
+                                ) : null}
+                                {entry.domainValues.slice(0, 2).map((domain) => (
+                                  <span
+                                    key={domain}
+                                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
+                                  >
+                                    {domain}
+                                  </span>
+                                ))}
+                                {entry.versionLabel ? (
+                                  <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                                    {entry.versionLabel}
+                                  </span>
+                                ) : null}
+                              </div>
+
+                              {editable ? (
+                                <div className="mt-3 space-y-2">
+                                  <div className="flex flex-wrap items-center gap-1.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => onDecrement?.(entry.familyKey)}
+                                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-black/60 text-sm text-amber-50 hover:bg-white/10"
+                                    >
+                                      −
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => onIncrement?.(entry.familyKey)}
+                                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-black/60 text-sm text-amber-50 hover:bg-white/10"
+                                    >
+                                      +
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => onRemove?.(entry.familyKey)}
+                                      className="rounded-full border border-rose-300/20 bg-rose-500/10 px-2.5 py-1 text-[10px] font-semibold text-rose-100 hover:bg-rose-500/20"
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
+
+                                  <label className="block text-[10px] uppercase tracking-[0.2em] text-amber-200/62">
+                                    Move To
+                                    <select
+                                      value={entry.sectionKey}
+                                      onChange={(event) =>
+                                        onSectionChange?.(
+                                          entry.familyKey,
+                                          event.target.value,
+                                        )
+                                      }
+                                      className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2.5 py-2 text-[11px] text-amber-50"
+                                    >
+                                      {sections.map((sectionOption) => (
+                                        <option
+                                          key={sectionOption.key}
+                                          value={sectionOption.key}
+                                        >
+                                          {sectionOption.label}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </label>
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
-                        </div>
-                      </article>
-                    ))
+                        </article>
+                      );
+                    })
                   )}
                 </div>
-              </div>
+              </section>
             );
           })}
         </div>
@@ -249,46 +269,46 @@ export function DeckStatsPanel({
   const stats = computeDeckStats(game, formatKey, rulesMode, entries);
 
   return (
-    <section className={`${PANEL} p-4 sm:p-5`}>
-      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+    <section className={`${SURFACE} p-4 sm:p-5`}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
-            Deck Stats
+            Deck Snapshot
           </p>
           <h2 className="mt-2 text-xl font-semibold text-amber-50">
             {game === "magic-the-gathering"
-              ? "Mana, type, and format snapshot"
+              ? "Mana, type, and color read"
               : game === "one-piece"
-                ? "Leader, color, and DON!! snapshot"
-                : "Domain, curve, and section snapshot"}
+                ? "Crew, color, and DON!! read"
+                : "Domain, curve, and section read"}
           </h2>
-          <p className="mt-1 text-sm text-amber-50/70">
+          <p className="mt-1 text-sm text-amber-50/65">
             Rules mode: {getRulesModeLabel(game, rulesMode)}.
           </p>
         </div>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {stats.headline.map((metric) => (
           <div
             key={metric.label}
-            className="rounded-2xl border border-white/12 bg-black/55 p-3"
+            className="rounded-2xl border border-white/12 bg-black/50 p-3"
           >
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-200/70">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200/72">
               {metric.label}
             </div>
             <div className="mt-2 text-2xl font-semibold text-amber-50">
               {metric.value}
             </div>
             {metric.note ? (
-              <div className="mt-1 text-xs text-amber-50/60">{metric.note}</div>
+              <div className="mt-1 text-xs text-amber-50/58">{metric.note}</div>
             ) : null}
           </div>
         ))}
       </div>
 
       <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        <div className="space-y-4">
+        <div className="grid gap-4">
           <StatsBarGroup title="Section mix" bars={stats.sectionBars} />
           <StatsBarGroup
             title={game === "magic-the-gathering" ? "Mana curve" : "Cost curve"}
@@ -307,7 +327,7 @@ export function DeckStatsPanel({
           <div className="mt-3 space-y-2 text-sm">
             {stats.issues.length === 0 ? (
               <div className="rounded-2xl border border-emerald-300/20 bg-emerald-500/10 px-3 py-2 text-emerald-100">
-                This shell is not throwing obvious legality tantrums right now.
+                Nothing obvious is exploding in the rules layer right now.
               </div>
             ) : (
               stats.issues.map((issue, index) => (
@@ -349,8 +369,8 @@ function StatsBarGroup({
       <h3 className="text-sm font-semibold text-amber-100">{title}</h3>
       <div className="mt-3 space-y-2">
         {bars.length === 0 || bars.every((bar) => bar.count === 0) ? (
-          <div className="text-xs text-amber-50/50">
-            Nothing here yet. Add some cards and the numbers stop being coy.
+          <div className="text-xs text-amber-50/48">
+            No numbers yet. Add some cardboard and this section gets chatty.
           </div>
         ) : (
           bars.map((bar) => (
@@ -358,13 +378,16 @@ function StatsBarGroup({
               <div className="mb-1 flex items-center justify-between gap-3 text-xs text-amber-50/75">
                 <span>{bar.label}</span>
                 <span>
-                  {bar.count} <span className="text-amber-200/65">({bar.percent}%)</span>
+                  {bar.count}{" "}
+                  <span className="text-amber-200/65">({bar.percent}%)</span>
                 </span>
               </div>
               <div className="h-2 overflow-hidden rounded-full border border-white/10 bg-black/55">
                 <div
                   className="h-full bg-amber-400/90"
-                  style={{ width: `${Math.max(bar.percent, bar.count > 0 ? 6 : 0)}%` }}
+                  style={{
+                    width: `${Math.max(bar.percent, bar.count > 0 ? 6 : 0)}%`,
+                  }}
                 />
               </div>
             </div>
