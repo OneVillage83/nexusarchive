@@ -59,6 +59,10 @@ type DeckCanvasProps = {
   formatKey: string;
   entries: DeckBuilderEntry[];
   editable?: boolean;
+  workspace?: boolean;
+  showBoardHeader?: boolean;
+  showEmptySections?: boolean;
+  emptyMessage?: string | null;
   onIncrement?: (familyKey: string) => void;
   onDecrement?: (familyKey: string) => void;
   onRemove?: (familyKey: string) => void;
@@ -70,6 +74,10 @@ export function DeckCanvas({
   formatKey,
   entries,
   editable = false,
+  workspace = false,
+  showBoardHeader = true,
+  showEmptySections = true,
+  emptyMessage = "Search a card to start building.",
   onIncrement,
   onDecrement,
   onRemove,
@@ -84,54 +92,77 @@ export function DeckCanvas({
         .sort((left, right) => left.sortOrder - right.sortOrder),
     ]),
   );
+  const visibleSections = workspace
+    ? sections.filter((section) => (entriesBySection.get(section.key) ?? []).length > 0)
+    : sections;
+  const totalCards = entries.reduce((sum, entry) => sum + entry.quantity, 0);
+  const hasVisibleSections = visibleSections.length > 0;
 
   return (
-    <section className="space-y-4">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
-            Deck Board
-          </p>
-          <h2 className="mt-2 text-xl font-semibold text-amber-50">
-            Category columns
-          </h2>
-          <p className="mt-1 text-sm text-amber-50/70">
-            Build straight on the board. Each lane owns its own cardboard mess.
-          </p>
+    <section className={workspace ? "flex h-full min-h-0 flex-col gap-4" : "space-y-4"}>
+      {showBoardHeader ? (
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
+              Deck Board
+            </p>
+            <h2 className="mt-2 text-xl font-semibold text-amber-50">
+              Category columns
+            </h2>
+            <p className="mt-1 text-sm text-amber-50/70">
+              Build straight on the board. Each lane owns its own cardboard mess.
+            </p>
+          </div>
+          <div className="rounded-full border border-white/12 bg-black/45 px-4 py-2 text-xs text-amber-100/75">
+            {totalCards} cards across {visibleSections.length || sections.length} columns
+          </div>
         </div>
-        <div className="rounded-full border border-white/12 bg-black/45 px-4 py-2 text-xs text-amber-100/75">
-          {entries.reduce((sum, entry) => sum + entry.quantity, 0)} cards across{" "}
-          {sections.length} columns
-        </div>
-      </div>
+      ) : null}
 
-      <div className="overflow-x-auto pb-2">
-        <div className="flex min-w-max gap-3 lg:gap-4">
-          {sections.map((section) => {
+      {!hasVisibleSections ? (
+        workspace ? (
+          emptyMessage ? (
+            <div className="flex flex-1 items-center justify-center text-sm text-amber-50/40">
+              {emptyMessage}
+            </div>
+          ) : (
+            <div className="flex-1 min-h-0" />
+          )
+        ) : null
+      ) : (
+      <div className={workspace ? "min-h-0 flex-1 overflow-y-auto overflow-x-hidden pr-2" : "overflow-x-auto pb-2"}>
+        <div className={workspace ? "flex flex-wrap content-start items-start gap-6" : "flex min-w-max gap-3 lg:gap-4"}>
+          {visibleSections.map((section) => {
             const cards = entriesBySection.get(section.key) ?? [];
-            const totalCards = cards.reduce((sum, entry) => sum + entry.quantity, 0);
+            const sectionTotalCards = cards.reduce((sum, entry) => sum + entry.quantity, 0);
 
             return (
               <section
                 key={section.key}
-                className={`${SURFACE} w-[250px] shrink-0 p-3`}
+                className={
+                  workspace
+                    ? "w-[168px] shrink-0 space-y-3"
+                    : `${SURFACE} w-[250px] shrink-0 p-3`
+                }
               >
-                <div className="mb-3 flex items-start justify-between gap-3">
+                <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="text-sm font-semibold text-amber-100">
                       {section.label}
                     </h3>
-                    <p className="mt-1 text-[11px] leading-5 text-amber-50/52">
-                      {section.description}
-                    </p>
+                    {!workspace ? (
+                      <p className="mt-1 text-[11px] leading-5 text-amber-50/52">
+                        {section.description}
+                      </p>
+                    ) : null}
                   </div>
-                  <span className="rounded-full border border-white/12 bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-amber-200">
-                    {totalCards}
+                  <span className={`rounded-full ${workspace ? "border border-white/10 bg-black/30" : "border border-white/12 bg-black/60"} px-2.5 py-1 text-[11px] font-semibold text-amber-200`}>
+                    {sectionTotalCards}
                   </span>
                 </div>
 
-                <div className="space-y-2.5">
-                  {cards.length === 0 ? (
+                <div className={workspace ? "space-y-3" : "space-y-2.5"}>
+                  {cards.length === 0 && showEmptySections ? (
                     <div className="rounded-2xl border border-dashed border-white/12 bg-black/35 px-3 py-6 text-center text-[11px] text-amber-50/45">
                       Empty column. Add something reckless.
                     </div>
@@ -142,9 +173,13 @@ export function DeckCanvas({
                       return (
                         <article
                           key={entry.familyKey}
-                          className="rounded-2xl border border-white/12 bg-black/60 p-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)]"
+                          className={
+                            workspace
+                              ? "rounded-2xl border border-white/10 bg-black/24 p-2.5 shadow-[0_10px_24px_rgba(0,0,0,0.22)]"
+                              : "rounded-2xl border border-white/12 bg-black/60 p-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)]"
+                          }
                         >
-                          <div className="flex gap-3">
+                          <div className={workspace ? "space-y-2" : "flex gap-3"}>
                             <CardThumbnail
                               imageUrl={entry.imageUrl}
                               alt={entry.cardName}
@@ -154,41 +189,49 @@ export function DeckCanvas({
                             <div className="min-w-0 flex-1">
                               <div className="flex items-start justify-between gap-2">
                                 <div className="min-w-0">
-                                  <h4 className="truncate text-sm font-semibold text-amber-50">
+                                  <h4 className={`${workspace ? "line-clamp-2 text-[12px] leading-4" : "truncate text-sm"} font-semibold text-amber-50`}>
                                     {entry.cardName}
                                   </h4>
-                                  <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/58">
-                                    {entry.typeLine ?? "Card"}
-                                  </p>
+                                  {!workspace ? (
+                                    <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/58">
+                                      {entry.typeLine ?? "Card"}
+                                    </p>
+                                  ) : (
+                                    <p className="mt-1 text-[10px] text-amber-50/48">
+                                      {entry.typeLine ?? "Card"}
+                                    </p>
+                                  )}
                                 </div>
                                 <span className="rounded-xl border border-white/12 bg-black/55 px-2 py-1 text-[10px] font-semibold text-amber-200">
                                   x{entry.quantity}
                                 </span>
                               </div>
 
-                              <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/72">
-                                {entry.cost != null ? (
-                                  <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">
-                                    Cost {entry.cost}
-                                  </span>
-                                ) : null}
-                                {entry.domainValues.slice(0, 2).map((domain) => (
-                                  <span
-                                    key={domain}
-                                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
-                                  >
-                                    {domain}
-                                  </span>
-                                ))}
-                                {entry.versionLabel ? (
-                                  <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                                    {entry.versionLabel}
-                                  </span>
-                                ) : null}
-                              </div>
+                              {!workspace ? (
+                                <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/72">
+                                  {entry.cost != null ? (
+                                    <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">
+                                      Cost {entry.cost}
+                                    </span>
+                                  ) : null}
+                                  {entry.domainValues.slice(0, 2).map((domain) => (
+                                    <span
+                                      key={domain}
+                                      className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
+                                    >
+                                      {domain}
+                                    </span>
+                                  ))}
+                                  {entry.versionLabel ? (
+                                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                                      {entry.versionLabel}
+                                    </span>
+                                  ) : null}
+                                </div>
+                              ) : null}
 
                               {editable ? (
-                                <div className="mt-3 space-y-2">
+                                <div className={`${workspace ? "mt-2" : "mt-3"} space-y-2`}>
                                   <div className="flex flex-wrap items-center gap-1.5">
                                     <button
                                       type="button"
@@ -213,28 +256,30 @@ export function DeckCanvas({
                                     </button>
                                   </div>
 
-                                  <label className="block text-[10px] uppercase tracking-[0.2em] text-amber-200/62">
-                                    Move To
-                                    <select
-                                      value={entry.sectionKey}
-                                      onChange={(event) =>
-                                        onSectionChange?.(
-                                          entry.familyKey,
-                                          event.target.value,
-                                        )
-                                      }
-                                      className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2.5 py-2 text-[11px] text-amber-50"
-                                    >
-                                      {sections.map((sectionOption) => (
-                                        <option
-                                          key={sectionOption.key}
-                                          value={sectionOption.key}
-                                        >
-                                          {sectionOption.label}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </label>
+                                  {!workspace ? (
+                                    <label className="block text-[10px] uppercase tracking-[0.2em] text-amber-200/62">
+                                      Move To
+                                      <select
+                                        value={entry.sectionKey}
+                                        onChange={(event) =>
+                                          onSectionChange?.(
+                                            entry.familyKey,
+                                            event.target.value,
+                                          )
+                                        }
+                                        className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2.5 py-2 text-[11px] text-amber-50"
+                                      >
+                                        {sections.map((sectionOption) => (
+                                          <option
+                                            key={sectionOption.key}
+                                            value={sectionOption.key}
+                                          >
+                                            {sectionOption.label}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </label>
+                                  ) : null}
                                 </div>
                               ) : null}
                             </div>
@@ -249,6 +294,7 @@ export function DeckCanvas({
           })}
         </div>
       </div>
+      )}
     </section>
   );
 }

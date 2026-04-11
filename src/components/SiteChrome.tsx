@@ -36,6 +36,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
     pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
   const isGlobalInfoPage =
     pathname === "/about" || pathname === "/contact" || pathname === "/legal";
+  const isDeckBuilderPage = pathname.includes("/deckbuilder");
 
   const backgroundImage =
     activeGameConfig?.backgroundImage ?? GATEWAY_BACKGROUND;
@@ -400,9 +401,18 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
           </header>
 
           <main className="flex-1">
-            <div className="mx-auto max-w-6xl px-4 py-0">{children}</div>
+            <div
+              className={
+                isDeckBuilderPage
+                  ? "w-full px-0 py-0"
+                  : "mx-auto max-w-6xl px-4 py-0"
+              }
+            >
+              {children}
+            </div>
           </main>
 
+          {!isDeckBuilderPage ? (
           <footer className="mt-10 border-t border-white/10 bg-black/40 backdrop-blur-sm">
             <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/80">
               <div className="grid gap-6 md:grid-cols-4">
@@ -537,6 +547,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
               )}
             </div>
           </footer>
+          ) : null}
         </div>
       </div>
     </div>

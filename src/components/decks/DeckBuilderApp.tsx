@@ -1,11 +1,10 @@
 "use client";
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { DeckCanvas, DeckStatsPanel } from "@/components/decks/DeckPresentation";
+import { DeckCanvas } from "@/components/decks/DeckPresentation";
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import {
   buildDeckEntryFromCard,
@@ -148,55 +147,6 @@ function remapEntriesForFormat(game: GameSlug, formatKey: string, entries: DeckB
   return nextEntries;
 }
 
-function isLandscapeSearchCard(card: Pick<CardCatalogSummary, "type">, sectionKey: string) {
-  return sectionKey === "battlefields" || (card.type ?? "").toLowerCase().includes("battlefield");
-}
-
-function BuilderSearchResult({
-  card,
-  targetLabel,
-  landscape,
-  onAdd,
-}: {
-  card: CardCatalogSummary;
-  targetLabel: string;
-  landscape: boolean;
-  onAdd: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onAdd}
-      className="rounded-2xl border border-white/10 bg-black/55 p-2.5 text-left transition hover:border-amber-300/30 hover:bg-black/70"
-    >
-      <div className="flex gap-3">
-        <div className={`relative shrink-0 overflow-hidden rounded-2xl border border-white/12 bg-black/55 ${landscape ? "h-16 w-[104px]" : "h-[92px] w-[66px]"}`}>
-          {card.imageUrl ? (
-            <Image src={card.imageUrl} alt={card.name} fill unoptimized sizes={landscape ? "104px" : "66px"} className="object-contain" />
-          ) : (
-            <div className="flex h-full items-center justify-center px-2 text-center text-[10px] text-amber-50/45">No art</div>
-          )}
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-start justify-between gap-2">
-            <div className="min-w-0">
-              <div className="truncate text-sm font-semibold text-amber-50">{card.name}</div>
-              <div className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/60">{card.type ?? "Card"}</div>
-            </div>
-            <span className="rounded-full bg-amber-400 px-2.5 py-1 text-[10px] font-semibold text-slate-950">Add</span>
-          </div>
-          <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/70">
-            {card.energyCost != null ? <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">Cost {card.energyCost}</span> : null}
-            {card.domains.slice(0, 2).map((domain) => <span key={domain} className="rounded-full border border-white/10 bg-white/5 px-2 py-1">{domain}</span>)}
-            {card.versionLabel ? <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">{card.versionLabel}</span> : null}
-          </div>
-          <div className="mt-2 text-[11px] text-amber-200/78">To {targetLabel}</div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
 function DeckDetailsPanel({
   draft,
   setDescription,
@@ -255,6 +205,7 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   const [draft, setDraft] = useState(() => buildDraftFromInitialDeck(game, initialDeck));
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const deferredSearchText = useDeferredValue(searchText);
   const [searchResults, setSearchResults] = useState<CardCatalogSummary[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -265,6 +216,7 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   const hasHydratedRef = useRef(false);
   const draftRef = useRef(draft);
   const autoSaveTriggeredRef = useRef(false);
+  const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     draftRef.current = draft;
@@ -329,7 +281,6 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
     return () => controller.abort();
   }, [deferredSearchText, game]);
 
-  const sections = useMemo(() => getDeckSections(game, draft.formatKey), [draft.formatKey, game]);
   const formatOptions = useMemo(() => getDeckFormatOptions(game), [game]);
   const rulesOptions = useMemo(() => {
     const format = formatOptions.find((option) => option.key === draft.formatKey);
@@ -495,40 +446,60 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
     void handleSave(true);
   }, [draft.pendingSave, handleSave, userId]);
 
-  return (
-    <main className="px-3 pb-10 pt-4 sm:px-4 lg:px-6 xl:px-8">
-      <div className="mx-auto w-full max-w-[1880px]">
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
-                {game === "magic-the-gathering" ? "Spell Workbench" : game === "one-piece" ? "Crew Workshop" : "Rift Workshop"}
-              </p>
-              <h1 className="mt-2 text-2xl font-semibold text-amber-50 sm:text-3xl">Build directly on the board</h1>
-              <p className="mt-1 text-sm text-amber-50/70">Start building immediately. Save only when you want the archive to remember it.</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <Link href={buildGamePath(game, "decklists")} className="rounded-full border border-white/15 bg-black/55 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10">View deck lists</Link>
-              <button type="button" onClick={() => setDetailsOpen((current) => !current)} className="rounded-full border border-white/15 bg-black/55 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10">
-                {detailsOpen ? "Hide deck details" : "Deck details"}
-              </button>
-              <button type="button" onClick={() => void handleSave(false)} disabled={isSaving} className="rounded-full bg-amber-400 px-4 py-2 text-xs font-semibold text-slate-950 shadow-[0_0_20px_rgba(0,0,0,0.45)] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60">
-                {isSaving ? "Saving..." : draft.deckId ? "Save updates" : "Save deck"}
-              </button>
-            </div>
-          </div>
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (searchContainerRef.current?.contains(target)) return;
+      setSearchOpen(false);
+    }
 
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setSearchOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  const showSearchDropdown = searchOpen && searchText.trim().length > 0;
+
+  function clearSearch() {
+    setSearchText("");
+    setSearchResults([]);
+    setSearchError(null);
+    setSearchLoading(false);
+    setSearchOpen(false);
+  }
+
+  function addCardFromSearch(card: CardCatalogSummary) {
+    addCard(card);
+    clearSearch();
+  }
+
+  return (
+    <>
+      <main className="h-[calc(100vh-88px)] overflow-hidden px-3 py-4 sm:px-4 lg:px-6 xl:px-8">
+        <div className="mx-auto flex h-full w-full max-w-[1880px] flex-col gap-4">
           <div className="flex flex-wrap items-end gap-3">
-            <label className="min-w-[260px] flex-[1.2] text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
+            <label className="min-w-[260px] flex-[1.25] text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
               Deck Name
               <input
                 value={draft.name}
                 onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))}
-                className="mt-2 w-full rounded-2xl border border-white/15 bg-black/55 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
-                placeholder="Name your pile of cardboard"
+                className="mt-2 h-12 w-full rounded-2xl border border-white/12 bg-black/40 px-4 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
+                placeholder="Name your deck"
               />
             </label>
-            <label className="min-w-[180px] text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
+
+            <label className="min-w-[180px] text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
               Format
               <select
                 value={draft.formatKey}
@@ -541,120 +512,174 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
                     entries: remapEntriesForFormat(game, formatKey, current.entries),
                   }));
                 }}
-                className="mt-2 w-full rounded-2xl border border-white/15 bg-black/55 px-4 py-3 text-sm text-amber-50"
+                className="mt-2 h-12 w-full rounded-2xl border border-white/12 bg-black/40 px-4 text-sm text-amber-50"
               >
-                {formatOptions.map((option) => <option key={option.key} value={option.key}>{option.label}</option>)}
+                {formatOptions.map((option) => (
+                  <option key={option.key} value={option.key}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
             </label>
-            <label className="min-w-[180px] text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
+
+            <label className="min-w-[180px] text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-200/75">
               Rules Mode
               <select
                 value={draft.rulesMode}
-                onChange={(event) => updateDraft((current) => ({ ...current, rulesMode: normalizeRulesMode(game, current.formatKey, event.target.value) }))}
-                className="mt-2 w-full rounded-2xl border border-white/15 bg-black/55 px-4 py-3 text-sm text-amber-50"
+                onChange={(event) =>
+                  updateDraft((current) => ({
+                    ...current,
+                    rulesMode: normalizeRulesMode(game, current.formatKey, event.target.value),
+                  }))
+                }
+                className="mt-2 h-12 w-full rounded-2xl border border-white/12 bg-black/40 px-4 text-sm text-amber-50"
               >
-                {rulesOptions.map((mode) => <option key={mode} value={mode}>{mode === "HOUSE" ? "House Rules" : mode === "COMPETITIVE" ? "Competitive" : "Standard Rules"}</option>)}
+                {rulesOptions.map((mode) => (
+                  <option key={mode} value={mode}>
+                    {mode === "HOUSE"
+                      ? "House Rules"
+                      : mode === "COMPETITIVE"
+                        ? "Competitive"
+                        : "Standard Rules"}
+                  </option>
+                ))}
               </select>
             </label>
+
+            <div className="ml-auto flex flex-wrap items-center gap-2 pb-[1px]">
+              <Link
+                href={buildGamePath(game, "decklists")}
+                className="rounded-full border border-white/15 bg-black/45 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10"
+              >
+                View deck lists
+              </Link>
+              <button
+                type="button"
+                onClick={() => setDetailsOpen((current) => !current)}
+                className="rounded-full border border-white/15 bg-black/45 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10"
+              >
+                Deck details
+              </button>
+              <button
+                type="button"
+                onClick={() => void handleSave(false)}
+                disabled={isSaving}
+                className="rounded-full bg-amber-400 px-4 py-2 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(0,0,0,0.3)] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSaving ? "Saving..." : draft.deckId ? "Save updates" : "Save deck"}
+              </button>
+            </div>
           </div>
 
           {saveMessage || saveError ? (
-            <div className={`rounded-2xl border px-4 py-3 text-sm ${saveError ? "border-rose-300/20 bg-rose-500/10 text-rose-100" : "border-emerald-300/20 bg-emerald-500/10 text-emerald-100"}`}>
+            <div
+              className={`rounded-2xl border px-4 py-3 text-sm ${
+                saveError
+                  ? "border-rose-300/20 bg-rose-500/10 text-rose-100"
+                  : "border-emerald-300/20 bg-emerald-500/10 text-emerald-100"
+              }`}
+            >
               {saveError ?? saveMessage}
             </div>
           ) : null}
 
-          <div className={`grid gap-4 ${detailsOpen ? "xl:grid-cols-[minmax(0,1fr)_360px]" : ""}`}>
-            <div className="min-w-0 space-y-4">
-              <DeckCanvas game={game} formatKey={draft.formatKey} entries={draft.entries} editable onIncrement={incrementCard} onDecrement={decrementCard} onRemove={removeCard} onSectionChange={moveCard} />
+          <div className="flex flex-wrap items-center gap-3">
+            <div ref={searchContainerRef} className="relative min-w-[280px] max-w-[420px] flex-1">
+              <input
+                value={searchText}
+                onChange={(event) => {
+                  setSearchText(event.target.value);
+                  setSearchOpen(true);
+                }}
+                onFocus={() => {
+                  if (searchText.trim()) {
+                    setSearchOpen(true);
+                  }
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && searchResults.length > 0) {
+                    event.preventDefault();
+                    addCardFromSearch(searchResults[0]);
+                  }
+                }}
+                className="h-12 w-full rounded-2xl border border-white/12 bg-black/40 px-4 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
+                placeholder="Add card by name..."
+              />
 
-              <section className="rounded-[24px] border border-white/8 bg-black/20 p-4 backdrop-blur-[2px] sm:p-5">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">Add Cards</p>
-                    <h2 className="mt-2 text-lg font-semibold text-amber-50">Search the catalog</h2>
-                    <p className="mt-1 text-sm text-amber-50/62">Type a name, mechanic, trait, or card type to start populating results.</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 text-xs text-amber-100/72">
-                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">{sections.length} sections live</span>
-                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">{deckCardTotal} cards in deck</span>
-                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">
-                      {!searchText.trim() ? "Blank until you search" : searchLoading ? "Loading cards..." : `${searchResults.length} grouped cards ready`}
-                    </span>
-                  </div>
+              {showSearchDropdown ? (
+                <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 overflow-hidden rounded-2xl border border-white/12 bg-[#090909]/96 shadow-[0_18px_38px_rgba(0,0,0,0.45)] backdrop-blur-md">
+                  {searchLoading ? (
+                    <div className="px-4 py-3 text-sm text-amber-50/65">Searching...</div>
+                  ) : searchError ? (
+                    <div className="px-4 py-3 text-sm text-rose-100">{searchError}</div>
+                  ) : searchResults.length > 0 ? (
+                    <ul className="max-h-72 overflow-y-auto py-1">
+                      {searchResults.slice(0, 10).map((card) => (
+                        <li key={card.familyKey ?? card.id}>
+                          <button
+                            type="button"
+                            onClick={() => addCardFromSearch(card)}
+                            className="block w-full px-4 py-2.5 text-left text-sm text-amber-50 transition hover:bg-white/8"
+                          >
+                            {card.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="px-4 py-3 text-sm text-amber-50/55">No cards found.</div>
+                  )}
                 </div>
-
-                <div className={`mt-4 grid gap-4 ${detailsOpen ? "2xl:grid-cols-[minmax(0,1fr)_260px]" : ""}`}>
-                  <div className="space-y-3">
-                    <input
-                      value={searchText}
-                      onChange={(event) => setSearchText(event.target.value)}
-                      className="w-full rounded-2xl border border-white/15 bg-black/50 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
-                      placeholder={game === "magic-the-gathering" ? 'Search cards, mechanics, or deck glue...' : game === "one-piece" ? 'Search leaders, characters, or events...' : 'Search legends, units, battlefields, or runes...'}
-                    />
-                    {searchError ? <div className="rounded-2xl border border-rose-300/20 bg-rose-500/10 px-3 py-2 text-sm text-rose-100">{searchError}</div> : null}
-                    {!searchText.trim() ? (
-                      <div className="rounded-2xl border border-dashed border-white/12 bg-black/28 px-4 py-7 text-sm text-amber-50/52">
-                        The board starts blank on purpose. Search when you want to pull cards in.
-                      </div>
-                    ) : searchResults.length === 0 && !searchLoading ? (
-                      <div className="rounded-2xl border border-dashed border-white/12 bg-black/28 px-4 py-7 text-sm text-amber-50/52">
-                        No grouped cards are matching that search yet. Try a looser name, mechanic, or type.
-                      </div>
-                    ) : (
-                      <div className="grid gap-2 lg:grid-cols-2 2xl:grid-cols-3">
-                        {searchResults.map((card) => {
-                          const suggestedSection = inferDeckSection(game, draft.formatKey, { name: card.name, type: card.type, domains: card.domains, familyKey: card.familyKey }, draft.entries);
-                          const targetLabel = sections.find((section) => section.key === suggestedSection)?.shortLabel ?? suggestedSection;
-                          return <BuilderSearchResult key={card.familyKey ?? card.id} card={card} landscape={isLandscapeSearchCard(card, suggestedSection)} targetLabel={targetLabel} onAdd={() => addCard(card)} />;
-                        })}
-                      </div>
-                    )}
-                  </div>
-
-                  {detailsOpen ? (
-                    <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-amber-50/72">
-                      <h3 className="text-sm font-semibold text-amber-100">Builder notes</h3>
-                      <div className="mt-3 space-y-2 leading-6">
-                        <p>The board is grouped by gameplay card family, so alt arts and reprints do not spam duplicate build entries.</p>
-                        <p>Saved decks are public by default. Check the private box in Deck Details if you want the list to stay out of community decks.</p>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              </section>
-
-              <DeckStatsPanel game={game} formatKey={draft.formatKey} rulesMode={draft.rulesMode} entries={draft.entries} />
+              ) : null}
             </div>
 
-            {detailsOpen ? (
-              <aside className="hidden xl:block xl:self-start">
-                <div className="sticky top-24">
-                  <DeckDetailsPanel
-                    draft={draft}
-                    setDescription={(description) => updateDraft((current) => ({ ...current, description }))}
-                    setVisibility={(visibility) => updateDraft((current) => ({ ...current, visibility }))}
-                    userId={userId}
-                    authEnabled={authEnabled}
-                  />
-                </div>
-              </aside>
-            ) : null}
+            <div className="rounded-full border border-white/12 bg-black/35 px-3 py-2 text-xs text-amber-100/72">
+              {deckCardTotal} cards
+            </div>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-hidden">
+            <DeckCanvas
+              game={game}
+              formatKey={draft.formatKey}
+              entries={draft.entries}
+              editable
+              workspace
+              showBoardHeader={false}
+              showEmptySections={false}
+              emptyMessage={null}
+              onIncrement={incrementCard}
+              onDecrement={decrementCard}
+              onRemove={removeCard}
+              onSectionChange={moveCard}
+            />
           </div>
         </div>
-      </div>
+      </main>
 
       {detailsOpen ? (
-        <div className="xl:hidden">
-          <div className="fixed inset-0 z-40 bg-black/65 backdrop-blur-sm" onClick={() => setDetailsOpen(false)} />
-          <div className="fixed inset-x-0 bottom-0 z-50 max-h-[82vh] overflow-y-auto rounded-t-[28px] border border-white/12 bg-[#090909]/96 p-4 shadow-[0_-18px_50px_rgba(0,0,0,0.55)]">
-            <div className="mx-auto mb-4 h-1.5 w-14 rounded-full bg-white/20" />
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/55 backdrop-blur-sm"
+            onClick={() => setDetailsOpen(false)}
+          />
+
+          <div className="fixed inset-x-0 bottom-0 z-50 max-h-[82vh] overflow-y-auto rounded-t-[28px] border border-white/12 bg-[#090909]/96 p-4 shadow-[0_-18px_50px_rgba(0,0,0,0.55)] xl:inset-y-0 xl:right-0 xl:left-auto xl:max-h-none xl:w-[360px] xl:rounded-none xl:border-l xl:border-t-0 xl:p-5">
+            <div className="mx-auto mb-4 h-1.5 w-14 rounded-full bg-white/20 xl:hidden" />
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">Deck Details</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">
+                  Deck Details
+                </p>
                 <p className="mt-1 text-sm text-amber-50/65">Publish settings and notes</p>
               </div>
-              <button type="button" onClick={() => setDetailsOpen(false)} className="rounded-full border border-white/15 bg-black/55 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10">Close</button>
+              <button
+                type="button"
+                onClick={() => setDetailsOpen(false)}
+                className="rounded-full border border-white/15 bg-black/55 px-3 py-2 text-xs font-semibold text-amber-50 hover:bg-white/10"
+              >
+                Close
+              </button>
             </div>
             <DeckDetailsPanel
               draft={draft}
@@ -664,8 +689,8 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
               authEnabled={authEnabled}
             />
           </div>
-        </div>
+        </>
       ) : null}
-    </main>
+    </>
   );
 }
