@@ -265,7 +265,6 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   const hasHydratedRef = useRef(false);
   const draftRef = useRef(draft);
   const autoSaveTriggeredRef = useRef(false);
-  const detailsDefaultSetRef = useRef(false);
 
   useEffect(() => {
     draftRef.current = draft;
@@ -289,16 +288,17 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   }, [draft, game]);
 
   useEffect(() => {
-    if (detailsDefaultSetRef.current || typeof window === "undefined") return;
-    detailsDefaultSetRef.current = true;
-    if (window.matchMedia("(min-width: 1280px)").matches) setDetailsOpen(true);
-  }, []);
-
-  useEffect(() => {
     const controller = new AbortController();
     const query = deferredSearchText.trim();
 
     async function loadCards() {
+      if (!query) {
+        setSearchResults([]);
+        setSearchError(null);
+        setSearchLoading(false);
+        return;
+      }
+
       setSearchLoading(true);
       setSearchError(null);
 
@@ -308,7 +308,7 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
           q: query,
           page: "1",
           pageSize: "24",
-          sort: query ? "name-asc" : "cost-asc",
+          sort: "name-asc",
           versionMode: "premium",
         });
         const response = await fetch(`/api/cards?${params.toString()}`, { signal: controller.signal });
@@ -566,31 +566,41 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
 
           <div className={`grid gap-4 ${detailsOpen ? "xl:grid-cols-[minmax(0,1fr)_360px]" : ""}`}>
             <div className="min-w-0 space-y-4">
-              <section className={`${SURFACE} p-4 sm:p-5`}>
+              <DeckCanvas game={game} formatKey={draft.formatKey} entries={draft.entries} editable onIncrement={incrementCard} onDecrement={decrementCard} onRemove={removeCard} onSectionChange={moveCard} />
+
+              <section className="rounded-[24px] border border-white/8 bg-black/20 p-4 backdrop-blur-[2px] sm:p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/80">Add Cards</p>
-                    <h2 className="mt-2 text-xl font-semibold text-amber-50">Quick add tray</h2>
-                    <p className="mt-1 text-sm text-amber-50/65">Search grouped gameplay cards and drop them straight into the right column.</p>
+                    <h2 className="mt-2 text-lg font-semibold text-amber-50">Search the catalog</h2>
+                    <p className="mt-1 text-sm text-amber-50/62">Type a name, mechanic, trait, or card type to start populating results.</p>
                   </div>
                   <div className="flex flex-wrap gap-2 text-xs text-amber-100/72">
-                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-2">{sections.length} sections live</span>
-                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-2">{deckCardTotal} cards in deck</span>
-                    <span className="rounded-full border border-white/10 bg-black/45 px-3 py-2">{searchLoading ? "Loading cards..." : `${searchResults.length} grouped cards ready`}</span>
+                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">{sections.length} sections live</span>
+                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">{deckCardTotal} cards in deck</span>
+                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-2">
+                      {!searchText.trim() ? "Blank until you search" : searchLoading ? "Loading cards..." : `${searchResults.length} grouped cards ready`}
+                    </span>
                   </div>
                 </div>
 
-                <div className="mt-4 grid gap-4 2xl:grid-cols-[minmax(0,1fr)_260px]">
+                <div className={`mt-4 grid gap-4 ${detailsOpen ? "2xl:grid-cols-[minmax(0,1fr)_260px]" : ""}`}>
                   <div className="space-y-3">
                     <input
                       value={searchText}
                       onChange={(event) => setSearchText(event.target.value)}
-                      className="w-full rounded-2xl border border-white/15 bg-black/55 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
+                      className="w-full rounded-2xl border border-white/15 bg-black/50 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-amber-50/35"
                       placeholder={game === "magic-the-gathering" ? 'Search cards, mechanics, or deck glue...' : game === "one-piece" ? 'Search leaders, characters, or events...' : 'Search legends, units, battlefields, or runes...'}
                     />
                     {searchError ? <div className="rounded-2xl border border-rose-300/20 bg-rose-500/10 px-3 py-2 text-sm text-rose-100">{searchError}</div> : null}
-                    {searchResults.length === 0 && !searchLoading ? (
-                      <div className="rounded-2xl border border-dashed border-white/12 bg-black/35 px-4 py-6 text-sm text-amber-50/50">No cards are matching that search yet. Try a looser name, mechanic, or type.</div>
+                    {!searchText.trim() ? (
+                      <div className="rounded-2xl border border-dashed border-white/12 bg-black/28 px-4 py-7 text-sm text-amber-50/52">
+                        The board starts blank on purpose. Search when you want to pull cards in.
+                      </div>
+                    ) : searchResults.length === 0 && !searchLoading ? (
+                      <div className="rounded-2xl border border-dashed border-white/12 bg-black/28 px-4 py-7 text-sm text-amber-50/52">
+                        No grouped cards are matching that search yet. Try a looser name, mechanic, or type.
+                      </div>
                     ) : (
                       <div className="grid gap-2 lg:grid-cols-2 2xl:grid-cols-3">
                         {searchResults.map((card) => {
@@ -602,18 +612,18 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
                     )}
                   </div>
 
-                  <div className="rounded-2xl border border-white/10 bg-black/45 p-4 text-sm text-amber-50/72">
-                    <h3 className="text-sm font-semibold text-amber-100">Builder notes</h3>
-                    <div className="mt-3 space-y-2 leading-6">
-                      <p>The board is grouped by gameplay card family, so alt arts and reprints do not spam duplicate build entries.</p>
-                      <p>Saved decks are public by default. Check the private box in Deck Details if you want the list to stay out of community decks.</p>
-                      <p>Build first, sign in later. Save is the only thing that actually needs an account.</p>
+                  {detailsOpen ? (
+                    <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-amber-50/72">
+                      <h3 className="text-sm font-semibold text-amber-100">Builder notes</h3>
+                      <div className="mt-3 space-y-2 leading-6">
+                        <p>The board is grouped by gameplay card family, so alt arts and reprints do not spam duplicate build entries.</p>
+                        <p>Saved decks are public by default. Check the private box in Deck Details if you want the list to stay out of community decks.</p>
+                      </div>
                     </div>
-                  </div>
+                  ) : null}
                 </div>
               </section>
 
-              <DeckCanvas game={game} formatKey={draft.formatKey} entries={draft.entries} editable onIncrement={incrementCard} onDecrement={decrementCard} onRemove={removeCard} onSectionChange={moveCard} />
               <DeckStatsPanel game={game} formatKey={draft.formatKey} rulesMode={draft.rulesMode} entries={draft.entries} />
             </div>
 
