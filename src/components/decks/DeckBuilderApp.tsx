@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -206,6 +207,7 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchPreviewCard, setSearchPreviewCard] = useState<CardCatalogSummary | null>(null);
   const deferredSearchText = useDeferredValue(searchText);
   const [searchResults, setSearchResults] = useState<CardCatalogSummary[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -447,6 +449,10 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   }, [draft.pendingSave, handleSave, userId]);
 
   useEffect(() => {
+    setSearchPreviewCard(searchResults[0] ?? null);
+  }, [searchResults]);
+
+  useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       const target = event.target;
       if (!(target instanceof Node)) return;
@@ -477,6 +483,7 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
     setSearchError(null);
     setSearchLoading(false);
     setSearchOpen(false);
+    setSearchPreviewCard(null);
   }
 
   function addCardFromSearch(card: CardCatalogSummary) {
@@ -607,29 +614,70 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
               />
 
               {showSearchDropdown ? (
-                <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 overflow-hidden rounded-2xl border border-white/12 bg-[#090909]/96 shadow-[0_18px_38px_rgba(0,0,0,0.45)] backdrop-blur-md">
-                  {searchLoading ? (
-                    <div className="px-4 py-3 text-sm text-amber-50/65">Searching...</div>
-                  ) : searchError ? (
-                    <div className="px-4 py-3 text-sm text-rose-100">{searchError}</div>
-                  ) : searchResults.length > 0 ? (
-                    <ul className="max-h-72 overflow-y-auto py-1">
-                      {searchResults.slice(0, 10).map((card) => (
-                        <li key={card.familyKey ?? card.id}>
-                          <button
-                            type="button"
-                            onClick={() => addCardFromSearch(card)}
-                            className="block w-full px-4 py-2.5 text-left text-sm text-amber-50 transition hover:bg-white/8"
-                          >
-                            {card.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className="px-4 py-3 text-sm text-amber-50/55">No cards found.</div>
-                  )}
-                </div>
+                <>
+                  <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 overflow-hidden rounded-2xl border border-white/12 bg-[#090909]/96 shadow-[0_18px_38px_rgba(0,0,0,0.45)] backdrop-blur-md md:right-auto md:w-[360px]">
+                    {searchLoading ? (
+                      <div className="px-4 py-3 text-sm text-amber-50/65">Searching...</div>
+                    ) : searchError ? (
+                      <div className="px-4 py-3 text-sm text-rose-100">{searchError}</div>
+                    ) : searchResults.length > 0 ? (
+                      <ul className="max-h-72 overflow-y-auto py-1">
+                        {searchResults.slice(0, 10).map((card) => {
+                          const isActive = (searchPreviewCard?.familyKey ?? searchPreviewCard?.id) === (card.familyKey ?? card.id);
+
+                          return (
+                            <li key={card.familyKey ?? card.id}>
+                              <button
+                                type="button"
+                                onMouseEnter={() => setSearchPreviewCard(card)}
+                                onFocus={() => setSearchPreviewCard(card)}
+                                onClick={() => addCardFromSearch(card)}
+                                className={`block w-full px-4 py-2.5 text-left text-sm transition ${
+                                  isActive
+                                    ? "bg-white/10 text-amber-50"
+                                    : "text-amber-50 hover:bg-white/8"
+                                }`}
+                              >
+                                {card.name}
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : (
+                      <div className="px-4 py-3 text-sm text-amber-50/55">No cards found.</div>
+                    )}
+                  </div>
+
+                  {searchPreviewCard ? (
+                    <div className="pointer-events-none absolute left-[calc(100%+12px)] top-[calc(100%+8px)] z-40 hidden w-[220px] rounded-[24px] border border-white/12 bg-[#090909]/96 p-3 shadow-[0_18px_38px_rgba(0,0,0,0.45)] backdrop-blur-md lg:block">
+                      <div className="relative overflow-hidden rounded-[20px] border border-white/12 bg-black/50">
+                        <div
+                          className={`relative ${
+                            ((searchPreviewCard.type ?? "").toLowerCase().includes("battlefield"))
+                              ? "h-[132px]"
+                              : "h-[300px]"
+                          }`}
+                        >
+                          {searchPreviewCard.imageUrl ? (
+                            <Image
+                              src={searchPreviewCard.imageUrl}
+                              alt={searchPreviewCard.name}
+                              fill
+                              unoptimized
+                              sizes="220px"
+                              className="object-contain"
+                            />
+                          ) : (
+                            <div className="flex h-full items-center justify-center px-4 text-center text-xs text-amber-50/45">
+                              No preview art
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </>
               ) : null}
             </div>
 

@@ -25,15 +25,23 @@ function CardThumbnail({
   imageUrl,
   alt,
   landscape,
+  workspace = false,
 }: {
   imageUrl: string | null | undefined;
   alt: string;
   landscape: boolean;
+  workspace?: boolean;
 }) {
   return (
     <div
       className={`relative shrink-0 overflow-hidden rounded-2xl border border-white/12 bg-black/55 ${
-        landscape ? "h-16 w-[104px]" : "h-[92px] w-[66px]"
+        workspace
+          ? landscape
+            ? "h-[132px] w-full"
+            : "h-[300px] w-full"
+          : landscape
+            ? "h-16 w-[104px]"
+            : "h-[92px] w-[66px]"
       }`}
     >
       {imageUrl ? (
@@ -42,7 +50,15 @@ function CardThumbnail({
           alt={alt}
           fill
           unoptimized
-          sizes={landscape ? "104px" : "66px"}
+          sizes={
+            workspace
+              ? landscape
+                ? "220px"
+                : "220px"
+              : landscape
+                ? "104px"
+                : "66px"
+          }
           className="object-contain"
         />
       ) : (
@@ -141,7 +157,7 @@ export function DeckCanvas({
                 key={section.key}
                 className={
                   workspace
-                    ? "w-[168px] shrink-0 space-y-3"
+                    ? "w-[214px] shrink-0 space-y-3"
                     : `${SURFACE} w-[250px] shrink-0 p-3`
                 }
               >
@@ -170,16 +186,65 @@ export function DeckCanvas({
                     cards.map((entry) => {
                       const landscape = isLandscapeCard(entry);
 
+                      if (workspace) {
+                        return (
+                          <article
+                            key={entry.familyKey}
+                            className="group relative"
+                          >
+                            <CardThumbnail
+                              imageUrl={entry.imageUrl}
+                              alt={entry.cardName}
+                              landscape={landscape}
+                              workspace
+                            />
+
+                            {editable ? (
+                              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/88 via-black/35 to-transparent opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                                <div className="pointer-events-auto absolute right-2 top-2 rounded-full border border-white/12 bg-black/70 px-2 py-1 text-[10px] font-semibold text-amber-100 shadow-[0_8px_18px_rgba(0,0,0,0.3)]">
+                                  x{entry.quantity}
+                                </div>
+
+                                <div className="pointer-events-auto absolute inset-x-2 bottom-2 flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-1.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => onDecrement?.(entry.familyKey)}
+                                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-black/75 text-sm text-amber-50 hover:bg-white/10"
+                                    >
+                                      −
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => onIncrement?.(entry.familyKey)}
+                                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-black/75 text-sm text-amber-50 hover:bg-white/10"
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    onClick={() => onRemove?.(entry.familyKey)}
+                                    className="rounded-full border border-rose-300/20 bg-rose-500/15 px-3 py-1.5 text-[10px] font-semibold text-rose-100 hover:bg-rose-500/25"
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
+                              </div>
+                            ) : null}
+                          </article>
+                        );
+                      }
+
                       return (
                         <article
                           key={entry.familyKey}
                           className={
-                            workspace
-                              ? "rounded-2xl border border-white/10 bg-black/24 p-2.5 shadow-[0_10px_24px_rgba(0,0,0,0.22)]"
-                              : "rounded-2xl border border-white/12 bg-black/60 p-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)]"
+                            "rounded-2xl border border-white/12 bg-black/60 p-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)]"
                           }
                         >
-                          <div className={workspace ? "space-y-2" : "flex gap-3"}>
+                          <div className="flex gap-3">
                             <CardThumbnail
                               imageUrl={entry.imageUrl}
                               alt={entry.cardName}
@@ -189,49 +254,41 @@ export function DeckCanvas({
                             <div className="min-w-0 flex-1">
                               <div className="flex items-start justify-between gap-2">
                                 <div className="min-w-0">
-                                  <h4 className={`${workspace ? "line-clamp-2 text-[12px] leading-4" : "truncate text-sm"} font-semibold text-amber-50`}>
+                                  <h4 className="truncate text-sm font-semibold text-amber-50">
                                     {entry.cardName}
                                   </h4>
-                                  {!workspace ? (
-                                    <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/58">
-                                      {entry.typeLine ?? "Card"}
-                                    </p>
-                                  ) : (
-                                    <p className="mt-1 text-[10px] text-amber-50/48">
-                                      {entry.typeLine ?? "Card"}
-                                    </p>
-                                  )}
+                                  <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-amber-50/58">
+                                    {entry.typeLine ?? "Card"}
+                                  </p>
                                 </div>
                                 <span className="rounded-xl border border-white/12 bg-black/55 px-2 py-1 text-[10px] font-semibold text-amber-200">
                                   x{entry.quantity}
                                 </span>
                               </div>
 
-                              {!workspace ? (
-                                <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/72">
-                                  {entry.cost != null ? (
-                                    <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">
-                                      Cost {entry.cost}
-                                    </span>
-                                  ) : null}
-                                  {entry.domainValues.slice(0, 2).map((domain) => (
-                                    <span
-                                      key={domain}
-                                      className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
-                                    >
-                                      {domain}
-                                    </span>
-                                  ))}
-                                  {entry.versionLabel ? (
-                                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                                      {entry.versionLabel}
-                                    </span>
-                                  ) : null}
-                                </div>
-                              ) : null}
+                              <div className="mt-2 flex flex-wrap gap-1.5 text-[10px] text-amber-100/72">
+                                {entry.cost != null ? (
+                                  <span className="rounded-full border border-amber-300/25 bg-amber-400/10 px-2 py-1">
+                                    Cost {entry.cost}
+                                  </span>
+                                ) : null}
+                                {entry.domainValues.slice(0, 2).map((domain) => (
+                                  <span
+                                    key={domain}
+                                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
+                                  >
+                                    {domain}
+                                  </span>
+                                ))}
+                                {entry.versionLabel ? (
+                                  <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                                    {entry.versionLabel}
+                                  </span>
+                                ) : null}
+                              </div>
 
                               {editable ? (
-                                <div className={`${workspace ? "mt-2" : "mt-3"} space-y-2`}>
+                                <div className="mt-3 space-y-2">
                                   <div className="flex flex-wrap items-center gap-1.5">
                                     <button
                                       type="button"
@@ -256,30 +313,28 @@ export function DeckCanvas({
                                     </button>
                                   </div>
 
-                                  {!workspace ? (
-                                    <label className="block text-[10px] uppercase tracking-[0.2em] text-amber-200/62">
-                                      Move To
-                                      <select
-                                        value={entry.sectionKey}
-                                        onChange={(event) =>
-                                          onSectionChange?.(
-                                            entry.familyKey,
-                                            event.target.value,
-                                          )
-                                        }
-                                        className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2.5 py-2 text-[11px] text-amber-50"
-                                      >
-                                        {sections.map((sectionOption) => (
-                                          <option
-                                            key={sectionOption.key}
-                                            value={sectionOption.key}
-                                          >
-                                            {sectionOption.label}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    </label>
-                                  ) : null}
+                                  <label className="block text-[10px] uppercase tracking-[0.2em] text-amber-200/62">
+                                    Move To
+                                    <select
+                                      value={entry.sectionKey}
+                                      onChange={(event) =>
+                                        onSectionChange?.(
+                                          entry.familyKey,
+                                          event.target.value,
+                                        )
+                                      }
+                                      className="mt-1 w-full rounded-xl border border-white/15 bg-black/55 px-2.5 py-2 text-[11px] text-amber-50"
+                                    >
+                                      {sections.map((sectionOption) => (
+                                        <option
+                                          key={sectionOption.key}
+                                          value={sectionOption.key}
+                                        >
+                                          {sectionOption.label}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </label>
                                 </div>
                               ) : null}
                             </div>
