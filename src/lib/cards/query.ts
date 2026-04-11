@@ -27,6 +27,7 @@ import {
   cardCatalogMetaKey,
   cardCatalogSummaryKey,
   cardCatalogTokenKey,
+  cardCatalogTokenRegistryKey,
   isCatalogCardEnglish,
   normalizeSearchText,
   tokenizeForIndex,
@@ -93,6 +94,11 @@ const groupedCardsCache = new Map<
   string,
   { importedAt: string; cards: CardCatalogSummary[]; expiresAt: number }
 >();
+const tokenRegistryCache = new Map<
+  GameSlug,
+  { tokens: string[]; expiresAt: number }
+>();
+const TOKEN_REGISTRY_CACHE_TTL_MS = 1000 * 60 * 5;
 
 export function parseCardPage(value: string | null) {
   const parsed = Number.parseInt(value ?? "1", 10);
@@ -591,6 +597,95 @@ async function getIdsForTokens(
   return intersectIds(groups);
 }
 
+function extractTokenFromRegistryKey(registryKey: string) {
+  const marker = ":token:";
+  const markerIndex = registryKey.lastIndexOf(marker);
+  return markerIndex >= 0
+    ? registryKey.slice(markerIndex + marker.length)
+    : registryKey;
+}
+
+async function getTokenRegistry(game: GameSlug) {
+  const cached = tokenRegistryCache.get(game);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.tokens;
+  }
+
+  const redis = getRedis();
+  if (!redis) {
+    return [];
+  }
+
+  const registryKeys =
+    ((await redis.smembers(cardCatalogTokenRegistryKey(game))) as string[] | null) ??
+    [];
+  const tokens = registryKeys
+    .map(extractTokenFromRegistryKey)
+    .filter(Boolean)
+    .sort((left, right) =>
+      left.length === right.length ? left.localeCompare(right) : left.length - right.length,
+    );
+
+  tokenRegistryCache.set(game, {
+    tokens,
+    expiresAt: Date.now() + TOKEN_REGISTRY_CACHE_TTL_MS,
+  });
+
+  return tokens;
+}
+
+async function getIdsForTokenPrefix(game: GameSlug, token: string) {
+  const redis = getRedis();
+  if (!redis || !token) {
+    return [];
+  }
+
+  const registry = await getTokenRegistry(game);
+  const prefixMatches = registry.filter((candidate) => candidate.startsWith(token));
+
+  if (prefixMatches.length === 0) {
+    return [];
+  }
+
+  const matchGroups = await Promise.all(
+    prefixMatches.slice(0, 50).map(
+      async (candidate) =>
+        (((await redis.smembers(
+          cardCatalogTokenKey(game, candidate),
+        )) as string[] | null) ?? []),
+    ),
+  );
+
+  return unionIds(matchGroups);
+}
+
+async function getIdsForTokensPredictive(
+  game: GameSlug,
+  tokens: string[],
+) {
+  const redis = getRedis();
+  if (!redis || tokens.length === 0) {
+    return [];
+  }
+
+  const groups = await Promise.all(
+    tokens.map(async (token) => {
+      const exactIds =
+        (((await redis.smembers(
+          cardCatalogTokenKey(game, token),
+        )) as string[] | null) ?? []);
+
+      if (exactIds.length > 0) {
+        return exactIds;
+      }
+
+      return getIdsForTokenPrefix(game, token);
+    }),
+  );
+
+  return intersectIds(groups);
+}
+
 async function getIdsForFilterValues(
   game: GameSlug,
   values: string[],
@@ -828,7 +923,7 @@ async function queryRedisCards({
           const candidateGroups: string[][] = [];
 
           if (queryTokens.length > 0) {
-            candidateGroups.push(await getIdsForTokens(game, queryTokens));
+            candidateGroups.push(await getIdsForTokensPredictive(game, queryTokens));
           }
 
           if (filters.domains.length > 0) {
