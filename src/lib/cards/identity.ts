@@ -116,26 +116,113 @@ function getAliasIdentityNames(
   return [...aliases].filter(Boolean);
 }
 
+function normalizeCollectorIdentity(value: string | null | undefined) {
+  const compacted = compactText(value);
+  if (!compacted) {
+    return null;
+  }
+
+  return compacted
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function buildGameplayFingerprint(
+  card: Pick<
+    CardCatalogSummary,
+    "type" | "text" | "energyCost" | "power" | "might" | "hp"
+  >,
+) {
+  return compactText(
+    normalizeSearchText(
+      [
+        compactText(card.type),
+        compactText(card.text),
+        card.energyCost != null ? String(card.energyCost) : null,
+        card.power != null ? String(card.power) : null,
+        card.might != null ? String(card.might) : null,
+        card.hp != null ? String(card.hp) : null,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    ),
+  );
+}
+
 export function getCardIdentityCandidates(
-  card: Pick<CardCatalogSummary, "game" | "name">,
+  card: Pick<
+    CardCatalogSummary,
+    | "game"
+    | "name"
+    | "collectorNo"
+    | "type"
+    | "text"
+    | "energyCost"
+    | "power"
+    | "might"
+    | "hp"
+  >,
 ) {
   const candidates = new Set<string>();
   const primaryIdentity = normalizeCardIdentityName(card.name);
+  const collectorIdentity = normalizeCollectorIdentity(card.collectorNo);
+  const gameplayFingerprint = buildGameplayFingerprint(card);
 
-  if (primaryIdentity) {
+  if (
+    collectorIdentity &&
+    (card.game === "one-piece" || card.game === "riftbound")
+  ) {
+    candidates.add(`collector:${collectorIdentity}`);
+    return [...candidates];
+  }
+
+  if (collectorIdentity) {
+    candidates.add(`collector:${collectorIdentity}`);
+  }
+
+  if (primaryIdentity && gameplayFingerprint) {
+    candidates.add(`gameplay:${primaryIdentity}:${gameplayFingerprint}`);
+  } else if (primaryIdentity) {
     candidates.add(primaryIdentity);
   }
 
   for (const aliasIdentity of getAliasIdentityNames(card)) {
-    candidates.add(aliasIdentity);
+    if (gameplayFingerprint) {
+      candidates.add(`gameplay:${aliasIdentity}:${gameplayFingerprint}`);
+    } else {
+      candidates.add(aliasIdentity);
+    }
   }
 
   return [...candidates];
 }
 
 export function cardsShareIdentity(
-  left: Pick<CardCatalogSummary, "game" | "name">,
-  right: Pick<CardCatalogSummary, "game" | "name">,
+  left: Pick<
+    CardCatalogSummary,
+    | "game"
+    | "name"
+    | "collectorNo"
+    | "type"
+    | "text"
+    | "energyCost"
+    | "power"
+    | "might"
+    | "hp"
+  >,
+  right: Pick<
+    CardCatalogSummary,
+    | "game"
+    | "name"
+    | "collectorNo"
+    | "type"
+    | "text"
+    | "energyCost"
+    | "power"
+    | "might"
+    | "hp"
+  >,
 ) {
   const leftCandidates = new Set(getCardIdentityCandidates(left));
 
