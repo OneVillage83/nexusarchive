@@ -106,6 +106,10 @@ export function cardCatalogSummaryKey(game: GameSlug, id: string) {
   return `${gamePrefix(game)}:summary:${id}`;
 }
 
+export function cardCatalogImageCacheKey(game: GameSlug, id: string) {
+  return `${gamePrefix(game)}:image-cache:${id}`;
+}
+
 export function cardCatalogGalleryIdsKey(
   game: GameSlug,
   versionMode: "premium" | "base",
@@ -285,4 +289,28 @@ export function isCatalogCardEnglish(
 ) {
   const language = getCatalogLanguage(card);
   return language == null || language === "en";
+}
+
+export function shouldServeCatalogImageFromApi(
+  card: Pick<CardCatalogSummary, "source" | "imageUrl">,
+) {
+  if (!card.imageUrl) {
+    return false;
+  }
+
+  return card.source === "one-piece-official-cardlist";
+}
+
+export function getStableCatalogImageUrl(
+  card: Pick<CardCatalogSummary, "game" | "id" | "source" | "imageUrl">,
+) {
+  if (!card.imageUrl) {
+    return null;
+  }
+
+  if (!shouldServeCatalogImageFromApi(card)) {
+    return card.imageUrl;
+  }
+
+  return `/api/card-images/${card.game}/${encodeURIComponent(card.id)}`;
 }

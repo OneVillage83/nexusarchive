@@ -12,6 +12,7 @@ import {
   type CardCatalogSource,
   type CardCatalogSummary,
   compactText,
+  getStableCatalogImageUrl,
   isCatalogCardEnglish,
   normalizeSearchText,
 } from "@/lib/cards/catalog";
@@ -773,7 +774,7 @@ async function buildSynergyCards(card: CardCatalogSummary): Promise<FinanceSyner
         financeProductId: candidate.id,
         name: getCardBaseName(candidate.name),
         subtitle: `${candidate.type ?? "Card"} · ${getSetLabel(candidate)}`,
-        imageUrl: candidate.imageUrl,
+        imageUrl: getStableCatalogImageUrl(candidate),
         reason,
         fairValue: teaser.fairValue ?? teaser.marketPrice ?? null,
       } satisfies FinanceSynergyCard;
@@ -843,7 +844,7 @@ function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSum
     game: card.game,
     name: card.name,
     subtitle: `${card.type ?? "Card"} · ${getSetLabel(card)}`,
-    imageUrl: card.imageUrl,
+    imageUrl: getStableCatalogImageUrl(card),
     setName: card.setName,
     setCode: card.setCode,
     collectorNo: card.collectorNo,
@@ -876,7 +877,7 @@ async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<Fina
       return {
         financeProductId: variant.id,
         name: variant.name,
-        imageUrl: variant.imageUrl,
+        imageUrl: getStableCatalogImageUrl(variant),
         versionLabel: getCardVersionLabel(variant),
         setName: variant.setName,
         setCode: variant.setCode,
@@ -1272,7 +1273,7 @@ function buildCollectionSnapshot(cards: CardCatalogSummary[]): FinanceCollection
     return {
       financeProductId: teaser.financeProductId,
       name: card.name,
-      imageUrl: card.imageUrl,
+      imageUrl: getStableCatalogImageUrl(card),
       setName: card.setName ?? card.setCode,
       quantity,
       marketPrice: teaser.marketPrice ?? 0,
@@ -1347,7 +1348,12 @@ function buildSealedSummaries(game: GameSlug, cards: CardCatalogSummary[]): Fina
               ? `${setName} Booster Box`
               : `${setName} Sealed Product`,
         setName,
-        imageUrl: setCards.find((card) => Boolean(card.imageUrl))?.imageUrl ?? null,
+        imageUrl:
+          setCards.find((card) => Boolean(card.imageUrl))
+            ? getStableCatalogImageUrl(
+                setCards.find((card) => Boolean(card.imageUrl))!,
+              )
+            : null,
         currentPrice,
         fairValue,
         delta24h,

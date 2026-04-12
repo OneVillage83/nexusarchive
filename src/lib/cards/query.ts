@@ -28,6 +28,7 @@ import {
   cardCatalogSummaryKey,
   cardCatalogTokenKey,
   cardCatalogTokenRegistryKey,
+  getStableCatalogImageUrl,
   isCatalogCardEnglish,
   normalizeSearchText,
   tokenizeForIndex,
@@ -99,6 +100,13 @@ const tokenRegistryCache = new Map<
   { tokens: string[]; expiresAt: number }
 >();
 const TOKEN_REGISTRY_CACHE_TTL_MS = 1000 * 60 * 5;
+
+function withStableImageUrls(cards: CardCatalogSummary[]) {
+  return cards.map((card) => ({
+    ...card,
+    imageUrl: getStableCatalogImageUrl(card),
+  }));
+}
 
 export function parseCardPage(value: string | null) {
   const parsed = Number.parseInt(value ?? "1", 10);
@@ -895,7 +903,9 @@ async function queryRedisCards({
 
     if (fastPage) {
       return {
-        cards: decorateCardsWithFinance(fastPage.cards.filter(isCatalogCardEnglish)),
+        cards: decorateCardsWithFinance(
+          withStableImageUrls(fastPage.cards.filter(isCatalogCardEnglish)),
+        ),
         total: fastPage.total,
         page,
         pageSize,
@@ -966,7 +976,9 @@ async function queryRedisCards({
   const total = sortedCards.length;
 
   return {
-    cards: decorateCardsWithFinance(sortedCards.slice(start, start + pageSize)),
+    cards: decorateCardsWithFinance(
+      withStableImageUrls(sortedCards.slice(start, start + pageSize)),
+    ),
     total,
     page,
     pageSize,
@@ -1084,7 +1096,7 @@ async function queryPrismaCards({
   );
 
   return {
-    cards: decorateCardsWithFinance(pagedCards),
+    cards: decorateCardsWithFinance(withStableImageUrls(pagedCards)),
     total,
     page,
     pageSize,
