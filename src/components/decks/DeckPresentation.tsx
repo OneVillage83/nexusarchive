@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, type FocusEvent, type PointerEvent } from "react";
 import Image from "next/image";
 
 import {
@@ -71,29 +72,63 @@ function CardThumbnail({
 }
 
 function CardTextPreviewPill({
+  cardName,
   text,
   typeLine,
 }: {
+  cardName: string;
   text?: string | null;
   typeLine?: string | null;
 }) {
   const previewText = text?.trim() || typeLine?.trim() || null;
+  const [popoverSide, setPopoverSide] = useState<"left" | "right">("right");
 
   if (!previewText) {
     return null;
   }
 
+  function handleOpen(event: PointerEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    updatePopoverSide(rect.left, rect.right);
+  }
+
+  function handleFocus(event: FocusEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    updatePopoverSide(rect.left, rect.right);
+  }
+
+  function updatePopoverSide(left: number, right: number) {
+    const preferredWidth = 360;
+    const viewportPadding = 16;
+    const spaceRight = window.innerWidth - left - viewportPadding;
+    const spaceLeft = right - viewportPadding;
+
+    setPopoverSide(spaceRight >= preferredWidth || spaceRight >= spaceLeft ? "right" : "left");
+  }
+
   return (
-    <div className="group/textpill pointer-events-auto absolute right-2 top-11 z-10">
-      <div className="rounded-full border border-white/12 bg-black/70 px-2 py-1 text-[10px] font-semibold text-amber-100 shadow-[0_8px_18px_rgba(0,0,0,0.3)]">
+    <div
+      className="group/textpill pointer-events-auto absolute right-2 top-11 z-20"
+      onPointerEnter={handleOpen}
+      onFocusCapture={handleFocus}
+    >
+      <div className="rounded-full border border-white/12 bg-black/78 px-2 py-1 text-[10px] font-semibold text-amber-100 shadow-[0_8px_18px_rgba(0,0,0,0.3)]">
         Card text
       </div>
 
-      <div className="pointer-events-none absolute right-full top-0 mr-2 w-72 max-w-[calc(100vw-2rem)] translate-y-1 rounded-2xl border border-white/14 bg-black/94 p-3 text-left opacity-0 shadow-[0_22px_45px_rgba(0,0,0,0.45)] transition-all duration-150 group-hover/textpill:pointer-events-auto group-hover/textpill:translate-y-0 group-hover/textpill:opacity-100">
+      <div
+        className={`pointer-events-none absolute top-full z-10 mt-2 w-[360px] max-w-[min(360px,calc(100vw-2rem))] translate-y-1 rounded-[22px] border border-white/14 bg-black/96 p-4 text-left opacity-0 shadow-[0_22px_45px_rgba(0,0,0,0.45)] transition-all duration-150 group-hover/textpill:pointer-events-auto group-hover/textpill:translate-y-0 group-hover/textpill:opacity-100 ${
+          popoverSide === "right" ? "left-0" : "right-0"
+        }`}
+      >
         <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200/75">
           Card text
         </div>
-        <div className="mt-2 max-h-56 overflow-y-auto pr-1 text-[13px] leading-5 text-amber-50/92">
+        <div className="mt-1 text-sm font-semibold text-amber-50">{cardName}</div>
+        {typeLine ? (
+          <div className="mt-1 text-xs text-amber-50/60">{typeLine}</div>
+        ) : null}
+        <div className="mt-3 max-h-72 overflow-y-auto pr-1 text-[15px] leading-6 text-amber-50/96 whitespace-pre-line break-words">
           {previewText}
         </div>
       </div>
@@ -237,6 +272,7 @@ export function DeckCanvas({
                                 </div>
 
                                 <CardTextPreviewPill
+                                  cardName={entry.cardName}
                                   text={entry.text}
                                   typeLine={entry.typeLine}
                                 />
