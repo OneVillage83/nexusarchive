@@ -172,7 +172,7 @@ export function CardFinanceQuickView({
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<QuickViewTab>("overview");
   const [previewVariantId, setPreviewVariantId] = useState<string | null>(null);
-  const overlayScrollRef = useRef<HTMLDivElement | null>(null);
+  const contentScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!open || !financeProductId) {
@@ -230,7 +230,7 @@ export function CardFinanceQuickView({
     }
 
     document.body.style.overflow = "hidden";
-    overlayScrollRef.current?.scrollTo({ top: 0 });
+    contentScrollRef.current?.scrollTo({ top: 0 });
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -288,20 +288,16 @@ export function CardFinanceQuickView({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md">
-      <button
-        type="button"
-        aria-label="Close card detail"
-        className="absolute inset-0"
-        onClick={onClose}
-      />
-
-      <div
-        ref={overlayScrollRef}
-        className="absolute inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6"
-      >
-        <div className="mx-auto flex min-h-full w-full max-w-6xl items-start justify-center">
-          <div className="relative z-10 flex w-full max-h-[calc(100dvh-2rem)] flex-col rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
+    <div
+      className="fixed inset-0 z-50 bg-black/80 px-4 py-4 backdrop-blur-md sm:px-6 sm:py-6"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="mx-auto flex h-full w-full max-w-6xl items-start justify-center">
+        <div className="relative z-10 flex h-full w-full max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
@@ -331,7 +327,7 @@ export function CardFinanceQuickView({
             </div>
           ) : null}
 
-            <div className="mt-6 min-h-0 overflow-y-auto pr-1">
+          <div ref={contentScrollRef} className="mt-6 min-h-0 flex-1 overflow-y-auto pr-1">
               <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
                 <div className="space-y-4">
               <CardImage
@@ -553,7 +549,6 @@ export function CardFinanceQuickView({
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
