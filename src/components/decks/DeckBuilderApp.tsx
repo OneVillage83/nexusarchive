@@ -1,12 +1,18 @@
 "use client";
 
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { DeckCanvas } from "@/components/decks/DeckPresentation";
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
+import {
+  extractDraggedCardPayload,
+  NEXUSARCHIVE_CARD_DRAG_MIME,
+  payloadToCardSummary,
+  readDraggedCardPayloadFromStorage,
+} from "@/lib/cards/drag-payload";
 import {
   buildDeckEntryFromCard,
   getDefaultDeckFormat,
@@ -215,10 +221,12 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDropActive, setIsDropActive] = useState(false);
   const hasHydratedRef = useRef(false);
   const draftRef = useRef(draft);
   const autoSaveTriggeredRef = useRef(false);
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
+  const dragDepthRef = useRef(0);
 
   useEffect(() => {
     draftRef.current = draft;
@@ -353,6 +361,67 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
         ],
       };
     });
+  }
+
+  function canAcceptDraggedCard(event: DragEvent<HTMLElement>) {
+    const types = Array.from(event.dataTransfer.types ?? []);
+    if (types.includes(NEXUSARCHIVE_CARD_DRAG_MIME)) {
+      return true;
+    }
+
+    return Boolean(readDraggedCardPayloadFromStorage());
+  }
+
+  function handleWorkspaceDragEnter(event: DragEvent<HTMLElement>) {
+    if (!canAcceptDraggedCard(event)) {
+      return;
+    }
+
+    event.preventDefault();
+    dragDepthRef.current += 1;
+    setIsDropActive(true);
+  }
+
+  function handleWorkspaceDragOver(event: DragEvent<HTMLElement>) {
+    if (!canAcceptDraggedCard(event)) {
+      return;
+    }
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+    if (!isDropActive) {
+      setIsDropActive(true);
+    }
+  }
+
+  function handleWorkspaceDragLeave() {
+    dragDepthRef.current = Math.max(0, dragDepthRef.current - 1);
+    if (dragDepthRef.current === 0) {
+      setIsDropActive(false);
+    }
+  }
+
+  function handleWorkspaceDrop(event: DragEvent<HTMLElement>) {
+    if (!canAcceptDraggedCard(event)) {
+      return;
+    }
+
+    event.preventDefault();
+    dragDepthRef.current = 0;
+    setIsDropActive(false);
+
+    const payload = extractDraggedCardPayload(event.dataTransfer);
+    if (!payload) {
+      setSaveError("The dragged card payload fizzled out before the deck builder could catch it.");
+      return;
+    }
+
+    if (payload.game !== game) {
+      setSaveError(`That card belongs to the ${payload.game} wing of the archive, so it can't drop into this ${game} builder.`);
+      return;
+    }
+
+    addCard(payloadToCardSummary(payload));
   }
 
   function incrementCard(familyKey: string) {
@@ -686,7 +755,24 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
             </div>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-hidden">
+          <div
+            className={`relative min-h-0 flex-1 overflow-hidden rounded-[30px] transition-colors ${
+              isDropActive
+                ? "ring-2 ring-amber-300/70 ring-offset-2 ring-offset-transparent"
+                : ""
+            }`}
+            onDragEnter={handleWorkspaceDragEnter}
+            onDragOver={handleWorkspaceDragOver}
+            onDragLeave={handleWorkspaceDragLeave}
+            onDrop={handleWorkspaceDrop}
+          >
+            {isDropActive ? (
+              <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-[30px] border border-dashed border-amber-300/55 bg-black/35">
+                <div className="rounded-full border border-amber-300/35 bg-black/75 px-4 py-2 text-sm font-semibold text-amber-100 shadow-[0_10px_22px_rgba(0,0,0,0.35)]">
+                  Drop card to add it to the deck
+                </div>
+              </div>
+            ) : null}
             <DeckCanvas
               game={game}
               formatKey={draft.formatKey}

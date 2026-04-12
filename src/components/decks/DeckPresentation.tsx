@@ -70,6 +70,37 @@ function CardThumbnail({
   );
 }
 
+function CardTextPreviewPill({
+  text,
+  typeLine,
+}: {
+  text?: string | null;
+  typeLine?: string | null;
+}) {
+  const previewText = text?.trim() || typeLine?.trim() || null;
+
+  if (!previewText) {
+    return null;
+  }
+
+  return (
+    <div className="group/textpill pointer-events-auto absolute right-2 top-11 z-10">
+      <div className="rounded-full border border-white/12 bg-black/70 px-2 py-1 text-[10px] font-semibold text-amber-100 shadow-[0_8px_18px_rgba(0,0,0,0.3)]">
+        Card text
+      </div>
+
+      <div className="pointer-events-none absolute right-full top-0 mr-2 w-72 max-w-[calc(100vw-2rem)] translate-y-1 rounded-2xl border border-white/14 bg-black/94 p-3 text-left opacity-0 shadow-[0_22px_45px_rgba(0,0,0,0.45)] transition-all duration-150 group-hover/textpill:pointer-events-auto group-hover/textpill:translate-y-0 group-hover/textpill:opacity-100">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-200/75">
+          Card text
+        </div>
+        <div className="mt-2 max-h-56 overflow-y-auto pr-1 text-[13px] leading-5 text-amber-50/92">
+          {previewText}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 type DeckCanvasProps = {
   game: GameSlug;
   formatKey: string;
@@ -204,6 +235,11 @@ export function DeckCanvas({
                                 <div className="pointer-events-auto absolute right-2 top-2 rounded-full border border-white/12 bg-black/70 px-2 py-1 text-[10px] font-semibold text-amber-100 shadow-[0_8px_18px_rgba(0,0,0,0.3)]">
                                   x{entry.quantity}
                                 </div>
+
+                                <CardTextPreviewPill
+                                  text={entry.text}
+                                  typeLine={entry.typeLine}
+                                />
 
                                 <div className="pointer-events-auto absolute inset-x-2 bottom-2 flex items-center justify-between gap-2">
                                   <div className="flex items-center gap-1.5">

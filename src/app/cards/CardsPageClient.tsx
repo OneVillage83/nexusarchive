@@ -7,10 +7,14 @@ import {
   useSearchParams,
   type ReadonlyURLSearchParams,
 } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type DragEvent } from "react";
 
 import { CardFinanceQuickView } from "@/components/finance/CardFinanceQuickView";
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
+import {
+  attachDraggedCardPayload,
+  buildDraggedCardPayload,
+} from "@/lib/cards/drag-payload";
 import { buildGamePath, getGameBySlug, type GameSlug } from "@/lib/games";
 
 const PANEL =
@@ -253,6 +257,13 @@ function CardArt({
       }}
     />
   );
+}
+
+function handleCardDragStart(
+  event: DragEvent<HTMLElement>,
+  card: CardCatalogSummary,
+) {
+  attachDraggedCardPayload(event.dataTransfer, buildDraggedCardPayload(card));
 }
 
 export default function CardGalleryPage({ game }: CardsPageClientProps) {
@@ -765,6 +776,8 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                     {cards.map((card) => (
                       <tr
                         key={card.id}
+                        draggable
+                        onDragStart={(event) => handleCardDragStart(event, card)}
                         className="border-t border-white/10 hover:bg-white/5"
                       >
                         <td className="px-4 py-2 align-top">
@@ -843,6 +856,8 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               {cards.map((card) => (
                 <article
                   key={card.id}
+                  draggable
+                  onDragStart={(event) => handleCardDragStart(event, card)}
                   className="overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.65)]"
                 >
                   <div className="grid gap-4 p-4 sm:grid-cols-[120px_minmax(0,1fr)]">
@@ -939,6 +954,8 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               {cards.map((card) => (
                 <article
                   key={card.id}
+                  draggable
+                  onDragStart={(event) => handleCardDragStart(event, card)}
                   className="group overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_0_22px_rgba(0,0,0,0.62)]"
                 >
                   <button
