@@ -4,6 +4,7 @@ export type CardCatalogSource =
   | "scryfall-default-cards"
   | "scryfall-all-cards"
   | "optcgapi-all-set-cards"
+  | "one-piece-official-cardlist"
   | "piltoverarchive-cards"
   | "riftcodex-cards"
   | "riftbound-official-gallery";

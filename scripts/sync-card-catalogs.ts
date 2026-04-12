@@ -145,6 +145,12 @@ type OptcgCard = Record<string, unknown> & {
   card_image?: string;
 };
 
+type OnePieceOfficialSeriesBackfill = {
+  seriesId: string;
+  setCode: string;
+  label: string;
+};
+
 type RiftCodexCard = {
   id: string;
   name: string;
@@ -801,6 +807,205 @@ function splitOptcgColors(value: string | undefined) {
     .filter(Boolean);
 }
 
+const ONE_PIECE_OFFICIAL_CARDLIST_BASE_URL =
+  "https://en.onepiece-cardgame.com";
+const ONE_PIECE_OFFICIAL_BACKFILL_SERIES: OnePieceOfficialSeriesBackfill[] = [
+  {
+    seriesId: "569005",
+    setCode: "ST-05",
+    label: "ONE PIECE FILM edition [ST-05]",
+  },
+];
+
+function toTitleCase(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function extractOnePieceOfficialField(
+  block: string,
+  className: string,
+) {
+  const match = block.match(
+    new RegExp(`<div class="${className}">([\\s\\S]*?)</div>`, "i"),
+  );
+  if (!match?.[1]) {
+    return null;
+  }
+
+  return htmlToPlainText(match[1].replace(/<h3>[\s\S]*?<\/h3>/i, ""));
+}
+
+function extractOnePieceOfficialStat(
+  block: string,
+  className: string,
+) {
+  const match = block.match(
+    new RegExp(
+      `<div class="${className}">\\s*<h3>([\\s\\S]*?)<\\/h3>([\\s\\S]*?)<\\/div>`,
+      "i",
+    ),
+  );
+  if (!match?.[1]) {
+    return null;
+  }
+
+  return {
+    label: htmlToPlainText(match[1]),
+    value: htmlToPlainText(match[2]),
+  };
+}
+
+function normalizeOnePieceOfficialSetCode(
+  collectorNo: string,
+  setInfo: string | null,
+  fallbackSetCode: string,
+) {
+  const fromSetInfo = compactText(
+    setInfo?.match(/\[([A-Z0-9-]+)\]\s*$/i)?.[1] ?? null,
+  );
+  if (fromSetInfo) {
+    return fromSetInfo.toUpperCase();
+  }
+
+  const fromCollector = compactText(
+    collectorNo.match(/^(ST\d{2}|OP\d{2}|P-\d{3}|EB\d{2})/i)?.[1] ?? null,
+  );
+  if (fromCollector?.startsWith("ST") && fromCollector.length === 4) {
+    return `${fromCollector.slice(0, 2)}-${fromCollector.slice(2)}`.toUpperCase();
+  }
+
+  return fallbackSetCode;
+}
+
+function mapOnePieceOfficialCardBlock(
+  block: string,
+  sourceUrl: string,
+  fallbackSetCode: string,
+  fallbackSetLabel: string,
+): PreparedCardRecord | null {
+  const collectorNo = compactText(
+    block.match(/<dl class="modalCol" id="([^"]+)"/i)?.[1] ?? null,
+  );
+  const name = compactText(
+    htmlToPlainText(block.match(/<div class="cardName">([\s\S]*?)<\/div>/i)?.[1]),
+  );
+
+  if (!collectorNo || !name) {
+    return null;
+  }
+
+  const spanValues = [...block.matchAll(/<span>([\s\S]*?)<\/span>/gi)]
+    .map((match) => compactText(htmlToPlainText(match[1])))
+    .filter((value): value is string => Boolean(value));
+  const rarity = compactText(spanValues[1] ?? null);
+  const type = compactText(
+    spanValues[2] ? toTitleCase(spanValues[2]) : null,
+  );
+
+  const imageRelativePath = compactText(
+    block.match(/data-src="([^"]+)"/i)?.[1] ?? null,
+  );
+  const imageUrl = imageRelativePath
+    ? new URL(
+        imageRelativePath,
+        `${ONE_PIECE_OFFICIAL_CARDLIST_BASE_URL}/cardlist/`,
+      ).href
+    : null;
+
+  const costField = extractOnePieceOfficialStat(block, "cost");
+  const powerField = extractOnePieceOfficialStat(block, "power");
+  const counterField = extractOnePieceOfficialStat(block, "counter");
+  const color = extractOnePieceOfficialField(block, "color");
+  const attribute = extractOnePieceOfficialField(block, "attribute");
+  const feature = extractOnePieceOfficialField(block, "feature");
+  const effect = extractOnePieceOfficialField(block, "text");
+  const setInfo =
+    extractOnePieceOfficialField(block, "getInfo") ?? fallbackSetLabel;
+
+  const energyCost =
+    costField?.label?.toLowerCase() === "cost"
+      ? coerceInteger(costField.value)
+      : null;
+  const life =
+    costField?.label?.toLowerCase() === "life"
+      ? coerceInteger(costField.value)
+      : null;
+
+  return {
+    id: collectorNo,
+    summary: {
+      id: collectorNo,
+      game: "one-piece",
+      name,
+      language: "en",
+      type,
+      domains: splitOptcgColors(color ?? undefined),
+      tags: [],
+      energyCost,
+      power: coerceInteger(powerField?.value),
+      might: life,
+      hp:
+        counterField?.value && counterField.value !== "-"
+          ? coerceInteger(counterField.value)
+          : null,
+      rarity,
+      text: compactText(effect),
+      flavor: compactText(feature),
+      setCode: normalizeOnePieceOfficialSetCode(
+        collectorNo,
+        setInfo,
+        fallbackSetCode,
+      ),
+      setName: compactText(setInfo),
+      collectorNo,
+      imageUrl,
+      artist: null,
+      marketPrice: null,
+      source: "one-piece-official-cardlist",
+      externalUrl: sourceUrl,
+    },
+    searchTerms: [
+      attribute,
+      feature,
+      setInfo,
+      collectorNo,
+      rarity,
+      color,
+      type,
+      costField?.label,
+      costField?.value,
+      powerField?.value,
+      counterField?.value,
+    ],
+  };
+}
+
+function parseOnePieceOfficialCardlistPage(
+  html: string,
+  sourceUrl: string,
+  fallbackSetCode: string,
+  fallbackSetLabel: string,
+) {
+  const records: PreparedCardRecord[] = [];
+  const blockRegex = /<dl class="modalCol" id="[^"]+">[\s\S]*?<\/dl>/gi;
+
+  for (const match of html.matchAll(blockRegex)) {
+    const mapped = mapOnePieceOfficialCardBlock(
+      match[0],
+      sourceUrl,
+      fallbackSetCode,
+      fallbackSetLabel,
+    );
+    if (mapped) {
+      records.push(mapped);
+    }
+  }
+
+  return records;
+}
+
 function mapOptcgCard(card: OptcgCard): PreparedCardRecord | null {
   if (!card.card_set_id || !card.card_name) {
     return null;
@@ -868,9 +1073,59 @@ async function fetchOnePieceCards(context: SyncContext): Promise<SyncResult> {
   );
   const cards = JSON.parse(rawText) as OptcgCard[];
   context.log(`Normalizing ${cards.length.toLocaleString()} One Piece cards...`);
-  const records = cards
-    .map(mapOptcgCard)
-    .filter((record): record is PreparedCardRecord => Boolean(record));
+  const recordsById = new Map<string, PreparedCardRecord>();
+
+  for (const card of cards) {
+    const mapped = mapOptcgCard(card);
+    if (mapped) {
+      recordsById.set(mapped.id, mapped);
+    }
+  }
+
+  const archiveArtifacts: ArchiveArtifact[] = [
+    {
+      fileName: "optcgapi-all-set-cards.json",
+      contentType: "application/json",
+      sourceUrl: "https://optcgapi.com/api/allSetCards/",
+      tempFilePath: rawFilePath,
+    },
+  ];
+  let officialBackfillCount = 0;
+
+  for (const series of ONE_PIECE_OFFICIAL_BACKFILL_SERIES) {
+    const seriesUrl = `${ONE_PIECE_OFFICIAL_CARDLIST_BASE_URL}/cardlist/?series=${series.seriesId}`;
+    context.log(`Checking official One Piece cardlist backfill for ${series.label}...`);
+    const html = await fetchText(seriesUrl, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (compatible; NexusArchive/0.1; +https://nexusarchive.lol)",
+        Accept: "text/html;q=0.9,*/*;q=0.8",
+      },
+    });
+    const fileName = `one-piece-official-${series.setCode.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.html`;
+    const tempFilePath = await writeTempFile(context.tempRoot, fileName, html);
+    archiveArtifacts.push({
+      fileName,
+      contentType: "text/html",
+      sourceUrl: seriesUrl,
+      tempFilePath,
+    });
+
+    const officialRecords = parseOnePieceOfficialCardlistPage(
+      html,
+      seriesUrl,
+      series.setCode,
+      series.label,
+    );
+    for (const record of officialRecords) {
+      if (!recordsById.has(record.id)) {
+        recordsById.set(record.id, record);
+        officialBackfillCount += 1;
+      }
+    }
+  }
+
+  const records = [...recordsById.values()];
   const upstreamUpdatedAt = compactText(
     cards
       .map((card) =>
@@ -892,18 +1147,12 @@ async function fetchOnePieceCards(context: SyncContext): Promise<SyncResult> {
       upstreamUpdatedAt,
       notes: [
         "Pulled from optcgapi.com's all-set card endpoint.",
+        `Backfilled ${officialBackfillCount} missing One Piece cards from Bandai's official card list.`,
         "Current pricing fields use the upstream market and inventory values when present.",
       ],
     },
     records,
-    archiveArtifacts: [
-      {
-        fileName: "optcgapi-all-set-cards.json",
-        contentType: "application/json",
-        sourceUrl: "https://optcgapi.com/api/allSetCards/",
-        tempFilePath: rawFilePath,
-      },
-    ],
+    archiveArtifacts,
   };
 }
 
