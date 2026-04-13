@@ -497,8 +497,8 @@ export function FinanceProductView({
 
           <div className={PANEL}>
             <SectionHeader
-              title="Recent Sold Comps"
-              description="Quick comp strip for recent sale behavior."
+              title={detail.recentActivityLabel}
+              description={detail.recentActivityDescription}
             />
             <div className="space-y-3">
               {detail.recentComps.map((comp) => (
@@ -537,6 +537,28 @@ export function FinanceProductView({
               description="How much trust this product currently deserves."
             />
             <div className="space-y-3 text-sm text-amber-50/85">
+              {detail.psaCertification ? (
+                <div className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3">
+                  <div className="font-semibold text-amber-200">PSA Certification</div>
+                  <div className="mt-2">
+                    Cert {detail.psaCertification.certNumber}
+                    {detail.psaCertification.grade
+                      ? ` · Grade ${detail.psaCertification.grade}`
+                      : ""}
+                  </div>
+                  <div className="mt-1 text-xs text-amber-100/70">
+                    {detail.psaCertification.note}
+                  </div>
+                  <a
+                    href={detail.psaCertification.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-flex text-xs font-medium text-amber-200 hover:text-white"
+                  >
+                    Open PSA cert ↗
+                  </a>
+                </div>
+              ) : null}
               <div className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3">
                 <div className="font-semibold text-amber-200">Freshness</div>
                 <div className="mt-2">{detail.freshnessLabel}</div>

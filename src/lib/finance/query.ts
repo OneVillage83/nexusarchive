@@ -2,6 +2,10 @@ import { Game as PrismaGame } from "@prisma/client";
 
 import prisma from "@/lib/db";
 import type { GameSlug } from "@/lib/games";
+import {
+  getLiveFinanceMarketSnapshot,
+  type LiveFinancePsaCertification,
+} from "@/lib/finance/live-market";
 import { getRedis } from "@/lib/storage/redis";
 import {
   buildCardSearchText,
@@ -32,7 +36,7 @@ const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
 const SAMPLE_CARD_LIMIT = 220;
 const PREVIEW_POSITION_LIMIT = 8;
 const FINANCE_HOME_TTL_SECONDS = 60 * 30;
-const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 6;
+const FINANCE_PRODUCT_TTL_SECONDS = 60 * 15;
 const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
 const ALL_CATALOG_CACHE_TTL_MS = 1000 * 60 * 5;
 
@@ -159,10 +163,13 @@ export type FinanceProductDetail = FinanceProductSummary & {
   routeEstimates: FinanceRouteEstimate[];
   history: FinanceHistoryPoint[];
   recentComps: FinanceComp[];
+  recentActivityLabel: string;
+  recentActivityDescription: string;
   alerts: string[];
   freshnessLabel: string;
   sourceCount: number;
   dataQualityNote: string;
+  psaCertification: LiveFinancePsaCertification | null;
 };
 
 export type FinanceSealedSummary = {
@@ -859,16 +866,43 @@ function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSum
 }
 
 async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<FinanceProductDetail> {
-  const teaser = deriveFinanceTeaser(card);
-  const priceSources = buildPriceSources(card, teaser);
-  const routes = buildRouteEstimates(teaser, card.game);
+  const baseTeaser = deriveFinanceTeaser(card);
+  const liveSnapshot = await getLiveFinanceMarketSnapshot(card);
+  const teaser: FinanceTeaser = liveSnapshot
+    ? {
+        ...baseTeaser,
+        marketPrice: liveSnapshot.marketPrice ?? baseTeaser.marketPrice,
+        fairValue: liveSnapshot.fairValue ?? baseTeaser.fairValue,
+        delta24h: liveSnapshot.delta24h ?? baseTeaser.delta24h,
+        deltaPercent24h: liveSnapshot.deltaPercent24h ?? baseTeaser.deltaPercent24h,
+        liquidityScore: liveSnapshot.liquidityScore ?? baseTeaser.liquidityScore,
+        confidenceScore: liveSnapshot.confidenceScore ?? baseTeaser.confidenceScore,
+        cashNowValue: liveSnapshot.cashNowValue ?? baseTeaser.cashNowValue,
+        fastSellValue: liveSnapshot.fastSellValue ?? baseTeaser.fastSellValue,
+        maxValueValue: liveSnapshot.maxValueValue ?? baseTeaser.maxValueValue,
+        storeCreditValue: liveSnapshot.storeCreditValue ?? baseTeaser.storeCreditValue,
+        sourceLabel: liveSnapshot.sourceLabel || baseTeaser.sourceLabel,
+      }
+    : baseTeaser;
+  const priceSources = liveSnapshot?.priceSources ?? buildPriceSources(card, teaser);
+  const routes = buildRouteEstimates(teaser, card.game).map((route) =>
+    route.key === "grade-first" && liveSnapshot?.gradeFirstValue != null
+      ? { ...route, netValue: liveSnapshot.gradeFirstValue }
+      : route,
+  );
   const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
-  const lowPrice = toCurrency((teaser.marketPrice ?? fairValue) * 0.92);
-  const soldMedian = toCurrency(fairValue * 1.02);
-  const activeListingFloor = toCurrency(fairValue * 0.96);
-  const buylistFloor = toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98);
+  const lowPrice =
+    liveSnapshot?.lowPrice ?? toCurrency((teaser.marketPrice ?? fairValue) * 0.92);
+  const soldMedian = liveSnapshot?.soldMedian ?? toCurrency(fairValue * 1.02);
+  const activeListingFloor =
+    liveSnapshot?.activeListingFloor ?? toCurrency(fairValue * 0.96);
+  const buylistFloor =
+    liveSnapshot?.buylistFloor ??
+    toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98);
   const gradeFirstValue = toCurrency(
-    routes.find((route) => route.key === "grade-first")?.netValue ?? fairValue,
+    liveSnapshot?.gradeFirstValue ??
+      routes.find((route) => route.key === "grade-first")?.netValue ??
+      fairValue,
   );
   const variantGroup = await getCardVariantGroup(card.game, card.id);
   const artVariants =
@@ -892,17 +926,36 @@ async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<Fina
   const synergyCards = await buildSynergyCards(card);
   const selectedVariantLabel = getCardVersionLabel(card);
 
+  const summaryCard = {
+    ...card,
+    name: baseCardName,
+    baseName: baseCardName,
+    representativeName: card.name !== baseCardName ? card.name : null,
+    versionLabel: selectedVariantLabel,
+    versionCount: artVariants.length || 1,
+    artCount: artVariants.filter((variant) => Boolean(variant.imageUrl)).length || 1,
+    isBaseVersion: isLikelyBaseVersion(card),
+  } satisfies CardCatalogSummary;
+  const summary = buildFinanceProductSummary(summaryCard);
+
   return {
-    ...buildFinanceProductSummary({
-      ...card,
-      name: baseCardName,
-      baseName: baseCardName,
-      representativeName: card.name !== baseCardName ? card.name : null,
-      versionLabel: selectedVariantLabel,
-      versionCount: artVariants.length || 1,
-      artCount: artVariants.filter((variant) => Boolean(variant.imageUrl)).length || 1,
-      isBaseVersion: isLikelyBaseVersion(card),
-    }),
+    ...summary,
+    marketPrice: teaser.marketPrice,
+    fairValue: teaser.fairValue,
+    delta24h: teaser.delta24h,
+    deltaPercent24h: teaser.deltaPercent24h,
+    liquidityScore: teaser.liquidityScore,
+    confidenceScore: teaser.confidenceScore,
+    cashNowValue: teaser.cashNowValue,
+    fastSellValue: teaser.fastSellValue,
+    maxValueValue: teaser.maxValueValue,
+    storeCreditValue: teaser.storeCreditValue,
+    sourceLabel: teaser.sourceLabel,
+    note:
+      liveSnapshot?.note ??
+      (teaser.confidenceScore != null && teaser.confidenceScore >= 75
+        ? "Market-backed enough to treat as a real signal."
+        : "Useful preview signal, but still waiting on richer market depth."),
     baseCardName,
     selectedVariantName: card.name,
     selectedVariantLabel,
@@ -910,7 +963,7 @@ async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<Fina
     rulingNotes: buildRulingNotes(card),
     synergyCards,
     source: card.source,
-    externalUrl: card.externalUrl,
+    externalUrl: liveSnapshot?.externalUrl ?? card.externalUrl,
     lowPrice,
     soldMedian,
     activeListingFloor,
@@ -920,17 +973,26 @@ async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<Fina
     priceSources,
     routeEstimates: routes,
     history: buildHistoryPoints(card, teaser),
-    recentComps: buildRecentComps(card, teaser),
+    recentComps: liveSnapshot?.recentComps ?? buildRecentComps(card, teaser),
+    recentActivityLabel: liveSnapshot?.recentActivityLabel ?? "Recent Market Signals",
+    recentActivityDescription:
+      liveSnapshot?.recentActivityDescription ??
+      "Preview comp strip for the current finance pass.",
     alerts: buildAlertLines(card, teaser),
     freshnessLabel:
-      teaser.confidenceScore != null && teaser.confidenceScore >= 75
+      liveSnapshot?.freshnessLabel ??
+      (teaser.confidenceScore != null && teaser.confidenceScore >= 75
         ? "Fresh enough for real browsing"
-        : "Preview-grade finance signal",
-    sourceCount: priceSources.filter((source) => source.value != null).length,
+        : "Preview-grade finance signal"),
+    sourceCount:
+      liveSnapshot?.sourceCount ??
+      priceSources.filter((source) => source.value != null).length,
     dataQualityNote:
-      teaser.confidenceScore != null && teaser.confidenceScore >= 75
+      liveSnapshot?.dataQualityNote ??
+      (teaser.confidenceScore != null && teaser.confidenceScore >= 75
         ? "This product has enough signal to be directionally trustworthy."
-        : "This product is still leaning on modeled estimates and should be treated as directional only.",
+        : "This product is still leaning on modeled estimates and should be treated as directional only."),
+    psaCertification: liveSnapshot?.psaCertification ?? null,
   };
 }
 
@@ -994,7 +1056,7 @@ function financeHomeCacheKey(game: GameSlug) {
 }
 
 function financeProductCacheKey(game: GameSlug, financeProductId: string) {
-  return `finance:${game}:product:${financeProductId}`;
+  return `finance:v2:${game}:product:${financeProductId}`;
 }
 
 function financeSealedCacheKey(game: GameSlug) {
