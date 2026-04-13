@@ -48,6 +48,7 @@ export type CardQueryFilters = {
   domains: string[];
   rarities: string[];
   sets: string[];
+  types: string[];
 };
 
 export const CARD_SORT_KEYS = [
@@ -69,6 +70,7 @@ type NormalizedCardQueryFilters = {
   domains: Set<string>;
   rarities: Set<string>;
   sets: Set<string>;
+  types: Set<string>;
 };
 
 const GAME_TO_PRISMA: Record<GameSlug, Game> = {
@@ -581,6 +583,7 @@ function normalizeFilters(filters: CardQueryFilters): NormalizedCardQueryFilters
     domains: normalizeSelectedValues(filters.domains),
     rarities: normalizeSelectedValues(filters.rarities),
     sets: normalizeSelectedValues(filters.sets),
+    types: normalizeSelectedValues(filters.types),
   };
 }
 
@@ -765,6 +768,13 @@ function matchesFilters(
     }
   }
 
+  if (
+    filters.types.size > 0 &&
+    !filters.types.has(normalizeSearchText(card.type ?? ""))
+  ) {
+    return false;
+  }
+
   return true;
 }
 
@@ -889,7 +899,8 @@ async function queryRedisCards({
   const hasFilters =
     filters.domains.length > 0 ||
     filters.rarities.length > 0 ||
-    filters.sets.length > 0;
+    filters.sets.length > 0 ||
+    filters.types.length > 0;
 
   if (!normalizedQuery && !hasFilters && (sort === "name-asc" || sort === "name-desc")) {
     const fastPage = await getFastGalleryPage(
@@ -946,6 +957,10 @@ async function queryRedisCards({
 
           if (filters.sets.length > 0) {
             candidateGroups.push(await getIdsForFilterValues(game, filters.sets));
+          }
+
+          if (filters.types.length > 0) {
+            candidateGroups.push(await getIdsForFilterValues(game, filters.types));
           }
 
           const candidateIds =
@@ -1034,6 +1049,12 @@ async function queryPrismaCards({
         { setName: { equals: value } },
         { setCode: { equals: value } },
       ]),
+    });
+  }
+
+  if (filters.types.length > 0) {
+    whereClauses.push({
+      type: { in: filters.types },
     });
   }
 

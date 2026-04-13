@@ -22,6 +22,7 @@ export async function GET(request: Request) {
     domains: parseCardFilterParam(url.searchParams.get("domains")),
     rarities: parseCardFilterParam(url.searchParams.get("rarities")),
     sets: parseCardFilterParam(url.searchParams.get("sets")),
+    types: parseCardFilterParam(url.searchParams.get("types")),
   };
 
   try {

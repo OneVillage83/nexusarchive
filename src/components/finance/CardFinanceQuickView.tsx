@@ -231,7 +231,7 @@ export function CardFinanceQuickView({
     }
 
     document.body.style.overflow = "hidden";
-    contentScrollRef.current?.scrollTo({ top: 0 });
+    contentScrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -245,7 +245,7 @@ export function CardFinanceQuickView({
       document.body.style.overflow = "";
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [onClose, open]);
+  }, [financeProductId, onClose, open]);
 
   useEffect(() => {
     if (!open) {
@@ -294,15 +294,15 @@ export function CardFinanceQuickView({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 py-4 backdrop-blur-md sm:px-6 sm:py-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 px-4 py-4 backdrop-blur-md sm:px-6 sm:py-6"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
-      <div className="w-full max-w-6xl">
-        <div className="relative z-10 flex w-full max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
+      <div className="mx-auto flex min-h-full w-full max-w-6xl items-start justify-center">
+        <div className="relative z-10 mt-0 flex w-full max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">

@@ -280,6 +280,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const selectedDomains = parseMultiValueParam(searchParams.get("domains"));
   const selectedRarities = parseMultiValueParam(searchParams.get("rarities"));
   const selectedSets = parseMultiValueParam(searchParams.get("sets"));
+  const selectedTypes = parseMultiValueParam(searchParams.get("types"));
   const rawView = searchParams.get("view");
   const rawSort = searchParams.get("sort");
   const rawVersionMode = searchParams.get("versionMode");
@@ -292,6 +293,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const domainParam = selectedDomains.join(",");
   const rarityParam = selectedRarities.join(",");
   const setParam = selectedSets.join(",");
+  const typeParam = selectedTypes.join(",");
 
   const [cards, setCards] = useState<CardCatalogSummary[]>([]);
   const [total, setTotal] = useState(0);
@@ -324,6 +326,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
         if (setParam) {
           query.set("sets", setParam);
         }
+        if (typeParam) {
+          query.set("types", typeParam);
+        }
         if (sortValue !== "name-asc") {
           query.set("sort", sortValue);
         }
@@ -352,11 +357,11 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
     }
 
     load();
-  }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue, versionMode]);
+  }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue, typeParam, versionMode]);
 
   useEffect(() => {
     setFiltersOpen(false);
-  }, [domainParam, page, pageSize, pathname, q, rarityParam, setParam, sortValue, versionMode, viewMode]);
+  }, [domainParam, page, pageSize, pathname, q, rarityParam, setParam, sortValue, typeParam, versionMode, viewMode]);
 
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
@@ -389,7 +394,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
 
   useEffect(() => {
     setSelectedCard(null);
-  }, [domainParam, game, page, pageSize, pathname, q, rarityParam, setParam, sortValue, versionMode]);
+  }, [domainParam, game, page, pageSize, pathname, q, rarityParam, setParam, sortValue, typeParam, versionMode]);
 
   const startIndex = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const endIndex = total === 0 ? 0 : startIndex + cards.length - 1;
@@ -404,8 +409,16 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
       .map((card) => card.setName ?? card.setCode)
       .filter((value): value is string => Boolean(value)),
   ).slice(0, 12);
+  const availableTypes = uniqueSorted(
+    cards
+      .map((card) => card.type)
+      .filter((value): value is string => Boolean(value)),
+  );
   const activeFilterCount =
-    selectedDomains.length + selectedRarities.length + selectedSets.length;
+    selectedDomains.length +
+    selectedRarities.length +
+    selectedSets.length +
+    selectedTypes.length;
 
   function updateSearchParams(mutate: (params: URLSearchParams) => void) {
     const params = new URLSearchParams(searchParams.toString());
@@ -415,7 +428,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   }
 
   function toggleMultiFilter(
-    key: "domains" | "rarities" | "sets",
+    key: "domains" | "rarities" | "sets" | "types",
     value: string,
   ) {
     updateSearchParams((params) => {
@@ -441,6 +454,7 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
       params.delete("domains");
       params.delete("rarities");
       params.delete("sets");
+      params.delete("types");
     });
   }
 
@@ -521,6 +535,9 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
               ) : null}
               {setParam ? (
                 <input type="hidden" name="sets" value={setParam} />
+              ) : null}
+              {typeParam ? (
+                <input type="hidden" name="types" value={typeParam} />
               ) : null}
               {pageSize !== DEFAULT_PAGE_SIZE ? (
                 <input type="hidden" name="pageSize" value={pageSize} />
@@ -642,6 +659,35 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
                           ) : (
                             <p className="text-xs text-amber-100/60">
                               No rarity values on this page yet.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className={LABEL}>Card Types</div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {availableTypes.length ? (
+                            availableTypes.map((value) => {
+                              const active = selectedTypes.includes(value);
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  onClick={() => toggleMultiFilter("types", value)}
+                                  className={`${CHIP} ${
+                                    active
+                                      ? "border-amber-300/80 bg-amber-400/90 text-slate-950"
+                                      : "border-white/20 bg-white/[0.05] text-amber-50 hover:bg-white/[0.1]"
+                                  }`}
+                                >
+                                  {value}
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <p className="text-xs text-amber-100/60">
+                              No card type values on this page yet.
                             </p>
                           )}
                         </div>
