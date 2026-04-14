@@ -36,7 +36,7 @@ const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
 const SAMPLE_CARD_LIMIT = 220;
 const PREVIEW_POSITION_LIMIT = 8;
 const FINANCE_HOME_TTL_SECONDS = 60 * 30;
-const FINANCE_PRODUCT_TTL_SECONDS = 60 * 15;
+const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 24 * 2;
 const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
 const ALL_CATALOG_CACHE_TTL_MS = 1000 * 60 * 5;
 
@@ -166,6 +166,7 @@ export type FinanceProductDetail = FinanceProductSummary & {
   recentActivityLabel: string;
   recentActivityDescription: string;
   alerts: string[];
+  lastUpdatedAt: string | null;
   freshnessLabel: string;
   sourceCount: number;
   dataQualityNote: string;
@@ -865,9 +866,14 @@ function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSum
   };
 }
 
-async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<FinanceProductDetail> {
+async function buildFinanceProductDetail(
+  card: CardCatalogSummary,
+  options?: { refresh?: boolean },
+): Promise<FinanceProductDetail> {
   const baseTeaser = deriveFinanceTeaser(card);
-  const liveSnapshot = await getLiveFinanceMarketSnapshot(card);
+  const liveSnapshot = await getLiveFinanceMarketSnapshot(card, {
+    refresh: options?.refresh,
+  });
   const teaser: FinanceTeaser = liveSnapshot
     ? {
         ...baseTeaser,
@@ -979,6 +985,7 @@ async function buildFinanceProductDetail(card: CardCatalogSummary): Promise<Fina
       liveSnapshot?.recentActivityDescription ??
       "Preview comp strip for the current finance pass.",
     alerts: buildAlertLines(card, teaser),
+    lastUpdatedAt: liveSnapshot?.capturedAt ?? null,
     freshnessLabel:
       liveSnapshot?.freshnessLabel ??
       (teaser.confidenceScore != null && teaser.confidenceScore >= 75
@@ -1056,7 +1063,7 @@ function financeHomeCacheKey(game: GameSlug) {
 }
 
 function financeProductCacheKey(game: GameSlug, financeProductId: string) {
-  return `finance:v2:${game}:product:${financeProductId}`;
+  return `finance:v3:${game}:product:${financeProductId}`;
 }
 
 function financeSealedCacheKey(game: GameSlug) {
@@ -1569,16 +1576,36 @@ export async function getFinanceHome(game: GameSlug): Promise<FinanceHomeData> {
 export async function getFinanceProductDetail(
   game: GameSlug,
   financeProductId: string,
+  options?: {
+    refresh?: boolean;
+  },
 ): Promise<FinanceProductDetail | null> {
   const normalizedId = decodeURIComponent(financeProductId);
+  const cacheKey = financeProductCacheKey(game, normalizedId);
+  const redis = getRedis();
+
+  const computeDetail = async () => {
+    const card = await getCatalogCardById(game, normalizedId);
+    return card ? await buildFinanceProductDetail(card, options) : null;
+  };
+
+  if (options?.refresh) {
+    const cached = redis
+      ? await redis.get<FinanceProductDetail | null>(cacheKey)
+      : null;
+    const refreshed = await computeDetail();
+
+    if (refreshed && redis) {
+      await redis.set(cacheKey, refreshed, { ex: FINANCE_PRODUCT_TTL_SECONDS });
+    }
+
+    return refreshed ?? cached ?? null;
+  }
 
   return getCachedValue(
-    financeProductCacheKey(game, normalizedId),
+    cacheKey,
     FINANCE_PRODUCT_TTL_SECONDS,
-    async () => {
-      const card = await getCatalogCardById(game, normalizedId);
-      return card ? await buildFinanceProductDetail(card) : null;
-    },
+    computeDetail,
   );
 }
 

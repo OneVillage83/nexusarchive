@@ -23,6 +23,24 @@ import type {
 const PANEL =
   "rounded-3xl border border-white/25 bg-black/75 p-5 shadow-[0_0_45px_rgba(0,0,0,0.95)] sm:p-7";
 
+function formatFinanceTimestamp(value: string | null) {
+  if (!value) {
+    return null;
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(date);
+}
+
 function MetricCard({
   label,
   value,
@@ -352,8 +370,18 @@ export function FinanceProductView({
           <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_19rem] xl:items-start">
             <div className="min-w-0">
               <div className="max-w-3xl">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
-                  {detail.sourceLabel}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
+                    {detail.sourceLabel}
+                  </div>
+                  {formatFinanceTimestamp(detail.lastUpdatedAt) ? (
+                    <div
+                      title={detail.lastUpdatedAt ?? undefined}
+                      className="rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-200/85"
+                    >
+                      Updated {formatFinanceTimestamp(detail.lastUpdatedAt)}
+                    </div>
+                  ) : null}
                 </div>
                 <h1 className="mt-3 text-3xl font-semibold text-amber-50 sm:text-4xl">
                   {detail.name}
@@ -501,17 +529,23 @@ export function FinanceProductView({
               description={detail.recentActivityDescription}
             />
             <div className="space-y-3">
-              {detail.recentComps.map((comp) => (
-                <div key={comp.id} className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3 text-sm text-amber-50">
-                  <div className="flex items-center justify-between gap-3">
-                    <span>{comp.marketplace}</span>
-                    <span className="text-amber-200">{formatFinanceCurrency(comp.price)}</span>
+              {detail.recentComps.length > 0 ? (
+                detail.recentComps.map((comp) => (
+                  <div key={comp.id} className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3 text-sm text-amber-50">
+                    <div className="flex items-center justify-between gap-3">
+                      <span>{comp.marketplace}</span>
+                      <span className="text-amber-200">{formatFinanceCurrency(comp.price)}</span>
+                    </div>
+                    <div className="mt-1 text-xs text-amber-100/70">
+                      {comp.soldAt} · {comp.condition}
+                    </div>
                   </div>
-                  <div className="mt-1 text-xs text-amber-100/70">
-                    {comp.soldAt} · {comp.condition}
-                  </div>
+                ))
+              ) : (
+                <div className="rounded-2xl border border-dashed border-white/15 bg-black/35 px-4 py-4 text-sm text-amber-100/75">
+                  No live eBay comp rows came back for this product yet, so the rest of the page is leaning on the fallback catalog/reference lane for now.
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -562,6 +596,11 @@ export function FinanceProductView({
               <div className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3">
                 <div className="font-semibold text-amber-200">Freshness</div>
                 <div className="mt-2">{detail.freshnessLabel}</div>
+                {formatFinanceTimestamp(detail.lastUpdatedAt) ? (
+                  <div className="mt-2 text-xs text-amber-100/70">
+                    Last updated {formatFinanceTimestamp(detail.lastUpdatedAt)}
+                  </div>
+                ) : null}
               </div>
               <div className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3">
                 <div className="font-semibold text-amber-200">Source Count</div>

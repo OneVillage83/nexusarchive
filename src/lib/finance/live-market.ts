@@ -28,6 +28,7 @@ export type LiveFinancePsaCertification = {
 };
 
 export type LiveFinanceMarketSnapshot = {
+  capturedAt: string | null;
   marketPrice: number | null;
   fairValue: number | null;
   lowPrice: number | null;
@@ -100,8 +101,8 @@ type PsaLookupResponse = {
   [key: string]: unknown;
 };
 
-const LIVE_MARKET_CACHE_VERSION = "v1";
-const LIVE_MARKET_TTL_SECONDS = 60 * 30;
+const LIVE_MARKET_CACHE_VERSION = "v2";
+const LIVE_MARKET_TTL_SECONDS = 60 * 60 * 24 * 2;
 const MAX_EBAY_RESULTS = 14;
 const EBAY_OAUTH_SCOPE = "https://api.ebay.com/oauth/api_scope";
 
@@ -267,27 +268,39 @@ function getPsaAccessToken() {
   );
 }
 
-async function getCachedValue<T>(
-  key: string,
-  compute: () => Promise<T>,
-): Promise<T> {
+async function readCachedLiveSnapshot(key: string) {
   const redis = getRedis();
   if (!redis) {
-    return compute();
+    return null;
   }
 
-  const cached = await redis.get<T>(key);
-  if (cached) {
-    return cached;
+  return redis.get<LiveFinanceMarketSnapshot>(key);
+}
+
+async function writeCachedLiveSnapshot(
+  key: string,
+  snapshot: LiveFinanceMarketSnapshot,
+) {
+  const redis = getRedis();
+  if (!redis) {
+    return;
   }
 
-  const value = await compute();
-  await redis.set(key, value, { ex: LIVE_MARKET_TTL_SECONDS });
-  return value;
+  await redis.set(key, snapshot, { ex: LIVE_MARKET_TTL_SECONDS });
 }
 
 function buildLiveMarketCacheKey(card: CardCatalogSummary) {
   return `finance:live-market:${LIVE_MARKET_CACHE_VERSION}:${card.game}:${card.id}`;
+}
+
+function stampSnapshot(
+  snapshot: Omit<LiveFinanceMarketSnapshot, "capturedAt">,
+  capturedAt = new Date().toISOString(),
+): LiveFinanceMarketSnapshot {
+  return {
+    capturedAt,
+    ...snapshot,
+  };
 }
 
 function normalizeIdentifier(value: string | null | undefined) {
@@ -462,7 +475,10 @@ async function searchEbayListings(
     });
 
     if (!response.ok) {
-      throw new Error(`eBay search failed with HTTP ${response.status}`);
+      const errorBody = compactText(await response.text());
+      throw new Error(
+        `eBay search failed with HTTP ${response.status}${errorBody ? `: ${errorBody.slice(0, 220)}` : ""}`,
+      );
     }
 
     const payload = (await response.json()) as EbaySearchResponse;
@@ -507,6 +523,83 @@ async function searchEbayListings(
   }
 
   return accepted.slice(0, 12);
+}
+
+function buildEbayUnavailableSnapshot(
+  card: CardCatalogSummary,
+  psaCertification: LiveFinancePsaCertification | null,
+  errorMessage: string,
+  capturedAt?: string,
+): LiveFinanceMarketSnapshot {
+  const isSandbox = getEbayEnvironment() === "sandbox";
+  const catalogReference = toCurrency(card.marketPrice);
+  const note = isSandbox
+    ? "eBay sandbox browse search is wired in, but the sandbox endpoint is currently returning internal errors. Falling back to imported catalog/reference pricing for now."
+    : "Live eBay pricing could not be fetched right now, so the page is temporarily leaning on imported catalog/reference pricing.";
+  const priceSources: LiveFinancePriceSource[] = [
+    {
+      key: "ebay-status",
+      label: isSandbox ? "eBay Sandbox Status" : "eBay Feed Status",
+      type: "reference",
+      value: null,
+      note: `${note} ${errorMessage}`,
+    },
+  ];
+
+  if (catalogReference != null) {
+    priceSources.push({
+      key: "catalog-reference",
+      label: card.game === "magic-the-gathering" ? "Scryfall / Catalog Reference" : "Catalog Reference",
+      type: "reference",
+      value: catalogReference,
+      note: "Imported catalog-side market/reference value used as the temporary fallback.",
+    });
+  }
+
+  if (psaCertification) {
+    priceSources.push({
+      key: "psa-cert",
+      label: "PSA Certification",
+      type: "reference",
+      value: null,
+      note:
+        psaCertification.grade != null
+          ? `PSA cert ${psaCertification.certNumber} verified at grade ${psaCertification.grade}.`
+          : `PSA cert ${psaCertification.certNumber} verified.`,
+    });
+  }
+
+  return stampSnapshot({
+    marketPrice: null,
+    fairValue: null,
+    lowPrice: null,
+    soldMedian: null,
+    activeListingFloor: null,
+    buylistFloor: null,
+    cashNowValue: null,
+    fastSellValue: null,
+    maxValueValue: null,
+    storeCreditValue: null,
+    gradeFirstValue: null,
+    liquidityScore: null,
+    confidenceScore: null,
+    delta24h: null,
+    deltaPercent24h: null,
+    sourceLabel: isSandbox ? "eBay sandbox fallback" : "eBay fallback",
+    externalUrl: card.externalUrl,
+    priceSources,
+    recentComps: [],
+    recentActivityLabel: isSandbox ? "Sandbox eBay status" : "eBay feed status",
+    recentActivityDescription: note,
+    freshnessLabel: isSandbox
+      ? "Sandbox eBay is connected, but the Browse endpoint is erroring."
+      : "Live eBay pricing is temporarily unavailable.",
+    sourceCount:
+      priceSources.filter((source) => source.value != null).length + (psaCertification ? 1 : 0),
+    dataQualityNote: note,
+    note,
+    psaCertification,
+  }, capturedAt);
 }
 
 function buildPsaSourceUrl(certNumber: string) {
@@ -644,6 +737,7 @@ function buildLiveSnapshotFromListings(
   card: CardCatalogSummary,
   listings: EbayListing[],
   psaCertification: LiveFinancePsaCertification | null,
+  capturedAt?: string,
 ): LiveFinanceMarketSnapshot | null {
   if (!listings.length) {
     return null;
@@ -737,7 +831,7 @@ function buildLiveSnapshotFromListings(
     condition: listing.condition,
   }));
 
-  return {
+  return stampSnapshot({
     marketPrice,
     fairValue,
     lowPrice,
@@ -767,25 +861,70 @@ function buildLiveSnapshotFromListings(
       "Live eBay asking data is wired in. Treat this as real market signal, but not a confirmed sold-comp feed yet.",
     note: "Live marketplace data is active for this product detail view.",
     psaCertification,
-  };
+  }, capturedAt);
 }
 
 export async function getLiveFinanceMarketSnapshot(
   card: CardCatalogSummary,
+  options?: {
+    refresh?: boolean;
+  },
 ): Promise<LiveFinanceMarketSnapshot | null> {
+  const cacheKey = buildLiveMarketCacheKey(card);
+  const cachedSnapshot = await readCachedLiveSnapshot(cacheKey);
   const hasEbay = Boolean(getEbayDirectToken() || (getEbayClientId() && getEbayClientSecret()));
   const hasPsa = Boolean(getPsaAccessToken());
+  const refresh = Boolean(options?.refresh);
 
-  if (!hasEbay && !hasPsa) {
-    return null;
+  if (!refresh && cachedSnapshot) {
+    return cachedSnapshot;
   }
 
-  return getCachedValue(buildLiveMarketCacheKey(card), async () => {
-    const [listings, psaCertification] = await Promise.all([
-      hasEbay ? searchEbayListings(card) : Promise.resolve([]),
-      hasPsa ? lookupPsaCertification(card) : Promise.resolve(null),
-    ]);
+  if (!hasEbay && !hasPsa) {
+    return cachedSnapshot;
+  }
 
-    return buildLiveSnapshotFromListings(card, listings, psaCertification);
-  });
+  let ebayErrorMessage: string | null = null;
+  const capturedAt = new Date().toISOString();
+  const [listings, psaCertification] = await Promise.all([
+    hasEbay
+      ? searchEbayListings(card).catch((error) => {
+          ebayErrorMessage = error instanceof Error ? error.message : String(error);
+          console.error(
+            `Live eBay lookup failed for ${card.game}:${card.id}:`,
+            ebayErrorMessage,
+          );
+          return [];
+        })
+      : Promise.resolve([]),
+    hasPsa ? lookupPsaCertification(card) : Promise.resolve(null),
+  ]);
+
+  const liveSnapshot = buildLiveSnapshotFromListings(
+    card,
+    listings,
+    psaCertification,
+    capturedAt,
+  );
+  if (liveSnapshot) {
+    await writeCachedLiveSnapshot(cacheKey, liveSnapshot);
+    return liveSnapshot;
+  }
+
+  if (ebayErrorMessage) {
+    if (cachedSnapshot) {
+      return cachedSnapshot;
+    }
+
+    const unavailableSnapshot = buildEbayUnavailableSnapshot(
+      card,
+      psaCertification,
+      ebayErrorMessage,
+      capturedAt,
+    );
+    await writeCachedLiveSnapshot(cacheKey, unavailableSnapshot);
+    return unavailableSnapshot;
+  }
+
+  return cachedSnapshot;
 }
