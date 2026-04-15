@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test --import tsx",
     "postinstall": "prisma generate",
     "import:cards": "node scripts/import-riftbound-cards.js",
     "sync:cards": "tsx scripts/sync-card-catalogs.ts",
+    "sync:combos": "tsx scripts/sync-combos.ts",
     "google-drive:oauth": "tsx scripts/google-drive-oauth.ts"
   },
   "dependencies": {

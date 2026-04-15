@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Nami Trigger Refill",
+    "summary": "Low-cost blue setup pieces keep cards moving so Nami lines never run dry.",
+    "resultText": "Repeated hand refills and tempo-positive setup turns",
+    "steps": [
+      "Lead on Nami or another cheap blue value piece.",
+      "Use bounce or filter effects to keep the hand stocked.",
+      "Convert the extra cards into repeated pressure turns."
+    ],
+    "prerequisites": [
+      "Blue shell with room for cheap cantrip-style effects."
+    ],
+    "tags": ["Blue", "Draw", "Tempo"],
+    "formatTags": ["Constructed"],
+    "isComplete": true,
+    "popularity": 22,
+    "pieces": [
+      { "role": "piece", "quantity": 1, "cardName": "Nami" },
+      { "role": "piece", "quantity": 1, "cardName": "Love-Love Mellow" }
+    ]
+  },
+  {
+    "name": "Jet Pistol Pressure Curve",
+    "summary": "Cheap red pressure backed by efficient removal keeps the board clear enough for leader swings to matter.",
+    "resultText": "Aggressive tempo line with removal support",
+    "steps": [
+      "Commit an early Straw Hat attacker.",
+      "Use Gum-Gum Jet Pistol to remove the key blocker.",
+      "Push the open attack step before the opponent can reset."
+    ],
+    "prerequisites": [
+      "An aggressive red shell with follow-up attackers."
+    ],
+    "tags": ["Aggro", "Red", "Removal"],
+    "formatTags": ["Constructed"],
+    "isComplete": true,
+    "popularity": 17,
+    "pieces": [
+      { "role": "piece", "quantity": 1, "cardName": "Monkey.D.Luffy" },
+      { "role": "piece", "quantity": 1, "cardName": "Gum-Gum Jet Pistol" }
+    ]
+  }
+]

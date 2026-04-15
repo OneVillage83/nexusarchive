@@ -161,27 +161,47 @@ model DeckCard {
 }
 
 model Combo {
-  id           Int       @id @default(autoincrement())
-  game         Game      @default(RIFTBOUND)
-  name         String
-  description  String?
-  requirements String?
-  output       String?
-  tags         String[]
+  id            Int         @id @default(autoincrement())
+  game          Game        @default(RIFTBOUND)
+  slug          String
+  source        String      @default("manual")
+  externalId    String?
+  kind          String      @default("combo")
+  name          String
+  summary       String?
+  resultText    String?
+  steps         Json?
+  prerequisites Json?
+  tags          String[]    @default([])
+  formatTags    String[]    @default([])
+  isComplete    Boolean     @default(true)
+  popularity    Int?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
-  cards        ComboCard[]
+  comboEntries  ComboCard[]
 
+  @@unique([game, slug], name: "game_slug")
+  @@unique([game, source, externalId], name: "game_source_externalId")
   @@index([game, name])
+  @@index([game, source])
 }
 
 model ComboCard {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   comboId   Int
-  cardId    Int
-  quantity  Int    @default(1)
+  cardId    Int?
+  familyKey String
+  cardName  String
+  role      String   @default("piece")
+  quantity  Int      @default(1)
+  sortOrder Int      @default(0)
 
-  combo     Combo  @relation(fields: [comboId], references: [id])
-  card      Card   @relation(fields: [cardId], references: [id])
+  combo     Combo    @relation(fields: [comboId], references: [id])
+  card      Card?    @relation(fields: [cardId], references: [id])
+
+  @@index([comboId, sortOrder])
+  @@index([familyKey])
 }
 
 model FinanceProduct {

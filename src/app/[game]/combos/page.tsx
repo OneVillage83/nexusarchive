@@ -1,5 +1,7 @@
-import { GamePlaceholderPage } from "@/components/game-pages/GamePlaceholderPage";
-import { RiftboundComboFinderPage } from "@/app/combos/page";
+import { auth } from "@clerk/nextjs/server";
+
+import { ComboFinderWorkspace } from "@/components/combos/ComboFinderWorkspace";
+import { isClerkConfigured } from "@/lib/auth-config";
 import { requireGame } from "@/lib/server-game";
 
 type GameCombosPageProps = {
@@ -10,10 +12,14 @@ export default async function GameCombosPage({
   params,
 }: GameCombosPageProps) {
   const game = await requireGame(params);
+  const authEnabled = isClerkConfigured();
+  const { userId } = authEnabled ? await auth() : { userId: null };
 
-  if (game === "riftbound") {
-    return <RiftboundComboFinderPage />;
-  }
-
-  return <GamePlaceholderPage game={game} variant="combos" />;
+  return (
+    <ComboFinderWorkspace
+      game={game}
+      authEnabled={authEnabled}
+      userId={userId}
+    />
+  );
 }
