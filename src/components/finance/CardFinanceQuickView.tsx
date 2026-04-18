@@ -172,7 +172,9 @@ export function CardFinanceQuickView({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<QuickViewTab>("overview");
+  const [activeFinanceProductId, setActiveFinanceProductId] = useState<string | null>(null);
   const [previewVariantId, setPreviewVariantId] = useState<string | null>(null);
+  const backdropScrollRef = useRef<HTMLDivElement | null>(null);
   const contentScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -180,7 +182,16 @@ export function CardFinanceQuickView({
       return;
     }
 
-    const currentFinanceProductId = financeProductId;
+    setActiveFinanceProductId(financeProductId);
+    setPreviewVariantId(financeProductId);
+  }, [financeProductId, open]);
+
+  useEffect(() => {
+    if (!open || !activeFinanceProductId) {
+      return;
+    }
+
+    const currentFinanceProductId = activeFinanceProductId;
     let cancelled = false;
 
     async function load() {
@@ -223,15 +234,36 @@ export function CardFinanceQuickView({
     return () => {
       cancelled = true;
     };
-  }, [financeProductId, game, open]);
+  }, [activeFinanceProductId, game, open]);
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    document.body.style.overflow = "hidden";
-    contentScrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    const scrollY = window.scrollY;
+    const htmlStyle = document.documentElement.style;
+    const bodyStyle = document.body.style;
+    const previousHtmlOverflow = htmlStyle.overflow;
+    const previousBodyOverflow = bodyStyle.overflow;
+    const previousBodyPosition = bodyStyle.position;
+    const previousBodyTop = bodyStyle.top;
+    const previousBodyLeft = bodyStyle.left;
+    const previousBodyRight = bodyStyle.right;
+    const previousBodyWidth = bodyStyle.width;
+
+    htmlStyle.overflow = "hidden";
+    bodyStyle.overflow = "hidden";
+    bodyStyle.position = "fixed";
+    bodyStyle.top = `-${scrollY}px`;
+    bodyStyle.left = "0";
+    bodyStyle.right = "0";
+    bodyStyle.width = "100%";
+
+    requestAnimationFrame(() => {
+      backdropScrollRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      contentScrollRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -242,14 +274,33 @@ export function CardFinanceQuickView({
     document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.body.style.overflow = "";
+      htmlStyle.overflow = previousHtmlOverflow;
+      bodyStyle.overflow = previousBodyOverflow;
+      bodyStyle.position = previousBodyPosition;
+      bodyStyle.top = previousBodyTop;
+      bodyStyle.left = previousBodyLeft;
+      bodyStyle.right = previousBodyRight;
+      bodyStyle.width = previousBodyWidth;
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [financeProductId, onClose, open]);
+  }, [activeFinanceProductId, onClose, open]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      backdropScrollRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      contentScrollRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+  }, [activeFinanceProductId, open]);
 
   useEffect(() => {
     if (!open) {
       setActiveTab("overview");
+      setActiveFinanceProductId(null);
       setPreviewVariantId(null);
       setData(null);
       setError(null);
@@ -294,15 +345,16 @@ export function CardFinanceQuickView({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 px-4 py-4 backdrop-blur-md sm:px-6 sm:py-6"
+      ref={backdropScrollRef}
+      className="fixed inset-0 z-50 overflow-hidden bg-black/80 px-4 py-4 backdrop-blur-md sm:px-6 sm:py-6"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
-      <div className="mx-auto flex min-h-full w-full max-w-6xl items-start justify-center">
-        <div className="relative z-10 mt-0 flex w-full max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:max-h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
+      <div className="mx-auto flex h-full w-full max-w-6xl items-start justify-center">
+        <div className="relative z-10 flex h-[calc(100dvh-2rem)] w-full flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/92 p-5 shadow-[0_0_60px_rgba(0,0,0,0.96)] sm:h-[calc(100dvh-3rem)] sm:p-6 lg:p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
@@ -341,27 +393,75 @@ export function CardFinanceQuickView({
                 className="mx-auto aspect-[3/4] w-full max-w-[18rem] lg:max-w-none"
               />
 
-              <div className="rounded-3xl border border-white/15 bg-black/45 px-4 py-4">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
-                  Showing version
-                </div>
-                <div className="mt-2 text-lg font-semibold text-amber-50">
+                <div className="rounded-3xl border border-white/15 bg-black/45 px-4 py-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
+                    Showing version
+                  </div>
+                  <div className="mt-2 text-lg font-semibold text-amber-50">
                   {selectedVariant?.versionLabel ?? data?.selectedVariantLabel ?? card?.versionLabel ?? "Featured print"}
                 </div>
                 <div className="mt-1 text-xs text-amber-100/72">
                   {selectedVariant?.setName ?? selectedVariant?.setCode ?? card?.setName ?? card?.setCode ?? "Archive set info pending"}
                   {selectedVariant?.rarity ? ` · ${selectedVariant.rarity}` : ""}
                 </div>
-                <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-amber-200/85">
+                  <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-amber-200/85">
+                    <span className="rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1">
+                      {(data?.artVariants?.length ?? card?.versionCount ?? 1)} version
+                      {(data?.artVariants?.length ?? card?.versionCount ?? 1) === 1 ? "" : "s"}
+                    </span>
                   <span className="rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1">
-                    {(data?.artVariants?.length ?? card?.versionCount ?? 1)} version
-                    {(data?.artVariants?.length ?? card?.versionCount ?? 1) === 1 ? "" : "s"}
-                  </span>
-                  <span className="rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1">
-                    Fair {formatCurrency(selectedVariant?.fairValue ?? data?.fairValue ?? card?.fairValue)}
-                  </span>
+                      Fair {formatCurrency(selectedVariant?.fairValue ?? data?.fairValue ?? card?.fairValue)}
+                    </span>
+                  </div>
+                  {data?.artVariants && data.artVariants.length > 1 ? (
+                    <div className="mt-4 space-y-2">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-100/60">
+                        Switch version
+                      </div>
+                      <div className="max-h-40 space-y-2 overflow-y-auto pr-1">
+                        {data.artVariants.map((variant) => {
+                          const selected =
+                            variant.financeProductId ===
+                            (activeFinanceProductId ?? previewVariantId ?? financeProductId);
+
+                          return (
+                            <button
+                              key={variant.financeProductId}
+                              type="button"
+                              onClick={() => {
+                                setPreviewVariantId(variant.financeProductId);
+                                setActiveFinanceProductId(variant.financeProductId);
+                              }}
+                              className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-2 text-left transition ${
+                                selected
+                                  ? "border-amber-300/70 bg-amber-400/10"
+                                  : "border-white/10 bg-black/25 hover:border-amber-300/35 hover:bg-black/45"
+                              }`}
+                            >
+                              <CardImage
+                                imageUrl={variant.imageUrl}
+                                alt={variant.name}
+                                className="h-14 w-10 shrink-0 rounded-xl"
+                              />
+                              <div className="min-w-0 flex-1">
+                                <div className="truncate text-xs font-semibold text-amber-50">
+                                  {variant.versionLabel}
+                                </div>
+                                <div className="truncate text-[11px] text-amber-100/68">
+                                  {variant.setName ?? variant.setCode ?? "Archive set"}
+                                  {variant.rarity ? ` · ${variant.rarity}` : ""}
+                                </div>
+                              </div>
+                              <div className="text-right text-[11px] text-amber-200">
+                                {formatCurrency(variant.fairValue ?? variant.marketPrice)}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
-              </div>
                 </div>
 
                 <div className="min-w-0">
@@ -497,7 +597,10 @@ export function CardFinanceQuickView({
                       <button
                         key={variant.financeProductId}
                         type="button"
-                        onClick={() => setPreviewVariantId(variant.financeProductId)}
+                        onClick={() => {
+                          setPreviewVariantId(variant.financeProductId);
+                          setActiveFinanceProductId(variant.financeProductId);
+                        }}
                         className={`rounded-2xl border p-3 text-left transition ${
                           variant.financeProductId === selectedVariant?.financeProductId
                             ? "border-amber-300/80 bg-amber-400/10 shadow-[0_0_24px_rgba(245,158,11,0.22)]"
@@ -534,7 +637,9 @@ export function CardFinanceQuickView({
                 <Link
                   href={buildFinanceProductHref(
                     game,
-                    selectedVariant?.financeProductId ?? financeProductId,
+                    activeFinanceProductId ??
+                      selectedVariant?.financeProductId ??
+                      financeProductId,
                   )}
                   prefetch={false}
                   className="rounded-full bg-amber-400/95 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-amber-300"

@@ -3,6 +3,7 @@ import { Game as PrismaGame } from "@prisma/client";
 import prisma from "@/lib/db";
 import type { GameSlug } from "@/lib/games";
 import {
+  getEbayEnvironment,
   getLiveFinanceMarketSnapshot,
   type LiveFinancePsaCertification,
 } from "@/lib/finance/live-market";
@@ -26,6 +27,7 @@ import {
   getCardVersionLabel,
   isLikelyBaseVersion,
 } from "@/lib/cards/identity";
+import { scoreComboSynergyPair } from "@/lib/combos/engine";
 
 const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
   riftbound: PrismaGame.RIFTBOUND,
@@ -711,52 +713,41 @@ function scoreSynergyPair(card: CardCatalogSummary, candidate: CardCatalogSummar
     };
   }
 
-  let score = 0;
-  const reasons: string[] = [];
-
-  const sharedDomains = card.domains.filter((domain) => candidate.domains.includes(domain));
-  if (sharedDomains.length > 0) {
-    score += sharedDomains.length * 8;
-    reasons.push(`Shares ${sharedDomains.join(", ")}`);
-  }
-
-  if (card.setCode && candidate.setCode && card.setCode === candidate.setCode) {
-    score += 3;
-    reasons.push("Same set");
-  }
-
-  if (card.type && candidate.type) {
-    const cardTypeTokens = new Set(normalizeSearchText(card.type).split(" ").filter(Boolean));
-    const candidateTypeTokens = normalizeSearchText(candidate.type).split(" ").filter(Boolean);
-    const sharedTypeTokens = candidateTypeTokens.filter((token) => cardTypeTokens.has(token));
-
-    if (sharedTypeTokens.length > 0) {
-      score += sharedTypeTokens.length * 4;
-      reasons.push(`Shared type (${sharedTypeTokens[0]})`);
-    }
-  }
-
-  const cardTextTokens = new Set(
-    normalizeSearchText([card.name, card.text ?? "", card.type ?? ""].join(" "))
-      .split(" ")
-      .filter((token) => token.length > 3),
+  const result = scoreComboSynergyPair(
+    {
+      familyKey: card.familyKey ?? normalizeSearchText(card.name),
+      cardName: card.name,
+      quantity: 1,
+      cardId: card.id,
+      imageUrl: card.imageUrl,
+      typeLine: card.type,
+      text: card.text,
+      domains: card.domains,
+      energyCost: card.energyCost,
+      power: card.power,
+      might: card.might,
+      hp: card.hp,
+    },
+    {
+      familyKey: candidate.familyKey ?? normalizeSearchText(candidate.name),
+      cardName: candidate.name,
+      quantity: 1,
+      cardId: candidate.id,
+      imageUrl: candidate.imageUrl,
+      typeLine: candidate.type,
+      text: candidate.text,
+      domains: candidate.domains,
+      energyCost: candidate.energyCost,
+      power: candidate.power,
+      might: candidate.might,
+      hp: candidate.hp,
+    },
   );
-  const candidateTokens = normalizeSearchText(
-    [candidate.name, candidate.text ?? "", candidate.type ?? ""].join(" "),
-  )
-    .split(" ")
-    .filter((token) => token.length > 3);
-  const sharedTextTokens = candidateTokens.filter((token) => cardTextTokens.has(token));
-
-  if (sharedTextTokens.length > 0) {
-    score += Math.min(sharedTextTokens.length, 3) * 2;
-    reasons.push(`Rules overlap (${sharedTextTokens[0]})`);
-  }
 
   return {
-    score,
+    score: result.score,
     reason:
-      reasons[0] ??
+      result.reasons[0] ??
       "Looks mechanically adjacent enough that the archive would at least keep it on the same messy desk.",
   };
 }
@@ -1063,7 +1054,7 @@ function financeHomeCacheKey(game: GameSlug) {
 }
 
 function financeProductCacheKey(game: GameSlug, financeProductId: string) {
-  return `finance:v3:${game}:product:${financeProductId}`;
+  return `finance:v4:${getEbayEnvironment()}:${game}:product:${financeProductId}`;
 }
 
 function financeSealedCacheKey(game: GameSlug) {

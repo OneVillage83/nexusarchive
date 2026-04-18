@@ -26,7 +26,7 @@ export const DEFAULT_COMBO_PAGE_SIZE = 12;
 export const MAX_COMBO_PAGE_SIZE = 30;
 
 function toComboHref(game: GameSlug, slug: string) {
-  return `${buildGamePath(game, "combos")}?selected=${encodeURIComponent(slug)}`;
+  return `${buildGamePath(game, "combos/results")}?selected=${encodeURIComponent(slug)}`;
 }
 
 function compactList(values: Array<string | null | undefined>) {

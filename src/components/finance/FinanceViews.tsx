@@ -120,6 +120,19 @@ function FinanceProductCard({
   );
 }
 
+function buildFinanceProductHref(
+  game: GameSlug,
+  financeProductId: string,
+  fromGallery = false,
+) {
+  const href = buildGamePath(
+    game,
+    `finance/product/${encodeURIComponent(financeProductId)}`,
+  );
+
+  return fromGallery ? `${href}?fromGallery=1` : href;
+}
+
 function FinanceAlertCard({ alert }: { alert: FinanceAlertFeedItem }) {
   const severityStyles =
     alert.severity === "high"
@@ -367,7 +380,7 @@ export function FinanceProductView({
         </div>
 
         <section className={PANEL}>
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_19rem] xl:items-start">
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_24rem] xl:items-start">
             <div className="min-w-0">
               <div className="max-w-3xl">
                 <div className="flex flex-wrap items-center gap-2">
@@ -404,7 +417,7 @@ export function FinanceProductView({
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:max-w-[40rem]">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:max-w-[42rem]">
                 <MetricCard label="Market" value={formatFinanceCurrency(detail.marketPrice)} hint="Visible reference market." />
                 <MetricCard label="Fair Value" value={formatFinanceCurrency(detail.fairValue)} hint="Weighted Nexus estimate." />
                 <MetricCard label="Cash Now" value={formatFinanceCurrency(detail.cashNowValue)} hint="Immediate exit math." />
@@ -416,30 +429,91 @@ export function FinanceProductView({
 
             <div className="xl:justify-self-end">
               {detail.imageUrl ? (
-                <div className="mx-auto w-full max-w-[17rem] rounded-[1.75rem] border border-white/15 bg-black/45 p-3 shadow-[0_0_32px_rgba(0,0,0,0.7)]">
-                  <div className="relative aspect-[0.72] overflow-hidden rounded-[1.25rem] bg-black/55">
+                <div className="mx-auto w-full max-w-[24rem] rounded-[1.9rem] border border-white/15 bg-black/45 p-4 shadow-[0_0_32px_rgba(0,0,0,0.7)]">
+                  <div className="relative aspect-[0.72] overflow-hidden rounded-[1.4rem] bg-black/55">
                     <Image
                       src={detail.imageUrl}
                       alt={detail.name}
                       fill
-                      sizes="(max-width: 1280px) 272px, 304px"
+                      sizes="(max-width: 1280px) 320px, 384px"
                       className="object-contain"
                     />
                   </div>
-                  <div className="mt-3 rounded-2xl border border-white/10 bg-black/35 px-3 py-2.5">
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-black/35 px-4 py-3">
                     <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
                       Showing version
                     </div>
-                    <div className="mt-2 text-sm font-semibold text-amber-50">
+                    <div className="mt-2 text-base font-semibold text-amber-50">
                       {detail.selectedVariantLabel}
                     </div>
                     <div className="mt-1 text-xs text-amber-100/72">
                       {detail.setName ?? detail.subtitle}
                     </div>
                   </div>
+                  {detail.artVariants.length > 1 ? (
+                    <div className="mt-3 rounded-2xl border border-white/10 bg-black/35 px-4 py-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
+                        Choose version
+                      </div>
+                      <div className="mt-3 max-h-[14rem] space-y-2 overflow-y-auto pr-1">
+                        {detail.artVariants.map((variant) => (
+                          <Link
+                            key={variant.financeProductId}
+                            href={buildFinanceProductHref(
+                              game,
+                              variant.financeProductId,
+                              fromGallery,
+                            )}
+                            prefetch={false}
+                            className={`flex items-center gap-3 rounded-2xl border px-3 py-2 transition ${
+                              variant.isSelected
+                                ? "border-amber-300/55 bg-amber-400/10"
+                                : "border-white/10 bg-black/25 hover:border-amber-300/35 hover:bg-black/40"
+                            }`}
+                          >
+                            <div className="relative h-14 w-10 overflow-hidden rounded-lg bg-black/40">
+                              {variant.imageUrl ? (
+                                <Image
+                                  src={variant.imageUrl}
+                                  alt={variant.name}
+                                  fill
+                                  sizes="40px"
+                                  className="object-cover"
+                                />
+                              ) : null}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate text-xs font-semibold text-amber-50">
+                                {variant.versionLabel}
+                              </div>
+                              <div className="truncate text-[11px] text-amber-100/65">
+                                {variant.setName ?? variant.setCode ?? variant.rarity ?? "Variant"}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs font-medium text-amber-200">
+                                {formatFinanceCurrency(variant.fairValue ?? variant.marketPrice)}
+                              </div>
+                              {variant.isBaseVersion ? (
+                                <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-amber-100/55">
+                                  Base
+                                </div>
+                              ) : null}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                  {detail.source === "optcgapi-all-set-cards" ||
+                  detail.source === "one-piece-official-cardlist" ? (
+                    <div className="mt-3 text-[11px] text-amber-100/58">
+                      Catalog reference on this page comes from the imported One Piece catalog feed, which is OPTCG plus official Bandai backfills where needed.
+                    </div>
+                  ) : null}
                 </div>
               ) : (
-                <div className="mx-auto flex h-full min-h-[20rem] w-full max-w-[17rem] items-center justify-center rounded-[1.75rem] border border-dashed border-white/15 bg-black/35 px-6 text-center text-sm text-amber-100/70 xl:justify-self-end">
+                <div className="mx-auto flex h-full min-h-[24rem] w-full max-w-[24rem] items-center justify-center rounded-[1.9rem] border border-dashed border-white/15 bg-black/35 px-6 text-center text-sm text-amber-100/70 xl:justify-self-end">
                   This product is still waiting on a proper English card image.
                 </div>
               )}

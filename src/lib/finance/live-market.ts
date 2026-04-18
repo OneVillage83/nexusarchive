@@ -101,7 +101,7 @@ type PsaLookupResponse = {
   [key: string]: unknown;
 };
 
-const LIVE_MARKET_CACHE_VERSION = "v2";
+const LIVE_MARKET_CACHE_VERSION = "v3";
 const LIVE_MARKET_TTL_SECONDS = 60 * 60 * 24 * 2;
 const MAX_EBAY_RESULTS = 14;
 const EBAY_OAUTH_SCOPE = "https://api.ebay.com/oauth/api_scope";
@@ -164,7 +164,7 @@ function getStandardDeviation(values: number[]) {
   return Math.sqrt(variance);
 }
 
-function getEbayEnvironment() {
+export function getEbayEnvironment() {
   const value = process.env.EBAY_ENVIRONMENT?.trim().toLowerCase();
   return value === "sandbox" ? "sandbox" : "production";
 }
@@ -289,8 +289,20 @@ async function writeCachedLiveSnapshot(
   await redis.set(key, snapshot, { ex: LIVE_MARKET_TTL_SECONDS });
 }
 
+function getCatalogReferenceLabel(card: Pick<CardCatalogSummary, "game">) {
+  switch (card.game) {
+    case "one-piece":
+      return "Imported OPTCG Reference";
+    case "magic-the-gathering":
+      return "Imported Scryfall Reference";
+    case "riftbound":
+    default:
+      return "Imported RiftCodex Reference";
+  }
+}
+
 function buildLiveMarketCacheKey(card: CardCatalogSummary) {
-  return `finance:live-market:${LIVE_MARKET_CACHE_VERSION}:${card.game}:${card.id}`;
+  return `finance:live-market:${LIVE_MARKET_CACHE_VERSION}:${getEbayEnvironment()}:${card.game}:${card.id}`;
 }
 
 function stampSnapshot(
@@ -549,7 +561,7 @@ function buildEbayUnavailableSnapshot(
   if (catalogReference != null) {
     priceSources.push({
       key: "catalog-reference",
-      label: card.game === "magic-the-gathering" ? "Scryfall / Catalog Reference" : "Catalog Reference",
+      label: getCatalogReferenceLabel(card),
       type: "reference",
       value: catalogReference,
       note: "Imported catalog-side market/reference value used as the temporary fallback.",
@@ -795,7 +807,7 @@ function buildLiveSnapshotFromListings(
   if (card.marketPrice != null) {
     priceSources.push({
       key: "catalog-reference",
-      label: "Catalog Reference",
+      label: getCatalogReferenceLabel(card),
       type: "reference",
       value: toCurrency(card.marketPrice),
       note: "Imported catalog-side reference price retained as a second opinion.",
