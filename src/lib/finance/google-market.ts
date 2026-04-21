@@ -771,9 +771,14 @@ export async function fetchGoogleProductDetails(
     return null;
   }
 
+  const query =
+    sourceRef.searchQuery ??
+    [sourceRef.matchedTitle, sourceRef.internalCardId].filter(Boolean).join(" ");
+
   const payload = await postToSerper(
     "/shopping",
     {
+      q: query,
       productId: sourceRef.externalProductId,
       gl: config.country,
       hl: config.language,

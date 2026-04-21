@@ -129,7 +129,10 @@ test("getGoogleProductDetailsSnapshot uses the stored product id and skips disco
     assert.ok(snapshot);
     assert.equal(requests.length, 1);
     assert.equal(requests[0]?.productId, "4172129135583325756");
-    assert.equal("q" in requests[0]!, false);
+    assert.equal(
+      requests[0]?.q,
+      "Ain OP-ST05-002 one piece card game",
+    );
   } finally {
     process.env.SERPER_API_KEY = previousKey;
   }
