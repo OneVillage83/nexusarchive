@@ -855,7 +855,11 @@ export async function getGoogleProductDetailsResult(
         { versionKey: options?.versionKey },
         deps,
       );
-    } catch {
+    } catch (error) {
+      console.error(
+        `Google product discovery failed for ${card.game}:${card.id}:`,
+        error,
+      );
       return {
         snapshot: null,
         status: "error",
@@ -890,7 +894,11 @@ export async function getGoogleProductDetailsResult(
       },
       deps,
     );
-  } catch {
+  } catch (error) {
+    console.error(
+      `Google product details refresh failed for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}:`,
+      error,
+    );
     return {
       snapshot: null,
       status: "error",
@@ -902,6 +910,9 @@ export async function getGoogleProductDetailsResult(
   }
 
   if (!snapshot) {
+    console.warn(
+      `Google product details refresh returned an empty payload for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}.`,
+    );
     return {
       snapshot: null,
       status: "error",

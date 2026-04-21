@@ -52,6 +52,7 @@ const SAMPLE_CARD_LIMIT = 220;
 const PREVIEW_POSITION_LIMIT = 8;
 const FINANCE_HOME_TTL_SECONDS = 60 * 30;
 const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 24 * 2;
+const FINANCE_PRODUCT_ERROR_RETRY_TTL_SECONDS = 60 * 5;
 const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
 const ALL_CATALOG_CACHE_TTL_MS = 1000 * 60 * 5;
 
@@ -1069,6 +1070,32 @@ export function buildFinanceMarketProvenance(
   };
 }
 
+export function getFinanceProductDetailCacheTtlSeconds(
+  marketProvenance: FinanceMarketProvenance | null | undefined,
+) {
+  if (marketProvenance?.isFallback && marketProvenance.googleStatus === "error") {
+    return FINANCE_PRODUCT_ERROR_RETRY_TTL_SECONDS;
+  }
+
+  return FINANCE_PRODUCT_TTL_SECONDS;
+}
+
+export function shouldPreserveCachedFinanceProductDetail(
+  cachedMarketProvenance: FinanceMarketProvenance | null | undefined,
+  refreshedMarketProvenance: FinanceMarketProvenance | null | undefined,
+) {
+  if (!cachedMarketProvenance || !refreshedMarketProvenance) {
+    return false;
+  }
+
+  return (
+    cachedMarketProvenance.primarySource === "google-shopping" &&
+    !cachedMarketProvenance.isFallback &&
+    refreshedMarketProvenance.isFallback &&
+    refreshedMarketProvenance.googleStatus === "error"
+  );
+}
+
 export function buildFinanceRecentActivity(
   ebaySnapshot: LiveFinanceMarketSnapshot | null,
   marketProvenance: FinanceMarketProvenance,
@@ -1992,17 +2019,43 @@ export async function getFinanceProductDetail(
     const refreshed = await computeDetail();
 
     if (refreshed && redis) {
-      await redis.set(cacheKey, refreshed, { ex: FINANCE_PRODUCT_TTL_SECONDS });
+      if (
+        shouldPreserveCachedFinanceProductDetail(
+          cached?.marketProvenance,
+          refreshed.marketProvenance,
+        )
+      ) {
+        console.warn(
+          `Preserving cached Google-backed finance detail for ${game}:${normalizedId} because the latest refresh degraded to fallback pricing after a Google refresh error.`,
+        );
+        return cached;
+      }
+
+      await redis.set(cacheKey, refreshed, {
+        ex: getFinanceProductDetailCacheTtlSeconds(refreshed.marketProvenance),
+      });
     }
 
     return refreshed ?? cached ?? null;
   }
 
-  return getCachedValue(
-    cacheKey,
-    FINANCE_PRODUCT_TTL_SECONDS,
-    computeDetail,
-  );
+  if (!redis) {
+    return computeDetail();
+  }
+
+  const cached = await redis.get<FinanceProductDetail | null>(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  const computed = await computeDetail();
+  if (computed) {
+    await redis.set(cacheKey, computed, {
+      ex: getFinanceProductDetailCacheTtlSeconds(computed.marketProvenance),
+    });
+  }
+
+  return computed;
 }
 
 export async function getFinanceSealedSummaries(game: GameSlug) {

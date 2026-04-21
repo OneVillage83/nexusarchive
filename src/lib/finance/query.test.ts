@@ -11,6 +11,8 @@ import type { LiveFinanceMarketSnapshot } from "@/lib/finance/live-market";
 import {
   buildFinanceMarketProvenance,
   buildFinanceRecentActivity,
+  getFinanceProductDetailCacheTtlSeconds,
+  shouldPreserveCachedFinanceProductDetail,
 } from "./query";
 
 function createSourceRef(
@@ -221,4 +223,60 @@ test("buildFinanceRecentActivity explains the missing eBay lane when Google is p
   assert.equal(activity.recentComps.length, 0);
   assert.match(activity.recentActivityDescription, /eBay showings are unavailable/i);
   assert.match(activity.recentActivityDescription, /Google Shopping via Serper/i);
+});
+
+test("getFinanceProductDetailCacheTtlSeconds keeps Google refresh errors on a short retry window", () => {
+  const fallbackProvenance = buildFinanceMarketProvenance(
+    createGoogleLookupResult({
+      snapshot: null,
+      status: "error",
+      lookupMode: "fallback-only",
+      hasStoredMapping: true,
+      failureReason: "request-failed",
+    }),
+    null,
+    createEbaySnapshot(),
+  );
+
+  assert.equal(getFinanceProductDetailCacheTtlSeconds(fallbackProvenance), 60 * 5);
+  assert.equal(
+    getFinanceProductDetailCacheTtlSeconds(
+      buildFinanceMarketProvenance(createGoogleLookupResult(), null, createEbaySnapshot()),
+    ),
+    60 * 60 * 24 * 2,
+  );
+});
+
+test("shouldPreserveCachedFinanceProductDetail keeps the last good Google-backed snapshot on refresh errors", () => {
+  const cachedGoogleProvenance = buildFinanceMarketProvenance(
+    createGoogleLookupResult(),
+    null,
+    createEbaySnapshot(),
+  );
+  const refreshedFallbackProvenance = buildFinanceMarketProvenance(
+    createGoogleLookupResult({
+      snapshot: null,
+      status: "error",
+      lookupMode: "fallback-only",
+      hasStoredMapping: true,
+      failureReason: "request-failed",
+    }),
+    null,
+    createEbaySnapshot(),
+  );
+
+  assert.equal(
+    shouldPreserveCachedFinanceProductDetail(
+      cachedGoogleProvenance,
+      refreshedFallbackProvenance,
+    ),
+    true,
+  );
+  assert.equal(
+    shouldPreserveCachedFinanceProductDetail(
+      refreshedFallbackProvenance,
+      refreshedFallbackProvenance,
+    ),
+    false,
+  );
 });
