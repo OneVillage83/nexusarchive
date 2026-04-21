@@ -1486,7 +1486,7 @@ function financeHomeCacheKey(game: GameSlug) {
 }
 
 function financeProductCacheKey(game: GameSlug, financeProductId: string) {
-  return `finance:v5-serper:${getEbayEnvironment()}:${game}:product:${financeProductId}`;
+  return `finance:v6-serper-resilient:${getEbayEnvironment()}:${game}:product:${financeProductId}`;
 }
 
 function financeSealedCacheKey(game: GameSlug) {
