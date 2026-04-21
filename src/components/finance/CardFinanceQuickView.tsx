@@ -35,6 +35,17 @@ type FinanceQuickViewData = {
   storeCreditValue: number | null;
   externalUrl: string | null;
   imageUrl: string | null;
+  marketProvenance: {
+    primarySource: "google-shopping" | "ebay" | "tcgplayer" | "reference";
+    primaryLabel: string;
+    lookupMode: "saved-product-id" | "discovery-search" | "fallback-only";
+    googleStatus: "active" | "discovered" | "missing-mapping" | "disabled" | "error";
+    cacheTier: "tier1" | "tier2" | "tier3" | null;
+    freshnessLabel: string;
+    supplementalSources: Array<"google-shopping" | "ebay" | "tcgplayer" | "reference">;
+    isFallback: boolean;
+    fallbackMessage: string | null;
+  };
   selectedVariantName: string;
   selectedVariantLabel: string;
   artVariants: Array<{
@@ -95,6 +106,41 @@ function getTabLabel(tab: QuickViewTab) {
     case "overview":
     default:
       return "Overview";
+  }
+}
+
+function formatSourceCtaLabel(data: FinanceQuickViewData | null) {
+  switch (data?.marketProvenance.primarySource) {
+    case "google-shopping":
+      return "Open Google price source ↗";
+    case "tcgplayer":
+      return "Open TCGplayer source ↗";
+    case "ebay":
+      return "Open eBay source ↗";
+    case "reference":
+    default:
+      return "Open source record ↗";
+  }
+}
+
+function formatLookupModeLabel(data: FinanceQuickViewData | null) {
+  if (data?.marketProvenance.lookupMode === "saved-product-id") {
+    return "Saved Google mapping";
+  }
+
+  if (data?.marketProvenance.lookupMode === "discovery-search") {
+    return "Discovered during refresh";
+  }
+
+  switch (data?.marketProvenance.googleStatus) {
+    case "disabled":
+      return "Google lane disabled";
+    case "missing-mapping":
+      return "Google mapping missing";
+    case "error":
+      return "Google lane fallback";
+    default:
+      return "Fallback-only lane";
   }
 }
 
@@ -499,6 +545,36 @@ export function CardFinanceQuickView({
                       </div>
                     </div>
 
+                    {!loading && data?.marketProvenance ? (
+                      <div className="rounded-2xl border border-white/15 bg-black/35 px-3 py-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-100/60">
+                            Pricing Source
+                          </div>
+                          <div
+                            className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${
+                              data.marketProvenance.isFallback
+                                ? "border-red-300/35 bg-red-500/10 text-red-100"
+                                : "border-amber-300/35 bg-amber-400/10 text-amber-100"
+                            }`}
+                          >
+                            {data.marketProvenance.isFallback ? "Fallback" : "Primary"}
+                          </div>
+                        </div>
+                        <div className="mt-2 text-sm font-semibold text-amber-50">
+                          {data.marketProvenance.primaryLabel}
+                        </div>
+                        <div className="mt-1 text-xs text-amber-100/70">
+                          {formatLookupModeLabel(data)} · {data.marketProvenance.freshnessLabel}
+                        </div>
+                        {data.marketProvenance.fallbackMessage ? (
+                          <div className="mt-2 text-xs text-red-100/90">
+                            {data.marketProvenance.fallbackMessage}
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
+
                     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                       <Metric label="Market" value={formatCurrency(data?.marketPrice ?? card?.marketPrice)} />
                       <Metric label="Fair Value" value={formatCurrency(data?.fairValue ?? card?.fairValue)} />
@@ -653,7 +729,7 @@ export function CardFinanceQuickView({
                     rel="noreferrer"
                     className="rounded-full border border-white/20 px-4 py-2 text-sm text-amber-100 hover:bg-white/5"
                   >
-                    Open source listing ↗
+                    {formatSourceCtaLabel(data)}
                   </a>
                 ) : null}
                   </div>

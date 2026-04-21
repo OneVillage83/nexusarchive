@@ -2,16 +2,24 @@ import { Game as PrismaGame } from "@prisma/client";
 
 import prisma from "@/lib/db";
 import type { GameSlug } from "@/lib/games";
-import { getGoogleProductDetailsSnapshot } from "@/lib/finance/google-market";
+import {
+  getGoogleProductDetailsResult,
+  type GoogleProductDetailsLookupResult,
+  type GoogleProductLookupMode,
+  type GoogleProductLookupStatus,
+  type MarketRefreshTier,
+} from "@/lib/finance/google-market";
 import {
   getEbayEnvironment,
   getLiveFinanceMarketSnapshot,
-  type LiveFinanceComp,
   type LiveFinanceMarketSnapshot,
   type LiveFinancePriceSource,
   type LiveFinancePsaCertification,
 } from "@/lib/finance/live-market";
-import { getTcgplayerListingSnapshot } from "@/lib/finance/tcgplayer-market";
+import {
+  getTcgplayerListingSnapshot,
+  type TcgplayerListingSnapshot,
+} from "@/lib/finance/tcgplayer-market";
 import { getRedis } from "@/lib/storage/redis";
 import {
   buildCardSearchText,
@@ -64,6 +72,8 @@ export type FinanceSeverity = "low" | "medium" | "high";
 export type FinancePriceSource = {
   key: string;
   label: string;
+  source: "google-shopping" | "ebay" | "tcgplayer" | "reference";
+  role: "primary" | "supplemental" | "reference";
   type: "market" | "sold" | "buylist" | "reference";
   value: number | null;
   note: string;
@@ -148,6 +158,24 @@ export type FinanceProductSummary = FinanceTeaser & {
   note: string;
 };
 
+export type FinanceMarketSource =
+  | "google-shopping"
+  | "ebay"
+  | "tcgplayer"
+  | "reference";
+
+export type FinanceMarketProvenance = {
+  primarySource: FinanceMarketSource;
+  primaryLabel: string;
+  lookupMode: GoogleProductLookupMode;
+  googleStatus: GoogleProductLookupStatus;
+  cacheTier: MarketRefreshTier | null;
+  freshnessLabel: string;
+  supplementalSources: FinanceMarketSource[];
+  isFallback: boolean;
+  fallbackMessage: string | null;
+};
+
 export type FinanceProductDetail = FinanceProductSummary & {
   baseCardName: string;
   selectedVariantName: string;
@@ -177,6 +205,7 @@ export type FinanceProductDetail = FinanceProductSummary & {
   freshnessLabel: string;
   sourceCount: number;
   dataQualityNote: string;
+  marketProvenance: FinanceMarketProvenance;
   psaCertification: LiveFinancePsaCertification | null;
 };
 
@@ -523,6 +552,8 @@ function buildPriceSources(
       {
         key: "scryfall-market",
         label: "Scryfall Market",
+        source: "reference",
+        role: "reference",
         type: "market",
         value: marketPrice,
         note: marketPrice
@@ -532,6 +563,8 @@ function buildPriceSources(
       {
         key: "ebay-sold",
         label: "eBay Sold Median",
+        source: "reference",
+        role: "reference",
         type: "sold",
         value: soldMedian,
         note: "Synthetic sold-comp median for the first finance pass.",
@@ -539,6 +572,8 @@ function buildPriceSources(
       {
         key: "card-kingdom",
         label: "Card Kingdom Buylist",
+        source: "reference",
+        role: "reference",
         type: "buylist",
         value: buylistFloor,
         note: "Modeled buylist floor until live adapter coverage lands.",
@@ -546,6 +581,8 @@ function buildPriceSources(
       {
         key: "nexus-fair",
         label: "Nexus Fair Value",
+        source: "reference",
+        role: "reference",
         type: "reference",
         value: fairValue,
         note: "Weighted from market, comp, and buylist signals.",
@@ -556,6 +593,8 @@ function buildPriceSources(
       {
         key: "optcg-reference",
         label: "OPTCG Market Signal",
+        source: "reference",
+        role: "reference",
         type: "market",
         value: marketPrice,
         note: "Thin-data reference estimate until broader marketplace adapters are wired.",
@@ -563,6 +602,8 @@ function buildPriceSources(
       {
         key: "listing-floor",
         label: "Listing Floor",
+        source: "reference",
+        role: "reference",
         type: "market",
         value: listingFloor,
         note: "Modeled floor from current reference pricing and volatility.",
@@ -570,6 +611,8 @@ function buildPriceSources(
       {
         key: "ebay-sold",
         label: "eBay Sold Median",
+        source: "reference",
+        role: "reference",
         type: "sold",
         value: soldMedian,
         note: "Synthetic comp lane for the first finance release.",
@@ -577,6 +620,8 @@ function buildPriceSources(
       {
         key: "buylist",
         label: "Buylist Estimate",
+        source: "reference",
+        role: "reference",
         type: "buylist",
         value: buylistFloor,
         note: "Expected fast-cash floor when you just want to turn pirates into money.",
@@ -587,6 +632,8 @@ function buildPriceSources(
       {
         key: "riftcodex-reference",
         label: "RiftCodex Reference",
+        source: "reference",
+        role: "reference",
         type: "reference",
         value: marketPrice,
         note: "Catalog-backed reference estimate with low-confidence market weighting.",
@@ -594,6 +641,8 @@ function buildPriceSources(
       {
         key: "listing-floor",
         label: "Listing Floor",
+        source: "reference",
+        role: "reference",
         type: "market",
         value: listingFloor,
         note: "Synthetic active floor while live marketplace coverage is still waking up.",
@@ -601,6 +650,8 @@ function buildPriceSources(
       {
         key: "sold-median",
         label: "Community Sold Median",
+        source: "reference",
+        role: "reference",
         type: "sold",
         value: soldMedian,
         note: "Modeled comp lane from the first finance pass.",
@@ -608,6 +659,8 @@ function buildPriceSources(
       {
         key: "buylist",
         label: "Buylist Estimate",
+        source: "reference",
+        role: "reference",
         type: "buylist",
         value: buylistFloor,
         note: "Low-confidence buylist estimate until real cash routes are connected.",
@@ -636,32 +689,6 @@ function buildHistoryPoints(card: CardCatalogSummary, teaser: FinanceTeaser) {
   }
 
   return points;
-}
-
-function buildRecentComps(card: CardCatalogSummary, teaser: FinanceTeaser) {
-  const hash = hashString(`${card.game}:${card.id}:${card.name}:comp`);
-  const base = teaser.fairValue ?? teaser.marketPrice ?? 1;
-  const marketplaces =
-    card.game === "magic-the-gathering"
-      ? ["eBay", "TCGplayer", "Card Kingdom"]
-      : card.game === "one-piece"
-        ? ["eBay", "Marketplace", "Collector sale"]
-        : ["Marketplace", "Collector sale", "Discord trade"];
-
-  return Array.from({ length: 5 }, (_, index) => {
-    const price = toCurrency(base * (0.93 + (((hash + index * 17) % 18) / 100))) ?? base;
-    const date = new Date();
-    date.setDate(date.getDate() - (index * 3 + 1));
-
-    return {
-      id: `${card.id}-comp-${index}`,
-      price,
-      soldAt: date.toISOString().slice(0, 10),
-      marketplace: marketplaces[index % marketplaces.length] ?? "Market",
-      condition:
-        index === 0 ? "Near Mint" : index % 2 === 0 ? "Lightly Played" : "Moderately Played",
-    };
-  });
 }
 
 function buildRulingNotes(card: CardCatalogSummary): FinanceRulingNote[] {
@@ -886,6 +913,8 @@ function mergeLivePriceSources(
         merged.set(source.key, {
           key: source.key,
           label: source.label,
+          source: source.source,
+          role: source.role,
           type: source.type,
           value: source.value,
           note: source.note,
@@ -895,27 +924,6 @@ function mergeLivePriceSources(
   }
 
   return [...merged.values()];
-}
-
-function mergeLiveRecentComps(...groups: Array<LiveFinanceComp[] | FinanceComp[] | null | undefined>) {
-  const merged = new Map<string, FinanceComp>();
-
-  for (const group of groups) {
-    for (const comp of group ?? []) {
-      const key = [comp.marketplace, comp.price, comp.soldAt, comp.condition].join("::");
-      if (!merged.has(key)) {
-        merged.set(key, {
-          id: comp.id,
-          price: comp.price,
-          soldAt: comp.soldAt,
-          marketplace: comp.marketplace,
-          condition: comp.condition,
-        });
-      }
-    }
-  }
-
-  return [...merged.values()].slice(0, 8);
 }
 
 function getMinimumLiveValue(...values: Array<number | null | undefined>) {
@@ -929,16 +937,181 @@ function getMinimumLiveValue(...values: Array<number | null | undefined>) {
   return toCurrency(Math.min(...normalized));
 }
 
+function uniqueSourceList(values: FinanceMarketSource[]) {
+  return [...new Set(values)];
+}
+
+function formatMarketSourceLabel(source: FinanceMarketSource) {
+  switch (source) {
+    case "google-shopping":
+      return "Google Shopping";
+    case "tcgplayer":
+      return "TCGplayer";
+    case "ebay":
+      return "eBay";
+    case "reference":
+    default:
+      return "catalog/reference";
+  }
+}
+
+function joinHumanList(values: string[]) {
+  if (values.length === 0) {
+    return "";
+  }
+
+  if (values.length === 1) {
+    return values[0] ?? "";
+  }
+
+  if (values.length === 2) {
+    return `${values[0]} and ${values[1]}`;
+  }
+
+  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
+}
+
+function buildFallbackLaneLabel(
+  primarySource: Exclude<FinanceMarketSource, "google-shopping">,
+  supplementalSources: FinanceMarketSource[],
+) {
+  const labels = uniqueSourceList([
+    primarySource,
+    ...supplementalSources,
+    "reference",
+  ]).map((source) => formatMarketSourceLabel(source));
+
+  return joinHumanList(labels);
+}
+
+function buildGoogleFallbackMessage(
+  googleResult: GoogleProductDetailsLookupResult,
+  primarySource: Exclude<FinanceMarketSource, "google-shopping">,
+  supplementalSources: FinanceMarketSource[],
+) {
+  const fallbackLaneLabel = buildFallbackLaneLabel(primarySource, supplementalSources);
+
+  switch (googleResult.status) {
+    case "disabled":
+      return `Google Shopping via Serper is disabled right now, so this page is leaning on ${fallbackLaneLabel}.`;
+    case "missing-mapping":
+      return `This card does not have a saved Google Shopping mapping yet, so this page is leaning on ${fallbackLaneLabel}.`;
+    case "error":
+      return googleResult.hasStoredMapping
+        ? `A saved Google Shopping mapping exists, but the live Google refresh failed, so this page is leaning on ${fallbackLaneLabel}.`
+        : `Google Shopping via Serper could not be reached for this card, so this page is leaning on ${fallbackLaneLabel}.`;
+    case "active":
+    case "discovered":
+    default:
+      return `Google Shopping via Serper is not driving this page right now, so it is leaning on ${fallbackLaneLabel}.`;
+  }
+}
+
+export function buildFinanceMarketProvenance(
+  googleResult: GoogleProductDetailsLookupResult,
+  tcgplayerSnapshot: TcgplayerListingSnapshot | null,
+  ebaySnapshot: LiveFinanceMarketSnapshot | null,
+): FinanceMarketProvenance {
+  const googleSnapshot = googleResult.snapshot;
+  const supplementalSources = uniqueSourceList([
+    tcgplayerSnapshot ? "tcgplayer" : null,
+    ebaySnapshot ? "ebay" : null,
+  ].filter((value): value is FinanceMarketSource => value != null));
+
+  if (googleSnapshot) {
+    return {
+      primarySource: "google-shopping",
+      primaryLabel: "Google Shopping via Serper",
+      lookupMode: googleResult.lookupMode,
+      googleStatus: googleResult.status,
+      cacheTier: googleResult.tier,
+      freshnessLabel: googleSnapshot.freshnessLabel,
+      supplementalSources,
+      isFallback: false,
+      fallbackMessage: null,
+    };
+  }
+
+  const primarySource: Exclude<FinanceMarketSource, "google-shopping"> =
+    tcgplayerSnapshot != null
+      ? "tcgplayer"
+      : ebaySnapshot != null
+        ? "ebay"
+        : "reference";
+  const normalizedSupplementalSources = supplementalSources.filter(
+    (source) => source !== primarySource,
+  );
+
+  return {
+    primarySource,
+    primaryLabel:
+      primarySource === "tcgplayer"
+        ? "TCGplayer fallback pricing"
+        : primarySource === "ebay"
+          ? "eBay fallback pricing"
+          : "Reference-only pricing",
+    lookupMode: "fallback-only",
+    googleStatus: googleResult.status,
+    cacheTier: null,
+    freshnessLabel:
+      primarySource === "tcgplayer"
+        ? "TCGplayer listing enrichment is using the latest locally available scrape."
+        : primarySource === "ebay"
+          ? ebaySnapshot?.freshnessLabel ?? "Live eBay pricing is temporarily unavailable."
+          : "This product is currently using catalog/reference pricing only.",
+    supplementalSources: normalizedSupplementalSources,
+    isFallback: true,
+    fallbackMessage: buildGoogleFallbackMessage(
+      googleResult,
+      primarySource,
+      normalizedSupplementalSources,
+    ),
+  };
+}
+
+export function buildFinanceRecentActivity(
+  ebaySnapshot: LiveFinanceMarketSnapshot | null,
+  marketProvenance: FinanceMarketProvenance,
+) {
+  if ((ebaySnapshot?.recentComps.length ?? 0) > 0) {
+    return {
+      recentComps: ebaySnapshot?.recentComps ?? [],
+      recentActivityLabel: "eBay Showings",
+      recentActivityDescription:
+        marketProvenance.primarySource === "google-shopping"
+          ? "Live eBay listings stay visible here while Google Shopping via Serper drives the primary price lane."
+          : "Live eBay listings for this exact card lane remain visible here.",
+    };
+  }
+
+  return {
+    recentComps: [],
+    recentActivityLabel: "eBay Showings",
+    recentActivityDescription:
+      marketProvenance.primarySource === "google-shopping"
+        ? "eBay showings are unavailable for this product right now. Google Shopping via Serper is still driving the primary price lane."
+        : marketProvenance.fallbackMessage ??
+          "Live eBay showings are unavailable for this product right now.",
+  };
+}
+
 async function buildMergedLiveMarketSnapshot(
   card: CardCatalogSummary,
   options?: { refresh?: boolean },
 ) {
-  const [googleSnapshot, tcgplayerSnapshot, ebaySnapshot] = await Promise.all([
-    getGoogleProductDetailsSnapshot(card, {
+  const [googleResult, tcgplayerSnapshot, ebaySnapshot] = await Promise.all([
+    getGoogleProductDetailsResult(card, {
       refresh: options?.refresh,
     }).catch((error) => {
       console.error(`Google product detail lookup failed for ${card.game}:${card.id}:`, error);
-      return null;
+      return {
+        snapshot: null,
+        status: "error",
+        lookupMode: "fallback-only",
+        tier: null,
+        hasStoredMapping: false,
+        failureReason: "request-failed",
+      } satisfies GoogleProductDetailsLookupResult;
     }),
     getTcgplayerListingSnapshot(card).catch((error) => {
       console.error(`TCGplayer enrichment failed for ${card.game}:${card.id}:`, error);
@@ -951,9 +1124,18 @@ async function buildMergedLiveMarketSnapshot(
       return null;
     }),
   ]);
+  const googleSnapshot = googleResult.snapshot;
+  const marketProvenance = buildFinanceMarketProvenance(
+    googleResult,
+    tcgplayerSnapshot,
+    ebaySnapshot,
+  );
 
   if (!googleSnapshot && !tcgplayerSnapshot && !ebaySnapshot) {
-    return null;
+    return {
+      snapshot: null,
+      marketProvenance,
+    };
   }
 
   const marketPrice =
@@ -1005,11 +1187,7 @@ async function buildMergedLiveMarketSnapshot(
     tcgplayerSnapshot?.priceSources,
     ebaySnapshot?.priceSources,
   );
-  const recentComps = mergeLiveRecentComps(
-    googleSnapshot?.recentComps,
-    tcgplayerSnapshot?.recentComps,
-    ebaySnapshot?.recentComps,
-  );
+  const recentActivity = buildFinanceRecentActivity(ebaySnapshot, marketProvenance);
   const notes = [
     googleSnapshot?.note,
     tcgplayerSnapshot?.note,
@@ -1026,69 +1204,56 @@ async function buildMergedLiveMarketSnapshot(
     Number(Boolean(ebaySnapshot));
 
   return {
-    capturedAt:
-      googleSnapshot?.capturedAt ??
-      ebaySnapshot?.capturedAt ??
-      new Date().toISOString(),
-    marketPrice,
-    fairValue,
-    lowPrice,
-    soldMedian: googleSnapshot?.soldMedian ?? ebaySnapshot?.soldMedian ?? marketPrice,
-    activeListingFloor,
-    buylistFloor,
-    cashNowValue,
-    fastSellValue,
-    maxValueValue,
-    storeCreditValue,
-    gradeFirstValue,
-    liquidityScore: averageNullableIntegers([
-      googleSnapshot?.liquidityScore,
-      ebaySnapshot?.liquidityScore,
-    ]),
-    confidenceScore: averageNullableIntegers([
-      googleSnapshot?.confidenceScore,
-      ebaySnapshot?.confidenceScore,
-    ]),
-    delta24h: googleSnapshot?.delta24h ?? ebaySnapshot?.delta24h ?? null,
-    deltaPercent24h:
-      googleSnapshot?.deltaPercent24h ?? ebaySnapshot?.deltaPercent24h ?? null,
-    sourceLabel:
-      googleSnapshot != null
-        ? activeSourceCount >= 2
+    snapshot: {
+      capturedAt:
+        googleSnapshot?.capturedAt ??
+        ebaySnapshot?.capturedAt ??
+        new Date().toISOString(),
+      marketPrice,
+      fairValue,
+      lowPrice,
+      soldMedian: googleSnapshot?.soldMedian ?? ebaySnapshot?.soldMedian ?? marketPrice,
+      activeListingFloor,
+      buylistFloor,
+      cashNowValue,
+      fastSellValue,
+      maxValueValue,
+      storeCreditValue,
+      gradeFirstValue,
+      liquidityScore: averageNullableIntegers([
+        googleSnapshot?.liquidityScore,
+        ebaySnapshot?.liquidityScore,
+      ]),
+      confidenceScore: averageNullableIntegers([
+        googleSnapshot?.confidenceScore,
+        ebaySnapshot?.confidenceScore,
+      ]),
+      delta24h: googleSnapshot?.delta24h ?? ebaySnapshot?.delta24h ?? null,
+      deltaPercent24h:
+        googleSnapshot?.deltaPercent24h ?? ebaySnapshot?.deltaPercent24h ?? null,
+      sourceLabel:
+        marketProvenance.primarySource === "google-shopping" && activeSourceCount >= 2
           ? "Google Shopping primary + supplemental marketplace blend"
-          : googleSnapshot.sourceLabel
-        : tcgplayerSnapshot != null
-          ? "TCGplayer listing-driven blend"
-          : ebaySnapshot?.sourceLabel ?? "Live market blend",
-    externalUrl:
-      googleSnapshot?.externalUrl ??
-      tcgplayerSnapshot?.externalUrl ??
-      ebaySnapshot?.externalUrl ??
-      card.externalUrl,
-    priceSources,
-    recentComps,
-    recentActivityLabel:
-      googleSnapshot != null
-        ? "Google + supplemental listings"
-        : tcgplayerSnapshot != null
-          ? "TCGplayer Listings"
-          : ebaySnapshot?.recentActivityLabel ?? "Recent listings",
-    recentActivityDescription:
-      googleSnapshot != null
-        ? "Google Shopping drives the main price lane here, with optional eBay and TCGplayer depth layered on top."
-        : tcgplayerSnapshot != null
-          ? "Listing depth is currently coming from the local TCGplayer scrape artifacts."
-          : ebaySnapshot?.recentActivityDescription ??
-            "Live marketplace detail is active for this card.",
-    freshnessLabel:
-      googleSnapshot?.freshnessLabel ??
-      ebaySnapshot?.freshnessLabel ??
-      "Listing enrichment is using the latest locally available scrape.",
-    sourceCount: priceSources.filter((source) => source.value != null).length,
-    dataQualityNote: dataQualityNotes.join(" "),
-    note: notes.join(" "),
-    psaCertification: ebaySnapshot?.psaCertification ?? null,
-  } satisfies LiveFinanceMarketSnapshot;
+          : marketProvenance.primaryLabel,
+      externalUrl:
+        googleSnapshot?.externalUrl ??
+        tcgplayerSnapshot?.externalUrl ??
+        ebaySnapshot?.externalUrl ??
+        card.externalUrl,
+      priceSources,
+      recentComps: recentActivity.recentComps,
+      recentActivityLabel: recentActivity.recentActivityLabel,
+      recentActivityDescription: recentActivity.recentActivityDescription,
+      freshnessLabel: marketProvenance.freshnessLabel,
+      sourceCount: priceSources.filter((source) => source.value != null).length,
+      dataQualityNote: [dataQualityNotes.join(" "), marketProvenance.fallbackMessage]
+        .filter(Boolean)
+        .join(" "),
+      note: notes.join(" "),
+      psaCertification: ebaySnapshot?.psaCertification ?? null,
+    } satisfies LiveFinanceMarketSnapshot,
+    marketProvenance,
+  };
 }
 
 async function buildFinanceProductDetail(
@@ -1096,7 +1261,9 @@ async function buildFinanceProductDetail(
   options?: { refresh?: boolean },
 ): Promise<FinanceProductDetail> {
   const baseTeaser = deriveFinanceTeaser(card);
-  const liveSnapshot = await buildMergedLiveMarketSnapshot(card, options);
+  const liveMarket = await buildMergedLiveMarketSnapshot(card, options);
+  const liveSnapshot = liveMarket.snapshot;
+  const marketProvenance = liveMarket.marketProvenance;
   const teaser: FinanceTeaser = liveSnapshot
     ? {
         ...baseTeaser,
@@ -1110,9 +1277,12 @@ async function buildFinanceProductDetail(
         fastSellValue: liveSnapshot.fastSellValue ?? baseTeaser.fastSellValue,
         maxValueValue: liveSnapshot.maxValueValue ?? baseTeaser.maxValueValue,
         storeCreditValue: liveSnapshot.storeCreditValue ?? baseTeaser.storeCreditValue,
-        sourceLabel: liveSnapshot.sourceLabel || baseTeaser.sourceLabel,
+        sourceLabel: marketProvenance.primaryLabel || liveSnapshot.sourceLabel || baseTeaser.sourceLabel,
       }
-    : baseTeaser;
+    : {
+        ...baseTeaser,
+        sourceLabel: marketProvenance.primaryLabel || baseTeaser.sourceLabel,
+      };
   const priceSources = liveSnapshot?.priceSources ?? buildPriceSources(card, teaser);
   const routes = buildRouteEstimates(teaser, card.game).map((route) =>
     route.key === "grade-first" && liveSnapshot?.gradeFirstValue != null
@@ -1154,6 +1324,13 @@ async function buildFinanceProductDetail(
   const baseCardName = variantGroup?.baseCardName ?? getCardBaseName(card.name);
   const synergyCards = await buildSynergyCards(card);
   const selectedVariantLabel = getCardVersionLabel(card);
+  const recentActivity = liveSnapshot
+    ? {
+        recentComps: liveSnapshot.recentComps,
+        recentActivityLabel: liveSnapshot.recentActivityLabel,
+        recentActivityDescription: liveSnapshot.recentActivityDescription,
+      }
+    : buildFinanceRecentActivity(null, marketProvenance);
 
   const summaryCard = {
     ...card,
@@ -1179,7 +1356,7 @@ async function buildFinanceProductDetail(
     fastSellValue: teaser.fastSellValue,
     maxValueValue: teaser.maxValueValue,
     storeCreditValue: teaser.storeCreditValue,
-    sourceLabel: teaser.sourceLabel,
+    sourceLabel: marketProvenance.primaryLabel,
     note:
       liveSnapshot?.note ??
       (teaser.confidenceScore != null && teaser.confidenceScore >= 75
@@ -1202,26 +1379,22 @@ async function buildFinanceProductDetail(
     priceSources,
     routeEstimates: routes,
     history: buildHistoryPoints(card, teaser),
-    recentComps: liveSnapshot?.recentComps ?? buildRecentComps(card, teaser),
-    recentActivityLabel: liveSnapshot?.recentActivityLabel ?? "Recent Market Signals",
-    recentActivityDescription:
-      liveSnapshot?.recentActivityDescription ??
-      "Preview comp strip for the current finance pass.",
+    recentComps: recentActivity.recentComps,
+    recentActivityLabel: recentActivity.recentActivityLabel,
+    recentActivityDescription: recentActivity.recentActivityDescription,
     alerts: buildAlertLines(card, teaser),
     lastUpdatedAt: liveSnapshot?.capturedAt ?? null,
-    freshnessLabel:
-      liveSnapshot?.freshnessLabel ??
-      (teaser.confidenceScore != null && teaser.confidenceScore >= 75
-        ? "Fresh enough for real browsing"
-        : "Preview-grade finance signal"),
+    freshnessLabel: marketProvenance.freshnessLabel,
     sourceCount:
       liveSnapshot?.sourceCount ??
       priceSources.filter((source) => source.value != null).length,
     dataQualityNote:
-      liveSnapshot?.dataQualityNote ??
+      liveSnapshot?.dataQualityNote ||
+      marketProvenance.fallbackMessage ||
       (teaser.confidenceScore != null && teaser.confidenceScore >= 75
         ? "This product has enough signal to be directionally trustworthy."
         : "This product is still leaning on modeled estimates and should be treated as directional only."),
+    marketProvenance,
     psaCertification: liveSnapshot?.psaCertification ?? null,
   };
 }
@@ -1286,7 +1459,7 @@ function financeHomeCacheKey(game: GameSlug) {
 }
 
 function financeProductCacheKey(game: GameSlug, financeProductId: string) {
-  return `finance:v4:${getEbayEnvironment()}:${game}:product:${financeProductId}`;
+  return `finance:v5-serper:${getEbayEnvironment()}:${game}:product:${financeProductId}`;
 }
 
 function financeSealedCacheKey(game: GameSlug) {

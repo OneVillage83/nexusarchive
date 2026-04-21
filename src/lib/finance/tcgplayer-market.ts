@@ -218,6 +218,8 @@ export async function getTcgplayerListingSnapshot(card: CardCatalogSummary) {
       {
         key: "tcgplayer-floor",
         label: "TCGplayer Listing Floor",
+        source: "tcgplayer",
+        role: "supplemental",
         type: "market",
         value: listingFloor,
         note: "Individual listing enrichment from the latest local TCGplayer scrape.",
@@ -225,6 +227,8 @@ export async function getTcgplayerListingSnapshot(card: CardCatalogSummary) {
       {
         key: "tcgplayer-market",
         label: "TCGplayer Market Average",
+        source: "tcgplayer",
+        role: "supplemental",
         type: "market",
         value: marketPrice,
         note: "Average of the matched scraped TCGplayer market values for this exact card lane.",

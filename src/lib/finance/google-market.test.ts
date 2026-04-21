@@ -6,6 +6,7 @@ import type { FinanceExternalSourceRef } from "@/lib/finance/source-mappings";
 
 import {
   buildDiscoveryQuery,
+  getGoogleProductDetailsResult,
   getGoogleProductDetailsSnapshot,
   normalizeGoogleProductDetailsSnapshot,
 } from "./google-market";
@@ -129,6 +130,60 @@ test("getGoogleProductDetailsSnapshot uses the stored product id and skips disco
     assert.equal(requests.length, 1);
     assert.equal(requests[0]?.productId, "4172129135583325756");
     assert.equal("q" in requests[0]!, false);
+  } finally {
+    process.env.SERPER_API_KEY = previousKey;
+  }
+});
+
+test("getGoogleProductDetailsResult reports disabled when the Serper key is missing", async () => {
+  const previousKey = process.env.SERPER_API_KEY;
+  delete process.env.SERPER_API_KEY;
+
+  try {
+    const result = await getGoogleProductDetailsResult(
+      createCard(),
+      { tier: "tier2" },
+      {
+        resolveSourceRef: (async () => createSourceRef()) as never,
+      },
+    );
+
+    assert.equal(result.snapshot, null);
+    assert.equal(result.status, "disabled");
+    assert.equal(result.lookupMode, "fallback-only");
+    assert.equal(result.hasStoredMapping, true);
+    assert.equal(result.failureReason, "no-api-key");
+  } finally {
+    process.env.SERPER_API_KEY = previousKey;
+  }
+});
+
+test("getGoogleProductDetailsResult reports a missing mapping when discovery finds no product", async () => {
+  const previousKey = process.env.SERPER_API_KEY;
+  process.env.SERPER_API_KEY = "test-serper-key";
+
+  const fetchImpl: typeof fetch = (async () =>
+    ({
+      ok: true,
+      json: async () => ({ shopping: [] }),
+      text: async () => "",
+    }) as Response) as typeof fetch;
+
+  try {
+    const result = await getGoogleProductDetailsResult(
+      createCard(),
+      { tier: "tier2" },
+      {
+        fetchImpl,
+        resolveSourceRef: (async () => null) as never,
+      },
+    );
+
+    assert.equal(result.snapshot, null);
+    assert.equal(result.status, "missing-mapping");
+    assert.equal(result.lookupMode, "fallback-only");
+    assert.equal(result.hasStoredMapping, false);
+    assert.equal(result.failureReason, "no-match");
   } finally {
     process.env.SERPER_API_KEY = previousKey;
   }

@@ -49,6 +49,22 @@ type SerperDeps = {
 };
 
 export type MarketRefreshTier = "tier1" | "tier2" | "tier3";
+export type GoogleProductLookupStatus =
+  | "active"
+  | "discovered"
+  | "missing-mapping"
+  | "disabled"
+  | "error";
+export type GoogleProductLookupMode =
+  | "saved-product-id"
+  | "discovery-search"
+  | "fallback-only";
+export type GoogleProductLookupFailureReason =
+  | "no-api-key"
+  | "no-match"
+  | "request-failed"
+  | "detail-empty"
+  | null;
 
 export type GoogleProductDetailsSnapshot = Omit<
   LiveFinanceMarketSnapshot,
@@ -60,6 +76,15 @@ export type GoogleProductDetailsSnapshot = Omit<
   searchQuery: string | null;
   tier: MarketRefreshTier;
   mappingStatus: "stored" | "discovered";
+};
+
+export type GoogleProductDetailsLookupResult = {
+  snapshot: GoogleProductDetailsSnapshot | null;
+  status: GoogleProductLookupStatus;
+  lookupMode: GoogleProductLookupMode;
+  tier: MarketRefreshTier | null;
+  hasStoredMapping: boolean;
+  failureReason: GoogleProductLookupFailureReason;
 };
 
 export type GoogleMarketConfig = {
@@ -566,7 +591,6 @@ export async function discoverGoogleProductRef(
 }
 
 function buildGooglePriceSources(
-  sourceRef: FinanceExternalSourceRef,
   marketPrice: number | null,
   listingFloor: number | null,
   fairValue: number | null,
@@ -577,6 +601,8 @@ function buildGooglePriceSources(
     priceSources.push({
       key: "google-shopping-market",
       label: "Google Shopping Typical",
+      source: "google-shopping",
+      role: "primary",
       type: "market",
       value: marketPrice,
       note: "Structured from the stored Google Shopping product detail feed via Serper.",
@@ -587,6 +613,8 @@ function buildGooglePriceSources(
     priceSources.push({
       key: "google-shopping-floor",
       label: "Google Store Floor",
+      source: "google-shopping",
+      role: "primary",
       type: "market",
       value: listingFloor,
       note: "Lowest currently visible Google Shopping store offer for the mapped product.",
@@ -597,19 +625,13 @@ function buildGooglePriceSources(
     priceSources.push({
       key: "google-shopping-fair",
       label: "Google Fair Value",
+      source: "google-shopping",
+      role: "primary",
       type: "reference",
       value: fairValue,
       note: "Discounted slightly under visible asks so the archive does not treat list price as gospel.",
     });
   }
-
-  priceSources.push({
-    key: "google-product-id",
-    label: "Saved Google Product ID",
-    type: "reference",
-    value: null,
-    note: `Mapped to Google product ${sourceRef.externalProductId} and refreshed by saved ID instead of repeat search discovery.`,
-  });
 
   return priceSources;
 }
@@ -691,7 +713,7 @@ export function normalizeGoogleProductDetailsSnapshot(
     clamp(64 + offers.length * 4 - stdev * 10 + (mappingStatus === "stored" ? 6 : 0), 45, 98),
   );
   const ttlHours = getMarketRefreshTtlHours(tier);
-  const priceSources = buildGooglePriceSources(sourceRef, marketPrice, listingFloor, fairValue);
+  const priceSources = buildGooglePriceSources(marketPrice, listingFloor, fairValue);
 
   return {
     capturedAt: new Date().toISOString(),
@@ -710,7 +732,7 @@ export function normalizeGoogleProductDetailsSnapshot(
     confidenceScore,
     delta24h: null,
     deltaPercent24h: null,
-    sourceLabel: "Google Shopping + stored product mapping",
+    sourceLabel: "Google Shopping via Serper",
     externalUrl,
     priceSources,
     recentComps: buildGoogleRecentComps(offers),
@@ -791,38 +813,103 @@ export async function getGoogleProductDetailsSnapshot(
   },
   deps?: SerperDeps,
 ) {
-  const config = getGoogleMarketConfig();
-  if (!config.apiKey) {
-    return null;
-  }
+  const result = await getGoogleProductDetailsResult(card, options, deps);
+  return result.snapshot;
+}
 
+export async function getGoogleProductDetailsResult(
+  card: CardCatalogSummary,
+  options?: {
+    refresh?: boolean;
+    versionKey?: string | null;
+    tier?: MarketRefreshTier;
+  },
+  deps?: SerperDeps,
+): Promise<GoogleProductDetailsLookupResult> {
+  const config = getGoogleMarketConfig();
   const resolveSourceRef = deps?.resolveSourceRef ?? resolveFinanceExternalSourceRefForCard;
   const upsertSourceRef = deps?.upsertSourceRef ?? upsertFinanceExternalSourceRef;
   const tier = options?.tier ?? deriveTierFromCard(card);
-  let mappingStatus: "stored" | "discovered" = "stored";
+
   let sourceRef = await resolveSourceRef(card, "google-shopping", {
     versionKey: options?.versionKey,
   });
+  const hadStoredMapping = Boolean(sourceRef);
 
+  if (!config.apiKey) {
+    return {
+      snapshot: null,
+      status: "disabled",
+      lookupMode: "fallback-only",
+      tier: null,
+      hasStoredMapping: hadStoredMapping,
+      failureReason: "no-api-key",
+    };
+  }
+
+  let mappingStatus: "stored" | "discovered" = "stored";
   if (!sourceRef) {
-    sourceRef = await discoverGoogleProductRef(card, { versionKey: options?.versionKey }, deps);
+    try {
+      sourceRef = await discoverGoogleProductRef(
+        card,
+        { versionKey: options?.versionKey },
+        deps,
+      );
+    } catch {
+      return {
+        snapshot: null,
+        status: "error",
+        lookupMode: "fallback-only",
+        tier,
+        hasStoredMapping: false,
+        failureReason: "request-failed",
+      };
+    }
+
+    if (!sourceRef) {
+      return {
+        snapshot: null,
+        status: "missing-mapping",
+        lookupMode: "fallback-only",
+        tier,
+        hasStoredMapping: false,
+        failureReason: "no-match",
+      };
+    }
+
     mappingStatus = "discovered";
   }
 
-  if (!sourceRef) {
-    return null;
+  let snapshot: GoogleProductDetailsSnapshot | null = null;
+  try {
+    snapshot = await fetchGoogleProductDetails(
+      sourceRef,
+      {
+        tier,
+        card,
+      },
+      deps,
+    );
+  } catch {
+    return {
+      snapshot: null,
+      status: "error",
+      lookupMode: "fallback-only",
+      tier,
+      hasStoredMapping: hadStoredMapping || Boolean(sourceRef),
+      failureReason: "request-failed",
+    };
   }
 
-  const snapshot = await fetchGoogleProductDetails(
-    sourceRef,
-    {
-      tier,
-      card,
-    },
-    deps,
-  );
   if (!snapshot) {
-    return null;
+    return {
+      snapshot: null,
+      status: "error",
+      lookupMode: "fallback-only",
+      tier,
+      hasStoredMapping: hadStoredMapping || Boolean(sourceRef),
+      failureReason: "detail-empty",
+    };
   }
 
   const refreshedRef = await upsertSourceRef(
@@ -840,10 +927,18 @@ export async function getGoogleProductDetailsSnapshot(
   );
 
   return {
-    ...snapshot,
-    sourceRef: refreshedRef,
-    mappingStatus,
-  } satisfies GoogleProductDetailsSnapshot;
+    snapshot: {
+      ...snapshot,
+      sourceRef: refreshedRef,
+      mappingStatus,
+    } satisfies GoogleProductDetailsSnapshot,
+    status: mappingStatus === "discovered" ? "discovered" : "active",
+    lookupMode:
+      mappingStatus === "discovered" ? "discovery-search" : "saved-product-id",
+    tier,
+    hasStoredMapping: hadStoredMapping,
+    failureReason: null,
+  } satisfies GoogleProductDetailsLookupResult;
 }
 
 export function getSourceRefLastScrapedAt(

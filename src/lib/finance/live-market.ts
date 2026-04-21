@@ -5,6 +5,8 @@ import { getRedis } from "@/lib/storage/redis";
 export type LiveFinancePriceSource = {
   key: string;
   label: string;
+  source: "google-shopping" | "ebay" | "tcgplayer" | "reference";
+  role: "primary" | "supplemental" | "reference";
   type: "market" | "sold" | "buylist" | "reference";
   value: number | null;
   note: string;
@@ -552,6 +554,8 @@ function buildEbayUnavailableSnapshot(
     {
       key: "ebay-status",
       label: isSandbox ? "eBay Sandbox Status" : "eBay Feed Status",
+      source: "ebay",
+      role: "supplemental",
       type: "reference",
       value: null,
       note: `${note} ${errorMessage}`,
@@ -562,6 +566,8 @@ function buildEbayUnavailableSnapshot(
     priceSources.push({
       key: "catalog-reference",
       label: getCatalogReferenceLabel(card),
+      source: "reference",
+      role: "reference",
       type: "reference",
       value: catalogReference,
       note: "Imported catalog-side market/reference value used as the temporary fallback.",
@@ -572,6 +578,8 @@ function buildEbayUnavailableSnapshot(
     priceSources.push({
       key: "psa-cert",
       label: "PSA Certification",
+      source: "reference",
+      role: "reference",
       type: "reference",
       value: null,
       note:
@@ -791,6 +799,8 @@ function buildLiveSnapshotFromListings(
     {
       key: "ebay-floor",
       label: "eBay Listing Floor",
+      source: "ebay",
+      role: "supplemental",
       type: "market",
       value: listingFloor,
       note: "Lowest current eBay asking price from the matched single-card listings.",
@@ -798,6 +808,8 @@ function buildLiveSnapshotFromListings(
     {
       key: "ebay-median-ask",
       label: "eBay Median Ask",
+      source: "ebay",
+      role: "supplemental",
       type: "market",
       value: medianAsk,
       note: "Median asking price across the strongest live eBay matches.",
@@ -808,6 +820,8 @@ function buildLiveSnapshotFromListings(
     priceSources.push({
       key: "catalog-reference",
       label: getCatalogReferenceLabel(card),
+      source: "reference",
+      role: "reference",
       type: "reference",
       value: toCurrency(card.marketPrice),
       note: "Imported catalog-side reference price retained as a second opinion.",
@@ -817,6 +831,8 @@ function buildLiveSnapshotFromListings(
   priceSources.push({
     key: "nexus-fair",
     label: "Nexus Fair Value",
+    source: "reference",
+    role: "reference",
     type: "reference",
     value: fairValue,
     note: "Weighted slightly under asking prices so the archive stops acting like list price is law.",
@@ -826,6 +842,8 @@ function buildLiveSnapshotFromListings(
     priceSources.push({
       key: "psa-cert",
       label: "PSA Certification",
+      source: "reference",
+      role: "reference",
       type: "reference",
       value: null,
       note:
@@ -870,7 +888,7 @@ function buildLiveSnapshotFromListings(
     sourceCount:
       priceSources.filter((source) => source.value != null).length + (psaCertification ? 1 : 0),
     dataQualityNote:
-      "Live eBay asking data is wired in. Treat this as real market signal, but not a confirmed sold-comp feed yet.",
+      "Live eBay listings are active as the supplemental showings lane. Treat them as current market signal, not a confirmed sold-comp feed.",
     note: "Live marketplace data is active for this product detail view.",
     psaCertification,
   }, capturedAt);

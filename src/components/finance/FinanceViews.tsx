@@ -61,6 +61,124 @@ function MetricCard({
   );
 }
 
+function formatSourceName(
+  source: FinanceProductDetail["marketProvenance"]["primarySource"] | FinanceProductDetail["priceSources"][number]["source"],
+) {
+  switch (source) {
+    case "google-shopping":
+      return "Google Shopping";
+    case "tcgplayer":
+      return "TCGplayer";
+    case "ebay":
+      return "eBay";
+    case "reference":
+    default:
+      return "Reference";
+  }
+}
+
+function formatLookupModeLabel(detail: FinanceProductDetail) {
+  if (detail.marketProvenance.lookupMode === "saved-product-id") {
+    return "Saved Google mapping";
+  }
+
+  if (detail.marketProvenance.lookupMode === "discovery-search") {
+    return "Discovered during refresh";
+  }
+
+  switch (detail.marketProvenance.googleStatus) {
+    case "disabled":
+      return "Google lane disabled";
+    case "missing-mapping":
+      return "Google mapping missing";
+    case "error":
+      return "Google lane fallback";
+    default:
+      return "Fallback-only lane";
+  }
+}
+
+function formatCacheTierLabel(
+  tier: FinanceProductDetail["marketProvenance"]["cacheTier"],
+) {
+  if (!tier) {
+    return null;
+  }
+
+  switch (tier) {
+    case "tier1":
+      return "Tier 1 (6h)";
+    case "tier2":
+      return "Tier 2 (12h)";
+    case "tier3":
+    default:
+      return "Tier 3 (24h)";
+  }
+}
+
+function formatSupplementalSources(detail: FinanceProductDetail) {
+  if (detail.marketProvenance.supplementalSources.length === 0) {
+    return "Catalog/reference only";
+  }
+
+  return detail.marketProvenance.supplementalSources
+    .map((source) => formatSourceName(source))
+    .join(" + ");
+}
+
+function getSourceActionLabel(detail: FinanceProductDetail) {
+  switch (detail.marketProvenance.primarySource) {
+    case "google-shopping":
+      return "Open Google price source ↗";
+    case "tcgplayer":
+      return "Open TCGplayer source ↗";
+    case "ebay":
+      return "Open eBay source ↗";
+    case "reference":
+    default:
+      return "Open source record ↗";
+  }
+}
+
+function getMarketMetricHint(detail: FinanceProductDetail) {
+  if (detail.marketProvenance.primarySource === "google-shopping") {
+    return "Primary Google Shopping lane.";
+  }
+
+  if (detail.marketProvenance.primarySource === "tcgplayer") {
+    return "Fallback market lane from TCGplayer.";
+  }
+
+  if (detail.marketProvenance.primarySource === "ebay") {
+    return "Fallback market lane from eBay.";
+  }
+
+  return "Catalog/reference market lane.";
+}
+
+function getRecentActivityEmptyState(detail: FinanceProductDetail) {
+  if (detail.marketProvenance.primarySource === "google-shopping") {
+    return "Live eBay showings are unavailable for this product right now. Google Shopping via Serper is still powering the main price lane above.";
+  }
+
+  return (
+    detail.marketProvenance.fallbackMessage ??
+    "Live eBay showings are unavailable for this product right now, so this section is waiting on the supplemental listings lane to come back."
+  );
+}
+
+function getSourceBadgeClasses(role: FinanceProductDetail["priceSources"][number]["role"]) {
+  switch (role) {
+    case "primary":
+      return "border-amber-300/40 bg-amber-400/10 text-amber-100";
+    case "supplemental":
+      return "border-sky-300/30 bg-sky-500/10 text-sky-100";
+    case "reference":
+    default:
+      return "border-white/15 bg-white/[0.04] text-amber-50/75";
+  }
+}
+
 function SectionHeader({
   title,
   description,
@@ -411,19 +529,88 @@ export function FinanceProductView({
                       rel="noreferrer"
                       className="rounded-full bg-amber-400/95 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-amber-300"
                     >
-                      Open source listing ↗
+                      {getSourceActionLabel(detail)}
                     </a>
                   ) : null}
                 </div>
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:max-w-[42rem]">
-                <MetricCard label="Market" value={formatFinanceCurrency(detail.marketPrice)} hint="Visible reference market." />
+                <MetricCard label="Market" value={formatFinanceCurrency(detail.marketPrice)} hint={getMarketMetricHint(detail)} />
                 <MetricCard label="Fair Value" value={formatFinanceCurrency(detail.fairValue)} hint="Weighted Nexus estimate." />
                 <MetricCard label="Cash Now" value={formatFinanceCurrency(detail.cashNowValue)} hint="Immediate exit math." />
                 <MetricCard label="Liquidity" value={`${detail.liquidityScore ?? "—"}`} hint="Ease of exit." />
                 <MetricCard label="24h Move" value={formatFinanceDelta(detail.delta24h)} hint={formatFinancePercent(detail.deltaPercent24h)} />
                 <MetricCard label="Confidence" value={`${detail.confidenceScore ?? "—"}`} hint={detail.dataQualityNote} />
+              </div>
+
+              <div className="mt-4 xl:max-w-[42rem]">
+                <div className="rounded-3xl border border-white/15 bg-black/45 px-4 py-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/65">
+                        Pricing Source
+                      </div>
+                      <div className="mt-2 text-lg font-semibold text-amber-50">
+                        {detail.marketProvenance.primaryLabel}
+                      </div>
+                    </div>
+                    <div
+                      className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                        detail.marketProvenance.isFallback
+                          ? "border-red-300/35 bg-red-500/10 text-red-100"
+                          : "border-amber-300/35 bg-amber-400/10 text-amber-100"
+                      }`}
+                    >
+                      {detail.marketProvenance.isFallback ? "Fallback active" : "Primary live lane"}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-white/10 bg-black/30 px-3 py-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-100/60">
+                        Lookup
+                      </div>
+                      <div className="mt-2 text-sm text-amber-50">
+                        {formatLookupModeLabel(detail)}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-black/30 px-3 py-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-100/60">
+                        Freshness
+                      </div>
+                      <div className="mt-2 text-sm text-amber-50">
+                        {detail.marketProvenance.freshnessLabel}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-black/30 px-3 py-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-100/60">
+                        Supplemental
+                      </div>
+                      <div className="mt-2 text-sm text-amber-50">
+                        {formatSupplementalSources(detail)}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-black/30 px-3 py-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-100/60">
+                        Cache Tier
+                      </div>
+                      <div className="mt-2 text-sm text-amber-50">
+                        {formatCacheTierLabel(detail.marketProvenance.cacheTier) ?? "Fallback lane"}
+                      </div>
+                    </div>
+                  </div>
+
+                  {detail.marketProvenance.fallbackMessage ? (
+                    <p className="mt-4 rounded-2xl border border-red-300/20 bg-red-500/10 px-3 py-3 text-sm text-red-100/90">
+                      {detail.marketProvenance.fallbackMessage}
+                    </p>
+                  ) : (
+                    <p className="mt-4 text-sm text-amber-100/75">
+                      Google Shopping via Serper is driving the pricing lane on this page, while eBay showings stay visible as a separate supplemental lane below.
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -534,7 +721,21 @@ export function FinanceProductView({
                   className="rounded-2xl border border-white/15 bg-black/45 px-4 py-3"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <div className="text-sm font-semibold text-amber-50">{source.label}</div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="text-sm font-semibold text-amber-50">{source.label}</div>
+                        <span
+                          className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${getSourceBadgeClasses(source.role)}`}
+                        >
+                          {formatSourceName(source.source)}
+                        </span>
+                        <span
+                          className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${getSourceBadgeClasses(source.role)}`}
+                        >
+                          {source.role}
+                        </span>
+                      </div>
+                    </div>
                     <div className="text-sm text-amber-200">{formatFinanceCurrency(source.value)}</div>
                   </div>
                   <p className="mt-2 text-xs text-amber-100/70">{source.note}</p>
@@ -617,7 +818,7 @@ export function FinanceProductView({
                 ))
               ) : (
                 <div className="rounded-2xl border border-dashed border-white/15 bg-black/35 px-4 py-4 text-sm text-amber-100/75">
-                  No live eBay comp rows came back for this product yet, so the rest of the page is leaning on the fallback catalog/reference lane for now.
+                  {getRecentActivityEmptyState(detail)}
                 </div>
               )}
             </div>
