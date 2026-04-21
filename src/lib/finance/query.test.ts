@@ -13,6 +13,7 @@ import {
   buildFinanceRecentActivity,
   getFinanceProductDetailCacheTtlSeconds,
   shouldPreserveCachedFinanceProductDetail,
+  type FinanceProductDetail,
 } from "./query";
 
 function createSourceRef(
@@ -99,6 +100,10 @@ function createGoogleLookupResult(
     tier: "tier2",
     hasStoredMapping: true,
     failureReason: null,
+    snapshotState: "fresh",
+    canAutoRefresh: true,
+    refreshInFlight: false,
+    lastGoogleScrapedAt: "2026-04-20T12:00:00.000Z",
     ...overrides,
   };
 }
@@ -156,6 +161,75 @@ function createEbaySnapshot(
   };
 }
 
+function createFinanceProductDetail(
+  overrides: Partial<FinanceProductDetail> = {},
+): FinanceProductDetail {
+  return {
+    financeProductId: "OP06-081",
+    marketPrice: 5.99,
+    fairValue: 5.63,
+    delta24h: 0.08,
+    deltaPercent24h: 3.01,
+    liquidityScore: 66,
+    confidenceScore: 72,
+    cashNowValue: 4.23,
+    fastSellValue: 4.79,
+    maxValueValue: 5.79,
+    storeCreditValue: 5.12,
+    sourceLabel: "Google Shopping via Serper",
+    id: "OP06-081",
+    game: "one-piece",
+    name: "Absalom",
+    subtitle: "Character · Wings of the Captain",
+    imageUrl: null,
+    setName: "Wings of the Captain",
+    setCode: "OP06",
+    collectorNo: "081",
+    rarity: "SR",
+    tags: [],
+    note: "Finance preview note.",
+    baseCardName: "Absalom",
+    selectedVariantName: "Absalom",
+    selectedVariantLabel: "Alternate Art",
+    artVariants: [],
+    rulingNotes: [],
+    synergyCards: [],
+    source: "optcgapi-all-set-cards",
+    externalUrl: "https://shopping.example/absalom",
+    lowPrice: 5.49,
+    soldMedian: 5.75,
+    activeListingFloor: 5.49,
+    buylistFloor: 4.11,
+    gradeFirstValue: 6.02,
+    recommendation: {
+      title: "Best route",
+      body: "Best route body.",
+    },
+    priceSources: [],
+    routeEstimates: [],
+    history: [],
+    recentComps: [],
+    recentActivityLabel: "eBay Showings",
+    recentActivityDescription: "Live eBay listings.",
+    alerts: [],
+    lastUpdatedAt: "2026-04-20T12:35:00.000Z",
+    freshnessLabel: "Google product details cached for 12 hours",
+    sourceCount: 1,
+    dataQualityNote: "Mapped Google Shopping offers are active.",
+    marketProvenance: buildFinanceMarketProvenance(
+      createGoogleLookupResult(),
+      null,
+      createEbaySnapshot(),
+    ),
+    psaCertification: null,
+    snapshotState: "fresh",
+    canAutoRefresh: true,
+    refreshInFlight: false,
+    lastGoogleScrapedAt: "2026-04-20T12:00:00.000Z",
+    ...overrides,
+  };
+}
+
 test("buildFinanceMarketProvenance marks Google as primary when a stored mapping is active", () => {
   const provenance = buildFinanceMarketProvenance(
     createGoogleLookupResult(),
@@ -180,23 +254,26 @@ test("buildFinanceMarketProvenance marks Google as primary when a stored mapping
   assert.equal(provenance.cacheTier, "tier2");
 });
 
-test("buildFinanceMarketProvenance falls back cleanly when Google mapping is missing", () => {
+test("buildFinanceMarketProvenance keeps Google primary while a missing mapping waits on refresh", () => {
   const provenance = buildFinanceMarketProvenance(
     createGoogleLookupResult({
       snapshot: null,
       status: "missing-mapping",
       lookupMode: "fallback-only",
       hasStoredMapping: false,
-      failureReason: "no-match",
+      failureReason: null,
+      snapshotState: "missing",
+      canAutoRefresh: true,
+      refreshInFlight: false,
+      lastGoogleScrapedAt: null,
     }),
     null,
     createEbaySnapshot(),
   );
 
-  assert.equal(provenance.primarySource, "ebay");
+  assert.equal(provenance.primarySource, "google-shopping");
   assert.equal(provenance.isFallback, true);
-  assert.match(provenance.fallbackMessage ?? "", /saved Google Shopping mapping/i);
-  assert.match(provenance.fallbackMessage ?? "", /eBay/i);
+  assert.match(provenance.fallbackMessage ?? "", /does not have a saved Google Shopping mapping/i);
 });
 
 test("buildFinanceRecentActivity keeps eBay showings visible even when Google is primary", () => {
@@ -225,57 +302,49 @@ test("buildFinanceRecentActivity explains the missing eBay lane when Google is p
   assert.match(activity.recentActivityDescription, /Google Shopping via Serper/i);
 });
 
-test("getFinanceProductDetailCacheTtlSeconds keeps Google refresh errors on a short retry window", () => {
-  const fallbackProvenance = buildFinanceMarketProvenance(
-    createGoogleLookupResult({
-      snapshot: null,
-      status: "error",
-      lookupMode: "fallback-only",
-      hasStoredMapping: true,
-      failureReason: "request-failed",
+test("getFinanceProductDetailCacheTtlSeconds caps fresh detail cache by the remaining Google freshness window", () => {
+  const ttl = getFinanceProductDetailCacheTtlSeconds(
+    createFinanceProductDetail({
+      lastGoogleScrapedAt: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
     }),
-    null,
-    createEbaySnapshot(),
   );
 
-  assert.equal(getFinanceProductDetailCacheTtlSeconds(fallbackProvenance), 60 * 5);
-  assert.equal(
-    getFinanceProductDetailCacheTtlSeconds(
-      buildFinanceMarketProvenance(createGoogleLookupResult(), null, createEbaySnapshot()),
-    ),
-    60 * 60 * 24 * 2,
-  );
+  assert.ok(ttl > 0);
+  assert.ok(ttl <= 60 * 5);
 });
 
-test("shouldPreserveCachedFinanceProductDetail keeps the last good Google-backed snapshot on refresh errors", () => {
-  const cachedGoogleProvenance = buildFinanceMarketProvenance(
-    createGoogleLookupResult(),
-    null,
-    createEbaySnapshot(),
-  );
-  const refreshedFallbackProvenance = buildFinanceMarketProvenance(
-    createGoogleLookupResult({
-      snapshot: null,
-      status: "error",
-      lookupMode: "fallback-only",
-      hasStoredMapping: true,
-      failureReason: "request-failed",
+test("getFinanceProductDetailCacheTtlSeconds keeps stale placeholder detail on a short memoization window", () => {
+  const ttl = getFinanceProductDetailCacheTtlSeconds(
+    createFinanceProductDetail({
+      snapshotState: "stale",
+      marketPrice: null,
+      fairValue: null,
+      cashNowValue: null,
+      fastSellValue: null,
+      maxValueValue: null,
+      storeCreditValue: null,
     }),
-    null,
-    createEbaySnapshot(),
   );
 
+  assert.equal(ttl, 15);
+});
+
+test("shouldPreserveCachedFinanceProductDetail no longer keeps stale Google numbers alive", () => {
   assert.equal(
     shouldPreserveCachedFinanceProductDetail(
-      cachedGoogleProvenance,
-      refreshedFallbackProvenance,
-    ),
-    true,
-  );
-  assert.equal(
-    shouldPreserveCachedFinanceProductDetail(
-      refreshedFallbackProvenance,
-      refreshedFallbackProvenance,
+      buildFinanceMarketProvenance(createGoogleLookupResult(), null, createEbaySnapshot()),
+      buildFinanceMarketProvenance(
+        createGoogleLookupResult({
+          snapshot: null,
+          status: "error",
+          lookupMode: "saved-product-id",
+          hasStoredMapping: true,
+          failureReason: "request-failed",
+          snapshotState: "stale",
+        }),
+        null,
+        createEbaySnapshot(),
+      ),
     ),
     false,
   );

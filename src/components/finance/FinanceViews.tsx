@@ -141,6 +141,18 @@ function getSourceActionLabel(detail: FinanceProductDetail) {
 }
 
 function getMarketMetricHint(detail: FinanceProductDetail) {
+  if (detail.snapshotState !== "fresh") {
+    if (detail.snapshotState === "refreshing") {
+      return "Waiting on a fresh Google snapshot.";
+    }
+
+    if (detail.snapshotState === "preview-readonly") {
+      return "Read-only environment. Fresh Google pricing is not auto-refreshing here.";
+    }
+
+    return "Google-driven pricing is waiting on refresh.";
+  }
+
   if (detail.marketProvenance.primarySource === "google-shopping") {
     return "Primary Google Shopping lane.";
   }
@@ -154,6 +166,38 @@ function getMarketMetricHint(detail: FinanceProductDetail) {
   }
 
   return "Catalog/reference market lane.";
+}
+
+function getPricingLaneBadge(detail: FinanceProductDetail) {
+  switch (detail.snapshotState) {
+    case "refreshing":
+      return "Refreshing";
+    case "stale":
+    case "missing":
+      return "Waiting";
+    case "preview-readonly":
+      return "Read only";
+    case "fresh":
+    default:
+      return detail.marketProvenance.isFallback ? "Fallback active" : "Primary live lane";
+  }
+}
+
+function getPricingLaneBadgeClasses(detail: FinanceProductDetail) {
+  switch (detail.snapshotState) {
+    case "refreshing":
+      return "border-sky-300/35 bg-sky-500/10 text-sky-100";
+    case "stale":
+    case "missing":
+      return "border-amber-300/35 bg-amber-400/10 text-amber-100";
+    case "preview-readonly":
+      return "border-white/20 bg-white/[0.06] text-amber-50";
+    case "fresh":
+    default:
+      return detail.marketProvenance.isFallback
+        ? "border-red-300/35 bg-red-500/10 text-red-100"
+        : "border-amber-300/35 bg-amber-400/10 text-amber-100";
+  }
 }
 
 function getRecentActivityEmptyState(detail: FinanceProductDetail) {
@@ -556,13 +600,9 @@ export function FinanceProductView({
                       </div>
                     </div>
                     <div
-                      className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
-                        detail.marketProvenance.isFallback
-                          ? "border-red-300/35 bg-red-500/10 text-red-100"
-                          : "border-amber-300/35 bg-amber-400/10 text-amber-100"
-                      }`}
+                      className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${getPricingLaneBadgeClasses(detail)}`}
                     >
-                      {detail.marketProvenance.isFallback ? "Fallback active" : "Primary live lane"}
+                      {getPricingLaneBadge(detail)}
                     </div>
                   </div>
 
@@ -602,8 +642,18 @@ export function FinanceProductView({
                   </div>
 
                   {detail.marketProvenance.fallbackMessage ? (
-                    <p className="mt-4 rounded-2xl border border-red-300/20 bg-red-500/10 px-3 py-3 text-sm text-red-100/90">
+                    <p
+                      className={`mt-4 rounded-2xl border px-3 py-3 text-sm ${
+                        detail.snapshotState === "fresh"
+                          ? "border-red-300/20 bg-red-500/10 text-red-100/90"
+                          : "border-amber-300/20 bg-amber-400/10 text-amber-50/90"
+                      }`}
+                    >
                       {detail.marketProvenance.fallbackMessage}
+                    </p>
+                  ) : detail.snapshotState !== "fresh" ? (
+                    <p className="mt-4 rounded-2xl border border-amber-300/20 bg-amber-400/10 px-3 py-3 text-sm text-amber-50/90">
+                      Fresh Google-driven pricing is still hydrating, so NexusArchive is showing placeholders in the main metric lane until the current snapshot is ready.
                     </p>
                   ) : (
                     <p className="mt-4 text-sm text-amber-100/75">

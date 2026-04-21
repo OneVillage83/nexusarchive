@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { FinanceProductHydrator } from "@/components/finance/FinanceProductHydrator";
 import { FinanceProductView } from "@/components/finance/FinanceViews";
 import { getFinanceProductDetail } from "@/lib/finance/query";
 import { requireGame } from "@/lib/server-game";
@@ -24,5 +25,16 @@ export default async function GameFinanceProductPage({
     notFound();
   }
 
-  return <FinanceProductView game={game} detail={detail} fromGallery={fromGallery} />;
+  return (
+    <>
+      <FinanceProductHydrator
+        game={game}
+        financeProductId={detail.financeProductId}
+        snapshotState={detail.snapshotState}
+        canAutoRefresh={detail.canAutoRefresh}
+        refreshInFlight={detail.refreshInFlight}
+      />
+      <FinanceProductView game={game} detail={detail} fromGallery={fromGallery} />
+    </>
+  );
 }

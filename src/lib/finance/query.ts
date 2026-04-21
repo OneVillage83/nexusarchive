@@ -4,8 +4,11 @@ import prisma from "@/lib/db";
 import type { GameSlug } from "@/lib/games";
 import {
   getGoogleProductDetailsResult,
+  getMarketSnapshotRemainingSeconds,
+  refreshGoogleProductDetailsResult,
   type GoogleProductDetailsLookupResult,
   type GoogleProductLookupMode,
+  type GoogleSnapshotState,
   type GoogleProductLookupStatus,
   type MarketRefreshTier,
 } from "@/lib/finance/google-market";
@@ -51,8 +54,9 @@ const GAME_TO_PRISMA: Record<GameSlug, PrismaGame> = {
 const SAMPLE_CARD_LIMIT = 220;
 const PREVIEW_POSITION_LIMIT = 8;
 const FINANCE_HOME_TTL_SECONDS = 60 * 30;
-const FINANCE_PRODUCT_TTL_SECONDS = 60 * 60 * 24 * 2;
+const FINANCE_PRODUCT_DERIVED_TTL_SECONDS = 60 * 5;
 const FINANCE_PRODUCT_ERROR_RETRY_TTL_SECONDS = 60 * 5;
+const FINANCE_PRODUCT_PENDING_TTL_SECONDS = 15;
 const FINANCE_SEALED_TTL_SECONDS = 60 * 60;
 const ALL_CATALOG_CACHE_TTL_MS = 1000 * 60 * 5;
 
@@ -83,7 +87,7 @@ export type FinancePriceSource = {
 export type FinanceRouteEstimate = {
   key: FinanceRouteKey;
   label: string;
-  netValue: number;
+  netValue: number | null;
   etaLabel: string;
   confidenceScore: number;
   note: string;
@@ -208,6 +212,10 @@ export type FinanceProductDetail = FinanceProductSummary & {
   dataQualityNote: string;
   marketProvenance: FinanceMarketProvenance;
   psaCertification: LiveFinancePsaCertification | null;
+  snapshotState: GoogleSnapshotState;
+  canAutoRefresh: boolean;
+  refreshInFlight: boolean;
+  lastGoogleScrapedAt: string | null;
 };
 
 export type FinanceSealedSummary = {
@@ -488,16 +496,18 @@ function buildRouteEstimates(
   teaser: FinanceTeaser,
   game: GameSlug,
 ): FinanceRouteEstimate[] {
-  const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
+  const fairValue = teaser.fairValue ?? teaser.marketPrice;
+  const hasBaseValue = fairValue != null;
   const gradeFirstValue = toCurrency(
-    fairValue * (game === "magic-the-gathering" ? 1.16 : 1.08),
-  ) ?? fairValue;
+    (fairValue ?? 0) * (game === "magic-the-gathering" ? 1.16 : 1.08),
+  );
 
   return [
     {
       key: "cash-now",
       label: "Cash Now",
-      netValue: teaser.cashNowValue ?? fairValue * 0.7,
+      netValue:
+        teaser.cashNowValue ?? (hasBaseValue ? toCurrency((fairValue ?? 0) * 0.7) : null),
       etaLabel: "Same day",
       confidenceScore: Math.max(40, (teaser.confidenceScore ?? 50) - 6),
       note: "Best immediate exit if you want money more than ceiling.",
@@ -505,7 +515,8 @@ function buildRouteEstimates(
     {
       key: "fast-sell",
       label: "Fast Sell",
-      netValue: teaser.fastSellValue ?? fairValue * 0.84,
+      netValue:
+        teaser.fastSellValue ?? (hasBaseValue ? toCurrency((fairValue ?? 0) * 0.84) : null),
       etaLabel: "2–7 days",
       confidenceScore: teaser.confidenceScore ?? 50,
       note: "Undercut the room a little and move cardboard before it gets cute.",
@@ -513,7 +524,7 @@ function buildRouteEstimates(
     {
       key: "max-value",
       label: "Max Value Listing",
-      netValue: teaser.maxValueValue ?? fairValue,
+      netValue: teaser.maxValueValue ?? fairValue ?? null,
       etaLabel: "1–4 weeks",
       confidenceScore: Math.max(35, (teaser.confidenceScore ?? 50) - 8),
       note: "Highest theoretical net after fees, patience, and a little market faith.",
@@ -521,7 +532,8 @@ function buildRouteEstimates(
     {
       key: "store-credit",
       label: "Store Credit",
-      netValue: teaser.storeCreditValue ?? fairValue * 0.9,
+      netValue:
+        teaser.storeCreditValue ?? (hasBaseValue ? toCurrency((fairValue ?? 0) * 0.9) : null),
       etaLabel: "Same day",
       confidenceScore: Math.max(40, (teaser.confidenceScore ?? 50) - 3),
       note: "Best if the next deck project is already whispering at you.",
@@ -529,7 +541,7 @@ function buildRouteEstimates(
     {
       key: "grade-first",
       label: "Grade First",
-      netValue: gradeFirstValue,
+      netValue: teaser.fairValue == null && teaser.marketPrice == null ? null : gradeFirstValue,
       etaLabel: "3–8 weeks",
       confidenceScore: Math.max(28, (teaser.confidenceScore ?? 50) - 12),
       note: "Only makes sense when scarcity, condition, and demand all decide to cooperate.",
@@ -818,7 +830,16 @@ function buildRecommendation(
   teaser: FinanceTeaser,
   routes: FinanceRouteEstimate[],
 ) {
-  const sortedRoutes = [...routes].sort((left, right) => right.netValue - left.netValue);
+  if (teaser.marketPrice == null && teaser.fairValue == null) {
+    return {
+      title: "Snapshot hydrating",
+      body: `Fresh Google-driven pricing is still loading for ${card.name}, so the archive is holding the main value call until a clean snapshot lands.`,
+    };
+  }
+
+  const sortedRoutes = [...routes].sort(
+    (left, right) => (right.netValue ?? Number.NEGATIVE_INFINITY) - (left.netValue ?? Number.NEGATIVE_INFINITY),
+  );
   const bestRoute = sortedRoutes[0] ?? routes[0];
   const bestRouteLabel = bestRoute?.label ?? "Hold";
 
@@ -1008,6 +1029,34 @@ function buildGoogleFallbackMessage(
   }
 }
 
+function buildGoogleHydrationMessage(googleResult: GoogleProductDetailsLookupResult) {
+  if (googleResult.snapshotState === "refreshing") {
+    return "A fresh Google Shopping snapshot is already loading for this card. Pricing metrics will populate as soon as the locked refresh finishes.";
+  }
+
+  if (googleResult.snapshotState === "preview-readonly") {
+    return googleResult.hasStoredMapping
+      ? "This environment is read-only for live Serper spend, so NexusArchive is waiting for a fresh production refresh before showing Google-driven pricing again."
+      : "This environment is read-only for live Serper spend, so NexusArchive cannot discover a new Google product mapping automatically here.";
+  }
+
+  if (googleResult.status === "error") {
+    return googleResult.hasStoredMapping
+      ? "The saved Google product mapping is still on file, but the latest live refresh did not complete. NexusArchive is holding the price lane open until a clean snapshot lands."
+      : "Google Shopping discovery or refresh failed for this card, so NexusArchive is holding the price lane open until a clean snapshot lands.";
+  }
+
+  if (googleResult.status === "disabled") {
+    return "Google Shopping via Serper is disabled in this environment, so NexusArchive cannot hydrate the main price lane right now.";
+  }
+
+  if (googleResult.hasStoredMapping) {
+    return "A saved Google product mapping exists, but the stored snapshot is outside its tier window and is waiting on a refresh.";
+  }
+
+  return "This card does not have a saved Google Shopping mapping yet, so NexusArchive is waiting on its first discovery and product-details refresh.";
+}
+
 export function buildFinanceMarketProvenance(
   googleResult: GoogleProductDetailsLookupResult,
   tcgplayerSnapshot: TcgplayerListingSnapshot | null,
@@ -1019,17 +1068,34 @@ export function buildFinanceMarketProvenance(
     ebaySnapshot ? "ebay" : null,
   ].filter((value): value is FinanceMarketSource => value != null));
 
-  if (googleSnapshot) {
+  if (
+    googleSnapshot ||
+    googleResult.hasStoredMapping ||
+    googleResult.snapshotState !== "missing" ||
+    googleResult.canAutoRefresh ||
+    googleResult.refreshInFlight
+  ) {
     return {
       primarySource: "google-shopping",
       primaryLabel: "Google Shopping via Serper",
       lookupMode: googleResult.lookupMode,
       googleStatus: googleResult.status,
       cacheTier: googleResult.tier,
-      freshnessLabel: googleSnapshot.freshnessLabel,
+      freshnessLabel:
+        googleSnapshot?.freshnessLabel ??
+        (googleResult.snapshotState === "refreshing"
+          ? "Google Shopping snapshot is refreshing right now."
+          : googleResult.snapshotState === "preview-readonly"
+            ? "Google Shopping snapshot is read-only in this environment."
+            : googleResult.snapshotState === "stale"
+              ? "Stored Google Shopping snapshot is stale and waiting on refresh."
+              : "Google Shopping snapshot is missing and waiting on refresh."),
       supplementalSources,
-      isFallback: false,
-      fallbackMessage: null,
+      isFallback: googleResult.snapshotState !== "fresh",
+      fallbackMessage:
+        googleResult.snapshotState === "fresh"
+          ? null
+          : buildGoogleHydrationMessage(googleResult),
     };
   }
 
@@ -1071,29 +1137,43 @@ export function buildFinanceMarketProvenance(
 }
 
 export function getFinanceProductDetailCacheTtlSeconds(
-  marketProvenance: FinanceMarketProvenance | null | undefined,
+  detail: FinanceProductDetail | null | undefined,
 ) {
-  if (marketProvenance?.isFallback && marketProvenance.googleStatus === "error") {
+  if (!detail) {
+    return FINANCE_PRODUCT_PENDING_TTL_SECONDS;
+  }
+
+  if (
+    detail.snapshotState === "fresh" &&
+    detail.marketProvenance.cacheTier &&
+    detail.lastGoogleScrapedAt
+  ) {
+    const remainingSeconds = getMarketSnapshotRemainingSeconds(
+      detail.lastGoogleScrapedAt,
+      detail.marketProvenance.cacheTier,
+    );
+    return Math.max(
+      5,
+      Math.min(FINANCE_PRODUCT_DERIVED_TTL_SECONDS, remainingSeconds || 5),
+    );
+  }
+
+  if (detail.snapshotState === "refreshing") {
+    return 5;
+  }
+
+  if (detail.marketProvenance.googleStatus === "error") {
     return FINANCE_PRODUCT_ERROR_RETRY_TTL_SECONDS;
   }
 
-  return FINANCE_PRODUCT_TTL_SECONDS;
+  return FINANCE_PRODUCT_PENDING_TTL_SECONDS;
 }
 
 export function shouldPreserveCachedFinanceProductDetail(
-  cachedMarketProvenance: FinanceMarketProvenance | null | undefined,
-  refreshedMarketProvenance: FinanceMarketProvenance | null | undefined,
+  _cachedMarketProvenance: FinanceMarketProvenance | null | undefined,
+  _refreshedMarketProvenance: FinanceMarketProvenance | null | undefined,
 ) {
-  if (!cachedMarketProvenance || !refreshedMarketProvenance) {
-    return false;
-  }
-
-  return (
-    cachedMarketProvenance.primarySource === "google-shopping" &&
-    !cachedMarketProvenance.isFallback &&
-    refreshedMarketProvenance.isFallback &&
-    refreshedMarketProvenance.googleStatus === "error"
-  );
+  return false;
 }
 
 export function buildFinanceRecentActivity(
@@ -1126,10 +1206,11 @@ async function buildMergedLiveMarketSnapshot(
   card: CardCatalogSummary,
   options?: { refresh?: boolean },
 ) {
+  const googleLookup = options?.refresh
+    ? refreshGoogleProductDetailsResult
+    : getGoogleProductDetailsResult;
   const [googleResult, tcgplayerSnapshot, ebaySnapshot] = await Promise.all([
-    getGoogleProductDetailsResult(card, {
-      refresh: options?.refresh,
-    }).catch((error) => {
+    googleLookup(card).catch((error) => {
       console.error(`Google product detail lookup failed for ${card.game}:${card.id}:`, error);
       return {
         snapshot: null,
@@ -1138,6 +1219,10 @@ async function buildMergedLiveMarketSnapshot(
         tier: null,
         hasStoredMapping: false,
         failureReason: "request-failed",
+        snapshotState: "missing",
+        canAutoRefresh: false,
+        refreshInFlight: false,
+        lastGoogleScrapedAt: null,
       } satisfies GoogleProductDetailsLookupResult;
     }),
     getTcgplayerListingSnapshot(card).catch((error) => {
@@ -1162,6 +1247,7 @@ async function buildMergedLiveMarketSnapshot(
     return {
       snapshot: null,
       marketProvenance,
+      googleResult,
     };
   }
 
@@ -1280,6 +1366,7 @@ async function buildMergedLiveMarketSnapshot(
       psaCertification: ebaySnapshot?.psaCertification ?? null,
     } satisfies LiveFinanceMarketSnapshot,
     marketProvenance,
+    googleResult,
   };
 }
 
@@ -1291,7 +1378,26 @@ async function buildFinanceProductDetail(
   const liveMarket = await buildMergedLiveMarketSnapshot(card, options);
   const liveSnapshot = liveMarket.snapshot;
   const marketProvenance = liveMarket.marketProvenance;
-  const teaser: FinanceTeaser = liveSnapshot
+  const googleResult = liveMarket.googleResult;
+  const usePlaceholderPricing =
+    googleResult.snapshotState !== "fresh" &&
+    marketProvenance.primarySource === "google-shopping";
+  const teaser: FinanceTeaser = usePlaceholderPricing
+    ? {
+        ...baseTeaser,
+        marketPrice: null,
+        fairValue: null,
+        delta24h: null,
+        deltaPercent24h: null,
+        liquidityScore: null,
+        confidenceScore: null,
+        cashNowValue: null,
+        fastSellValue: null,
+        maxValueValue: null,
+        storeCreditValue: null,
+        sourceLabel: marketProvenance.primaryLabel,
+      }
+    : liveSnapshot
     ? {
         ...baseTeaser,
         marketPrice: liveSnapshot.marketPrice ?? baseTeaser.marketPrice,
@@ -1316,20 +1422,31 @@ async function buildFinanceProductDetail(
       ? { ...route, netValue: liveSnapshot.gradeFirstValue }
       : route,
   );
-  const fairValue = teaser.fairValue ?? teaser.marketPrice ?? 0;
-  const lowPrice =
-    liveSnapshot?.lowPrice ?? toCurrency((teaser.marketPrice ?? fairValue) * 0.92);
-  const soldMedian = liveSnapshot?.soldMedian ?? toCurrency(fairValue * 1.02);
-  const activeListingFloor =
-    liveSnapshot?.activeListingFloor ?? toCurrency(fairValue * 0.96);
-  const buylistFloor =
-    liveSnapshot?.buylistFloor ??
-    toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98);
-  const gradeFirstValue = toCurrency(
-    liveSnapshot?.gradeFirstValue ??
-      routes.find((route) => route.key === "grade-first")?.netValue ??
-      fairValue,
-  );
+  const fairValue = teaser.fairValue ?? teaser.marketPrice;
+  const lowPrice = usePlaceholderPricing
+    ? null
+    : liveSnapshot?.lowPrice ??
+      (fairValue != null ? toCurrency((teaser.marketPrice ?? fairValue) * 0.92) : null);
+  const soldMedian = usePlaceholderPricing
+    ? null
+    : liveSnapshot?.soldMedian ?? (fairValue != null ? toCurrency(fairValue * 1.02) : null);
+  const activeListingFloor = usePlaceholderPricing
+    ? null
+    : liveSnapshot?.activeListingFloor ??
+      (fairValue != null ? toCurrency(fairValue * 0.96) : null);
+  const buylistFloor = usePlaceholderPricing
+    ? null
+    : liveSnapshot?.buylistFloor ??
+      (fairValue != null
+        ? toCurrency((teaser.cashNowValue ?? fairValue * 0.7) * 0.98)
+        : null);
+  const gradeFirstValue = usePlaceholderPricing
+    ? null
+    : toCurrency(
+        liveSnapshot?.gradeFirstValue ??
+          routes.find((route) => route.key === "grade-first")?.netValue ??
+          fairValue,
+      );
   const variantGroup = await getCardVariantGroup(card.game, card.id);
   const artVariants =
     variantGroup?.variants.map((variant) => {
@@ -1410,7 +1527,9 @@ async function buildFinanceProductDetail(
     recentActivityLabel: recentActivity.recentActivityLabel,
     recentActivityDescription: recentActivity.recentActivityDescription,
     alerts: buildAlertLines(card, teaser),
-    lastUpdatedAt: liveSnapshot?.capturedAt ?? null,
+    lastUpdatedAt: usePlaceholderPricing
+      ? googleResult.lastGoogleScrapedAt
+      : liveSnapshot?.capturedAt ?? googleResult.lastGoogleScrapedAt ?? null,
     freshnessLabel: marketProvenance.freshnessLabel,
     sourceCount:
       liveSnapshot?.sourceCount ??
@@ -1423,6 +1542,10 @@ async function buildFinanceProductDetail(
         : "This product is still leaning on modeled estimates and should be treated as directional only."),
     marketProvenance,
     psaCertification: liveSnapshot?.psaCertification ?? null,
+    snapshotState: googleResult.snapshotState,
+    canAutoRefresh: googleResult.canAutoRefresh,
+    refreshInFlight: googleResult.refreshInFlight,
+    lastGoogleScrapedAt: googleResult.lastGoogleScrapedAt,
   };
 }
 
@@ -2019,20 +2142,8 @@ export async function getFinanceProductDetail(
     const refreshed = await computeDetail();
 
     if (refreshed && redis) {
-      if (
-        shouldPreserveCachedFinanceProductDetail(
-          cached?.marketProvenance,
-          refreshed.marketProvenance,
-        )
-      ) {
-        console.warn(
-          `Preserving cached Google-backed finance detail for ${game}:${normalizedId} because the latest refresh degraded to fallback pricing after a Google refresh error.`,
-        );
-        return cached;
-      }
-
       await redis.set(cacheKey, refreshed, {
-        ex: getFinanceProductDetailCacheTtlSeconds(refreshed.marketProvenance),
+        ex: getFinanceProductDetailCacheTtlSeconds(refreshed),
       });
     }
 
@@ -2051,11 +2162,18 @@ export async function getFinanceProductDetail(
   const computed = await computeDetail();
   if (computed) {
     await redis.set(cacheKey, computed, {
-      ex: getFinanceProductDetailCacheTtlSeconds(computed.marketProvenance),
+      ex: getFinanceProductDetailCacheTtlSeconds(computed),
     });
   }
 
   return computed;
+}
+
+export async function refreshFinanceProductDetail(
+  game: GameSlug,
+  financeProductId: string,
+) {
+  return getFinanceProductDetail(game, financeProductId, { refresh: true });
 }
 
 export async function getFinanceSealedSummaries(game: GameSlug) {

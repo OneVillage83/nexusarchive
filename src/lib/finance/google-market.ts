@@ -14,6 +14,7 @@ import {
   type FinanceExternalSourceRefUpsertInput,
   upsertFinanceExternalSourceRef,
 } from "@/lib/finance/source-mappings";
+import { getRedis } from "@/lib/storage/redis";
 
 type GoogleShoppingSearchResult = {
   title?: string;
@@ -46,9 +47,18 @@ type SerperDeps = {
   fetchImpl?: typeof fetch;
   resolveSourceRef?: typeof resolveFinanceExternalSourceRefForCard;
   upsertSourceRef?: typeof upsertFinanceExternalSourceRef;
+  redis?: NonNullable<ReturnType<typeof getRedis>> | null;
+  now?: Date;
+  allowLiveSpend?: boolean;
 };
 
 export type MarketRefreshTier = "tier1" | "tier2" | "tier3";
+export type GoogleSnapshotState =
+  | "fresh"
+  | "stale"
+  | "missing"
+  | "refreshing"
+  | "preview-readonly";
 export type GoogleProductLookupStatus =
   | "active"
   | "discovered"
@@ -85,6 +95,10 @@ export type GoogleProductDetailsLookupResult = {
   tier: MarketRefreshTier | null;
   hasStoredMapping: boolean;
   failureReason: GoogleProductLookupFailureReason;
+  snapshotState: GoogleSnapshotState;
+  canAutoRefresh: boolean;
+  refreshInFlight: boolean;
+  lastGoogleScrapedAt: string | null;
 };
 
 export type GoogleMarketConfig = {
@@ -101,6 +115,10 @@ const DEFAULT_TIER1_TTL_HOURS = 6;
 const DEFAULT_TIER2_TTL_HOURS = 12;
 const DEFAULT_TIER3_TTL_HOURS = 24;
 const MAX_SHOPPING_RESULTS = 12;
+const GOOGLE_SNAPSHOT_CACHE_VERSION = "v1";
+const GOOGLE_SNAPSHOT_CACHE_TTL_SECONDS = 60 * 60 * 24 * 14;
+const GOOGLE_REFRESH_LOCK_TTL_SECONDS = 60;
+const GOOGLE_SNAPSHOT_METADATA_KEY = "googleSnapshot";
 
 const BLOCKED_TITLE_FRAGMENTS = [
   "booster box",
@@ -213,6 +231,201 @@ function buildCollectorToken(card: Pick<CardCatalogSummary, "collectorNo">) {
 function isBlockedShoppingTitle(title: string) {
   const normalized = normalizeSearchText(title);
   return BLOCKED_TITLE_FRAGMENTS.some((fragment) => normalized.includes(fragment));
+}
+
+function getRedisClient(deps?: SerperDeps) {
+  return deps?.redis ?? getRedis();
+}
+
+function parseMetadataRecord(
+  metadata: FinanceExternalSourceRef["metadata"],
+): Record<string, unknown> | null {
+  if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
+    return null;
+  }
+
+  return metadata as Record<string, unknown>;
+}
+
+function mergeSourceRefMetadata(
+  metadata: FinanceExternalSourceRef["metadata"],
+  patch: Record<string, unknown>,
+): FinanceExternalSourceRefUpsertInput["metadata"] {
+  return {
+    ...(parseMetadataRecord(metadata) ?? {}),
+    ...patch,
+  } as FinanceExternalSourceRefUpsertInput["metadata"];
+}
+
+function getRefreshLockIdentity(
+  card: Pick<CardCatalogSummary, "game" | "id" | "collectorNo">,
+  versionKey?: string | null,
+) {
+  return {
+    game: card.game,
+    internalCardId: getPreferredInternalCardId(card) ?? card.id,
+    versionKey: versionKey ?? "default",
+  };
+}
+
+function buildGoogleSnapshotCacheKey(
+  sourceRef: Pick<FinanceExternalSourceRef, "game" | "internalCardId" | "versionKey">,
+) {
+  return [
+    "finance",
+    "google-snapshot",
+    GOOGLE_SNAPSHOT_CACHE_VERSION,
+    sourceRef.game,
+    sourceRef.versionKey,
+    sourceRef.internalCardId,
+  ].join(":");
+}
+
+function buildGoogleRefreshLockKey(
+  identity: ReturnType<typeof getRefreshLockIdentity>,
+) {
+  return [
+    "finance",
+    "google-refresh-lock",
+    GOOGLE_SNAPSHOT_CACHE_VERSION,
+    identity.game,
+    identity.versionKey,
+    identity.internalCardId,
+  ].join(":");
+}
+
+function serializeGoogleSnapshot(
+  snapshot: GoogleProductDetailsSnapshot,
+): Record<string, unknown> {
+  const { sourceRef: _sourceRef, ...stored } = snapshot;
+  return {
+    ...stored,
+    schemaVersion: 1,
+  };
+}
+
+function hydrateStoredGoogleSnapshot(
+  sourceRef: FinanceExternalSourceRef,
+  value: unknown,
+): GoogleProductDetailsSnapshot | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  const stored = value as Record<string, unknown>;
+  if (typeof stored.capturedAt !== "string") {
+    return null;
+  }
+
+  return {
+    ...(stored as Omit<GoogleProductDetailsSnapshot, "sourceRef">),
+    sourceRef,
+  };
+}
+
+async function readStoredGoogleSnapshot(
+  sourceRef: FinanceExternalSourceRef,
+  deps?: SerperDeps,
+) {
+  const redis = getRedisClient(deps);
+
+  if (redis) {
+    const cached = await redis.get<Record<string, unknown>>(
+      buildGoogleSnapshotCacheKey(sourceRef),
+    );
+    const hydrated = hydrateStoredGoogleSnapshot(sourceRef, cached);
+    if (hydrated) {
+      return hydrated;
+    }
+  }
+
+  const metadata = parseMetadataRecord(sourceRef.metadata);
+  const stored = hydrateStoredGoogleSnapshot(
+    sourceRef,
+    metadata?.[GOOGLE_SNAPSHOT_METADATA_KEY],
+  );
+  if (stored && redis) {
+    await redis.set(
+      buildGoogleSnapshotCacheKey(sourceRef),
+      serializeGoogleSnapshot(stored),
+      { ex: GOOGLE_SNAPSHOT_CACHE_TTL_SECONDS },
+    );
+  }
+
+  return stored;
+}
+
+async function writeStoredGoogleSnapshot(
+  sourceRef: FinanceExternalSourceRef,
+  snapshot: GoogleProductDetailsSnapshot,
+  deps?: SerperDeps,
+) {
+  const redis = getRedisClient(deps);
+  if (!redis) {
+    return;
+  }
+
+  await redis.set(
+    buildGoogleSnapshotCacheKey(sourceRef),
+    serializeGoogleSnapshot(snapshot),
+    { ex: GOOGLE_SNAPSHOT_CACHE_TTL_SECONDS },
+  );
+}
+
+async function tryAcquireGoogleRefreshLock(
+  lockKey: string,
+  deps?: SerperDeps,
+) {
+  const redis = getRedisClient(deps);
+  if (!redis) {
+    return true;
+  }
+
+  const acquired = await redis.set(lockKey, new Date().toISOString(), {
+    ex: GOOGLE_REFRESH_LOCK_TTL_SECONDS,
+    nx: true,
+  });
+
+  return acquired === "OK";
+}
+
+async function releaseGoogleRefreshLock(lockKey: string, deps?: SerperDeps) {
+  const redis = getRedisClient(deps);
+  if (!redis) {
+    return;
+  }
+
+  await redis.del(lockKey);
+}
+
+async function hasGoogleRefreshLock(lockKey: string, deps?: SerperDeps) {
+  const redis = getRedisClient(deps);
+  if (!redis) {
+    return false;
+  }
+
+  const value = await redis.get<string>(lockKey);
+  return Boolean(value);
+}
+
+function isGoogleLiveSpendAllowed(deps?: SerperDeps) {
+  if (typeof deps?.allowLiveSpend === "boolean") {
+    return deps.allowLiveSpend;
+  }
+
+  const nodeEnv = compactText(process.env.NODE_ENV)?.toLowerCase();
+  const vercelEnv = compactText(process.env.VERCEL_ENV)?.toLowerCase();
+
+  return nodeEnv === "production" && (!vercelEnv || vercelEnv === "production");
+}
+
+function parseStoredDate(value: string | null | undefined, fallback = new Date()) {
+  if (!value) {
+    return fallback;
+  }
+
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? fallback : parsed;
 }
 
 export function buildDiscoveryQuery(
@@ -467,6 +680,26 @@ export function isMarketSnapshotFresh(
   return now.getTime() - lastScraped.getTime() < maxAgeMs;
 }
 
+export function getMarketSnapshotRemainingSeconds(
+  lastScrapedAt: string | null | undefined,
+  tier: MarketRefreshTier,
+  now = new Date(),
+  config = getGoogleMarketConfig(),
+) {
+  if (!lastScrapedAt) {
+    return 0;
+  }
+
+  const lastScraped = new Date(lastScrapedAt);
+  if (Number.isNaN(lastScraped.getTime())) {
+    return 0;
+  }
+
+  const maxAgeMs = getMarketRefreshTtlHours(tier, config) * 60 * 60 * 1000;
+  const remainingMs = lastScraped.getTime() + maxAgeMs - now.getTime();
+  return Math.max(0, Math.floor(remainingMs / 1000));
+}
+
 async function postToSerper(
   path: string,
   body: SerperRequestBody,
@@ -520,6 +753,18 @@ function buildSourceRefUpsertInput(
     source: "google-shopping",
     ...sourceRef,
   };
+}
+
+type InternalGoogleProductLookupResult = GoogleProductDetailsLookupResult & {
+  sourceRef: FinanceExternalSourceRef | null;
+  lockKey: string;
+};
+
+function toPublicGoogleProductLookupResult(
+  result: InternalGoogleProductLookupResult,
+): GoogleProductDetailsLookupResult {
+  const { sourceRef: _sourceRef, lockKey: _lockKey, ...publicResult } = result;
+  return publicResult;
 }
 
 export async function discoverGoogleProductRef(
@@ -809,10 +1054,119 @@ export async function fetchGoogleProductDetails(
   );
 }
 
+async function readGoogleProductDetailsResult(
+  card: CardCatalogSummary,
+  options?: {
+    versionKey?: string | null;
+    tier?: MarketRefreshTier;
+  },
+  deps?: SerperDeps,
+): Promise<InternalGoogleProductLookupResult> {
+  const config = getGoogleMarketConfig();
+  const resolveSourceRef = deps?.resolveSourceRef ?? resolveFinanceExternalSourceRefForCard;
+  const tier = options?.tier ?? deriveTierFromCard(card);
+  const refreshIdentity = getRefreshLockIdentity(card, options?.versionKey);
+  const lockKey = buildGoogleRefreshLockKey(refreshIdentity);
+  const canAutoRefresh = Boolean(config.apiKey) && isGoogleLiveSpendAllowed(deps);
+
+  const sourceRef = await resolveSourceRef(card, "google-shopping", {
+    versionKey: options?.versionKey,
+  });
+  const hadStoredMapping = Boolean(sourceRef);
+  const refreshInFlight = await hasGoogleRefreshLock(lockKey, deps);
+  const lastGoogleScrapedAt = getSourceRefLastScrapedAt(sourceRef);
+  const storedSnapshot = sourceRef
+    ? await readStoredGoogleSnapshot(sourceRef, deps)
+    : null;
+
+  if (
+    storedSnapshot &&
+    isMarketSnapshotFresh(
+      lastGoogleScrapedAt,
+      tier,
+      deps?.now ?? new Date(),
+      config,
+    )
+  ) {
+    return {
+      snapshot: storedSnapshot,
+      status: "active",
+      lookupMode: "saved-product-id",
+      tier,
+      hasStoredMapping: hadStoredMapping,
+      failureReason: null,
+      snapshotState: "fresh",
+      canAutoRefresh,
+      refreshInFlight: false,
+      lastGoogleScrapedAt,
+      sourceRef,
+      lockKey,
+    };
+  }
+
+  if (sourceRef) {
+    return {
+      snapshot: null,
+      status: "active",
+      lookupMode: "saved-product-id",
+      tier,
+      hasStoredMapping: true,
+      failureReason: null,
+      snapshotState: canAutoRefresh
+        ? refreshInFlight
+          ? "refreshing"
+          : storedSnapshot
+            ? "stale"
+            : "missing"
+        : "preview-readonly",
+      canAutoRefresh,
+      refreshInFlight,
+      lastGoogleScrapedAt,
+      sourceRef,
+      lockKey,
+    };
+  }
+
+  if (!config.apiKey) {
+    return {
+      snapshot: null,
+      status: "disabled",
+      lookupMode: "fallback-only",
+      tier: null,
+      hasStoredMapping: false,
+      failureReason: "no-api-key",
+      snapshotState: "preview-readonly",
+      canAutoRefresh: false,
+      refreshInFlight,
+      lastGoogleScrapedAt: null,
+      sourceRef: null,
+      lockKey,
+    };
+  }
+
+  return {
+    snapshot: null,
+    status: "missing-mapping",
+    lookupMode: "fallback-only",
+    tier,
+    hasStoredMapping: false,
+    failureReason: null,
+    snapshotState: canAutoRefresh
+      ? refreshInFlight
+        ? "refreshing"
+        : "missing"
+      : "preview-readonly",
+    canAutoRefresh,
+    refreshInFlight,
+    lastGoogleScrapedAt: null,
+    sourceRef: null,
+    lockKey,
+  };
+}
+
 export async function getGoogleProductDetailsSnapshot(
   card: CardCatalogSummary,
   options?: {
-    refresh?: boolean;
     versionKey?: string | null;
     tier?: MarketRefreshTier;
   },
@@ -825,136 +1179,197 @@ export async function getGoogleProductDetailsSnapshot(
 export async function getGoogleProductDetailsResult(
   card: CardCatalogSummary,
   options?: {
-    refresh?: boolean;
+    versionKey?: string | null;
+    tier?: MarketRefreshTier;
+  },
+  deps?: SerperDeps,
+): Promise<GoogleProductDetailsLookupResult> {
+  return toPublicGoogleProductLookupResult(
+    await readGoogleProductDetailsResult(card, options, deps),
+  );
+}
+
+export async function refreshGoogleProductDetailsSnapshot(
+  card: CardCatalogSummary,
+  options?: {
+    versionKey?: string | null;
+    tier?: MarketRefreshTier;
+  },
+  deps?: SerperDeps,
+) {
+  const result = await refreshGoogleProductDetailsResult(card, options, deps);
+  return result.snapshot;
+}
+
+export async function refreshGoogleProductDetailsResult(
+  card: CardCatalogSummary,
+  options?: {
     versionKey?: string | null;
     tier?: MarketRefreshTier;
   },
   deps?: SerperDeps,
 ): Promise<GoogleProductDetailsLookupResult> {
   const config = getGoogleMarketConfig();
-  const resolveSourceRef = deps?.resolveSourceRef ?? resolveFinanceExternalSourceRefForCard;
   const upsertSourceRef = deps?.upsertSourceRef ?? upsertFinanceExternalSourceRef;
   const tier = options?.tier ?? deriveTierFromCard(card);
+  const initial = await readGoogleProductDetailsResult(card, options, deps);
 
-  let sourceRef = await resolveSourceRef(card, "google-shopping", {
-    versionKey: options?.versionKey,
-  });
-  const hadStoredMapping = Boolean(sourceRef);
-
-  if (!config.apiKey) {
-    return {
-      snapshot: null,
-      status: "disabled",
-      lookupMode: "fallback-only",
-      tier: null,
-      hasStoredMapping: hadStoredMapping,
-      failureReason: "no-api-key",
-    };
+  if (
+    initial.snapshotState === "fresh" ||
+    initial.snapshotState === "preview-readonly"
+  ) {
+    return toPublicGoogleProductLookupResult(initial);
   }
 
-  let mappingStatus: "stored" | "discovered" = "stored";
-  if (!sourceRef) {
+  const lockAcquired = await tryAcquireGoogleRefreshLock(initial.lockKey, deps);
+  if (!lockAcquired) {
+    return toPublicGoogleProductLookupResult({
+      ...initial,
+      snapshotState: "refreshing",
+      refreshInFlight: true,
+    });
+  }
+
+  try {
+    let sourceRef = initial.sourceRef;
+    let mappingStatus: "stored" | "discovered" = "stored";
+
+    if (!sourceRef) {
+      try {
+        sourceRef = await discoverGoogleProductRef(
+          card,
+          { versionKey: options?.versionKey },
+          deps,
+        );
+      } catch (error) {
+        console.error(
+          `Google product discovery failed for ${card.game}:${card.id}:`,
+          error,
+        );
+        return {
+          snapshot: null,
+          status: "error",
+          lookupMode: "fallback-only",
+          tier,
+          hasStoredMapping: false,
+          failureReason: "request-failed",
+          snapshotState: "missing",
+          canAutoRefresh: true,
+          refreshInFlight: false,
+          lastGoogleScrapedAt: null,
+        };
+      }
+
+      if (!sourceRef) {
+        return {
+          snapshot: null,
+          status: "missing-mapping",
+          lookupMode: "fallback-only",
+          tier,
+          hasStoredMapping: false,
+          failureReason: "no-match",
+          snapshotState: "missing",
+          canAutoRefresh: true,
+          refreshInFlight: false,
+          lastGoogleScrapedAt: null,
+        };
+      }
+
+      mappingStatus = "discovered";
+    }
+
+    let snapshot: GoogleProductDetailsSnapshot | null = null;
     try {
-      sourceRef = await discoverGoogleProductRef(
-        card,
-        { versionKey: options?.versionKey },
+      snapshot = await fetchGoogleProductDetails(
+        sourceRef,
+        {
+          tier,
+          card,
+        },
         deps,
       );
     } catch (error) {
       console.error(
-        `Google product discovery failed for ${card.game}:${card.id}:`,
+        `Google product details refresh failed for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}:`,
         error,
       );
       return {
         snapshot: null,
         status: "error",
-        lookupMode: "fallback-only",
+        lookupMode:
+          mappingStatus === "discovered" ? "discovery-search" : "saved-product-id",
         tier,
-        hasStoredMapping: false,
+        hasStoredMapping: true,
         failureReason: "request-failed",
+        snapshotState: initial.sourceRef ? "stale" : "missing",
+        canAutoRefresh: true,
+        refreshInFlight: false,
+        lastGoogleScrapedAt: getSourceRefLastScrapedAt(sourceRef),
       };
     }
 
-    if (!sourceRef) {
+    if (!snapshot) {
+      console.warn(
+        `Google product details refresh returned an empty payload for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}.`,
+      );
       return {
         snapshot: null,
-        status: "missing-mapping",
-        lookupMode: "fallback-only",
+        status: "error",
+        lookupMode:
+          mappingStatus === "discovered" ? "discovery-search" : "saved-product-id",
         tier,
-        hasStoredMapping: false,
-        failureReason: "no-match",
+        hasStoredMapping: true,
+        failureReason: "detail-empty",
+        snapshotState: initial.sourceRef ? "stale" : "missing",
+        canAutoRefresh: true,
+        refreshInFlight: false,
+        lastGoogleScrapedAt: getSourceRefLastScrapedAt(sourceRef),
       };
     }
 
-    mappingStatus = "discovered";
-  }
-
-  let snapshot: GoogleProductDetailsSnapshot | null = null;
-  try {
-    snapshot = await fetchGoogleProductDetails(
-      sourceRef,
-      {
-        tier,
-        card,
-      },
-      deps,
-    );
-  } catch (error) {
-    console.error(
-      `Google product details refresh failed for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}:`,
-      error,
-    );
-    return {
-      snapshot: null,
-      status: "error",
-      lookupMode: "fallback-only",
-      tier,
-      hasStoredMapping: hadStoredMapping || Boolean(sourceRef),
-      failureReason: "request-failed",
-    };
-  }
-
-  if (!snapshot) {
-    console.warn(
-      `Google product details refresh returned an empty payload for ${card.game}:${card.id} using mapped product ${sourceRef.externalProductId}.`,
-    );
-    return {
-      snapshot: null,
-      status: "error",
-      lookupMode: "fallback-only",
-      tier,
-      hasStoredMapping: hadStoredMapping || Boolean(sourceRef),
-      failureReason: "detail-empty",
-    };
-  }
-
-  const refreshedRef = await upsertSourceRef(
-    buildSourceRefUpsertInput(card, {
-      versionKey: sourceRef.versionKey,
-      externalProductId: sourceRef.externalProductId,
-      externalUrl: snapshot.externalUrl ?? sourceRef.externalUrl,
-      matchedTitle: snapshot.productTitle ?? sourceRef.matchedTitle,
-      searchQuery: sourceRef.searchQuery,
-      metadata: sourceRef.metadata,
-      lastDiscoveredAt: new Date(sourceRef.lastDiscoveredAt),
-      lastVerifiedAt: new Date(),
-      lastScrapedAt: new Date(),
-    }),
-  );
-
-  return {
-    snapshot: {
+    const nextSnapshot = {
       ...snapshot,
-      sourceRef: refreshedRef,
       mappingStatus,
-    } satisfies GoogleProductDetailsSnapshot,
-    status: mappingStatus === "discovered" ? "discovered" : "active",
-    lookupMode:
-      mappingStatus === "discovered" ? "discovery-search" : "saved-product-id",
-    tier,
-    hasStoredMapping: hadStoredMapping,
-    failureReason: null,
-  } satisfies GoogleProductDetailsLookupResult;
+    } satisfies GoogleProductDetailsSnapshot;
+    const refreshedMetadata = mergeSourceRefMetadata(sourceRef.metadata, {
+      [GOOGLE_SNAPSHOT_METADATA_KEY]: serializeGoogleSnapshot(nextSnapshot),
+    });
+    const refreshedRef = await upsertSourceRef(
+      buildSourceRefUpsertInput(card, {
+        versionKey: sourceRef.versionKey,
+        externalProductId: sourceRef.externalProductId,
+        externalUrl: nextSnapshot.externalUrl ?? sourceRef.externalUrl,
+        matchedTitle: nextSnapshot.productTitle ?? sourceRef.matchedTitle,
+        searchQuery: sourceRef.searchQuery,
+        metadata: refreshedMetadata,
+        lastDiscoveredAt: parseStoredDate(sourceRef.lastDiscoveredAt),
+        lastVerifiedAt: new Date(),
+        lastScrapedAt: new Date(),
+      }),
+    );
+
+    const finalSnapshot = {
+      ...nextSnapshot,
+      sourceRef: refreshedRef,
+    } satisfies GoogleProductDetailsSnapshot;
+    await writeStoredGoogleSnapshot(refreshedRef, finalSnapshot, deps);
+
+    return {
+      snapshot: finalSnapshot,
+      status: mappingStatus === "discovered" ? "discovered" : "active",
+      lookupMode:
+        mappingStatus === "discovered" ? "discovery-search" : "saved-product-id",
+      tier,
+      hasStoredMapping: initial.hasStoredMapping,
+      failureReason: null,
+      snapshotState: "fresh",
+      canAutoRefresh: true,
+      refreshInFlight: false,
+      lastGoogleScrapedAt: refreshedRef.lastScrapedAt,
+    };
+  } finally {
+    await releaseGoogleRefreshLock(initial.lockKey, deps);
+  }
 }
 
 export function getSourceRefLastScrapedAt(

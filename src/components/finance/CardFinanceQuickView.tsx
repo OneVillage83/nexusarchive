@@ -35,6 +35,10 @@ type FinanceQuickViewData = {
   storeCreditValue: number | null;
   externalUrl: string | null;
   imageUrl: string | null;
+  snapshotState: "fresh" | "stale" | "missing" | "refreshing" | "preview-readonly";
+  canAutoRefresh: boolean;
+  refreshInFlight: boolean;
+  lastGoogleScrapedAt: string | null;
   marketProvenance: {
     primarySource: "google-shopping" | "ebay" | "tcgplayer" | "reference";
     primaryLabel: string;
@@ -207,6 +211,42 @@ function Metric({
   );
 }
 
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getPricingLaneBadge(data: FinanceQuickViewData) {
+  switch (data.snapshotState) {
+    case "refreshing":
+      return "Refreshing";
+    case "stale":
+    case "missing":
+      return "Waiting";
+    case "preview-readonly":
+      return "Read only";
+    case "fresh":
+    default:
+      return data.marketProvenance.isFallback ? "Fallback" : "Primary";
+  }
+}
+
+function getPricingLaneBadgeClasses(data: FinanceQuickViewData) {
+  switch (data.snapshotState) {
+    case "refreshing":
+      return "border-sky-300/35 bg-sky-500/10 text-sky-100";
+    case "stale":
+    case "missing":
+      return "border-amber-300/35 bg-amber-400/10 text-amber-100";
+    case "preview-readonly":
+      return "border-white/20 bg-white/[0.06] text-amber-50";
+    case "fresh":
+    default:
+      return data.marketProvenance.isFallback
+        ? "border-red-300/35 bg-red-500/10 text-red-100"
+        : "border-amber-300/35 bg-amber-400/10 text-amber-100";
+  }
+}
+
 export function CardFinanceQuickView({
   game,
   card,
@@ -216,6 +256,7 @@ export function CardFinanceQuickView({
 }: FinanceQuickViewProps) {
   const [data, setData] = useState<FinanceQuickViewData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [hydrating, setHydrating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<QuickViewTab>("overview");
   const [activeFinanceProductId, setActiveFinanceProductId] = useState<string | null>(null);
@@ -240,26 +281,90 @@ export function CardFinanceQuickView({
     const currentFinanceProductId = activeFinanceProductId;
     let cancelled = false;
 
+    async function readDetail() {
+      const response = await fetch(
+        `/api/finance/product/${encodeURIComponent(currentFinanceProductId)}?game=${game}`,
+        {
+          cache: "no-store",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return (await response.json()) as FinanceQuickViewData;
+    }
+
+    async function refreshDetail() {
+      const response = await fetch(
+        `/api/finance/product/${encodeURIComponent(currentFinanceProductId)}/refresh?game=${game}`,
+        {
+          method: "POST",
+          cache: "no-store",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return (await response.json()) as FinanceQuickViewData;
+    }
+
+    function commit(next: FinanceQuickViewData) {
+      if (cancelled) {
+        return;
+      }
+
+      setData(next);
+      setPreviewVariantId(
+        next.artVariants.find((variant) => variant.isSelected)?.financeProductId ??
+          next.financeProductId,
+      );
+    }
+
     async function load() {
-      setLoading(true);
+      setLoading(data == null || data.financeProductId !== currentFinanceProductId);
+      setHydrating(false);
       setError(null);
 
       try {
-        const response = await fetch(
-          `/api/finance/product/${encodeURIComponent(currentFinanceProductId)}?game=${game}`,
-        );
+        let next = await readDetail();
+        commit(next);
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
+        if (
+          next.snapshotState !== "fresh" &&
+          next.snapshotState !== "preview-readonly"
+        ) {
+          setHydrating(true);
 
-        const next = (await response.json()) as FinanceQuickViewData;
-        if (!cancelled) {
-          setData(next);
-          setPreviewVariantId(
-            next.artVariants.find((variant) => variant.isSelected)?.financeProductId ??
-              next.financeProductId,
-          );
+          if (!next.refreshInFlight && next.canAutoRefresh) {
+            next = await refreshDetail();
+            commit(next);
+          }
+
+          if (
+            next.snapshotState !== "fresh" &&
+            next.snapshotState !== "preview-readonly"
+          ) {
+            for (let attempt = 0; attempt < 6; attempt += 1) {
+              await wait(1500);
+              if (cancelled) {
+                return;
+              }
+
+              next = await readDetail();
+              commit(next);
+
+              if (
+                next.snapshotState === "fresh" ||
+                next.snapshotState === "preview-readonly"
+              ) {
+                break;
+              }
+            }
+          }
         }
       } catch (err: unknown) {
         if (!cancelled) {
@@ -271,6 +376,7 @@ export function CardFinanceQuickView({
       } finally {
         if (!cancelled) {
           setLoading(false);
+          setHydrating(false);
         }
       }
     }
@@ -552,13 +658,9 @@ export function CardFinanceQuickView({
                             Pricing Source
                           </div>
                           <div
-                            className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${
-                              data.marketProvenance.isFallback
-                                ? "border-red-300/35 bg-red-500/10 text-red-100"
-                                : "border-amber-300/35 bg-amber-400/10 text-amber-100"
-                            }`}
+                            className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${getPricingLaneBadgeClasses(data)}`}
                           >
-                            {data.marketProvenance.isFallback ? "Fallback" : "Primary"}
+                            {getPricingLaneBadge(data)}
                           </div>
                         </div>
                         <div className="mt-2 text-sm font-semibold text-amber-50">
@@ -567,8 +669,19 @@ export function CardFinanceQuickView({
                         <div className="mt-1 text-xs text-amber-100/70">
                           {formatLookupModeLabel(data)} · {data.marketProvenance.freshnessLabel}
                         </div>
+                        {hydrating || data.snapshotState === "refreshing" ? (
+                          <div className="mt-2 text-xs text-sky-100/90">
+                            Fresh Google pricing is hydrating for this card now.
+                          </div>
+                        ) : null}
                         {data.marketProvenance.fallbackMessage ? (
-                          <div className="mt-2 text-xs text-red-100/90">
+                          <div
+                            className={`mt-2 text-xs ${
+                              data.snapshotState === "fresh"
+                                ? "text-red-100/90"
+                                : "text-amber-100/90"
+                            }`}
+                          >
                             {data.marketProvenance.fallbackMessage}
                           </div>
                         ) : null}
@@ -576,15 +689,17 @@ export function CardFinanceQuickView({
                     ) : null}
 
                     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                      <Metric label="Market" value={formatCurrency(data?.marketPrice ?? card?.marketPrice)} />
-                      <Metric label="Fair Value" value={formatCurrency(data?.fairValue ?? card?.fairValue)} />
-                      <Metric label="24h Move" value={formatCurrency(data?.delta24h ?? card?.delta24h)} />
-                      <Metric label="24h Percent" value={formatPercent(data?.deltaPercent24h ?? card?.deltaPercent24h)} />
+                      <Metric label="Market" value={formatCurrency(data ? data.marketPrice : card?.marketPrice)} />
+                      <Metric label="Fair Value" value={formatCurrency(data ? data.fairValue : card?.fairValue)} />
+                      <Metric label="24h Move" value={formatCurrency(data ? data.delta24h : card?.delta24h)} />
+                      <Metric label="24h Percent" value={formatPercent(data ? data.deltaPercent24h : card?.deltaPercent24h)} />
                       <Metric
                         label="Liquidity"
                         value={
-                          data?.liquidityScore != null
-                            ? String(data.liquidityScore)
+                          data
+                            ? data.liquidityScore != null
+                              ? String(data.liquidityScore)
+                              : "—"
                             : card?.liquidityScore != null
                               ? String(card.liquidityScore)
                               : "—"
@@ -593,8 +708,10 @@ export function CardFinanceQuickView({
                       <Metric
                         label="Confidence"
                         value={
-                          data?.confidenceScore != null
-                            ? String(data.confidenceScore)
+                          data
+                            ? data.confidenceScore != null
+                              ? String(data.confidenceScore)
+                              : "—"
                             : card?.confidenceScore != null
                               ? String(card.confidenceScore)
                               : "—"
@@ -603,10 +720,22 @@ export function CardFinanceQuickView({
                     </div>
 
                     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                      <Metric label="Cash Now" value={formatCurrency(data?.cashNowValue ?? card?.cashNowValue)} />
-                      <Metric label="Fast Sell" value={formatCurrency(data?.fastSellValue ?? card?.fastSellValue)} />
-                      <Metric label="Max Value" value={formatCurrency(data?.maxValueValue ?? card?.maxValueValue)} />
-                      <Metric label="Store Credit" value={formatCurrency(data?.storeCreditValue ?? card?.storeCreditValue)} />
+                      <Metric
+                        label="Cash Now"
+                        value={formatCurrency(data ? data.cashNowValue : card?.cashNowValue)}
+                      />
+                      <Metric
+                        label="Fast Sell"
+                        value={formatCurrency(data ? data.fastSellValue : card?.fastSellValue)}
+                      />
+                      <Metric
+                        label="Max Value"
+                        value={formatCurrency(data ? data.maxValueValue : card?.maxValueValue)}
+                      />
+                      <Metric
+                        label="Store Credit"
+                        value={formatCurrency(data ? data.storeCreditValue : card?.storeCreditValue)}
+                      />
                     </div>
                   </div>
                 ) : null}
