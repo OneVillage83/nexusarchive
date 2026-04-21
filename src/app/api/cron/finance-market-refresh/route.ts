@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { runFinanceMarketRefresh } from "@/lib/finance/refresh";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 function isAuthorized(request: Request) {
   const secret = process.env.CRON_SECRET?.trim();

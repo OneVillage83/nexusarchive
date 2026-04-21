@@ -12,7 +12,9 @@
     "import:cards": "node scripts/import-riftbound-cards.js",
     "sync:cards": "tsx scripts/sync-card-catalogs.ts",
     "sync:combos": "tsx scripts/sync-combos.ts",
-    "google-drive:oauth": "tsx scripts/google-drive-oauth.ts"
+    "google-drive:oauth": "tsx scripts/google-drive-oauth.ts",
+    "finance:source-mappings:backup": "tsx scripts/backup-finance-source-mappings.ts",
+    "finance:source-mappings:restore": "tsx scripts/restore-finance-source-mappings.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.0.11",

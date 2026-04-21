@@ -2,11 +2,16 @@ import { Game as PrismaGame } from "@prisma/client";
 
 import prisma from "@/lib/db";
 import type { GameSlug } from "@/lib/games";
+import { getGoogleProductDetailsSnapshot } from "@/lib/finance/google-market";
 import {
   getEbayEnvironment,
   getLiveFinanceMarketSnapshot,
+  type LiveFinanceComp,
+  type LiveFinanceMarketSnapshot,
+  type LiveFinancePriceSource,
   type LiveFinancePsaCertification,
 } from "@/lib/finance/live-market";
+import { getTcgplayerListingSnapshot } from "@/lib/finance/tcgplayer-market";
 import { getRedis } from "@/lib/storage/redis";
 import {
   buildCardSearchText,
@@ -857,14 +862,241 @@ function buildFinanceProductSummary(card: CardCatalogSummary): FinanceProductSum
   };
 }
 
+function averageNullableIntegers(values: Array<number | null | undefined>) {
+  const normalized = values.filter(
+    (value): value is number => typeof value === "number" && Number.isFinite(value),
+  );
+  if (normalized.length === 0) {
+    return null;
+  }
+
+  return Math.round(
+    normalized.reduce((sum, value) => sum + value, 0) / normalized.length,
+  );
+}
+
+function mergeLivePriceSources(
+  ...groups: Array<LiveFinancePriceSource[] | FinancePriceSource[] | null | undefined>
+) {
+  const merged = new Map<string, FinancePriceSource>();
+
+  for (const group of groups) {
+    for (const source of group ?? []) {
+      if (!merged.has(source.key)) {
+        merged.set(source.key, {
+          key: source.key,
+          label: source.label,
+          type: source.type,
+          value: source.value,
+          note: source.note,
+        });
+      }
+    }
+  }
+
+  return [...merged.values()];
+}
+
+function mergeLiveRecentComps(...groups: Array<LiveFinanceComp[] | FinanceComp[] | null | undefined>) {
+  const merged = new Map<string, FinanceComp>();
+
+  for (const group of groups) {
+    for (const comp of group ?? []) {
+      const key = [comp.marketplace, comp.price, comp.soldAt, comp.condition].join("::");
+      if (!merged.has(key)) {
+        merged.set(key, {
+          id: comp.id,
+          price: comp.price,
+          soldAt: comp.soldAt,
+          marketplace: comp.marketplace,
+          condition: comp.condition,
+        });
+      }
+    }
+  }
+
+  return [...merged.values()].slice(0, 8);
+}
+
+function getMinimumLiveValue(...values: Array<number | null | undefined>) {
+  const normalized = values.filter(
+    (value): value is number => typeof value === "number" && Number.isFinite(value),
+  );
+  if (normalized.length === 0) {
+    return null;
+  }
+
+  return toCurrency(Math.min(...normalized));
+}
+
+async function buildMergedLiveMarketSnapshot(
+  card: CardCatalogSummary,
+  options?: { refresh?: boolean },
+) {
+  const [googleSnapshot, tcgplayerSnapshot, ebaySnapshot] = await Promise.all([
+    getGoogleProductDetailsSnapshot(card, {
+      refresh: options?.refresh,
+    }).catch((error) => {
+      console.error(`Google product detail lookup failed for ${card.game}:${card.id}:`, error);
+      return null;
+    }),
+    getTcgplayerListingSnapshot(card).catch((error) => {
+      console.error(`TCGplayer enrichment failed for ${card.game}:${card.id}:`, error);
+      return null;
+    }),
+    getLiveFinanceMarketSnapshot(card, {
+      refresh: options?.refresh,
+    }).catch((error) => {
+      console.error(`eBay supplemental lookup failed for ${card.game}:${card.id}:`, error);
+      return null;
+    }),
+  ]);
+
+  if (!googleSnapshot && !tcgplayerSnapshot && !ebaySnapshot) {
+    return null;
+  }
+
+  const marketPrice =
+    googleSnapshot?.marketPrice ??
+    tcgplayerSnapshot?.marketPrice ??
+    ebaySnapshot?.marketPrice ??
+    null;
+  const fairValue =
+    googleSnapshot?.fairValue ??
+    (marketPrice != null ? toCurrency(marketPrice * 0.94) : null) ??
+    ebaySnapshot?.fairValue ??
+    null;
+  const lowPrice = getMinimumLiveValue(
+    googleSnapshot?.lowPrice,
+    tcgplayerSnapshot?.lowPrice,
+    ebaySnapshot?.lowPrice,
+  );
+  const activeListingFloor = getMinimumLiveValue(
+    googleSnapshot?.activeListingFloor,
+    tcgplayerSnapshot?.activeListingFloor,
+    ebaySnapshot?.activeListingFloor,
+  );
+  const buylistFloor =
+    googleSnapshot?.buylistFloor ??
+    ebaySnapshot?.buylistFloor ??
+    (fairValue != null ? toCurrency(fairValue * 0.72) : null);
+  const cashNowValue =
+    googleSnapshot?.cashNowValue ??
+    ebaySnapshot?.cashNowValue ??
+    (fairValue != null ? toCurrency(fairValue * 0.77) : null);
+  const fastSellValue =
+    googleSnapshot?.fastSellValue ??
+    ebaySnapshot?.fastSellValue ??
+    (fairValue != null ? toCurrency(fairValue * 0.87) : null);
+  const maxValueValue =
+    googleSnapshot?.maxValueValue ??
+    ebaySnapshot?.maxValueValue ??
+    (fairValue != null ? toCurrency(fairValue * 1.03) : null);
+  const storeCreditValue =
+    googleSnapshot?.storeCreditValue ??
+    ebaySnapshot?.storeCreditValue ??
+    (fairValue != null ? toCurrency(fairValue * 0.92) : null);
+  const gradeFirstValue =
+    googleSnapshot?.gradeFirstValue ??
+    ebaySnapshot?.gradeFirstValue ??
+    (fairValue != null ? toCurrency(fairValue * 1.08) : null);
+  const priceSources = mergeLivePriceSources(
+    googleSnapshot?.priceSources,
+    tcgplayerSnapshot?.priceSources,
+    ebaySnapshot?.priceSources,
+  );
+  const recentComps = mergeLiveRecentComps(
+    googleSnapshot?.recentComps,
+    tcgplayerSnapshot?.recentComps,
+    ebaySnapshot?.recentComps,
+  );
+  const notes = [
+    googleSnapshot?.note,
+    tcgplayerSnapshot?.note,
+    ebaySnapshot?.note,
+  ].filter((value): value is string => Boolean(value));
+  const dataQualityNotes = [
+    googleSnapshot?.dataQualityNote,
+    tcgplayerSnapshot?.dataQualityNote,
+    ebaySnapshot?.dataQualityNote,
+  ].filter((value): value is string => Boolean(value));
+  const activeSourceCount =
+    Number(Boolean(googleSnapshot)) +
+    Number(Boolean(tcgplayerSnapshot)) +
+    Number(Boolean(ebaySnapshot));
+
+  return {
+    capturedAt:
+      googleSnapshot?.capturedAt ??
+      ebaySnapshot?.capturedAt ??
+      new Date().toISOString(),
+    marketPrice,
+    fairValue,
+    lowPrice,
+    soldMedian: googleSnapshot?.soldMedian ?? ebaySnapshot?.soldMedian ?? marketPrice,
+    activeListingFloor,
+    buylistFloor,
+    cashNowValue,
+    fastSellValue,
+    maxValueValue,
+    storeCreditValue,
+    gradeFirstValue,
+    liquidityScore: averageNullableIntegers([
+      googleSnapshot?.liquidityScore,
+      ebaySnapshot?.liquidityScore,
+    ]),
+    confidenceScore: averageNullableIntegers([
+      googleSnapshot?.confidenceScore,
+      ebaySnapshot?.confidenceScore,
+    ]),
+    delta24h: googleSnapshot?.delta24h ?? ebaySnapshot?.delta24h ?? null,
+    deltaPercent24h:
+      googleSnapshot?.deltaPercent24h ?? ebaySnapshot?.deltaPercent24h ?? null,
+    sourceLabel:
+      googleSnapshot != null
+        ? activeSourceCount >= 2
+          ? "Google Shopping primary + supplemental marketplace blend"
+          : googleSnapshot.sourceLabel
+        : tcgplayerSnapshot != null
+          ? "TCGplayer listing-driven blend"
+          : ebaySnapshot?.sourceLabel ?? "Live market blend",
+    externalUrl:
+      googleSnapshot?.externalUrl ??
+      tcgplayerSnapshot?.externalUrl ??
+      ebaySnapshot?.externalUrl ??
+      card.externalUrl,
+    priceSources,
+    recentComps,
+    recentActivityLabel:
+      googleSnapshot != null
+        ? "Google + supplemental listings"
+        : tcgplayerSnapshot != null
+          ? "TCGplayer Listings"
+          : ebaySnapshot?.recentActivityLabel ?? "Recent listings",
+    recentActivityDescription:
+      googleSnapshot != null
+        ? "Google Shopping drives the main price lane here, with optional eBay and TCGplayer depth layered on top."
+        : tcgplayerSnapshot != null
+          ? "Listing depth is currently coming from the local TCGplayer scrape artifacts."
+          : ebaySnapshot?.recentActivityDescription ??
+            "Live marketplace detail is active for this card.",
+    freshnessLabel:
+      googleSnapshot?.freshnessLabel ??
+      ebaySnapshot?.freshnessLabel ??
+      "Listing enrichment is using the latest locally available scrape.",
+    sourceCount: priceSources.filter((source) => source.value != null).length,
+    dataQualityNote: dataQualityNotes.join(" "),
+    note: notes.join(" "),
+    psaCertification: ebaySnapshot?.psaCertification ?? null,
+  } satisfies LiveFinanceMarketSnapshot;
+}
+
 async function buildFinanceProductDetail(
   card: CardCatalogSummary,
   options?: { refresh?: boolean },
 ): Promise<FinanceProductDetail> {
   const baseTeaser = deriveFinanceTeaser(card);
-  const liveSnapshot = await getLiveFinanceMarketSnapshot(card, {
-    refresh: options?.refresh,
-  });
+  const liveSnapshot = await buildMergedLiveMarketSnapshot(card, options);
   const teaser: FinanceTeaser = liveSnapshot
     ? {
         ...baseTeaser,

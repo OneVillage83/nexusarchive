@@ -25,6 +25,12 @@ enum FinanceMarketplaceType {
   REFERENCE
 }
 
+enum FinanceExternalSource {
+  GOOGLE_SHOPPING
+  EBAY
+  TCGPLAYER
+}
+
 enum FinanceRouteType {
   CASH_NOW
   FAST_SELL
@@ -234,6 +240,29 @@ model FinanceProduct {
 
   @@unique([game, slug])
   @@index([game, canonicalName])
+}
+
+model FinanceExternalSourceRef {
+  id               String                @id @default(cuid())
+  game             Game
+  internalCardId   String
+  cardCatalogId    String?
+  source           FinanceExternalSource
+  versionKey       String                @default("default")
+  externalProductId String
+  externalUrl      String?
+  matchedTitle     String?
+  searchQuery      String?
+  metadata         Json?
+  lastDiscoveredAt DateTime              @default(now())
+  lastVerifiedAt   DateTime?
+  lastScrapedAt    DateTime?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  @@unique([game, internalCardId, source, versionKey], name: "game_internalCardId_source_versionKey")
+  @@index([game, source, externalProductId])
+  @@index([game, cardCatalogId, source])
 }
 
 model FinanceProductAlias {

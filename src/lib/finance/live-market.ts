@@ -2,7 +2,7 @@ import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import { compactText, normalizeSearchText } from "@/lib/cards/catalog";
 import { getRedis } from "@/lib/storage/redis";
 
-type LiveFinancePriceSource = {
+export type LiveFinancePriceSource = {
   key: string;
   label: string;
   type: "market" | "sold" | "buylist" | "reference";
@@ -10,7 +10,7 @@ type LiveFinancePriceSource = {
   note: string;
 };
 
-type LiveFinanceComp = {
+export type LiveFinanceComp = {
   id: string;
   price: number;
   soldAt: string;
