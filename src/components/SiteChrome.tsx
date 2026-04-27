@@ -7,6 +7,7 @@ import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
 import { isNativeAppShell, openUrlInSystemBrowser } from "@/lib/mobile/capacitor";
+import { ConsentManagerButton } from "@/components/ConsentManagerButton";
 import {
   GAMES,
   GAME_ORDER,
@@ -558,6 +559,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
                   </div>
                   <div className="space-y-2 text-white/90">
                     <AccountCopy authEnabled={authEnabled} />
+                    <ConsentManagerButton />
                   </div>
                 </div>
               </div>
