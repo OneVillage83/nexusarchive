@@ -50,6 +50,44 @@ enum DeckRulesMode {
   HOUSE
 }
 
+enum ScanMode {
+  QUICK
+  GRADE
+}
+
+enum ScanIntent {
+  GENERAL
+  COLLECTION
+}
+
+enum ScanStatus {
+  UPLOADED
+  PROCESSING
+  DONE
+  FAILED
+  NEEDS_REVIEW
+}
+
+enum ScanImageSide {
+  FRONT
+  BACK
+  MULTI
+  UNKNOWN
+}
+
+enum ScanImageSource {
+  CAMERA
+  UPLOAD
+}
+
+enum ScanFeedbackType {
+  WRONG_CARD
+  WRONG_FINISH
+  WRONG_GRADE
+  BAD_CROP
+  OTHER
+}
+
 model Card {
   id             Int            @id @default(autoincrement())
   game           Game           @default(RIFTBOUND)
@@ -509,4 +547,140 @@ model FinanceCollectionSync {
   updatedAt     DateTime @updatedAt
 
   @@unique([game, clerkUserId])
+}
+
+model Scan {
+  id             String             @id @default(cuid())
+  game           Game
+  clerkUserId    String?
+  mode           ScanMode
+  intent         ScanIntent         @default(GENERAL)
+  status         ScanStatus         @default(UPLOADED)
+  failureCode    String?
+  failureMessage String?
+  failureMeta    Json?
+  images         ScanImage[]
+  detections     ScanDetection[]
+  identifications ScanIdentification[]
+  qualityReport  ScanQualityReport?
+  pregrade       ScanPregrade?
+  feedback       ScanFeedback[]
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([game, createdAt])
+  @@index([game, clerkUserId, createdAt])
+}
+
+model ScanImage {
+  id                   String          @id @default(cuid())
+  scanId               String
+  side                 ScanImageSide   @default(UNKNOWN)
+  rawStorageKey        String
+  normalizedStorageKey String?
+  overlayStorageKey    String?
+  width                Int?
+  height               Int?
+  mimeType             String
+  source               ScanImageSource
+  scan                 Scan            @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  detections           ScanDetection[]
+  createdAt            DateTime        @default(now())
+
+  @@index([scanId, side])
+}
+
+model ScanDetection {
+  id                     String               @id @default(cuid())
+  scanId                 String
+  scanImageId            String
+  detectionIndex         Int
+  bboxX                  Float
+  bboxY                  Float
+  bboxW                  Float
+  bboxH                  Float
+  cornerPoints           Json?
+  cropStorageKey         String?
+  detectionConfidence    Float?
+  selectedIdentificationId String?
+  scan                   Scan                 @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  scanImage              ScanImage            @relation(fields: [scanImageId], references: [id], onDelete: Cascade)
+  identifications        ScanIdentification[] @relation("DetectionIdentifications")
+  selectedIdentification ScanIdentification?  @relation("SelectedScanIdentification", fields: [selectedIdentificationId], references: [id], onDelete: SetNull)
+  createdAt              DateTime             @default(now())
+
+  @@unique([scanImageId, detectionIndex])
+  @@index([scanId, detectionIndex])
+}
+
+model ScanQualityReport {
+  id                        String   @id @default(cuid())
+  scanId                    String   @unique
+  qualityScore              Int?
+  sharpnessScore            Int?
+  glareScore                Int?
+  framingScore              Int?
+  perspectiveScore          Int?
+  resolutionScore           Int?
+  frontBackCompletenessScore Int?
+  sleeveDetected            Boolean  @default(false)
+  slabDetected              Boolean  @default(false)
+  failureReasons            Json?
+  recaptureMessage          String?
+  scan                      Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  createdAt                 DateTime @default(now())
+}
+
+model ScanIdentification {
+  id                    String           @id @default(cuid())
+  scanId                String
+  detectionId           String
+  financeProductId      String?
+  matchedCardName       String?
+  candidateRank         Int
+  confidence            Float
+  gameGuess             String?
+  setGuess              String?
+  numberGuess           String?
+  rarityGuess           String?
+  finishGuess           String?
+  languageGuess         String?
+  searchQuery           String?
+  scan                  Scan             @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  detection             ScanDetection    @relation("DetectionIdentifications", fields: [detectionId], references: [id], onDelete: Cascade)
+  selectedByDetections  ScanDetection[]  @relation("SelectedScanIdentification")
+  createdAt             DateTime         @default(now())
+
+  @@index([scanId, candidateRank])
+  @@index([detectionId, candidateRank])
+}
+
+model ScanPregrade {
+  id                     String   @id @default(cuid())
+  scanId                 String   @unique
+  financeProductId       String?
+  centeringScore         Float?
+  cornersScore           Float?
+  edgesScore             Float?
+  surfaceScore           Float?
+  printQualityAdjustment Float?
+  nexusPregradeScore     Float?
+  gradeBand              String?
+  confidence             Float?
+  explanation            Json?
+  scan                   Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  createdAt              DateTime @default(now())
+}
+
+model ScanFeedback {
+  id                   String           @id @default(cuid())
+  scanId               String
+  clerkUserId          String?
+  feedbackType         ScanFeedbackType
+  correctFinanceProductId String?
+  note                 String?
+  scan                 Scan             @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  createdAt            DateTime         @default(now())
+
+  @@index([scanId, createdAt])
 }

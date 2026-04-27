@@ -17,12 +17,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#020617",
 };
 
 export const metadata: Metadata = {
   title: "NexusArchive – Multi-TCG tools, archives, and cardboard chaos.",
   description:
     "NexusArchive is an unofficial, fan-made TCG archive with tools for Riftbound, One Piece Trading Card Game, and Magic: The Gathering. Not affiliated with the rights holders.",
+  applicationName: "NexusArchive",
 };
 
 export default function RootLayout({
@@ -37,7 +40,7 @@ export default function RootLayout({
       <head>
         <meta {...impactVerificationMeta} />
       </head>
-      <body className={inter.className + " min-h-screen antialiased"}>
+      <body className={inter.className + " min-h-screen overflow-x-hidden bg-slate-950 antialiased"}>
         {authEnabled ? (
           <ClerkProvider>
             <SiteChrome authEnabled>{children}</SiteChrome>

@@ -47,6 +47,7 @@ export const GAME_TOOL_LINKS: GameToolLink[] = [
   { href: "combos", label: "Synergy & Combo Finder" },
   { href: "decklists", label: "Deck Lists" },
   { href: "collection", label: "Collection" },
+  { href: "scan", label: "Scan" },
   { href: "finance", label: "Finance" },
   { href: "rules", label: "Game Rules" },
 ];

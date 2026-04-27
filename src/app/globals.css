@@ -25,6 +25,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#__next {
+  min-height: 100vh;
+}
+
 /* --- NexusArchive custom animations --- */
 
 @keyframes fadeIn-na {
@@ -109,4 +113,20 @@ details > summary::marker {
 
 .rift-flicker {
   animation: rift-flicker 2.8s infinite;
+}
+
+.safe-mobile-top {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1rem);
+}
+
+.safe-mobile-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+}
+
+.safe-mobile-bottom-offset {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+.safe-mobile-min-height {
+  min-height: calc(100vh - env(safe-area-inset-top, 0px));
 }

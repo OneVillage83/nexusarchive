@@ -76,6 +76,23 @@ export function CollectionFinancePage({
               Sign in when you want real persistence for collection positions, portfolio math, or future grader workflows.
             </div>
           ) : null}
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href={buildGamePath(game, "scan/quick?intent=collection")}
+              prefetch={false}
+              className="rounded-full border border-amber-300/35 bg-amber-400/12 px-4 py-2 text-sm font-medium text-amber-50 transition hover:bg-amber-400/18"
+            >
+              Add Cards by Scanning
+            </Link>
+            <Link
+              href={buildGamePath(game, "scan")}
+              prefetch={false}
+              className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-amber-100 transition hover:bg-white/8"
+            >
+              Open scanner workspace
+            </Link>
+          </div>
         </section>
 
         <section className={PANEL}>

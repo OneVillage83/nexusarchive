@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
+import { isNativeAppShell, openUrlInSystemBrowser } from "@/lib/mobile/capacitor";
 import {
   GAMES,
   GAME_ORDER,
@@ -21,10 +22,19 @@ type SiteChromeProps = {
   children: React.ReactNode;
 };
 
+function subscribeToNativeShell() {
+  return () => {};
+}
+
 export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
   const pathname = usePathname();
   const activeGame = getActiveGameFromPath(pathname);
   const activeGameConfig = activeGame ? getGameBySlug(activeGame) : undefined;
+  const nativeShell = useSyncExternalStore(
+    subscribeToNativeShell,
+    isNativeAppShell,
+    () => false,
+  );
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
   const [toolsMenuState, setToolsMenuState] = useState(() => ({
     open: false,
@@ -132,6 +142,10 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
     });
   }
 
+  async function handleOpenCurrentPageInBrowser() {
+    await openUrlInSystemBrowser(new URL(pathname, window.location.origin).toString());
+  }
+
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       const target = event.target;
@@ -180,7 +194,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
 
   return (
     <div
-      className={`relative min-h-screen text-slate-50 ${backgroundAnimationClassName}`.trim()}
+      className={`relative min-h-screen overflow-x-clip text-slate-50 ${backgroundAnimationClassName}`.trim()}
       style={{
         backgroundImage,
         backgroundAttachment,
@@ -213,7 +227,7 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         className="relative z-10 min-h-screen backdrop-blur-[1px]"
         style={{ backgroundColor: contentOverlayColor }}
       >
-        <div className="fixed left-4 top-6 z-30 flex items-center gap-3">
+        <div className="fixed left-4 top-6 z-30 hidden items-center gap-3 md:flex">
           <div
             className="relative"
             onMouseEnter={openGameMenu}
@@ -314,19 +328,43 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
         </div>
 
         <div className="flex min-h-screen flex-col">
-          <header className="pt-4">
-            <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4">
+          <header className={nativeShell ? "safe-mobile-top" : "pt-4"}>
+            <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4">
+              <div className="flex min-w-0 flex-1 items-center gap-3 md:hidden">
+                <Link
+                  href="/"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sky-300/40 bg-black/45 shadow-[0_0_16px_rgba(0,0,0,0.6)] backdrop-blur"
+                >
+                  <div className="relative h-7 w-7">
+                    <Image
+                      src="/Logos/transparentarchivelogo.png"
+                      alt="NexusArchive glyph"
+                      fill
+                      sizes="28px"
+                      className="object-contain opacity-95"
+                      priority
+                    />
+                  </div>
+                </Link>
+                <div className="min-w-0">
+                  <div className="truncate text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-100/75">
+                    NexusArchive
+                  </div>
+                  <div className="truncate text-sm text-amber-50/82">
+                    {activeGameConfig?.shortName ?? "Archive Gateway"}
+                  </div>
+                </div>
+              </div>
+
               <div className="hidden min-w-0 flex-1 md:flex">
                 <div className="min-w-0 flex-1" />
               </div>
 
-              <div className="md:hidden h-10 w-10" />
-
-              <nav className="flex items-center gap-3 text-xs text-amber-50 sm:gap-6">
-                <Link href="/about" className="hover:text-amber-200">
+              <nav className="flex min-w-0 flex-wrap items-center justify-end gap-2 text-xs text-amber-50 sm:gap-6">
+                <Link href="/about" className="hidden hover:text-amber-200 sm:inline-flex">
                   About
                 </Link>
-                <Link href="/contact" className="hover:text-amber-200">
+                <Link href="/contact" className="hidden hover:text-amber-200 sm:inline-flex">
                   Contact
                 </Link>
                 <Link href="/legal" className="hidden hover:text-amber-200 sm:inline-flex">
@@ -399,6 +437,22 @@ export function SiteChrome({ authEnabled, children }: SiteChromeProps) {
               </nav>
             </div>
           </header>
+
+          {isAuthPage && nativeShell ? (
+            <div className="mx-auto mt-4 w-full max-w-6xl px-4">
+              <div className="rounded-2xl border border-sky-300/30 bg-sky-950/55 px-4 py-3 text-xs text-sky-50/85">
+                If the embedded sign-in screen stalls, open this auth page in your
+                phone browser.
+                <button
+                  type="button"
+                  onClick={() => void handleOpenCurrentPageInBrowser()}
+                  className="ml-3 rounded-full border border-sky-300/35 bg-sky-500/10 px-3 py-1 font-medium text-sky-100 transition hover:bg-sky-500/18"
+                >
+                  Open in browser
+                </button>
+              </div>
+            </div>
+          ) : null}
 
           <main className="flex-1">
             <div
@@ -600,11 +654,12 @@ function ClerkNavControls({ isAuthPage }: { isAuthPage: boolean }) {
             href="/sign-up"
             className="
               inline-flex items-center justify-center rounded-full
-              bg-amber-400/95 px-3 py-1.5 font-semibold text-slate-950
+              bg-amber-400/95 px-3 py-1.5 text-[11px] font-semibold text-slate-950
               shadow-[0_0_16px_rgba(0,0,0,0.65)] transition hover:bg-amber-300
             "
           >
-            Create account
+            <span className="sm:hidden">Join</span>
+            <span className="hidden sm:inline">Create account</span>
           </Link>
         </>
       ) : null}
