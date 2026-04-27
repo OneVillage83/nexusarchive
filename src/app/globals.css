@@ -25,6 +25,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#__next {
+  min-height: 100vh;
+}
+
 /* --- NexusArchive custom animations --- */
 
 @keyframes fadeIn-na {
@@ -50,6 +54,15 @@ body {
   }
 }
 
+@keyframes onePieceInkShift-na {
+  0% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 52% 48%;
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn-na 260ms ease-out forwards;
@@ -57,6 +70,16 @@ body {
 
   .animate-dice-float {
     animation: diceFloat-na 6s ease-in-out infinite alternate;
+  }
+}
+
+.one-piece-ink-shift {
+  animation: onePieceInkShift-na 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .one-piece-ink-shift {
+    animation: none;
   }
 }
 
@@ -90,4 +113,20 @@ details > summary::marker {
 
 .rift-flicker {
   animation: rift-flicker 2.8s infinite;
+}
+
+.safe-mobile-top {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1rem);
+}
+
+.safe-mobile-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+}
+
+.safe-mobile-bottom-offset {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+.safe-mobile-min-height {
+  min-height: calc(100vh - env(safe-area-inset-top, 0px));
 }

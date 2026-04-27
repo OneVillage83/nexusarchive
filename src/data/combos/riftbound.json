@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Flame Initiate Burn Loop",
+    "summary": "Chain cheap Fury casts around Flame Initiate to keep pressure up while every extra spell turns into more damage.",
+    "resultText": "Repeatable burn pressure and stacked face damage",
+    "steps": [
+      "Land Flame Initiate and keep at least one cheap follow-up spell available.",
+      "Use Mindstorm Bolt to clear the first blocker or go upstairs when the lane is open.",
+      "Recycle more low-cost Fury pieces to keep Flame Initiate pressure rolling."
+    ],
+    "prerequisites": [
+      "A low-curve Fury shell with enough cheap spells to keep the chain alive."
+    ],
+    "tags": ["Burn", "Tempo", "Fury"],
+    "formatTags": ["Standard"],
+    "isComplete": true,
+    "popularity": 18,
+    "pieces": [
+      { "role": "piece", "quantity": 1, "cardName": "Flame Initiate" },
+      { "role": "piece", "quantity": 1, "cardName": "Mindstorm Bolt" }
+    ]
+  },
+  {
+    "name": "Body Calm Stabilize Shell",
+    "summary": "Stack bulky frontliners with healing support so aggro decks run out of gas before your board does.",
+    "resultText": "Board stabilization into midgame value",
+    "steps": [
+      "Deploy a high-HP Body unit early to clog combat.",
+      "Protect the lane with Calm healing or support effects.",
+      "Turn the stabilized board into a value snowball."
+    ],
+    "prerequisites": [
+      "You want a defensive plan that converts into a longer game."
+    ],
+    "tags": ["Midrange", "Body", "Calm"],
+    "formatTags": ["Standard"],
+    "isComplete": true,
+    "popularity": 12,
+    "pieces": [
+      { "role": "piece", "quantity": 1, "cardName": "Stoneguard Sentinel" },
+      { "role": "piece", "quantity": 1, "cardName": "Calmfield Healer" }
+    ]
+  }
+]

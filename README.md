@@ -1,5 +1,57 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Mobile App Shell
+
+NexusArchive now includes a Capacitor-based native shell for internal mobile
+beta builds.
+
+### Mobile environment
+
+Set these values before syncing or opening the native projects:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://nexusarchive.lol
+CAPACITOR_SERVER_URL=https://nexusarchive.lol
+CAPACITOR_ALLOWED_HOSTS=nexusarchive.lol
+CAPACITOR_APP_ID=lol.nexusarchive
+CAPACITOR_APP_NAME=NexusArchive
+```
+
+`CAPACITOR_SERVER_URL` is the hosted site that the native shell loads at
+runtime. If it is missing, Capacitor falls back to the local `mobile-shell/`
+placeholder page.
+
+### Mobile commands
+
+```bash
+npm run mobile:add:android
+npm run mobile:add:ios
+npm run mobile:sync
+npm run mobile:build:android:release
+npm run mobile:open:android
+npm run mobile:open:ios
+```
+
+### Mobile assets
+
+Use the source images in `resources/` for the native launcher icon and splash
+art when refreshing platform assets.
+
+### Packaging notes
+
+Android release builds in this repo use Java 21 because Capacitor 7 generates
+native Gradle settings with `JavaVersion.VERSION_21`.
+
+The full packaging notes, including keystore setup and Mac steps for iPhone,
+live in [docs/mobile-packaging.md](docs/mobile-packaging.md).
+
+## Scanner Storage
+
+Scanner uploads use Vercel Blob when `BLOB_READ_WRITE_TOKEN` is configured.
+Without that token, local development falls back to `data/scanner/` or the
+configured `CARD_ARCHIVE_DIR`. Production Vercel deployments should always have
+Blob configured so scan images survive across serverless executions.
+
 ## Getting Started
 
 First, run the development server:

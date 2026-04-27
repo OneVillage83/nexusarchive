@@ -1,6 +1,8 @@
 // src/app/cards/advanced/page.tsx
 import Link from "next/link";
-import Image from "next/image";
+import { redirect } from "next/navigation";
+
+import { createSearchString } from "@/lib/search-params";
 
 const PANEL =
   "rounded-2xl border border-white/25 bg-black/65 shadow-[0_0_30px_rgba(0,0,0,0.85)] p-4 sm:p-5";
@@ -19,15 +21,19 @@ const CHECKBOX_ROW =
 
 // 🔮 Domain rune metadata – update icon paths to your real files
 const DOMAIN_RUNES = [
-  { id: "Fury", label: "Fury", colorLabel: "Red", icon: "/runes/fury.png" },
-  { id: "Calm", label: "Calm", colorLabel: "Green", icon: "/runes/calm.png" },
-  { id: "Mind", label: "Mind", colorLabel: "Blue", icon: "/runes/mind.png" },
-  { id: "Body", label: "Body", colorLabel: "Orange", icon: "/runes/body.png" },
-  { id: "Chaos", label: "Chaos", colorLabel: "Purple", icon: "/runes/chaos.png" },
-  { id: "Order", label: "Order", colorLabel: "Yellow", icon: "/runes/order.png" },
+  { id: "Fury", label: "Fury", colorLabel: "Red" },
+  { id: "Calm", label: "Calm", colorLabel: "Green" },
+  { id: "Mind", label: "Mind", colorLabel: "Blue" },
+  { id: "Body", label: "Body", colorLabel: "Orange" },
+  { id: "Chaos", label: "Chaos", colorLabel: "Purple" },
+  { id: "Order", label: "Order", colorLabel: "Yellow" },
 ];
 
-export default function AdvancedCardSearchPage() {
+type LegacyAdvancedCardSearchPageProps = {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export function RiftboundAdvancedCardSearchPage() {
   return (
     <main className="py-6 sm:py-8 lg:py-10">
       <div className="mx-auto max-w-6xl px-4 space-y-6 sm:space-y-8">
@@ -48,7 +54,7 @@ export default function AdvancedCardSearchPage() {
         {/* This sends a GET request to /cards with all selected filters. */}
         <form
           id="advanced-card-search"
-          action="/cards"
+          action="/riftbound/cards"
           method="GET"
           className="space-y-6 sm:space-y-8"
         >
@@ -448,7 +454,8 @@ export default function AdvancedCardSearchPage() {
         {/* Back link */}
         <div className="pt-2">
           <Link
-            href="/cards"
+            href="/riftbound/cards"
+            prefetch={false}
             className="text-xs font-medium text-amber-200 hover:text-white"
           >
             ← Back to Card Gallery
@@ -457,4 +464,11 @@ export default function AdvancedCardSearchPage() {
       </div>
     </main>
   );
+}
+
+export default async function AdvancedCardSearchPage({
+  searchParams,
+}: LegacyAdvancedCardSearchPageProps) {
+  const query = createSearchString((await searchParams) ?? {});
+  redirect(`/riftbound/cards/advanced${query}`);
 }

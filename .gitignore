@@ -41,3 +41,18 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+/data/card-catalog-archives
+
+.vercel
+.env*.local
+
+# local scraper tooling and outputs
+/tcg-scraper-key.json
+/tcgplayer_daily_updater.py
+/tcgplayer_dom_scraper.py
+/tcgplayer_dom_scraper_magic_only.py
+/tcgplayer_dom_updater.py
+/tcgplayer_enrich.py
+/tcgplayer_data/
+/tcgplayer_maxdata/
+/tcgplayer_shop_all_data/

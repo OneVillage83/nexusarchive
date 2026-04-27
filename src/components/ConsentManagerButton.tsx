@@ -6,7 +6,7 @@ export function ConsentManagerButton() {
 
     // Google CMP (Funding Choices) exposes the IAB TCF API as __tcfapi
     // When present, this will re-open the consent dialog.
-    // @ts-ignore
+    // @ts-expect-error Google CMP injects this global when available.
     const tcfApi = window.__tcfapi;
 
     if (typeof tcfApi === "function") {

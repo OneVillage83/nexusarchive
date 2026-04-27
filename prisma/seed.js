@@ -1,5 +1,6 @@
 // prisma/seed.js
-const { PrismaClient } = require("@prisma/client");
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { PrismaClient, Game } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
@@ -17,6 +18,7 @@ async function main() {
   // Create a sample champion
   const champion = await prisma.champion.create({
     data: {
+      game: Game.RIFTBOUND,
       name: "Arc Nexus Warden",
       type: "Champion",
       imageUrl: null,
@@ -27,6 +29,7 @@ async function main() {
   await prisma.card.createMany({
     data: [
       {
+        game: Game.RIFTBOUND,
         name: "Rift Spark",
         type: "Spell",
         domains: ["Arcane"],
@@ -44,6 +47,7 @@ async function main() {
         championId: champion.id,
       },
       {
+        game: Game.RIFTBOUND,
         name: "Nexus Vanguard",
         type: "Unit",
         domains: ["Valor"],
@@ -61,6 +65,7 @@ async function main() {
         championId: champion.id,
       },
       {
+        game: Game.RIFTBOUND,
         name: "Void-Touched Acolyte",
         type: "Unit",
         domains: ["Void"],

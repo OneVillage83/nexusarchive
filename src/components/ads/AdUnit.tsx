@@ -14,7 +14,7 @@ export default function AdUnit({ slot, className }: AdUnitProps) {
     if (!isProd) return; // don't run ads in dev
 
     try {
-      // @ts-ignore
+      // @ts-expect-error AdSense injects this global at runtime.
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
       // quiet fail is fine; avoids crashing the page

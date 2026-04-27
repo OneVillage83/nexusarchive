@@ -1,5 +1,6 @@
 // src/app/articles/page.tsx
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 type ArticleMeta = {
   slug: string;
@@ -36,7 +37,7 @@ const demoArticles: ArticleMeta[] = [
   },
 ];
 
-export default function ArticlesPage() {
+export function RiftboundArticlesPage() {
   const [featured, ...rest] = demoArticles;
 
   return (
@@ -75,7 +76,8 @@ export default function ArticlesPage() {
           </p>
 
           <Link
-            href={`/articles/${featured.slug}`}
+            href={`/riftbound/articles/${featured.slug}`}
+            prefetch={false}
             className="mt-2 block text-lg font-semibold text-slate-50 hover:text-amber-200"
           >
             {featured.title}
@@ -103,7 +105,8 @@ export default function ArticlesPage() {
             {rest.map((article) => (
               <Link
                 key={article.slug}
-                href={`/articles/${article.slug}`}
+                href={`/riftbound/articles/${article.slug}`}
+                prefetch={false}
                 className="group rounded-2xl border border-white/10 bg-black/60 p-4 shadow-[0_0_24px_rgba(15,23,42,0.8)] transition-transform hover:-translate-y-0.5 hover:border-amber-300/60"
               >
                 <div className="mb-2 flex items-center gap-2 text-[11px] uppercase tracking-wide text-slate-400">
@@ -134,4 +137,8 @@ export default function ArticlesPage() {
       </div>
     </main>
   );
+}
+
+export default function ArticlesPage() {
+  redirect("/riftbound/articles");
 }

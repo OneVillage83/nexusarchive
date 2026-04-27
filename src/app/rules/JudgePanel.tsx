@@ -67,15 +67,17 @@ export default function JudgePanel({ question }: JudgePanelProps) {
         });
 
         if (!res.ok) {
-          const body = (await res.json().catch(() => ({}))) as any;
-          throw new Error(body?.error || `Judge request failed (${res.status})`);
+          const body = (await res.json().catch(
+            (): { error?: string } => ({}),
+          )) as { error?: string };
+          throw new Error(body.error || `Judge request failed (${res.status})`);
         }
 
         const payload = (await res.json()) as JudgeAnswer;
         if (!cancelled) {
           setData(payload);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Judge error:", err);
         if (!cancelled) {
           setError(

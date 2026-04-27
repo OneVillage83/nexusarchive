@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/finance-market-refresh",
+      "schedule": "*/20 * * * *"
+    },
+    {
+      "path": "/api/cron/combo-sync",
+      "schedule": "0 * * * *"
+    }
+  ]
+}

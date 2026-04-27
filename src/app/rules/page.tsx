@@ -1,7 +1,10 @@
 // src/app/rules/page.tsx
+import { redirect } from "next/navigation";
+
 import { rulesIndex } from "@/data/rules-index";
 import { ruleKeywords } from "@/data/rule-keywords";
 import JudgePanel from "./JudgePanel";
+import { createSearchString } from "@/lib/search-params";
 
 // Each entry is whatever shape was generated in src/data/rules-index.ts
 // (id: string, section: string, text: string)
@@ -309,7 +312,7 @@ function searchRules(query: string): RuleEntry[] {
 
 // ---------- Page component ----------
 
-export default async function RulesPage({ searchParams }: RulesPageProps) {
+export async function RiftboundRulesPage({ searchParams }: RulesPageProps) {
   // Unwrap the Promise from Next
   const sp = (await searchParams) ?? {};
 
@@ -409,6 +412,11 @@ export default async function RulesPage({ searchParams }: RulesPageProps) {
       </div>
     </main>
   );
+}
+
+export default async function RulesPage({ searchParams }: RulesPageProps) {
+  const query = createSearchString((await searchParams) ?? {});
+  redirect(`/riftbound/rules${query}`);
 }
 
 // ---------- Results + quick links ----------

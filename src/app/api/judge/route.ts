@@ -2,10 +2,10 @@
 
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
 
 import { buildJudgeContext } from "@/lib/rules/judge-context";
 import { buildJudgeMessages } from "@/lib/rules/judge-prompt";
+import { getRedis } from "@/lib/storage/redis";
 import type {
   JudgeAnswer,
   JudgeQuestion,
@@ -60,8 +60,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Normalized cache key (shared by memory + KV)
+    // Normalized cache key (shared by memory + Redis)
     const cacheKey = `judge:${normalizeQuestion(question)}`;
+    const redis = getRedis();
 
     // 1) In-memory cache check (fastest)
     const memCached = judgeCache.get(cacheKey);
@@ -69,17 +70,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(memCached);
     }
 
-    // 2) KV cache check (shared across Vercel instances)
-    try {
-      const kvCached = (await kv.get<JudgeAnswer>(cacheKey)) || null;
-      if (kvCached) {
-        // hydrate in-memory cache for this instance
-        judgeCache.set(cacheKey, kvCached);
-        return NextResponse.json(kvCached);
+    // 2) Redis cache check (shared across instances when configured)
+    if (redis) {
+      try {
+        const redisCached = (await redis.get<JudgeAnswer>(cacheKey)) ?? null;
+        if (redisCached) {
+          judgeCache.set(cacheKey, redisCached);
+          return NextResponse.json(redisCached);
+        }
+      } catch (err) {
+        console.error("Redis get error in /api/judge:", err);
       }
-    } catch (err) {
-      // KV failure shouldn't break the judge
-      console.error("KV get error in /api/judge:", err);
     }
 
     // 3) Build retrieval context (rules + glossary + concepts)
@@ -136,17 +137,19 @@ export async function POST(req: NextRequest) {
     // 7a) In-memory (per instance)
     judgeCache.set(cacheKey, result);
 
-    // 7b) KV (shared, 30-day TTL) – non-fatal if it fails
-    try {
-      await kv.set(cacheKey, result, {
-        ex: 60 * 60 * 24 * 30, // 30 days
-      });
-    } catch (err) {
-      console.error("KV set error in /api/judge:", err);
+    // 7b) Redis (shared, 30-day TTL) – non-fatal if it fails
+    if (redis) {
+      try {
+        await redis.set(cacheKey, result, {
+          ex: 60 * 60 * 24 * 30,
+        });
+      } catch (err) {
+        console.error("Redis set error in /api/judge:", err);
+      }
     }
 
     return NextResponse.json(result);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in /api/judge:", err);
 
     return NextResponse.json(
@@ -154,7 +157,9 @@ export async function POST(req: NextRequest) {
         error: "Internal error while processing judge request.",
         details:
           process.env.NODE_ENV === "development"
-            ? String(err?.message ?? err)
+            ? err instanceof Error
+              ? err.message
+              : String(err)
             : undefined,
       },
       { status: 500 }

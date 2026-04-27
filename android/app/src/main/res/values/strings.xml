@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NexusArchive</string>
+    <string name="title_activity_main">NexusArchive</string>
+    <string name="package_name">lol.nexusarchive</string>
+    <string name="custom_url_scheme">lol.nexusarchive</string>
+</resources>
