@@ -27,6 +27,7 @@ const FILTER_BUTTON =
   "rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-xs text-amber-50 shadow-[0_0_12px_rgba(0,0,0,0.55)] transition hover:bg-white/10";
 const CHIP =
   "rounded-full border px-3 py-1 text-[11px] font-medium transition-colors";
+const CARD_FETCH_TIMEOUT_MS = 15000;
 const DEFAULT_PAGE_SIZE = 50;
 const PAGE_SIZE_OPTIONS = [24, 50, 100] as const;
 const VIEW_MODES = ["visual", "cards", "table"] as const;
@@ -305,6 +306,14 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
   const filtersRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    let didCancel = false;
+    let timedOut = false;
+    const timeout = window.setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, CARD_FETCH_TIMEOUT_MS);
+
     async function load() {
       setLoading(true);
       setError(null);
@@ -336,27 +345,56 @@ export default function CardGalleryPage({ game }: CardsPageClientProps) {
           query.set("versionMode", versionMode);
         }
 
-        const response = await fetch(`/api/cards?${query.toString()}`);
+        const response = await fetch(`/api/cards?${query.toString()}`, {
+          signal: controller.signal,
+        });
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
 
         const data = (await response.json()) as CardsResponse;
+        if (didCancel) {
+          return;
+        }
+
         setCards(data.cards ?? []);
         setTotal(data.total ?? 0);
         setTotalPages(data.totalPages ?? 0);
       } catch (err: unknown) {
+        if (didCancel) {
+          return;
+        }
+
         console.error(err);
-        setError(err instanceof Error ? err.message : "Failed to load cards.");
+        const isAbortError =
+          err instanceof DOMException
+            ? err.name === "AbortError"
+            : err instanceof Error && err.name === "AbortError";
+        setError(
+          timedOut && isAbortError
+            ? "Card gallery request timed out while loading the catalog. Refresh the page or try again in a moment."
+            : err instanceof Error
+              ? err.message
+              : "Failed to load cards.",
+        );
         setCards([]);
         setTotal(0);
         setTotalPages(0);
       } finally {
-        setLoading(false);
+        window.clearTimeout(timeout);
+        if (!didCancel) {
+          setLoading(false);
+        }
       }
     }
 
     load();
+
+    return () => {
+      didCancel = true;
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
   }, [domainParam, game, page, pageSize, q, rarityParam, setParam, sortValue, typeParam, versionMode]);
 
   useEffect(() => {

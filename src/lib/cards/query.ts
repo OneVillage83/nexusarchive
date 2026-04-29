@@ -102,6 +102,38 @@ const tokenRegistryCache = new Map<
   { tokens: string[]; expiresAt: number }
 >();
 const TOKEN_REGISTRY_CACHE_TTL_MS = 1000 * 60 * 5;
+const CARD_QUERY_TIMING_THRESHOLD_MS = Number.parseInt(
+  process.env.CARD_QUERY_TIMING_THRESHOLD_MS ?? "750",
+  10,
+);
+
+function shouldLogCardQueryTiming(elapsedMs: number) {
+  return (
+    process.env.CARD_QUERY_TIMING_LOGS === "1" ||
+    elapsedMs >= CARD_QUERY_TIMING_THRESHOLD_MS
+  );
+}
+
+function logCardQueryTiming(
+  label: string,
+  game: GameSlug,
+  startedAt: number,
+  details: Record<string, unknown> = {},
+) {
+  const elapsedMs = Date.now() - startedAt;
+  if (!shouldLogCardQueryTiming(elapsedMs)) {
+    return;
+  }
+
+  console.info(
+    `[cards] ${label}`,
+    JSON.stringify({
+      game,
+      elapsedMs,
+      ...details,
+    }),
+  );
+}
 
 function withStableImageUrls(cards: CardCatalogSummary[]) {
   return cards.map((card) => ({
@@ -224,6 +256,7 @@ async function buildAndPersistGroupedGallery(
   versionMode: CardVersionMode,
   importedAt: string,
 ) {
+  const startedAt = Date.now();
   const redis = getRedis();
   const groupedCards = sortCards(
     groupCardsForGallery(await getAllRedisCards(game), versionMode),
@@ -249,6 +282,11 @@ async function buildAndPersistGroupedGallery(
   }
   pipeline.set(cardCatalogGalleryImportedAtKey(game, versionMode), importedAt);
   await pipeline.exec();
+
+  logCardQueryTiming("redis.buildGroupedGallery", game, startedAt, {
+    versionMode,
+    groupedCards: groupedCards.length,
+  });
 
   return groupedCards;
 }
@@ -303,6 +341,7 @@ async function getFastGalleryPage(
   pageSize: number,
   sort: "name-asc" | "name-desc",
 ) {
+  const startedAt = Date.now();
   const redis = getRedis();
   if (!redis) {
     return null;
@@ -339,11 +378,71 @@ async function getFastGalleryPage(
       (((await redis.lrange(galleryKey, ascStart, ascEnd)) as string[] | null) ?? []).reverse();
   }
 
-  return {
+  const result = {
     cards: await getRedisSummaries(game, ids),
     total,
     totalPages: total === 0 ? 0 : Math.ceil(total / pageSize),
   };
+
+  logCardQueryTiming("redis.fastGalleryPage", game, startedAt, {
+    versionMode,
+    page,
+    pageSize,
+    sort,
+    total,
+    cards: result.cards.length,
+  });
+
+  return result;
+}
+
+export async function warmCardGalleryCache(input: {
+  game: GameSlug;
+  versionModes?: CardVersionMode[];
+}) {
+  const redis = getRedis();
+  if (!redis) {
+    return {
+      game: input.game,
+      warmed: false,
+      reason: "redis_not_configured",
+      galleries: [],
+    } as const;
+  }
+
+  const meta = await redis.get<CardCatalogMeta>(cardCatalogMetaKey(input.game));
+  if (!meta) {
+    return {
+      game: input.game,
+      warmed: false,
+      reason: "catalog_meta_missing",
+      galleries: [],
+    } as const;
+  }
+
+  const versionModes = input.versionModes ?? [...CARD_VERSION_MODES];
+  const galleries = [];
+
+  for (const versionMode of versionModes) {
+    const startedAt = Date.now();
+    const cards = await buildAndPersistGroupedGallery(
+      input.game,
+      versionMode,
+      meta.importedAt,
+    );
+    galleries.push({
+      versionMode,
+      cards: cards.length,
+      elapsedMs: Date.now() - startedAt,
+    });
+  }
+
+  return {
+    game: input.game,
+    warmed: true,
+    reason: null,
+    galleries,
+  } as const;
 }
 
 function compareRepresentativePriority(

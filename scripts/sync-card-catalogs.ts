@@ -28,6 +28,7 @@ import {
   compactText,
   tokenizeForIndex,
 } from "../src/lib/cards/catalog";
+import { warmCardGalleryCache } from "../src/lib/cards/query";
 import type { GameSlug } from "../src/lib/games";
 import { getRedis, isRedisConfigured } from "../src/lib/storage/redis";
 
@@ -1776,6 +1777,20 @@ async function writeCatalog(result: SyncResult, dryRun: boolean, log: LogFn) {
         `Wrote ${index + 1} / ${tokenEntries.length.toLocaleString()} token buckets to Redis.`,
       );
     }
+  }
+
+  log("Warming grouped gallery caches...");
+  const galleryWarmup = await warmCardGalleryCache({
+    game: result.meta.game,
+  });
+  if (galleryWarmup.warmed) {
+    for (const gallery of galleryWarmup.galleries) {
+      log(
+        `Warmed ${gallery.versionMode} gallery cache with ${gallery.cards.toLocaleString()} cards in ${formatDuration(gallery.elapsedMs)}.`,
+      );
+    }
+  } else {
+    log(`Skipped gallery cache warmup: ${galleryWarmup.reason}.`);
   }
 
   log(`Redis catalog write finished in ${formatDuration(Date.now() - startedAt)}.`);
