@@ -1604,31 +1604,46 @@ async function clearExistingCatalog(game: GameSlug, log?: LogFn) {
     throw new Error("Redis is not configured.");
   }
 
-  const existingIds =
-    ((await redis.lrange(cardCatalogAllIdsKey(game), 0, -1)) as string[] | null) ??
-    [];
-  const tokenKeys =
-    ((await redis.smembers(cardCatalogTokenRegistryKey(game))) as string[] | null) ??
-    [];
-  const keysToDelete = [
+  const catalogPrefix = cardCatalogMetaKey(game).replace(/:meta$/, "");
+  const directKeys = [
     cardCatalogMetaKey(game),
     cardCatalogAllIdsKey(game),
     cardCatalogTokenRegistryKey(game),
-    ...tokenKeys,
-    ...existingIds.map((id) => cardCatalogSummaryKey(game, id)),
   ];
 
-  if (keysToDelete.length === 0) {
+  let deletedCount = await deleteRedisKeys(redis, directKeys);
+  deletedCount += await deleteRedisKeysMatchingPattern(
+    redis,
+    `${catalogPrefix}:summary:*`,
+    log,
+  );
+  deletedCount += await deleteRedisKeysMatchingPattern(
+    redis,
+    `${catalogPrefix}:token:*`,
+    log,
+  );
+  deletedCount += await deleteRedisKeysMatchingPattern(
+    redis,
+    `${catalogPrefix}:gallery:*`,
+    log,
+  );
+
+  if (deletedCount === 0) {
     log?.("No previous Redis catalog keys found to clear.");
     return;
   }
 
   log?.(
-    `Clearing ${keysToDelete.length.toLocaleString()} existing Redis keys before import...`,
+    `Cleared ${deletedCount.toLocaleString()} previous Redis catalog keys before import.`,
   );
+}
 
-  const groups = chunk(keysToDelete, 250);
-  for (const [index, group] of groups.entries()) {
+type RedisClient = NonNullable<ReturnType<typeof getRedis>>;
+
+async function deleteRedisKeys(redis: RedisClient, keys: string[]) {
+  let deletedCount = 0;
+  const groups = chunk(keys, 250);
+  for (const group of groups) {
     if (group.length === 0) {
       continue;
     }
@@ -1638,18 +1653,43 @@ async function clearExistingCatalog(game: GameSlug, log?: LogFn) {
       pipeline.del(key);
     }
     await pipeline.exec();
+    deletedCount += group.length;
+  }
+
+  return deletedCount;
+}
+
+async function deleteRedisKeysMatchingPattern(
+  redis: RedisClient,
+  pattern: string,
+  log?: LogFn,
+) {
+  let cursor = "0";
+  let deletedCount = 0;
+  let scanCount = 0;
+
+  do {
+    const [nextCursor, keys] = (await redis.scan(cursor, {
+      match: pattern,
+      count: 1000,
+    })) as [string, string[]];
+
+    cursor = nextCursor;
+    scanCount += 1;
+    deletedCount += await deleteRedisKeys(redis, keys);
 
     if (
       log &&
-      (index === 0 ||
-        (index + 1) % 10 === 0 ||
-        index === groups.length - 1)
+      keys.length > 0 &&
+      (scanCount === 1 || scanCount % 10 === 0 || cursor === "0")
     ) {
       log(
-        `Cleared ${Math.min((index + 1) * 250, keysToDelete.length).toLocaleString()} / ${keysToDelete.length.toLocaleString()} Redis keys (${index + 1}/${groups.length} batches).`,
+        `Cleared ${deletedCount.toLocaleString()} Redis keys matching ${pattern}...`,
       );
     }
-  }
+  } while (cursor !== "0");
+
+  return deletedCount;
 }
 
 function buildTokenMap(

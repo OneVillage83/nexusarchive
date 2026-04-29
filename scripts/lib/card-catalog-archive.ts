@@ -235,7 +235,7 @@ async function uploadFileToGoogleDrive(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     log?.(`Google Drive upload failed for ${name}: ${message}`);
-    console.error(`Google Drive upload failed for ${name}:`, error);
+    console.error(`Google Drive upload failed for ${name}: ${message}`);
     return {
       id: null,
       webViewLink: null,
