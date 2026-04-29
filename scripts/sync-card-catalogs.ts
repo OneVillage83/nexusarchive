@@ -646,6 +646,7 @@ function mapScryfallCard(card: ScryfallCard): PreparedCardRecord | null {
       id: card.id,
       game: "magic-the-gathering",
       name: card.name,
+      familyKey: compactText(card.oracle_id) ?? undefined,
       language: card.lang ?? null,
       type: card.type_line ?? null,
       domains: normalizeMagicColors(card),

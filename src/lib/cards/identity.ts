@@ -128,6 +128,15 @@ function normalizeCollectorIdentity(value: string | null | undefined) {
     .replace(/^-+|-+$/g, "");
 }
 
+function normalizeFamilyIdentity(value: string | null | undefined) {
+  const compacted = compactText(value);
+  if (!compacted) {
+    return null;
+  }
+
+  return compacted.toLowerCase();
+}
+
 function buildGameplayFingerprint(
   card: Pick<
     CardCatalogSummary,
@@ -155,6 +164,7 @@ export function getCardIdentityCandidates(
     CardCatalogSummary,
     | "game"
     | "name"
+    | "familyKey"
     | "collectorNo"
     | "type"
     | "text"
@@ -165,9 +175,15 @@ export function getCardIdentityCandidates(
   >,
 ) {
   const candidates = new Set<string>();
+  const familyIdentity = normalizeFamilyIdentity(card.familyKey);
   const primaryIdentity = normalizeCardIdentityName(card.name);
   const collectorIdentity = normalizeCollectorIdentity(card.collectorNo);
   const gameplayFingerprint = buildGameplayFingerprint(card);
+
+  if (familyIdentity) {
+    candidates.add(`family:${familyIdentity}`);
+    return [...candidates];
+  }
 
   if (
     collectorIdentity &&
@@ -175,10 +191,6 @@ export function getCardIdentityCandidates(
   ) {
     candidates.add(`collector:${collectorIdentity}`);
     return [...candidates];
-  }
-
-  if (collectorIdentity) {
-    candidates.add(`collector:${collectorIdentity}`);
   }
 
   if (primaryIdentity && gameplayFingerprint) {
@@ -203,6 +215,7 @@ export function cardsShareIdentity(
     CardCatalogSummary,
     | "game"
     | "name"
+    | "familyKey"
     | "collectorNo"
     | "type"
     | "text"
@@ -215,6 +228,7 @@ export function cardsShareIdentity(
     CardCatalogSummary,
     | "game"
     | "name"
+    | "familyKey"
     | "collectorNo"
     | "type"
     | "text"

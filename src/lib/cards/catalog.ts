@@ -74,7 +74,7 @@ export type CardCatalogQueryResult = {
 };
 
 const CARD_CATALOG_PREFIX = "card-catalog";
-const CARD_GALLERY_CACHE_VERSION = "v5";
+const CARD_GALLERY_CACHE_VERSION = "v6";
 const STOP_WORDS = new Set([
   "a",
   "an",
