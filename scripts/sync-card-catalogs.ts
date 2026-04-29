@@ -319,7 +319,7 @@ const DEFAULT_GAMES: GameSlug[] = [
 
 const DOWNLOAD_PROGRESS_INTERVAL_BYTES = 25 * 1024 * 1024;
 const SCRYFALL_PARSE_LOG_INTERVAL = 5_000;
-const SCRYFALL_SEARCH_PAGE_DELAY_MS = 80;
+const SCRYFALL_SEARCH_PAGE_DELAY_MS = 150;
 const TOKEN_BUILD_LOG_INTERVAL = 5_000;
 const REDIS_BATCH_LOG_INTERVAL = 50;
 const REDIS_TOKEN_LOG_INTERVAL = 1_000;
@@ -328,17 +328,26 @@ function parseArgs(argv: string[]) {
   const games = new Set<GameSlug>();
   let dryRun = false;
 
-  for (const arg of argv) {
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+
     if (arg === "--dry-run") {
       dryRun = true;
       continue;
     }
 
-    if (!arg.startsWith("--game=")) {
+    if (arg !== "--game" && !arg?.startsWith("--game=")) {
       continue;
     }
 
-    const raw = arg.slice("--game=".length).trim() as GameSlug;
+    const raw = (
+      arg === "--game" ? argv[index + 1] : arg.slice("--game=".length)
+    )?.trim() as GameSlug | undefined;
+
+    if (arg === "--game") {
+      index += 1;
+    }
+
     if (
       raw === "magic-the-gathering" ||
       raw === "one-piece" ||
@@ -508,6 +517,39 @@ async function fetchText(url: string, init?: RequestInit) {
   }
 
   return response.text();
+}
+
+async function fetchScryfallSearchJson(
+  url: string,
+  init: RequestInit,
+): Promise<ScryfallSearchResponse> {
+  let attempt = 0;
+
+  while (true) {
+    const response = await fetch(url, init);
+    if (response.ok) {
+      return (await response.json()) as ScryfallSearchResponse;
+    }
+
+    const shouldRetry = response.status === 429 || response.status >= 500;
+    if (!shouldRetry || attempt >= 6) {
+      throw new Error(`Failed to fetch ${url} (${response.status})`);
+    }
+
+    const retryAfterSeconds = Number.parseFloat(
+      response.headers.get("retry-after") ?? "",
+    );
+    const retryAfterMs = Number.isFinite(retryAfterSeconds)
+      ? retryAfterSeconds * 1000
+      : 0;
+    const backoffMs =
+      retryAfterMs > 0
+        ? retryAfterMs
+        : SCRYFALL_SEARCH_PAGE_DELAY_MS * 2 ** attempt + 500;
+
+    await sleep(backoffMs);
+    attempt += 1;
+  }
 }
 
 async function writeTempFile(
@@ -744,7 +786,7 @@ async function fetchScryfallCanonicalFamilyKeys(
   context.log("Fetching Scryfall canonical non-extra card identities...");
 
   while (url) {
-    const response: ScryfallSearchResponse = await fetchJson(url, { headers });
+    const response = await fetchScryfallSearchJson(url, { headers });
     page += 1;
     expectedTotal = response.total_cards ?? expectedTotal;
 
