@@ -7,6 +7,7 @@ import process from "node:process";
 import { Readable, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import type { ReadableStream as NodeReadableStream } from "node:stream/web";
+import { setTimeout as sleep } from "node:timers/promises";
 
 import { chain } from "stream-chain";
 import { parser } from "stream-json";
@@ -73,6 +74,13 @@ type ScryfallBulkItem = {
 
 type ScryfallBulkResponse = {
   data: ScryfallBulkItem[];
+};
+
+type ScryfallSearchResponse = {
+  data: ScryfallCard[];
+  has_more: boolean;
+  next_page?: string;
+  total_cards?: number;
 };
 
 type ScryfallCard = Record<string, unknown> & {
@@ -311,6 +319,7 @@ const DEFAULT_GAMES: GameSlug[] = [
 
 const DOWNLOAD_PROGRESS_INTERVAL_BYTES = 25 * 1024 * 1024;
 const SCRYFALL_PARSE_LOG_INTERVAL = 5_000;
+const SCRYFALL_SEARCH_PAGE_DELAY_MS = 80;
 const TOKEN_BUILD_LOG_INTERVAL = 5_000;
 const REDIS_BATCH_LOG_INTERVAL = 50;
 const REDIS_TOKEN_LOG_INTERVAL = 1_000;
@@ -722,6 +731,44 @@ async function parseScryfallCards(filePath: string, log?: LogFn) {
   return records;
 }
 
+async function fetchScryfallCanonicalFamilyKeys(
+  context: SyncContext,
+  headers: HeadersInit,
+) {
+  const familyKeys = new Set<string>();
+  let url: string | null =
+    `https://api.scryfall.com/cards/search?unique=cards&order=name&q=${encodeURIComponent("lang:en")}`;
+  let page = 0;
+  let expectedTotal: number | null = null;
+
+  context.log("Fetching Scryfall canonical non-extra card identities...");
+
+  while (url) {
+    const response: ScryfallSearchResponse = await fetchJson(url, { headers });
+    page += 1;
+    expectedTotal = response.total_cards ?? expectedTotal;
+
+    for (const card of response.data) {
+      if (card.oracle_id) {
+        familyKeys.add(card.oracle_id);
+      }
+    }
+
+    if (page === 1 || page % 25 === 0 || !response.has_more) {
+      context.log(
+        `Loaded ${familyKeys.size.toLocaleString()} / ${(expectedTotal ?? familyKeys.size).toLocaleString()} canonical Scryfall identities (${page} search pages).`,
+      );
+    }
+
+    url = response.has_more ? (response.next_page ?? null) : null;
+    if (url) {
+      await sleep(SCRYFALL_SEARCH_PAGE_DELAY_MS);
+    }
+  }
+
+  return familyKeys;
+}
+
 async function fetchMagicCards(context: SyncContext): Promise<SyncResult> {
   const headers = {
     "User-Agent": "NexusArchive/0.1 (+https://nexusarchive.lol)",
@@ -738,6 +785,10 @@ async function fetchMagicCards(context: SyncContext): Promise<SyncResult> {
     throw new Error(`Unable to find Scryfall bulk type: ${SCRYFALL_BULK_TYPE}`);
   }
 
+  const canonicalFamilyKeys = await fetchScryfallCanonicalFamilyKeys(
+    context,
+    headers,
+  );
   const bulkFileName =
     SCRYFALL_BULK_TYPE === "all_cards"
       ? "scryfall-all-cards.json"
@@ -755,6 +806,14 @@ async function fetchMagicCards(context: SyncContext): Promise<SyncResult> {
   });
   context.log("Parsing Scryfall bulk file into normalized card records...");
   const records = await parseScryfallCards(bulkFilePath, context.log);
+  const canonicalRecords = records.filter((record) => {
+    const familyKey = record.summary.familyKey;
+    return familyKey ? canonicalFamilyKeys.has(familyKey) : false;
+  });
+  const excludedCount = records.length - canonicalRecords.length;
+  context.log(
+    `Filtered Scryfall bulk records to ${canonicalRecords.length.toLocaleString()} non-extra card printings and excluded ${excludedCount.toLocaleString()} token/art-series/extra records.`,
+  );
   const bulkMetadataPath = await writeTempJsonFile(
     context.tempRoot,
     "scryfall-bulk-metadata.json",
@@ -775,12 +834,13 @@ async function fetchMagicCards(context: SyncContext): Promise<SyncResult> {
       upstreamUpdatedAt: selected.updated_at,
       notes: [
         selected.description,
+        "Filtered against Scryfall's normal unique-card search results so tokens, art series cards, planes, schemes, and other extras do not inflate the public gallery.",
         SCRYFALL_BULK_TYPE === "all_cards"
           ? "This import keeps every language Scryfall publishes, so expect a large Redis footprint."
           : "This import uses Scryfall's English-first default card dump to keep the first pass saner on Redis.",
       ],
     },
-    records,
+    records: canonicalRecords,
     archiveArtifacts: [
       {
         fileName: bulkFileName,
