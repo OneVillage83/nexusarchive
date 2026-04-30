@@ -125,7 +125,7 @@ Use these terms throughout the app:
 Build first:
 
 - [ ] `CardProfile`
-- [ ] `CardSynergy`
+- [x] `CardSynergy`
 - [ ] `SynergyPackage`
 - [ ] Card synergy API
 - [ ] Card page panel
@@ -570,28 +570,28 @@ Phase 1 acceptance:
 
 ## Phase 2 - Synergy Edge Detection
 
-Status: Not started
+Status: Done
 
 Goal: Detect direct two-card relationships as edges, not as the final product.
 
 A synergy edge should answer:
 
-- [ ] Does Card A directly help Card B?
-- [ ] Does Card A produce something Card B wants?
-- [ ] Does Card A trigger something Card B rewards?
-- [ ] Does Card A protect, search, enable, or amplify Card B?
+- [x] Does Card A directly help Card B?
+- [x] Does Card A produce something Card B wants?
+- [x] Does Card A trigger something Card B rewards?
+- [x] Does Card A protect, search, enable, or amplify Card B?
 
 Edge examples:
 
-- [ ] Token Creator -> Token Payoff
-- [ ] Sacrifice Outlet -> Death Trigger Payoff
-- [ ] Discard Outlet -> Graveyard Payoff
-- [ ] Draw Engine -> Hand Size Payoff
-- [ ] Resource Generator -> Resource Sink
-- [ ] Cost Reduction -> Spell/Play Payoff
-- [ ] Search Card -> Combo Piece
-- [ ] Protection Card -> Engine Piece
-- [ ] Removal Card -> Control Package
+- [x] Token Creator -> Token Payoff
+- [x] Sacrifice Outlet -> Death Trigger Payoff
+- [x] Discard Outlet -> Graveyard Payoff
+- [x] Draw Engine -> Hand Size Payoff
+- [x] Resource Generator -> Resource Sink
+- [x] Cost Reduction -> Spell/Play Payoff
+- [x] Search Card -> Combo Piece
+- [x] Protection Card -> Engine Piece
+- [x] Removal Card -> Control Package
 
 Synergy edge type target:
 
@@ -679,19 +679,19 @@ const EDGE_RULES = [
 
 Implementation checklist:
 
-- [ ] Add synergy type constants.
-- [ ] Add edge scoring.
-- [ ] Add edge explanation generation.
-- [ ] Implement direct edge finder using stored profiles.
-- [ ] Store qualified edges in `CardSynergy`.
-- [ ] Prevent duplicate edges using the unique key.
-- [ ] Include weaknesses and required conditions.
+- [x] Add synergy type constants.
+- [x] Add edge scoring.
+- [x] Add edge explanation generation.
+- [x] Implement direct edge finder using stored profiles.
+- [x] Store qualified edges in `CardSynergy`.
+- [x] Prevent duplicate edges using the unique key.
+- [x] Include weaknesses and required conditions.
 
 Phase 2 acceptance:
 
-- [ ] Direct synergy edges are generated between compatible cards.
-- [ ] Edges have scores, types, tags, roles, explanations, and weaknesses.
-- [ ] Edges are stored in `CardSynergy`.
+- [x] Direct synergy edges are generated between compatible cards.
+- [x] Edges have scores, types, tags, roles, explanations, and weaknesses.
+- [x] Edges are stored in `CardSynergy`.
 
 ## Phase 3 - Multi-Card Synergy Package Discovery
 
@@ -1453,7 +1453,7 @@ Step 1 - Inspect repository:
 Step 2 - Add Prisma models:
 
 - [x] Add `CardProfile`.
-- [ ] Add `CardSynergy`.
+- [x] Add `CardSynergy`.
 - [ ] Add `SynergyPackage`.
 - [ ] Add `ComboChain`.
 - [ ] Add `DeckAnalysis`.
@@ -1465,13 +1465,13 @@ Step 2 - Add Prisma models:
 Step 3 - Add types and constants:
 
 - [x] `card-profile.ts`
-- [ ] `synergy-edge.ts`
+- [x] `synergy-edge.ts`
 - [ ] `synergy-package.ts`
 - [ ] `combo-chain.ts`
 - [ ] `deck-analysis.ts`
 - [x] `mechanic-tags.ts`
 - [x] `card-roles.ts`
-- [ ] `synergy-types.ts`
+- [x] `synergy-types.ts`
 - [ ] `package-types.ts`
 - [x] `resource-types.ts`
 
@@ -1494,12 +1494,12 @@ Step 5 - Add profile rebuild:
 
 Step 6 - Add synergy edge engine:
 
-- [ ] `find-synergy-edges.ts`
-- [ ] `score-synergy-edge.ts`
-- [ ] `explain-synergy-edge.ts`
-- [ ] `rebuild-synergy-edges.ts`
+- [x] `find-synergy-edges.ts`
+- [x] `score-synergy-edge.ts`
+- [x] `explain-synergy-edge.ts`
+- [x] `rebuild-synergy-edges.ts`
 - [ ] `src/app/api/admin/synergy/rebuild-edges/route.ts`
-- [ ] Test dry run.
+- [x] Test dry run.
 
 Step 7 - Add synergy package engine:
 
@@ -1641,9 +1641,9 @@ Phase 1:
 
 Phase 2:
 
-- [ ] Direct synergy edges are generated between compatible cards.
-- [ ] Edges have scores, types, tags, roles, explanations, weaknesses.
-- [ ] Edges are stored in `CardSynergy`.
+- [x] Direct synergy edges are generated between compatible cards.
+- [x] Edges have scores, types, tags, roles, explanations, weaknesses.
+- [x] Edges are stored in `CardSynergy`.
 
 Phase 3:
 
@@ -1748,6 +1748,7 @@ Suggestions:
 | 2026-04-29 | Start with MVP profiles, edges, packages, card API/UI, and admin rebuilds. | This creates useful intelligence without overbuilding a full simulator. | Codex |
 | 2026-04-29 | Put this tracker in `docs/synergy-combo-finder-checklist.md`. | Existing repo documentation lives in `docs/`. | Codex |
 | 2026-04-30 | Store Redis catalog card profiles in `CatalogCardProfile` keyed by `game + catalogCardId`. | Gallery-sized card pools live in Redis catalog records, so Phase 1 needs persisted catalog intelligence beyond Prisma `Card` rows. | Codex |
+| 2026-04-30 | Generate Phase 2 direct synergies from canonical catalog profiles first, with Prisma profiles as fallback. | Gallery card pools are catalog-backed, and edges should dedupe reprints/alternate arts by identity before later package discovery. | Codex |
 
 ## Work Log
 
@@ -1757,6 +1758,7 @@ Suggestions:
 | 2026-04-29 | Phase 1 | Done | Added CardProfile storage, deterministic profile parser, internal dry-run rebuild service, tests, and successful lint/build checks. |
 | 2026-04-29 | Gallery/catalog alignment | Done | Added card gallery cache warmup during catalog sync, `/api/cards` Redis timing logs, client fetch timeout messaging, and catalog-backed synergy profile dry-run support. |
 | 2026-04-30 | Phase 1 | Done | Added `CatalogCardProfile` storage and enabled catalog profile rebuild writes for Redis-backed gallery cards. |
+| 2026-04-30 | Phase 2 | Done | Added `CardSynergy`, deterministic direct edge rules/scoring/explanations, internal rebuild logic, and tests for catalog/prisma profile sources. |
 
 ## Blockers and Questions Log
 

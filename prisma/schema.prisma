@@ -187,6 +187,41 @@ model CatalogCardProfile {
   @@index([confidence])
 }
 
+model CardSynergy {
+  id                   Int    @id @default(autoincrement())
+  game                 Game
+  source               String
+  primaryCardId        String
+  secondaryCardId      String
+  primaryIdentityKey   String
+  secondaryIdentityKey String
+
+  cardIds      Json
+  identityKeys Json
+
+  synergyType String
+  score       Float
+
+  tags  Json
+  roles Json
+
+  explanation        String
+  requiredConditions Json
+  weaknesses         Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([game, source, primaryIdentityKey, secondaryIdentityKey, synergyType], name: "game_source_primaryIdentityKey_secondaryIdentityKey_synergyType")
+  @@index([game])
+  @@index([source])
+  @@index([primaryCardId])
+  @@index([secondaryCardId])
+  @@index([primaryIdentityKey])
+  @@index([secondaryIdentityKey])
+  @@index([score])
+}
+
 model CardPrice {
   id            Int      @id @default(autoincrement())
   cardId        Int
