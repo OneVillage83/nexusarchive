@@ -222,6 +222,45 @@ model CardSynergy {
   @@index([score])
 }
 
+model SynergyPackage {
+  id           Int    @id @default(autoincrement())
+  game         Game
+  source       String
+  packageKey   String
+  cardIds      Json
+  identityKeys Json
+  packageSize  Int
+
+  packageType String
+  score       Float
+
+  tags          Json
+  roles         Json
+  requiredEdges Json
+
+  explanation        String
+  playPattern        String
+  requiredConditions Json
+  weaknesses         Json
+
+  isCombo        Boolean @default(false)
+  isEngine       Boolean @default(false)
+  isWinCondition Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([game, source, packageKey, packageType], name: "game_source_packageKey_packageType")
+  @@index([game])
+  @@index([source])
+  @@index([packageSize])
+  @@index([packageType])
+  @@index([score])
+  @@index([isCombo])
+  @@index([isEngine])
+  @@index([isWinCondition])
+}
+
 model CardPrice {
   id            Int      @id @default(autoincrement())
   cardId        Int

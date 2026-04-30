@@ -23,7 +23,7 @@ The Synergy & Combo Finder should explain:
 - [ ] What a card does mechanically
 - [ ] What role a card plays in a deck
 - [ ] What other cards directly synergize with it
-- [ ] What 3-card, 4-card, or 5-card packages it belongs to
+- [x] What 3-card, 4-card, or 5-card packages it belongs to
 - [ ] What combo chains it enables
 - [ ] What deck archetypes it supports
 - [ ] What a deck is trying to do
@@ -126,7 +126,7 @@ Build first:
 
 - [ ] `CardProfile`
 - [x] `CardSynergy`
-- [ ] `SynergyPackage`
+- [x] `SynergyPackage`
 - [ ] Card synergy API
 - [ ] Card page panel
 - [ ] Admin rebuild endpoints
@@ -695,7 +695,7 @@ Phase 2 acceptance:
 
 ## Phase 3 - Multi-Card Synergy Package Discovery
 
-Status: Not started
+Status: Done
 
 Goal: Group multiple synergy edges into useful card packages.
 
@@ -751,16 +751,16 @@ export type SynergyPackageResult = {
 
 Package discovery logic:
 
-- [ ] Use stored `CardSynergy` edges.
-- [ ] Build an undirected graph of cards connected by synergy edges.
-- [ ] Find connected card sets of size 3-5.
-- [ ] Collect internal edges for each candidate set.
-- [ ] Collect tags and roles.
-- [ ] Infer package type.
-- [ ] Score package.
-- [ ] Generate explanation.
-- [ ] Generate play pattern.
-- [ ] Store in `SynergyPackage`.
+- [x] Use stored `CardSynergy` edges.
+- [x] Build an undirected graph of cards connected by synergy edges.
+- [x] Find connected card sets of size 3-5.
+- [x] Collect internal edges for each candidate set.
+- [x] Collect tags and roles.
+- [x] Infer package type.
+- [x] Score package.
+- [x] Generate explanation.
+- [x] Generate play pattern.
+- [x] Store in `SynergyPackage`.
 
 Package inference examples:
 
@@ -794,11 +794,11 @@ Example package output:
 
 Phase 3 acceptance:
 
-- [ ] Multi-card packages are generated from synergy edges.
-- [ ] Packages include 3-5 cards.
-- [ ] Packages are typed: token, sacrifice, graveyard, resource, control, etc.
-- [ ] Packages include play patterns.
-- [ ] Packages are stored in `SynergyPackage`.
+- [x] Multi-card packages are generated from synergy edges.
+- [x] Packages include 3-5 cards.
+- [x] Packages are typed: token, sacrifice, graveyard, resource, control, etc.
+- [x] Packages include play patterns.
+- [x] Packages are stored in `SynergyPackage`.
 
 ## Phase 4 - Card Page and API Integration
 
@@ -1454,7 +1454,7 @@ Step 2 - Add Prisma models:
 
 - [x] Add `CardProfile`.
 - [x] Add `CardSynergy`.
-- [ ] Add `SynergyPackage`.
+- [x] Add `SynergyPackage`.
 - [ ] Add `ComboChain`.
 - [ ] Add `DeckAnalysis`.
 - [x] Run `npx prisma format`.
@@ -1466,13 +1466,13 @@ Step 3 - Add types and constants:
 
 - [x] `card-profile.ts`
 - [x] `synergy-edge.ts`
-- [ ] `synergy-package.ts`
+- [x] `synergy-package.ts`
 - [ ] `combo-chain.ts`
 - [ ] `deck-analysis.ts`
 - [x] `mechanic-tags.ts`
 - [x] `card-roles.ts`
 - [x] `synergy-types.ts`
-- [ ] `package-types.ts`
+- [x] `package-types.ts`
 - [x] `resource-types.ts`
 
 Step 4 - Add parser:
@@ -1503,12 +1503,12 @@ Step 6 - Add synergy edge engine:
 
 Step 7 - Add synergy package engine:
 
-- [ ] `discover-synergy-packages.ts`
-- [ ] `score-synergy-package.ts`
-- [ ] `explain-synergy-package.ts`
-- [ ] `rebuild-synergy-packages.ts`
+- [x] `discover-synergy-packages.ts`
+- [x] `score-synergy-package.ts`
+- [x] `explain-synergy-package.ts`
+- [x] `rebuild-synergy-packages.ts`
 - [ ] `src/app/api/admin/synergy/rebuild-packages/route.ts`
-- [ ] Test dry run.
+- [x] Test dry run.
 
 Step 8 - Add card synergy API:
 
@@ -1647,11 +1647,11 @@ Phase 2:
 
 Phase 3:
 
-- [ ] Multi-card packages are generated from synergy edges.
-- [ ] Packages include 3-5 cards.
-- [ ] Packages are typed: token, sacrifice, graveyard, resource, control, etc.
-- [ ] Packages include play patterns.
-- [ ] Packages are stored in `SynergyPackage`.
+- [x] Multi-card packages are generated from synergy edges.
+- [x] Packages include 3-5 cards.
+- [x] Packages are typed: token, sacrifice, graveyard, resource, control, etc.
+- [x] Packages include play patterns.
+- [x] Packages are stored in `SynergyPackage`.
 
 Phase 4:
 
@@ -1749,6 +1749,7 @@ Suggestions:
 | 2026-04-29 | Put this tracker in `docs/synergy-combo-finder-checklist.md`. | Existing repo documentation lives in `docs/`. | Codex |
 | 2026-04-30 | Store Redis catalog card profiles in `CatalogCardProfile` keyed by `game + catalogCardId`. | Gallery-sized card pools live in Redis catalog records, so Phase 1 needs persisted catalog intelligence beyond Prisma `Card` rows. | Codex |
 | 2026-04-30 | Generate Phase 2 direct synergies from canonical catalog profiles first, with Prisma profiles as fallback. | Gallery card pools are catalog-backed, and edges should dedupe reprints/alternate arts by identity before later package discovery. | Codex |
+| 2026-04-30 | Generate Phase 3 packages from stored `CardSynergy` edges, not raw card text. | Packages should be built from the atomic relationship layer so later combo and deck analysis can reuse the same graph foundation. | Codex |
 
 ## Work Log
 
@@ -1759,6 +1760,7 @@ Suggestions:
 | 2026-04-29 | Gallery/catalog alignment | Done | Added card gallery cache warmup during catalog sync, `/api/cards` Redis timing logs, client fetch timeout messaging, and catalog-backed synergy profile dry-run support. |
 | 2026-04-30 | Phase 1 | Done | Added `CatalogCardProfile` storage and enabled catalog profile rebuild writes for Redis-backed gallery cards. |
 | 2026-04-30 | Phase 2 | Done | Added `CardSynergy`, deterministic direct edge rules/scoring/explanations, internal rebuild logic, and tests for catalog/prisma profile sources. |
+| 2026-04-30 | Phase 3 | Done | Added `SynergyPackage`, deterministic 3-5 card package discovery, inference/scoring/explanations, internal rebuild logic, and tests. |
 
 ## Blockers and Questions Log
 
