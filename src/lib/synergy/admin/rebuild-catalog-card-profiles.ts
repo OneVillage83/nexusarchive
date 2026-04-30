@@ -1,5 +1,6 @@
 import type { CardCatalogMeta, CardCatalogSummary } from "@/lib/cards/catalog";
 import { Game } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 import {
   cardCatalogAllIdsKey,
@@ -21,6 +22,7 @@ export type CatalogCardProfileSourceSummary = {
   catalogSource: string | null;
   prismaCards?: number;
   storedPrismaProfiles?: number;
+  storedCatalogProfiles?: number;
 };
 
 export type RebuildCatalogCardProfilesInput = {
@@ -31,18 +33,21 @@ export type RebuildCatalogCardProfilesInput = {
 
 export type RebuildCatalogCardProfilesResult = {
   game: GameSlug;
-  dryRun: true;
+  dryRun: boolean;
   source: "redis-catalog";
   catalogCards: number;
   processed: number;
-  written: 0;
-  storageDecision: "catalog_profile_storage_not_enabled";
+  written: number;
+  storageDecision: "catalog_card_profile";
   profiles: CatalogCardIntelligenceProfile[];
 };
 
 export type CatalogCardProfileRepository = {
   getCatalogMeta: (game: GameSlug) => Promise<CardCatalogMeta | null>;
   getCatalogCards: (game: GameSlug, limit?: number) => Promise<CardCatalogSummary[]>;
+  upsertCatalogCardProfile: (
+    profile: CatalogCardIntelligenceProfile,
+  ) => Promise<void>;
 };
 
 const GAME_TO_PRISMA: Record<GameSlug, Game> = {
@@ -50,6 +55,10 @@ const GAME_TO_PRISMA: Record<GameSlug, Game> = {
   "one-piece": Game.ONE_PIECE,
   "magic-the-gathering": Game.MAGIC_THE_GATHERING,
 };
+
+function toJsonValue<T>(value: T) {
+  return JSON.parse(JSON.stringify(value)) as Prisma.InputJsonValue;
+}
 
 async function getRedisCatalogCards(game: GameSlug, limit?: number) {
   const redis = getRedis();
@@ -87,30 +96,76 @@ export const redisCatalogCardProfileRepository: CatalogCardProfileRepository = {
   },
 
   getCatalogCards: getRedisCatalogCards,
+
+  async upsertCatalogCardProfile(profile) {
+    const game = GAME_TO_PRISMA[profile.game];
+
+    await prisma.catalogCardProfile.upsert({
+      where: {
+        game_catalogCardId: {
+          game,
+          catalogCardId: profile.catalogCardId,
+        },
+      },
+      create: {
+        game,
+        catalogCardId: profile.catalogCardId,
+        name: profile.name,
+        source: profile.source,
+        familyKey: profile.familyKey ?? null,
+        tags: toJsonValue(profile.tags),
+        roles: toJsonValue(profile.roles),
+        triggers: toJsonValue(profile.triggers),
+        produces: toJsonValue(profile.produces),
+        consumes: toJsonValue(profile.consumes),
+        payoffs: toJsonValue(profile.payoffs),
+        constraints: toJsonValue(profile.constraints),
+        risks: toJsonValue(profile.risks),
+        parserVersion: profile.parserVersion,
+        confidence: profile.confidence,
+      },
+      update: {
+        name: profile.name,
+        source: profile.source,
+        familyKey: profile.familyKey ?? null,
+        tags: toJsonValue(profile.tags),
+        roles: toJsonValue(profile.roles),
+        triggers: toJsonValue(profile.triggers),
+        produces: toJsonValue(profile.produces),
+        consumes: toJsonValue(profile.consumes),
+        payoffs: toJsonValue(profile.payoffs),
+        constraints: toJsonValue(profile.constraints),
+        risks: toJsonValue(profile.risks),
+        parserVersion: profile.parserVersion,
+        confidence: profile.confidence,
+      },
+    });
+  },
 };
 
 export async function rebuildCatalogCardProfiles(
   input: RebuildCatalogCardProfilesInput,
   repository: CatalogCardProfileRepository = redisCatalogCardProfileRepository,
 ): Promise<RebuildCatalogCardProfilesResult> {
-  if (input.dryRun === false) {
-    throw new Error(
-      "Catalog profile persistence is not enabled yet. Run this catalog path in dryRun mode until the catalog profile storage key is chosen.",
-    );
-  }
-
+  const dryRun = input.dryRun ?? false;
   const meta = await repository.getCatalogMeta(input.game);
   const cards = await repository.getCatalogCards(input.game, input.limit);
   const profiles = cards.map(buildCatalogCardProfile);
 
+  if (!dryRun) {
+    for (const profile of profiles) {
+      await repository.upsertCatalogCardProfile(profile);
+    }
+  }
+
   return {
     game: input.game,
-    dryRun: true,
+    dryRun,
     source: "redis-catalog",
     catalogCards: meta?.cardCount ?? cards.length,
     processed: profiles.length,
-    written: 0,
-    storageDecision: "catalog_profile_storage_not_enabled",
+    written: dryRun ? 0 : profiles.length,
+    storageDecision: "catalog_card_profile",
     profiles,
   };
 }
@@ -124,9 +179,10 @@ export async function getCatalogCardProfileSourceSummary(
   for (const game of GAME_ORDER) {
     const meta = await repository.getCatalogMeta(game);
     const prismaGame = GAME_TO_PRISMA[game];
-    const [prismaCards, storedPrismaProfiles] = await Promise.all([
+    const [prismaCards, storedPrismaProfiles, storedCatalogProfiles] = await Promise.all([
       prisma.card.count({ where: { game: prismaGame } }),
       prisma.cardProfile.count({ where: { game: prismaGame } }),
+      prisma.catalogCardProfile.count({ where: { game: prismaGame } }),
     ]);
 
     summaries.push({
@@ -137,6 +193,7 @@ export async function getCatalogCardProfileSourceSummary(
       catalogSource: meta?.source ?? null,
       prismaCards,
       storedPrismaProfiles,
+      storedCatalogProfiles,
     });
   }
 

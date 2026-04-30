@@ -7,6 +7,7 @@ import {
   rebuildCatalogCardProfiles,
   type CatalogCardProfileRepository,
 } from "./rebuild-catalog-card-profiles";
+import type { CatalogCardIntelligenceProfile } from "@/lib/synergy/types/card-profile";
 
 const sampleCard = {
   id: "magic-test-card",
@@ -34,7 +35,7 @@ const sampleCard = {
   searchText: "archive test mage creature wizard enters battlefield draw card en",
 } satisfies CardCatalogSummary;
 
-function buildRepository(): CatalogCardProfileRepository {
+function buildRepository(written: CatalogCardIntelligenceProfile[] = []): CatalogCardProfileRepository {
   return {
     async getCatalogMeta(game) {
       return {
@@ -50,6 +51,9 @@ function buildRepository(): CatalogCardProfileRepository {
     async getCatalogCards() {
       return [sampleCard];
     },
+    async upsertCatalogCardProfile(profile) {
+      written.push(profile);
+    },
   };
 }
 
@@ -62,19 +66,21 @@ test("rebuildCatalogCardProfiles dry-runs catalog cards without writing", async 
   assert.equal(result.source, "redis-catalog");
   assert.equal(result.processed, 1);
   assert.equal(result.written, 0);
-  assert.equal(result.storageDecision, "catalog_profile_storage_not_enabled");
+  assert.equal(result.storageDecision, "catalog_card_profile");
   assert.equal(result.profiles[0]?.catalogCardId, "magic-test-card");
   assert.ok(result.profiles[0]?.tags.includes("draw"));
   assert.ok(result.profiles[0]?.tags.includes("enter_trigger"));
 });
 
-test("rebuildCatalogCardProfiles refuses writes until catalog storage is decided", async () => {
-  await assert.rejects(
-    () =>
-      rebuildCatalogCardProfiles(
-        { game: "magic-the-gathering", limit: 1, dryRun: false },
-        buildRepository(),
-      ),
-    /Catalog profile persistence is not enabled yet/,
+test("rebuildCatalogCardProfiles writes catalog profiles when dryRun is false", async () => {
+  const written: CatalogCardIntelligenceProfile[] = [];
+  const result = await rebuildCatalogCardProfiles(
+    { game: "magic-the-gathering", limit: 1, dryRun: false },
+    buildRepository(written),
   );
+
+  assert.equal(result.processed, 1);
+  assert.equal(result.written, 1);
+  assert.equal(written.length, 1);
+  assert.equal(written[0]?.catalogCardId, "magic-test-card");
 });

@@ -1,5 +1,6 @@
 import type { Game } from "@prisma/client";
 
+import type { GameSlug } from "@/lib/games";
 import type { CardRole } from "@/lib/synergy/constants/card-roles";
 import type { MechanicTag } from "@/lib/synergy/constants/mechanic-tags";
 
@@ -53,7 +54,7 @@ export type ParsedCardMechanics = Omit<
 
 export type CatalogCardIntelligenceProfile = ParsedCardMechanics & {
   catalogCardId: string;
-  game: string;
+  game: GameSlug;
   name: string;
   source: string;
   familyKey?: string | null;

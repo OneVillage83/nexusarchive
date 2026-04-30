@@ -1747,6 +1747,7 @@ Suggestions:
 | 2026-04-29 | Treat two-card synergies as graph edges, not the final product. | Edges are the foundation for packages, combos, and deck analysis. | Codex |
 | 2026-04-29 | Start with MVP profiles, edges, packages, card API/UI, and admin rebuilds. | This creates useful intelligence without overbuilding a full simulator. | Codex |
 | 2026-04-29 | Put this tracker in `docs/synergy-combo-finder-checklist.md`. | Existing repo documentation lives in `docs/`. | Codex |
+| 2026-04-30 | Store Redis catalog card profiles in `CatalogCardProfile` keyed by `game + catalogCardId`. | Gallery-sized card pools live in Redis catalog records, so Phase 1 needs persisted catalog intelligence beyond Prisma `Card` rows. | Codex |
 
 ## Work Log
 
@@ -1755,6 +1756,7 @@ Suggestions:
 | 2026-04-29 | Planning | Done | Created implementation tracker from the full build package. |
 | 2026-04-29 | Phase 1 | Done | Added CardProfile storage, deterministic profile parser, internal dry-run rebuild service, tests, and successful lint/build checks. |
 | 2026-04-29 | Gallery/catalog alignment | Done | Added card gallery cache warmup during catalog sync, `/api/cards` Redis timing logs, client fetch timeout messaging, and catalog-backed synergy profile dry-run support. |
+| 2026-04-30 | Phase 1 | Done | Added `CatalogCardProfile` storage and enabled catalog profile rebuild writes for Redis-backed gallery cards. |
 
 ## Blockers and Questions Log
 
@@ -1763,4 +1765,4 @@ Suggestions:
 | 2026-04-29 | Admin auth | Need to inspect whether NexusArchive already has admin auth before choosing `SYNERGY_ADMIN_TOKEN`. | Pending repo implementation work. |
 | 2026-04-29 | Card model | Need to inspect existing Prisma `Card` model and card text fields before adding relations or rebuild queries. | Resolved in Phase 1: `Card.id` is `Int`, `Card.game` uses Prisma `Game`, and rules text comes from `Card.text`. |
 | 2026-04-29 | Game-specific rules | Combo loop and infinite detection requires game-specific rules before any guaranteed infinite labels. | Use potential labels until proven. |
-| 2026-04-29 | Catalog profile storage | Gallery-sized card pools live in Redis catalog records, while Phase 1 `CardProfile` rows cover Prisma `Card` rows only. | Added catalog profile dry-run generation but blocked writes until we choose either Prisma catalog sync or a `game + catalogCardId` profile store. |
+| 2026-04-29 | Catalog profile storage | Gallery-sized card pools live in Redis catalog records, while Phase 1 `CardProfile` rows cover Prisma `Card` rows only. | Resolved on 2026-04-30: added `CatalogCardProfile` keyed by `game + catalogCardId` and enabled catalog profile rebuild writes. |

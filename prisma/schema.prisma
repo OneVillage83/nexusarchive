@@ -157,6 +157,36 @@ model CardProfile {
   @@index([confidence])
 }
 
+model CatalogCardProfile {
+  id            Int     @id @default(autoincrement())
+  game          Game
+  catalogCardId String
+  name          String
+  source        String
+  familyKey     String?
+
+  tags        Json
+  roles       Json
+  triggers    Json
+  produces    Json
+  consumes    Json
+  payoffs     Json
+  constraints Json
+  risks       Json
+
+  parserVersion String
+  confidence    Float  @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([game, catalogCardId])
+  @@index([game])
+  @@index([source])
+  @@index([familyKey])
+  @@index([confidence])
+}
+
 model CardPrice {
   id            Int      @id @default(autoincrement())
   cardId        Int
