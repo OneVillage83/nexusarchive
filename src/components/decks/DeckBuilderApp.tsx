@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { DeckCanvas } from "@/components/decks/DeckPresentation";
+import { DeckExportButton } from "@/components/decks/DeckExportButton";
 import type { CardCatalogSummary } from "@/lib/cards/catalog";
 import {
   extractDraggedCardPayload,
@@ -636,6 +637,11 @@ export function DeckBuilderApp({ game, authEnabled, userId, initialDeck }: DeckB
               >
                 Deck details
               </button>
+              <DeckExportButton
+                game={game}
+                deckName={draft.name}
+                entries={draft.entries}
+              />
               <button
                 type="button"
                 onClick={() => void handleSave(false)}
